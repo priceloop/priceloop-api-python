@@ -53,11 +53,9 @@ from openapi_client.api import default_api
 from openapi_client.model.api_table import ApiTable
 from openapi_client.model.api_workspace import ApiWorkspace
 from openapi_client.model.table_data import TableData
+
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
-configuration = openapi_client.Configuration(
-    host = "http://localhost"
-)
 
 # The client must configure the authentication and authorization parameters
 # in accordance with the API server security policy.
@@ -65,7 +63,9 @@ configuration = openapi_client.Configuration(
 # satisfies your auth use case.
 
 # Configure Bearer authorization: httpAuth
+
 configuration = openapi_client.Configuration(
+    host = "http://localhost",
     access_token = 'YOUR_BEARER_TOKEN'
 )
 

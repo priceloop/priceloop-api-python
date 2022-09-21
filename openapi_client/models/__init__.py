@@ -10,9 +10,6 @@
 # sys.setrecursionlimit(n)
 
 from openapi_client.model.api_column import ApiColumn
-from openapi_client.model.api_column_type import ApiColumnType
-from openapi_client.model.api_expression import ApiExpression
 from openapi_client.model.api_table import ApiTable
 from openapi_client.model.api_workspace import ApiWorkspace
-from openapi_client.model.ct_formula import CtFormula
 from openapi_client.model.table_data import TableData

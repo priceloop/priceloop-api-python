@@ -17,9 +17,9 @@ Python >=3.6
 If the python package is hosted on a repository, you can install directly using:
 
 ```sh
-pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git
+pip install git+https://github.com/priceloop/priceloop-api-python.git
 ```
-(you may need to run `pip` with root permission: `sudo pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git`)
+(you may need to run `pip` with root permission: `sudo pip install git+https://github.com/priceloop/priceloop-api-python.git`)
 
 Then import the package:
 ```python
@@ -99,11 +99,8 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [ApiColumn](docs/ApiColumn.md)
- - [ApiColumnType](docs/ApiColumnType.md)
- - [ApiExpression](docs/ApiExpression.md)
  - [ApiTable](docs/ApiTable.md)
  - [ApiWorkspace](docs/ApiWorkspace.md)
- - [CtFormula](docs/CtFormula.md)
  - [TableData](docs/TableData.md)
 
 

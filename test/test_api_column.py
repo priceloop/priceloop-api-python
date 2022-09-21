@@ -12,8 +12,6 @@ import sys
 import unittest
 
 import openapi_client
-from openapi_client.model.api_column_type import ApiColumnType
-globals()['ApiColumnType'] = ApiColumnType
 from openapi_client.model.api_column import ApiColumn
 
 

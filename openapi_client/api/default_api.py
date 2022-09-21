@@ -21,9 +21,9 @@ from openapi_client.model_utils import (  # noqa: F401
     none_type,
     validate_and_convert_types
 )
-from openapi_client.model.table import Table
+from openapi_client.model.api_table import ApiTable
+from openapi_client.model.api_workspace import ApiWorkspace
 from openapi_client.model.table_data import TableData
-from openapi_client.model.workspace import Workspace
 
 
 class DefaultApi(object):
@@ -39,7 +39,7 @@ class DefaultApi(object):
         self.api_client = api_client
         self.get_table_endpoint = _Endpoint(
             settings={
-                'response_type': (Table,),
+                'response_type': (ApiTable,),
                 'auth': [
                     'httpAuth'
                 ],
@@ -177,7 +177,7 @@ class DefaultApi(object):
         )
         self.get_workspace_endpoint = _Endpoint(
             settings={
-                'response_type': (Workspace,),
+                'response_type': (ApiWorkspace,),
                 'auth': [
                     'httpAuth'
                 ],
@@ -324,7 +324,7 @@ class DefaultApi(object):
             async_req (bool): execute request asynchronously
 
         Returns:
-            Table
+            ApiTable
                 If the method is called asynchronously, returns the request
                 thread.
         """
@@ -502,7 +502,7 @@ class DefaultApi(object):
             async_req (bool): execute request asynchronously
 
         Returns:
-            Workspace
+            ApiWorkspace
                 If the method is called asynchronously, returns the request
                 thread.
         """

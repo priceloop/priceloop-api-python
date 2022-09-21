@@ -13,12 +13,10 @@ import unittest
 
 import openapi_client
 from openapi_client.model.api_expression import ApiExpression
-globals()['ApiExpression'] = ApiExpression
-from openapi_client.model.ct_formula import CtFormula
 
 
-class TestCtFormula(unittest.TestCase):
-    """CtFormula unit test stubs"""
+class TestApiExpression(unittest.TestCase):
+    """ApiExpression unit test stubs"""
 
     def setUp(self):
         pass
@@ -26,10 +24,10 @@ class TestCtFormula(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def testCtFormula(self):
-        """Test CtFormula"""
+    def testApiExpression(self):
+        """Test ApiExpression"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = CtFormula()  # noqa: E501
+        # model = ApiExpression()  # noqa: E501
         pass
 
 

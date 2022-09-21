@@ -17,9 +17,9 @@ Python >=3.6
 If the python package is hosted on a repository, you can install directly using:
 
 ```sh
-pip install git+https://github.com/priceloop/priceloop-api-python.git
+pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git
 ```
-(you may need to run `pip` with root permission: `sudo pip install git+https://github.com/priceloop/priceloop-api-python.git`)
+(you may need to run `pip` with root permission: `sudo pip install git+https://github.com/GIT_USER_ID/GIT_REPO_ID.git`)
 
 Then import the package:
 ```python
@@ -50,9 +50,9 @@ import time
 import openapi_client
 from pprint import pprint
 from openapi_client.api import default_api
-from openapi_client.model.table import Table
+from openapi_client.model.api_table import ApiTable
+from openapi_client.model.api_workspace import ApiWorkspace
 from openapi_client.model.table_data import TableData
-from openapi_client.model.workspace import Workspace
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
 configuration = openapi_client.Configuration(
@@ -98,38 +98,13 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [AggregateSym](docs/AggregateSym.md)
- - [BuiltinCall](docs/BuiltinCall.md)
- - [Call](docs/Call.md)
- - [Column](docs/Column.md)
- - [ColumnSym](docs/ColumnSym.md)
- - [ColumnType](docs/ColumnType.md)
- - [ConditionRef](docs/ConditionRef.md)
- - [Connector](docs/Connector.md)
+ - [ApiColumn](docs/ApiColumn.md)
+ - [ApiColumnType](docs/ApiColumnType.md)
+ - [ApiExpression](docs/ApiExpression.md)
+ - [ApiTable](docs/ApiTable.md)
+ - [ApiWorkspace](docs/ApiWorkspace.md)
  - [CtFormula](docs/CtFormula.md)
- - [DateLit](docs/DateLit.md)
- - [ExprType](docs/ExprType.md)
- - [Expression](docs/Expression.md)
- - [FalseLit](docs/FalseLit.md)
- - [FilterOp](docs/FilterOp.md)
- - [FuncSym](docs/FuncSym.md)
- - [Ident](docs/Ident.md)
- - [IfElse](docs/IfElse.md)
- - [InfixCall](docs/InfixCall.md)
- - [JoinExpr](docs/JoinExpr.md)
- - [NullLit](docs/NullLit.md)
- - [NumLit](docs/NumLit.md)
- - [OpSym](docs/OpSym.md)
- - [RefColumn](docs/RefColumn.md)
- - [SortConditionRef](docs/SortConditionRef.md)
- - [SortingOrder](docs/SortingOrder.md)
- - [StrLit](docs/StrLit.md)
- - [TNarrow](docs/TNarrow.md)
- - [Table](docs/Table.md)
  - [TableData](docs/TableData.md)
- - [TableView](docs/TableView.md)
- - [TrueLit](docs/TrueLit.md)
- - [Workspace](docs/Workspace.md)
 
 
 ## Documentation For Authorization

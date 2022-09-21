@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 
 # **get_table**
-> Table get_table(workspace, table)
+> ApiTable get_table(workspace, table)
 
 
 
@@ -23,7 +23,7 @@ Method | HTTP request | Description
 import time
 import openapi_client
 from openapi_client.api import default_api
-from openapi_client.model.table import Table
+from openapi_client.model.api_table import ApiTable
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -66,7 +66,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Table**](Table.md)
+[**ApiTable**](ApiTable.md)
 
 ### Authorization
 
@@ -170,7 +170,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_workspace**
-> Workspace get_workspace(workspace)
+> ApiWorkspace get_workspace(workspace)
 
 
 
@@ -182,7 +182,7 @@ Name | Type | Description  | Notes
 import time
 import openapi_client
 from openapi_client.api import default_api
-from openapi_client.model.workspace import Workspace
+from openapi_client.model.api_workspace import ApiWorkspace
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -223,7 +223,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Workspace**](Workspace.md)
+[**ApiWorkspace**](ApiWorkspace.md)
 
 ### Authorization
 

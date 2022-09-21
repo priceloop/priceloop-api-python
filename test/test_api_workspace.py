@@ -12,13 +12,13 @@ import sys
 import unittest
 
 import openapi_client
-from openapi_client.model.api_expression import ApiExpression
-globals()['ApiExpression'] = ApiExpression
-from openapi_client.model.ct_formula import CtFormula
+from openapi_client.model.api_table import ApiTable
+globals()['ApiTable'] = ApiTable
+from openapi_client.model.api_workspace import ApiWorkspace
 
 
-class TestCtFormula(unittest.TestCase):
-    """CtFormula unit test stubs"""
+class TestApiWorkspace(unittest.TestCase):
+    """ApiWorkspace unit test stubs"""
 
     def setUp(self):
         pass
@@ -26,10 +26,10 @@ class TestCtFormula(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def testCtFormula(self):
-        """Test CtFormula"""
+    def testApiWorkspace(self):
+        """Test ApiWorkspace"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = CtFormula()  # noqa: E501
+        # model = ApiWorkspace()  # noqa: E501
         pass
 
 

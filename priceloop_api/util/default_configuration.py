@@ -21,7 +21,6 @@ class DefaultConfiguration(priceloop_api.Configuration):
         self._access_token_func = access_token_func
 
     def auth_settings(self):
-        print("Auth settings called")
         if self._access_token_func is not None:
             self.access_token = self._access_token_func()
 

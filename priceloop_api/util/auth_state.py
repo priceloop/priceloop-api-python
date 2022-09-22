@@ -31,10 +31,6 @@ class AuthState(object):
         if self.nocode_config is None:
             self.nocode_config = get_config(f'https://{self.host}/app_config.json')
 
-        print(self.nocode_config.region)
-        print(self.nocode_config.client_id)
-        print(self.nocode_config.api_scopes)
-
         if self.auth_tokens is None or is_expired(datetime.now(), self.auth_tokens):
             self.auth_tokens = get_oauth_tokens(self.nocode_config, self.username, self.password)
 

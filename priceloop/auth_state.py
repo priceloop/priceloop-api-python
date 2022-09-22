@@ -4,7 +4,7 @@ class AuthState(object):
     nocode_config = None
     auth_response = None
 
-    def access_token():
+    def access_token(self):
         if nocode_config is None:
             nocode_config = requests.get(f'https://{self.host}/app_config.json').json()
 

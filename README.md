@@ -56,6 +56,7 @@ with ApiClient(configuration) as api_client:
     print(workspace)
 
     table = api_instance.get_table(workspace.name, workspace.tables[0].name)
+    print(table)
 ```
 
 ## Documentation

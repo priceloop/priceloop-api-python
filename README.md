@@ -39,6 +39,8 @@ import priceloop_api
 Please follow the [installation procedure](#installation--usage) and then run the following:
 
 ```python
+import requests
+
 from priceloop_api import ApiClient
 from priceloop_api.api.default_api import DefaultApi
 from priceloop_api.util import DefaultConfiguration
@@ -57,6 +59,13 @@ with ApiClient(configuration) as api_client:
 
     table = api_instance.get_table(workspace.name, workspace.tables[0].name)
     print(table)
+
+    url = api_instance.get_table_upload_csv_url(workspace.name, "your_table", mode="delete_and_recreate")
+    requests.put(url, data="a,b\n42,4711\n21,234\n")
+    print("Upload Successful, please wait a moment for the changes to appear")
+
+    table_data = api_instance.get_table_data(workspace.name, "your_table", limit = 2, offset = 0)
+    print(table_data)
 ```
 
 ## Documentation

@@ -1,7 +1,6 @@
 .gitignore
 .gitlab-ci.yml
 .travis.yml
-README.md
 docs/ApiColumn.md
 docs/ApiTable.md
 docs/ApiWorkspace.md
@@ -23,9 +22,7 @@ priceloop_api/model/table_data.py
 priceloop_api/model_utils.py
 priceloop_api/models/__init__.py
 priceloop_api/rest.py
-requirements.txt
 setup.cfg
-setup.py
 test-requirements.txt
 test/__init__.py
 tox.ini

@@ -9,6 +9,7 @@ class DefaultConfiguration(priceloop_api.Configuration):
     def with_user_credentials(username, password, host=default_host_name):
         auth_state = AuthState(username, password, host)
         return DefaultConfiguration(
+            host = f"api.{host}",
             access_token_func = auth_state.access_token
         )
 
@@ -17,8 +18,9 @@ class DefaultConfiguration(priceloop_api.Configuration):
         self._access_token_func = access_token_func
 
     def auth_settings(self):
+        print("Auth settings called")
         if self._access_token_func is not None:
             self.accessToken = self._access_token_func()
 
-        return super.auth_settings(self)
+        return super().auth_settings(self)
 

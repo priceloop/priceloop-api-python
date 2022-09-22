@@ -45,43 +45,25 @@ import priceloop_api
 Please follow the [installation procedure](#installation--usage) and then run the following:
 
 ```python
-
-import time
+import priceloop
 import priceloop_api
-from pprint import pprint
+
 from priceloop_api.api import default_api
-from priceloop_api.model.api_table import ApiTable
-from priceloop_api.model.api_workspace import ApiWorkspace
-from priceloop_api.model.table_data import TableData
-# Defining the host is optional and defaults to http://localhost
-# See configuration.py for a list of all supported configuration parameters.
-configuration = priceloop_api.Configuration(
-    host = "http://localhost"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure Bearer authorization: httpAuth
-configuration = priceloop_api.Configuration(
-    access_token = 'YOUR_BEARER_TOKEN'
-)
 
 
-# Enter a context with an instance of the API client
+configuration = priceloop.DefaultConfiguration.with_user_credentials('username', 'password')
+
 with priceloop_api.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
     api_instance = default_api.DefaultApi(api_client)
-    workspace = "workspace_example" # str | 
-    table = "table_example" # str | 
 
-    try:
-        api_response = api_instance.get_table(workspace, table)
-        pprint(api_response)
-    except priceloop_api.ApiException as e:
-        print("Exception when calling DefaultApi->get_table: %s\n" % e)
+    workspaces = api_instance.list_workspaces()
+    print(workspaces)
+
+    workspace = api_instance.get_workspace(workspaces[0])
+    print(workspace)
+
+    table = api_instance.get_table(workspace.name, workspace.tables[0].name)
+    print(table)
 ```
 
 ## Documentation for API Endpoints

@@ -10,7 +10,7 @@
 
 from setuptools import setup, find_packages  # noqa: H301
 
-NAME = "openapi-client"
+NAME = "priceloop-api"
 VERSION = "1.0.0"
 # To install the library, run the following
 #
@@ -22,6 +22,8 @@ VERSION = "1.0.0"
 REQUIRES = [
   "urllib3 >= 1.25.3",
   "python-dateutil",
+  "requests",
+  "boto3",
 ]
 
 setup(

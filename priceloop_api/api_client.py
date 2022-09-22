@@ -20,10 +20,10 @@ from urllib.parse import quote
 from urllib3.fields import RequestField
 
 
-from openapi_client import rest
-from openapi_client.configuration import Configuration
-from openapi_client.exceptions import ApiTypeError, ApiValueError, ApiException
-from openapi_client.model_utils import (
+from priceloop_api import rest
+from priceloop_api.configuration import Configuration
+from priceloop_api.exceptions import ApiTypeError, ApiValueError, ApiException
+from priceloop_api.model_utils import (
     ModelNormal,
     ModelSimple,
     ModelComposed,
@@ -802,10 +802,10 @@ class Endpoint(object):
         Example:
 
         api_instance = DefaultApi()
-        api_instance.get_table  # this is an instance of the class Endpoint
-        api_instance.get_table()  # this invokes api_instance.get_table.__call__()
+        api_instance.delete_table  # this is an instance of the class Endpoint
+        api_instance.delete_table()  # this invokes api_instance.delete_table.__call__()
         which then invokes the callable functions stored in that endpoint at
-        api_instance.get_table.callable or self.callable in this class
+        api_instance.delete_table.callable or self.callable in this class
 
         """
         return self.callable(self, *args, **kwargs)

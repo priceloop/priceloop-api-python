@@ -19,7 +19,7 @@ from urllib.request import proxy_bypass_environment
 import urllib3
 import ipaddress
 
-from openapi_client.exceptions import ApiException, UnauthorizedException, ForbiddenException, NotFoundException, ServiceException, ApiValueError
+from priceloop_api.exceptions import ApiException, UnauthorizedException, ForbiddenException, NotFoundException, ServiceException, ApiValueError
 
 
 logger = logging.getLogger(__name__)

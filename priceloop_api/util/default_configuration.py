@@ -3,8 +3,7 @@ from typing import Callable
 
 from priceloop_api.util.auth_state import AuthState
 
-default_host_name = "pr-1039.dyn.alpha-dev.priceloop.ai"
-
+default_host_name = "alpha.priceloop.ai"
 
 class DefaultConfiguration(priceloop_api.Configuration):
 

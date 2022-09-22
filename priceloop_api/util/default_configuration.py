@@ -17,7 +17,7 @@ class DefaultConfiguration(priceloop_api.Configuration):
         )
 
     def __init__(self, host: str = default_host_name, access_token_func: Callable[[], str] = None):
-        super().__init__(host=host)
+        super().__init__(host=f"https://{host}")
         self._access_token_func = access_token_func
 
     def auth_settings(self):

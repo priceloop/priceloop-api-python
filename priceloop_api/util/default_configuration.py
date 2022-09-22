@@ -1,7 +1,7 @@
 import priceloop_api
 from typing import Callable
 
-from priceloop.auth_state import AuthState
+from priceloop_api.util.auth_state import AuthState
 
 default_host_name = "pr-1039.dyn.alpha-dev.priceloop.ai"
 

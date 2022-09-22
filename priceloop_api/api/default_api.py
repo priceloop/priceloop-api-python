@@ -11,8 +11,8 @@
 import re  # noqa: F401
 import sys  # noqa: F401
 
-from openapi_client.api_client import ApiClient, Endpoint as _Endpoint
-from openapi_client.model_utils import (  # noqa: F401
+from priceloop_api.api_client import ApiClient, Endpoint as _Endpoint
+from priceloop_api.model_utils import (  # noqa: F401
     check_allowed_values,
     check_validations,
     date,
@@ -21,9 +21,9 @@ from openapi_client.model_utils import (  # noqa: F401
     none_type,
     validate_and_convert_types
 )
-from openapi_client.model.api_table import ApiTable
-from openapi_client.model.api_workspace import ApiWorkspace
-from openapi_client.model.table_data import TableData
+from priceloop_api.model.api_table import ApiTable
+from priceloop_api.model.api_workspace import ApiWorkspace
+from priceloop_api.model.table_data import TableData
 
 
 class DefaultApi(object):
@@ -37,6 +37,63 @@ class DefaultApi(object):
         if api_client is None:
             api_client = ApiClient()
         self.api_client = api_client
+        self.delete_table_endpoint = _Endpoint(
+            settings={
+                'response_type': None,
+                'auth': [
+                    'httpAuth'
+                ],
+                'endpoint_path': '/api/v1.0/workspaces/{workspace}/tables/{table}',
+                'operation_id': 'delete_table',
+                'http_method': 'DELETE',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'workspace',
+                    'table',
+                ],
+                'required': [
+                    'workspace',
+                    'table',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'workspace':
+                        (str,),
+                    'table':
+                        (str,),
+                },
+                'attribute_map': {
+                    'workspace': 'workspace',
+                    'table': 'table',
+                },
+                'location_map': {
+                    'workspace': 'path',
+                    'table': 'path',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'text/plain'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client
+        )
         self.get_table_endpoint = _Endpoint(
             settings={
                 'response_type': (ApiTable,),
@@ -175,6 +232,68 @@ class DefaultApi(object):
             },
             api_client=api_client
         )
+        self.get_table_upload_csv_url_endpoint = _Endpoint(
+            settings={
+                'response_type': (str,),
+                'auth': [
+                    'httpAuth'
+                ],
+                'endpoint_path': '/api/v1.0/workspaces/{workspace}/tables/{table}/upload-csv-url',
+                'operation_id': 'get_table_upload_csv_url',
+                'http_method': 'GET',
+                'servers': None,
+            },
+            params_map={
+                'all': [
+                    'workspace',
+                    'table',
+                    'mode',
+                ],
+                'required': [
+                    'workspace',
+                    'table',
+                ],
+                'nullable': [
+                ],
+                'enum': [
+                ],
+                'validation': [
+                ]
+            },
+            root_map={
+                'validations': {
+                },
+                'allowed_values': {
+                },
+                'openapi_types': {
+                    'workspace':
+                        (str,),
+                    'table':
+                        (str,),
+                    'mode':
+                        (str,),
+                },
+                'attribute_map': {
+                    'workspace': 'workspace',
+                    'table': 'table',
+                    'mode': 'mode',
+                },
+                'location_map': {
+                    'workspace': 'path',
+                    'table': 'path',
+                    'mode': 'query',
+                },
+                'collection_format_map': {
+                }
+            },
+            headers_map={
+                'accept': [
+                    'text/plain'
+                ],
+                'content_type': [],
+            },
+            api_client=api_client
+        )
         self.get_workspace_endpoint = _Endpoint(
             settings={
                 'response_type': (ApiWorkspace,),
@@ -272,6 +391,92 @@ class DefaultApi(object):
             },
             api_client=api_client
         )
+
+    def delete_table(
+        self,
+        workspace,
+        table,
+        **kwargs
+    ):
+        """delete_table  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.delete_table(workspace, table, async_req=True)
+        >>> result = thread.get()
+
+        Args:
+            workspace (str):
+            table (str):
+
+        Keyword Args:
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            None
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
+        )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['workspace'] = \
+            workspace
+        kwargs['table'] = \
+            table
+        return self.delete_table_endpoint.call_with_http_info(**kwargs)
 
     def get_table(
         self,
@@ -452,6 +657,93 @@ class DefaultApi(object):
         kwargs['offset'] = \
             offset
         return self.get_table_data_endpoint.call_with_http_info(**kwargs)
+
+    def get_table_upload_csv_url(
+        self,
+        workspace,
+        table,
+        **kwargs
+    ):
+        """get_table_upload_csv_url  # noqa: E501
+
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.get_table_upload_csv_url(workspace, table, async_req=True)
+        >>> result = thread.get()
+
+        Args:
+            workspace (str):
+            table (str):
+
+        Keyword Args:
+            mode (str): [optional] if omitted the server will use the default value of "new"
+            _return_http_data_only (bool): response data without head status
+                code and headers. Default is True.
+            _preload_content (bool): if False, the urllib3.HTTPResponse object
+                will be returned without reading/decoding response data.
+                Default is True.
+            _request_timeout (int/float/tuple): timeout setting for this request. If
+                one number provided, it will be total request timeout. It can also
+                be a pair (tuple) of (connection, read) timeouts.
+                Default is None.
+            _check_input_type (bool): specifies if type checking
+                should be done one the data sent to the server.
+                Default is True.
+            _check_return_type (bool): specifies if type checking
+                should be done one the data received from the server.
+                Default is True.
+            _spec_property_naming (bool): True if the variable names in the input data
+                are serialized names, as specified in the OpenAPI document.
+                False if the variable names in the input data
+                are pythonic names, e.g. snake case (default)
+            _content_type (str/None): force body content-type.
+                Default is None and content-type will be predicted by allowed
+                content-types and body.
+            _host_index (int/None): specifies the index of the server
+                that we want to use.
+                Default is read from the configuration.
+            _request_auths (list): set to override the auth_settings for an a single
+                request; this effectively ignores the authentication
+                in the spec for a single request.
+                Default is None
+            async_req (bool): execute request asynchronously
+
+        Returns:
+            str
+                If the method is called asynchronously, returns the request
+                thread.
+        """
+        kwargs['async_req'] = kwargs.get(
+            'async_req', False
+        )
+        kwargs['_return_http_data_only'] = kwargs.get(
+            '_return_http_data_only', True
+        )
+        kwargs['_preload_content'] = kwargs.get(
+            '_preload_content', True
+        )
+        kwargs['_request_timeout'] = kwargs.get(
+            '_request_timeout', None
+        )
+        kwargs['_check_input_type'] = kwargs.get(
+            '_check_input_type', True
+        )
+        kwargs['_check_return_type'] = kwargs.get(
+            '_check_return_type', True
+        )
+        kwargs['_spec_property_naming'] = kwargs.get(
+            '_spec_property_naming', False
+        )
+        kwargs['_content_type'] = kwargs.get(
+            '_content_type')
+        kwargs['_host_index'] = kwargs.get('_host_index')
+        kwargs['_request_auths'] = kwargs.get('_request_auths', None)
+        kwargs['workspace'] = \
+            workspace
+        kwargs['table'] = \
+            table
+        return self.get_table_upload_csv_url_endpoint.call_with_http_info(**kwargs)
 
     def get_workspace(
         self,

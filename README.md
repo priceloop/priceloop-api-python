@@ -1,6 +1,6 @@
 # priceloop-api
 
-Connect your your Priceloop Data through our API.
+Connect to your Priceloop Data through our API.
 
 ## Requirements.
 

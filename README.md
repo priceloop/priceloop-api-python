@@ -11,9 +11,9 @@ Python >=3.6
 
 Install
 ```sh
-pip install git+https://github.com/priceloop/priceloop-api-python.git@v0.1.0
+pip install git+https://github.com/priceloop/priceloop-api-python.git@v0.1.1
 ```
-(you may need to run `pip` with root permission: `sudo pip install git+https://github.com/priceloop/priceloop-api-python.git@v0.1.0`)
+(you may need to run `pip` with root permission: `sudo pip install git+https://github.com/priceloop/priceloop-api-python.git@v0.1.1`)
 
 Then import the package:
 ```python

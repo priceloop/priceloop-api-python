@@ -11,10 +11,10 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.api_table import ApiTable
+import priceloop_api
+from priceloop_api.model.api_table import ApiTable
 globals()['ApiTable'] = ApiTable
-from openapi_client.model.api_workspace import ApiWorkspace
+from priceloop_api.model.api_workspace import ApiWorkspace
 
 
 class TestApiWorkspace(unittest.TestCase):

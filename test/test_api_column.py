@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.api_column import ApiColumn
+import priceloop_api
+from priceloop_api.model.api_column import ApiColumn
 
 
 class TestApiColumn(unittest.TestCase):

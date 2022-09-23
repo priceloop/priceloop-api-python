@@ -11,8 +11,8 @@
 import sys
 import unittest
 
-import openapi_client
-from openapi_client.model.table_data import TableData
+import priceloop_api
+from priceloop_api.model.table_data import TableData
 
 
 class TestTableData(unittest.TestCase):

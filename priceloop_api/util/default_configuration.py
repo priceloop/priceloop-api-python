@@ -8,15 +8,20 @@ default_host_name = "alpha.priceloop.ai"
 class DefaultConfiguration(priceloop_api.Configuration):
 
     @staticmethod
-    def with_user_credentials(username: str, password: str, host: str = default_host_name):
-        auth_state = AuthState(username, password, host)
-        return DefaultConfiguration(
-                host=f"api.{host}",
-                access_token_func=auth_state.access_token
-        )
+    def with_access_token(access_token: str, host: str = default_host_name):
+        return DefaultConfiguration(access_token_func=lambda: access_token, host=host)
 
-    def __init__(self, host: str = default_host_name, access_token_func: Callable[[], str] = None):
-        super().__init__(host=f"https://{host}")
+    @staticmethod
+    def with_user_credentials(username: str, password: str, host: str = default_host_name):
+        auth_state = AuthState(username=username, password=password, host=host)
+        return DefaultConfiguration(access_token_func=auth_state.access_token, host=host)
+
+    @staticmethod
+    def anon(host: str = default_host_name):
+        return DefaultConfiguration(host = host)
+
+    def __init__(self, access_token_func: Callable[[], str] = None, host: str = default_host_name):
+        super().__init__(host=f"https://api.{host}")
         self._access_token_func = access_token_func
 
     def auth_settings(self):

@@ -53,7 +53,7 @@ with ApiClient(configuration) as api_client:
     workspaces = api_instance.list_workspaces()
     workspace = api_instance.get_workspace(workspaces[0])
     table = api_instance.get_table(workspace.name, workspace.tables[0].name)
-    table_data = api_instance.get_table_data(workspace.name, 'table_name', limit = 2, offset = 0)
+    table_data = api_instance.get_table_data(workspace.name, 'table_name', limit=2, offset=0)
     print(table_data)
 ```
 

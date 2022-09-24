@@ -7,7 +7,7 @@ There are two ways to install our package:
 
 - Install via pip:
 ```sh
-pip install git+https://github.com/priceloop/priceloop-api-python.git@v0.1.1
+pip install priceloop-api
 ```
 
 - Install from Github source:

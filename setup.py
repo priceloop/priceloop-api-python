@@ -24,6 +24,7 @@ REQUIRES = [
   "python-dateutil",
   "requests",
   "boto3",
+  "pandas"
 ]
 
 setup(

@@ -40,6 +40,23 @@ data = read_nocode('table_name', configuration, limit=2, offset=0)
 print(data)
 ```
 
+- Getting the raw data:
+```python
+from priceloop_api import ApiClient
+from priceloop_api.api.default_api import DefaultApi
+from priceloop_api.util import DefaultConfiguration
+
+configuration = DefaultConfiguration.with_user_credentials('username', 'password')
+
+with ApiClient(configuration) as api_client:
+    api_instance = DefaultApi(api_client)
+    workspaces = api_instance.list_workspaces()
+    workspace = api_instance.get_workspace(workspaces[0])
+    table = api_instance.get_table(workspace.name, workspace.tables[0].name)
+    table_data = api_instance.get_table_data(workspace.name, 'table_name', limit = 2, offset = 0)
+    print(table_data)
+```
+
 ## API Documentation
 
 API Endpoint and Online-Docs: https://api.alpha.priceloop.ai

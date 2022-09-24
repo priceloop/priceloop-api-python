@@ -19,34 +19,25 @@ python setup.py install
 
 ## Getting Started
 
-Please follow the [installation procedure](#installation) and then run the following:
-
+- Export Pandas DataFrame to nocode:
 ```python
-import requests
-from priceloop_api import ApiClient
-from priceloop_api.api.default_api import DefaultApi
-from priceloop_api.utils import DefaultConfiguration
+import pandas as pd
+from priceloop_api.utils import DefaultConfiguration, to_nocode
 
 configuration = DefaultConfiguration.with_user_credentials('username', 'password')
 
-with ApiClient(configuration) as api_client:
-    api_instance = DefaultApi(api_client)
+d = {'col1': [1, 2], 'col2': [3, 4]}
+df = pd.DataFrame(data=d)
+to_nocode(df, 'table_name', configuration)
+```
 
-    workspaces = api_instance.list_workspaces()
-    print(workspaces)
+- Read from nocode to a Pandas DataFrame:
+```python
+from priceloop_api.utils import DefaultConfiguration, read_nocode
 
-    workspace = api_instance.get_workspace(workspaces[0])
-    print(workspace)
-
-    table = api_instance.get_table(workspace.name, workspace.tables[0].name)
-    print(table)
-
-    url = api_instance.get_table_upload_csv_url(workspace.name, 'your_table', mode='delete_and_recreate')
-    requests.put(url, data='a,b\n42,4711\n21,234\n')
-    print('Upload Successful, please wait a moment for the changes to appear')
-
-    table_data = api_instance.get_table_data(workspace.name, 'your_table', limit = 2, offset = 0)
-    print(table_data)
+configuration = DefaultConfiguration.with_user_credentials('username', 'password')
+data = read_nocode('table_name', configuration, limit=2, offset=0)
+print(data)
 ```
 
 ## API Documentation

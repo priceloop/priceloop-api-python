@@ -1,1 +1,0 @@
-from priceloop_api.util.default_configuration import DefaultConfiguration

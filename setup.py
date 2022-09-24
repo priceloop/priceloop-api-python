@@ -11,7 +11,7 @@
 from setuptools import setup, find_packages  # noqa: H301
 
 NAME = "priceloop-api"
-VERSION = "0.1.1"
+VERSION = "0.1.2"
 # To install the library, run the following
 #
 # python setup.py install
@@ -24,6 +24,7 @@ REQUIRES = [
   "python-dateutil",
   "requests",
   "boto3",
+  "pandas"
 ]
 
 setup(

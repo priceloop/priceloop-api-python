@@ -1,9 +1,9 @@
 import priceloop_api
 from typing import Callable
 
-from priceloop_api.util.auth_state import AuthState
+from priceloop_api.utils.auth_state import AuthState
 
-default_host_name = "alpha.priceloop.ai"
+default_host_name = 'alpha.priceloop.ai'
 
 class DefaultConfiguration(priceloop_api.Configuration):
 
@@ -21,7 +21,7 @@ class DefaultConfiguration(priceloop_api.Configuration):
         return DefaultConfiguration(host = host)
 
     def __init__(self, access_token_func: Callable[[], str] = None, host: str = default_host_name):
-        super().__init__(host=f"https://api.{host}")
+        super().__init__(host=f'https://api.{host}')
         self._access_token_func = access_token_func
 
     def auth_settings(self):

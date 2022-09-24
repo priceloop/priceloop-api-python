@@ -62,8 +62,8 @@ def get_oauth_tokens(config: ApiConfig, user_email: str, user_password: str) -> 
     auth_response = cognito_client.initiate_auth(
             AuthFlow='USER_PASSWORD_AUTH',
             AuthParameters={
-                "USERNAME": user_email,
-                "PASSWORD": user_password
+                'USERNAME': user_email,
+                'PASSWORD': user_password
             },
             ClientId=config.client_id
     )

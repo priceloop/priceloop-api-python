@@ -28,7 +28,7 @@ from priceloop_api import schemas  # noqa: F401
 from . import path
 
 _auth = [
-    'httpAuth',
+    'oauth2Auth',
 ]
 
 

@@ -20,7 +20,7 @@ Method | HTTP request | Description
 
 ### Example
 
-* Bearer Authentication (httpAuth):
+* OAuth Authentication (oauth2Auth):
 ```python
 import priceloop_api
 from priceloop_api.apis.tags import default_api
@@ -36,10 +36,11 @@ configuration = priceloop_api.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure Bearer authorization: httpAuth
+# Configure OAuth2 access token for authorization: oauth2Auth
 configuration = priceloop_api.Configuration(
-    access_token = 'YOUR_BEARER_TOKEN'
+    host = "http://localhost"
 )
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 # Enter a context with an instance of the API client
 with priceloop_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -120,7 +121,7 @@ str,  | str,  |  |
 
 ### Authorization
 
-[httpAuth](../../../README.md#httpAuth)
+[oauth2Auth](../../../README.md#oauth2Auth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -132,7 +133,7 @@ str,  | str,  |  |
 
 ### Example
 
-* Bearer Authentication (httpAuth):
+* OAuth Authentication (oauth2Auth):
 ```python
 import priceloop_api
 from priceloop_api.apis.tags import default_api
@@ -149,10 +150,11 @@ configuration = priceloop_api.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure Bearer authorization: httpAuth
+# Configure OAuth2 access token for authorization: oauth2Auth
 configuration = priceloop_api.Configuration(
-    access_token = 'YOUR_BEARER_TOKEN'
+    host = "http://localhost"
 )
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 # Enter a context with an instance of the API client
 with priceloop_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -240,7 +242,7 @@ str,  | str,  |  |
 
 ### Authorization
 
-[httpAuth](../../../README.md#httpAuth)
+[oauth2Auth](../../../README.md#oauth2Auth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -252,7 +254,7 @@ str,  | str,  |  |
 
 ### Example
 
-* Bearer Authentication (httpAuth):
+* OAuth Authentication (oauth2Auth):
 ```python
 import priceloop_api
 from priceloop_api.apis.tags import default_api
@@ -269,10 +271,11 @@ configuration = priceloop_api.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure Bearer authorization: httpAuth
+# Configure OAuth2 access token for authorization: oauth2Auth
 configuration = priceloop_api.Configuration(
-    access_token = 'YOUR_BEARER_TOKEN'
+    host = "http://localhost"
 )
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 # Enter a context with an instance of the API client
 with priceloop_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -404,7 +407,7 @@ str,  | str,  |  |
 
 ### Authorization
 
-[httpAuth](../../../README.md#httpAuth)
+[oauth2Auth](../../../README.md#oauth2Auth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -416,7 +419,7 @@ str,  | str,  |  |
 
 ### Example
 
-* Bearer Authentication (httpAuth):
+* OAuth Authentication (oauth2Auth):
 ```python
 import priceloop_api
 from priceloop_api.apis.tags import default_api
@@ -432,10 +435,11 @@ configuration = priceloop_api.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure Bearer authorization: httpAuth
+# Configure OAuth2 access token for authorization: oauth2Auth
 configuration = priceloop_api.Configuration(
-    access_token = 'YOUR_BEARER_TOKEN'
+    host = "http://localhost"
 )
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 # Enter a context with an instance of the API client
 with priceloop_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -498,7 +502,7 @@ mode | ModeSchema | | optional
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-str,  | str,  |  | if omitted the server will use the default value of "new"
+str,  | str,  |  | must be one of ["new", "delete_and_recreate", "replace_data", "append_data", ] if omitted the server will use the default value of "new"
 
 ### path_params
 #### RequestPathParams
@@ -528,6 +532,7 @@ Code | Class | Description
 ------------- | ------------- | -------------
 n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
 200 | [ApiResponseFor200](#get_table_upload_csv_url.ApiResponseFor200) | 
+400 | [ApiResponseFor400](#get_table_upload_csv_url.ApiResponseFor400) | Invalid value for: query parameter mode
 default | [ApiResponseForDefault](#get_table_upload_csv_url.ApiResponseForDefault) | 
 
 #### get_table_upload_csv_url.ApiResponseFor200
@@ -538,6 +543,20 @@ body | typing.Union[SchemaFor200ResponseBodyTextPlain, ] |  |
 headers | Unset | headers were not defined |
 
 # SchemaFor200ResponseBodyTextPlain
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+
+#### get_table_upload_csv_url.ApiResponseFor400
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor400ResponseBodyTextPlain, ] |  |
+headers | Unset | headers were not defined |
+
+# SchemaFor400ResponseBodyTextPlain
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
@@ -560,7 +579,7 @@ str,  | str,  |  |
 
 ### Authorization
 
-[httpAuth](../../../README.md#httpAuth)
+[oauth2Auth](../../../README.md#oauth2Auth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -572,7 +591,7 @@ str,  | str,  |  |
 
 ### Example
 
-* Bearer Authentication (httpAuth):
+* OAuth Authentication (oauth2Auth):
 ```python
 import priceloop_api
 from priceloop_api.apis.tags import default_api
@@ -589,10 +608,11 @@ configuration = priceloop_api.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure Bearer authorization: httpAuth
+# Configure OAuth2 access token for authorization: oauth2Auth
 configuration = priceloop_api.Configuration(
-    access_token = 'YOUR_BEARER_TOKEN'
+    host = "http://localhost"
 )
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 # Enter a context with an instance of the API client
 with priceloop_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -671,7 +691,7 @@ str,  | str,  |  |
 
 ### Authorization
 
-[httpAuth](../../../README.md#httpAuth)
+[oauth2Auth](../../../README.md#oauth2Auth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -683,7 +703,7 @@ str,  | str,  |  |
 
 ### Example
 
-* Bearer Authentication (httpAuth):
+* OAuth Authentication (oauth2Auth):
 ```python
 import priceloop_api
 from priceloop_api.apis.tags import default_api
@@ -699,10 +719,11 @@ configuration = priceloop_api.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure Bearer authorization: httpAuth
+# Configure OAuth2 access token for authorization: oauth2Auth
 configuration = priceloop_api.Configuration(
-    access_token = 'YOUR_BEARER_TOKEN'
+    host = "http://localhost"
 )
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
 # Enter a context with an instance of the API client
 with priceloop_api.ApiClient(configuration) as api_client:
     # Create an instance of the API class
@@ -761,7 +782,7 @@ str,  | str,  |  |
 
 ### Authorization
 
-[httpAuth](../../../README.md#httpAuth)
+[oauth2Auth](../../../README.md#oauth2Auth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 

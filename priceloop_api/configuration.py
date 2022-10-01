@@ -127,6 +127,9 @@ class Configuration(object):
         """
         self.discard_unknown_keys = discard_unknown_keys
         self.disabled_client_side_validations = disabled_client_side_validations
+        self.access_token = None
+        """access token for OAuth/Bearer
+        """
         self.logger = {}
         """Logging Settings
         """
@@ -365,8 +368,8 @@ class Configuration(object):
         """
         auth = {}
         if self.access_token is not None:
-            auth['httpAuth'] = {
-                'type': 'bearer',
+            auth['oauth2Auth'] = {
+                'type': 'oauth2',
                 'in': 'header',
                 'key': 'Authorization',
                 'value': 'Bearer ' + self.access_token

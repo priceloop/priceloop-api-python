@@ -28,7 +28,37 @@ from priceloop_api import schemas  # noqa: F401
 from . import path
 
 # query params
-ModeSchema = schemas.StrSchema
+
+
+class ModeSchema(
+    schemas.EnumBase,
+    schemas.StrSchema
+):
+
+
+    class MetaOapg:
+        enum_value_to_name = {
+            "new": "NEW",
+            "delete_and_recreate": "DELETE_AND_RECREATE",
+            "replace_data": "REPLACE_DATA",
+            "append_data": "APPEND_DATA",
+        }
+    
+    @schemas.classproperty
+    def NEW(cls):
+        return cls("new")
+    
+    @schemas.classproperty
+    def DELETE_AND_RECREATE(cls):
+        return cls("delete_and_recreate")
+    
+    @schemas.classproperty
+    def REPLACE_DATA(cls):
+        return cls("replace_data")
+    
+    @schemas.classproperty
+    def APPEND_DATA(cls):
+        return cls("append_data")
 RequestRequiredQueryParams = typing_extensions.TypedDict(
     'RequestRequiredQueryParams',
     {
@@ -88,7 +118,7 @@ request_path_table = api_client.PathParameter(
     required=True,
 )
 _auth = [
-    'httpAuth',
+    'oauth2Auth',
 ]
 SchemaFor200ResponseBodyTextPlain = schemas.StrSchema
 
@@ -107,6 +137,25 @@ _response_for_200 = api_client.OpenApiResponse(
     content={
         'text/plain': api_client.MediaType(
             schema=SchemaFor200ResponseBodyTextPlain),
+    },
+)
+SchemaFor400ResponseBodyTextPlain = schemas.StrSchema
+
+
+@dataclass
+class ApiResponseFor400(api_client.ApiResponse):
+    response: urllib3.HTTPResponse
+    body: typing.Union[
+        SchemaFor400ResponseBodyTextPlain,
+    ]
+    headers: schemas.Unset = schemas.unset
+
+
+_response_for_400 = api_client.OpenApiResponse(
+    response_cls=ApiResponseFor400,
+    content={
+        'text/plain': api_client.MediaType(
+            schema=SchemaFor400ResponseBodyTextPlain),
     },
 )
 SchemaFor0ResponseBodyTextPlain = schemas.StrSchema
@@ -130,6 +179,7 @@ _response_for_default = api_client.OpenApiResponse(
 )
 _status_code_to_response = {
     '200': _response_for_200,
+    '400': _response_for_400,
     'default': _response_for_default,
 }
 _all_accept_content_types = (

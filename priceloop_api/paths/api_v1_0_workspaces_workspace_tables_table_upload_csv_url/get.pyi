@@ -26,11 +26,33 @@ import frozendict  # noqa: F401
 from priceloop_api import schemas  # noqa: F401
 
 # query params
-ModeSchema = schemas.StrSchema
+
+
+class ModeSchema(
+    schemas.EnumBase,
+    schemas.StrSchema
+):
+    
+    @schemas.classproperty
+    def NEW(cls):
+        return cls("new")
+    
+    @schemas.classproperty
+    def DELETE_AND_RECREATE(cls):
+        return cls("delete_and_recreate")
+    
+    @schemas.classproperty
+    def REPLACE_DATA(cls):
+        return cls("replace_data")
+    
+    @schemas.classproperty
+    def APPEND_DATA(cls):
+        return cls("append_data")
 # path params
 WorkspaceSchema = schemas.StrSchema
 TableSchema = schemas.StrSchema
 SchemaFor200ResponseBodyTextPlain = schemas.StrSchema
+SchemaFor400ResponseBodyTextPlain = schemas.StrSchema
 SchemaFor0ResponseBodyTextPlain = schemas.StrSchema
 _all_accept_content_types = (
     'text/plain',

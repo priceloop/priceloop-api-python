@@ -56,7 +56,7 @@ request_path_workspace = api_client.PathParameter(
     required=True,
 )
 _auth = [
-    'httpAuth',
+    'oauth2Auth',
 ]
 SchemaFor200ResponseBodyApplicationJson = ApiWorkspace
 

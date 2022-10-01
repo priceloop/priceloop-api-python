@@ -64,7 +64,7 @@ request_path_table = api_client.PathParameter(
     required=True,
 )
 _auth = [
-    'httpAuth',
+    'oauth2Auth',
 ]
 SchemaFor200ResponseBodyApplicationJson = ApiTable
 

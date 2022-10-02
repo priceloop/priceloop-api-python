@@ -248,7 +248,7 @@ str,  | str,  |  |
 
 # **get_table_data**
 <a name="get_table_data"></a>
-> TableData get_table_data(workspacetablelimitoffset)
+> ApiTableData get_table_data(workspacetablelimitoffset)
 
 
 
@@ -258,7 +258,7 @@ str,  | str,  |  |
 ```python
 import priceloop_api
 from priceloop_api.apis.tags import default_api
-from priceloop_api.model.table_data import TableData
+from priceloop_api.model.api_table_data import ApiTableData
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -374,7 +374,7 @@ headers | Unset | headers were not defined |
 # SchemaFor200ResponseBodyApplicationJson
 Type | Description  | Notes
 ------------- | ------------- | -------------
-[**TableData**](../../models/TableData.md) |  | 
+[**ApiTableData**](../../models/ApiTableData.md) |  | 
 
 
 #### get_table_data.ApiResponseFor400

@@ -25,7 +25,7 @@ import frozendict  # noqa: F401
 
 from priceloop_api import schemas  # noqa: F401
 
-from priceloop_api.model.table_data import TableData
+from priceloop_api.model.api_table_data import ApiTableData
 
 # query params
 
@@ -43,7 +43,7 @@ class OffsetSchema(
 # path params
 WorkspaceSchema = schemas.StrSchema
 TableSchema = schemas.StrSchema
-SchemaFor200ResponseBodyApplicationJson = TableData
+SchemaFor200ResponseBodyApplicationJson = ApiTableData
 SchemaFor400ResponseBodyTextPlain = schemas.StrSchema
 SchemaFor0ResponseBodyTextPlain = schemas.StrSchema
 _all_accept_content_types = (

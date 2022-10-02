@@ -25,7 +25,7 @@ import frozendict  # noqa: F401
 
 from priceloop_api import schemas  # noqa: F401
 
-from priceloop_api.model.table_data import TableData
+from priceloop_api.model.api_table_data import ApiTableData
 
 from . import path
 
@@ -120,7 +120,7 @@ request_path_table = api_client.PathParameter(
 _auth = [
     'oauth2Auth',
 ]
-SchemaFor200ResponseBodyApplicationJson = TableData
+SchemaFor200ResponseBodyApplicationJson = ApiTableData
 
 
 @dataclass

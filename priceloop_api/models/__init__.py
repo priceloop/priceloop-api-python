@@ -13,5 +13,5 @@
 
 from priceloop_api.model.api_column import ApiColumn
 from priceloop_api.model.api_table import ApiTable
+from priceloop_api.model.api_table_data import ApiTableData
 from priceloop_api.model.api_workspace import ApiWorkspace
-from priceloop_api.model.table_data import TableData

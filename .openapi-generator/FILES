@@ -29,5 +29,4 @@ setup.cfg
 test-requirements.txt
 test/__init__.py
 test/test_models/__init__.py
-test/test_models/test_api_table_data.py
 tox.ini

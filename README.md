@@ -44,7 +44,7 @@ print(data)
 ```python
 from priceloop_api import ApiClient
 from priceloop_api.api.default_api import DefaultApi
-from priceloop_api.util import DefaultConfiguration
+from priceloop_api.utils import DefaultConfiguration
 
 configuration = DefaultConfiguration.with_user_credentials('username', 'password')
 

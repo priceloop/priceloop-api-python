@@ -28,8 +28,9 @@ configuration = DefaultConfiguration.with_user_credentials('username', 'password
 
 d = {'col1': [1, 2], 'col2': [3, 4]}
 df = pd.DataFrame(data=d)
-to_nocode(df, 'table_name', configuration)
+to_nocode(df, 'table_name', configuration, mode='replace_data')
 ```
+In terms of mode, we currently support four options: `new`, `delete_and_recreate` (default), `replace_data` and `append_data`
 
 - Read from nocode to a Pandas DataFrame:
 ```python

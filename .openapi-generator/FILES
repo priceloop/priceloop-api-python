@@ -3,6 +3,7 @@
 .travis.yml
 docs/apis/tags/DefaultApi.md
 docs/models/ApiColumn.md
+docs/models/ApiExternalFunction.md
 docs/models/ApiTable.md
 docs/models/ApiTableData.md
 docs/models/ApiWorkspace.md
@@ -16,6 +17,8 @@ priceloop_api/exceptions.py
 priceloop_api/model/__init__.py
 priceloop_api/model/api_column.py
 priceloop_api/model/api_column.pyi
+priceloop_api/model/api_external_function.py
+priceloop_api/model/api_external_function.pyi
 priceloop_api/model/api_table.py
 priceloop_api/model/api_table.pyi
 priceloop_api/model/api_table_data.py
@@ -29,4 +32,5 @@ setup.cfg
 test-requirements.txt
 test/__init__.py
 test/test_models/__init__.py
+test/test_models/test_api_external_function.py
 tox.ini

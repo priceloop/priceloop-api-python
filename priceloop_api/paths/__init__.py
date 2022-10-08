@@ -6,8 +6,11 @@ import enum
 
 
 class PathValues(str, enum.Enum):
+    API_V1_0_HELLO = "/api/v1.0/hello"
+    API_V1_0_HELLOAUTH = "/api/v1.0/hello-auth"
     API_V1_0_WORKSPACES = "/api/v1.0/workspaces"
     API_V1_0_WORKSPACES_WORKSPACE = "/api/v1.0/workspaces/{workspace}"
+    API_V1_0_WORKSPACES_WORKSPACE_EXTERNALFUNCTIONS_FUNCTION = "/api/v1.0/workspaces/{workspace}/external-functions/{function}"
     API_V1_0_WORKSPACES_WORKSPACE_TABLES_TABLE = "/api/v1.0/workspaces/{workspace}/tables/{table}"
     API_V1_0_WORKSPACES_WORKSPACE_TABLES_TABLE_DATA = "/api/v1.0/workspaces/{workspace}/tables/{table}/data"
     API_V1_0_WORKSPACES_WORKSPACE_TABLES_TABLE_UPLOADCSVURL = "/api/v1.0/workspaces/{workspace}/tables/{table}/upload-csv-url"

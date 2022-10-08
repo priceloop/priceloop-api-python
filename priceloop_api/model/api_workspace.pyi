@@ -42,6 +42,32 @@ class ApiWorkspace(
             name = schemas.StrSchema
             
             
+            class externalFunctions(
+                schemas.ListSchema
+            ):
+            
+            
+                class MetaOapg:
+                    
+                    @staticmethod
+                    def items() -> typing.Type['ApiExternalFunction']:
+                        return ApiExternalFunction
+            
+                def __new__(
+                    cls,
+                    arg: typing.Union[typing.Tuple['ApiExternalFunction'], typing.List['ApiExternalFunction']],
+                    _configuration: typing.Optional[schemas.Configuration] = None,
+                ) -> 'externalFunctions':
+                    return super().__new__(
+                        cls,
+                        arg,
+                        _configuration=_configuration,
+                    )
+            
+                def __getitem__(self, i: int) -> 'ApiExternalFunction':
+                    return super().__getitem__(i)
+            
+            
             class tables(
                 schemas.ListSchema
             ):
@@ -68,6 +94,7 @@ class ApiWorkspace(
                     return super().__getitem__(i)
             __annotations__ = {
                 "name": name,
+                "externalFunctions": externalFunctions,
                 "tables": tables,
             }
     
@@ -77,12 +104,15 @@ class ApiWorkspace(
     def __getitem__(self, name: typing_extensions.Literal["name"]) -> MetaOapg.properties.name: ...
     
     @typing.overload
+    def __getitem__(self, name: typing_extensions.Literal["externalFunctions"]) -> MetaOapg.properties.externalFunctions: ...
+    
+    @typing.overload
     def __getitem__(self, name: typing_extensions.Literal["tables"]) -> MetaOapg.properties.tables: ...
     
     @typing.overload
     def __getitem__(self, name: str) -> schemas.UnsetAnyTypeSchema: ...
     
-    def __getitem__(self, name: typing.Union[typing_extensions.Literal["name", "tables", ], str]):
+    def __getitem__(self, name: typing.Union[typing_extensions.Literal["name", "externalFunctions", "tables", ], str]):
         # dict_instance[name] accessor
         return super().__getitem__(name)
     
@@ -91,12 +121,15 @@ class ApiWorkspace(
     def get_item_oapg(self, name: typing_extensions.Literal["name"]) -> MetaOapg.properties.name: ...
     
     @typing.overload
+    def get_item_oapg(self, name: typing_extensions.Literal["externalFunctions"]) -> typing.Union[MetaOapg.properties.externalFunctions, schemas.Unset]: ...
+    
+    @typing.overload
     def get_item_oapg(self, name: typing_extensions.Literal["tables"]) -> typing.Union[MetaOapg.properties.tables, schemas.Unset]: ...
     
     @typing.overload
     def get_item_oapg(self, name: str) -> typing.Union[schemas.UnsetAnyTypeSchema, schemas.Unset]: ...
     
-    def get_item_oapg(self, name: typing.Union[typing_extensions.Literal["name", "tables", ], str]):
+    def get_item_oapg(self, name: typing.Union[typing_extensions.Literal["name", "externalFunctions", "tables", ], str]):
         return super().get_item_oapg(name)
     
 
@@ -104,6 +137,7 @@ class ApiWorkspace(
         cls,
         *args: typing.Union[dict, frozendict.frozendict, ],
         name: typing.Union[MetaOapg.properties.name, str, ],
+        externalFunctions: typing.Union[MetaOapg.properties.externalFunctions, list, tuple, schemas.Unset] = schemas.unset,
         tables: typing.Union[MetaOapg.properties.tables, list, tuple, schemas.Unset] = schemas.unset,
         _configuration: typing.Optional[schemas.Configuration] = None,
         **kwargs: typing.Union[schemas.AnyTypeSchema, dict, frozendict.frozendict, str, date, datetime, uuid.UUID, int, float, decimal.Decimal, None, list, tuple, bytes],
@@ -112,9 +146,11 @@ class ApiWorkspace(
             cls,
             *args,
             name=name,
+            externalFunctions=externalFunctions,
             tables=tables,
             _configuration=_configuration,
             **kwargs,
         )
 
+from priceloop_api.model.api_external_function import ApiExternalFunction
 from priceloop_api.model.api_table import ApiTable

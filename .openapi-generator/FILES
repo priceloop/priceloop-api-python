@@ -32,5 +32,4 @@ setup.cfg
 test-requirements.txt
 test/__init__.py
 test/test_models/__init__.py
-test/test_models/test_api_external_function.py
 tox.ini

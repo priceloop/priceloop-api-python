@@ -26,16 +26,19 @@ def to_nocode(
         print("Upload Successful, please wait a moment for the changes to appear")
 
 
-def read_nocode(table_name: str, configuration, limit: int, offset: int):
+def read_nocode(
+    table_name: str, configuration, limit: int, offset: int, workspace_name: str = ""
+):
     csv_buffer = StringIO()
     with ApiClient(configuration) as api_client:
         api_instance = DefaultApi(api_client)
-        workspaces = api_instance.list_workspaces()
-        workspace = api_instance.get_workspace(workspaces[0])
-        raw_header = api_instance.get_table(workspace.name, table_name)
+        if workspace_name == "":
+            workspaces = api_instance.list_workspaces()
+            workspace_name = api_instance.get_workspace(workspaces[0]).name
+        raw_header = api_instance.get_table(workspace_name, table_name)
         header = ["index"] + [i["name"] for i in raw_header["columns"]]
         raw_table_data = api_instance.get_table_data(
-            workspace.name, table_name, limit=limit, offset=offset
+            workspace_name, table_name, limit=limit, offset=offset
         )
         table_data = pd.DataFrame(raw_table_data["rows"], columns=header).drop(
             columns="index"

@@ -11,7 +11,7 @@
 from setuptools import setup, find_packages  # noqa: H301
 
 NAME = "priceloop-api"
-VERSION = "0.1.2"
+VERSION = "0.1.3.2-beta"
 # To install the library, run the following
 #
 # python setup.py install
@@ -19,13 +19,7 @@ VERSION = "0.1.2"
 # prerequisite: setuptools
 # http://pypi.python.org/pypi/setuptools
 
-REQUIRES = [
-  "urllib3 >= 1.25.3",
-  "python-dateutil",
-  "requests",
-  "boto3",
-  "pandas"
-]
+REQUIRES = ["urllib3 >= 1.25.3", "python-dateutil", "requests", "boto3", "pandas"]
 
 setup(
     name=NAME,
@@ -41,5 +35,5 @@ setup(
     include_package_data=True,
     long_description="""\
     Connect to your Priceloop Data through our API
-    """
+    """,
 )

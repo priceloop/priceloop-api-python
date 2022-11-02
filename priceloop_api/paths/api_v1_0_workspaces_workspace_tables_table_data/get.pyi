@@ -27,7 +27,7 @@ from priceloop_api import schemas  # noqa: F401
 
 from priceloop_api.model.api_table_data import ApiTableData
 
-# query params
+# Query params
 
 
 class LimitSchema(
@@ -40,12 +40,130 @@ class OffsetSchema(
     schemas.Int32Schema
 ):
     pass
-# path params
+RequestRequiredQueryParams = typing_extensions.TypedDict(
+    'RequestRequiredQueryParams',
+    {
+        'limit': typing.Union[LimitSchema, decimal.Decimal, int, ],
+        'offset': typing.Union[OffsetSchema, decimal.Decimal, int, ],
+    }
+)
+RequestOptionalQueryParams = typing_extensions.TypedDict(
+    'RequestOptionalQueryParams',
+    {
+    },
+    total=False
+)
+
+
+class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams):
+    pass
+
+
+request_query_limit = api_client.QueryParameter(
+    name="limit",
+    style=api_client.ParameterStyle.FORM,
+    schema=LimitSchema,
+    required=True,
+    explode=True,
+)
+request_query_offset = api_client.QueryParameter(
+    name="offset",
+    style=api_client.ParameterStyle.FORM,
+    schema=OffsetSchema,
+    required=True,
+    explode=True,
+)
+# Path params
 WorkspaceSchema = schemas.StrSchema
 TableSchema = schemas.StrSchema
+RequestRequiredPathParams = typing_extensions.TypedDict(
+    'RequestRequiredPathParams',
+    {
+        'workspace': typing.Union[WorkspaceSchema, str, ],
+        'table': typing.Union[TableSchema, str, ],
+    }
+)
+RequestOptionalPathParams = typing_extensions.TypedDict(
+    'RequestOptionalPathParams',
+    {
+    },
+    total=False
+)
+
+
+class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
+    pass
+
+
+request_path_workspace = api_client.PathParameter(
+    name="workspace",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=WorkspaceSchema,
+    required=True,
+)
+request_path_table = api_client.PathParameter(
+    name="table",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=TableSchema,
+    required=True,
+)
 SchemaFor200ResponseBodyApplicationJson = ApiTableData
+
+
+@dataclass
+class ApiResponseFor200(api_client.ApiResponse):
+    response: urllib3.HTTPResponse
+    body: typing.Union[
+        SchemaFor200ResponseBodyApplicationJson,
+    ]
+    headers: schemas.Unset = schemas.unset
+
+
+_response_for_200 = api_client.OpenApiResponse(
+    response_cls=ApiResponseFor200,
+    content={
+        'application/json': api_client.MediaType(
+            schema=SchemaFor200ResponseBodyApplicationJson),
+    },
+)
 SchemaFor400ResponseBodyTextPlain = schemas.StrSchema
+
+
+@dataclass
+class ApiResponseFor400(api_client.ApiResponse):
+    response: urllib3.HTTPResponse
+    body: typing.Union[
+        SchemaFor400ResponseBodyTextPlain,
+    ]
+    headers: schemas.Unset = schemas.unset
+
+
+_response_for_400 = api_client.OpenApiResponse(
+    response_cls=ApiResponseFor400,
+    content={
+        'text/plain': api_client.MediaType(
+            schema=SchemaFor400ResponseBodyTextPlain),
+    },
+)
 SchemaFor0ResponseBodyTextPlain = schemas.StrSchema
+
+
+@dataclass
+class ApiResponseForDefault(api_client.ApiResponse):
+    response: urllib3.HTTPResponse
+    body: typing.Union[
+        SchemaFor0ResponseBodyTextPlain,
+    ]
+    headers: schemas.Unset = schemas.unset
+
+
+_response_for_default = api_client.OpenApiResponse(
+    response_cls=ApiResponseForDefault,
+    content={
+        'text/plain': api_client.MediaType(
+            schema=SchemaFor0ResponseBodyTextPlain),
+    },
+)
 _all_accept_content_types = (
     'application/json',
     'text/plain',
@@ -53,20 +171,55 @@ _all_accept_content_types = (
 
 
 class BaseApi(api_client.Api):
+    @typing.overload
+    def _get_table_data_oapg(
+        self,
+        query_params: RequestQueryParams = frozendict.frozendict(),
+        path_params: RequestPathParams = frozendict.frozendict(),
+        accept_content_types: typing.Tuple[str] = _all_accept_content_types,
+        stream: bool = False,
+        timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
+        skip_deserialization: typing_extensions.Literal[False] = ...,
+    ) -> typing.Union[
+        ApiResponseFor200,
+        ApiResponseForDefault,
+    ]: ...
+
+    @typing.overload
+    def _get_table_data_oapg(
+        self,
+        skip_deserialization: typing_extensions.Literal[True],
+        query_params: RequestQueryParams = frozendict.frozendict(),
+        path_params: RequestPathParams = frozendict.frozendict(),
+        accept_content_types: typing.Tuple[str] = _all_accept_content_types,
+        stream: bool = False,
+        timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
+    ) -> api_client.ApiResponseWithoutDeserialization: ...
+
+    @typing.overload
+    def _get_table_data_oapg(
+        self,
+        query_params: RequestQueryParams = frozendict.frozendict(),
+        path_params: RequestPathParams = frozendict.frozendict(),
+        accept_content_types: typing.Tuple[str] = _all_accept_content_types,
+        stream: bool = False,
+        timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
+        skip_deserialization: bool = ...,
+    ) -> typing.Union[
+        ApiResponseFor200,
+        ApiResponseForDefault,
+        api_client.ApiResponseWithoutDeserialization,
+    ]: ...
 
     def _get_table_data_oapg(
-        self: api_client.Api,
+        self,
         query_params: RequestQueryParams = frozendict.frozendict(),
         path_params: RequestPathParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
         skip_deserialization: bool = False,
-    ) -> typing.Union[
-        ApiResponseFor200,
-        ApiResponseForDefault,
-        api_client.ApiResponseWithoutDeserialization
-    ]:
+    ):
         """
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
@@ -141,19 +294,55 @@ class BaseApi(api_client.Api):
 class GetTableData(BaseApi):
     # this class is used by api classes that refer to endpoints with operationId fn names
 
+    @typing.overload
     def get_table_data(
-        self: BaseApi,
+        self,
+        query_params: RequestQueryParams = frozendict.frozendict(),
+        path_params: RequestPathParams = frozendict.frozendict(),
+        accept_content_types: typing.Tuple[str] = _all_accept_content_types,
+        stream: bool = False,
+        timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
+        skip_deserialization: typing_extensions.Literal[False] = ...,
+    ) -> typing.Union[
+        ApiResponseFor200,
+        ApiResponseForDefault,
+    ]: ...
+
+    @typing.overload
+    def get_table_data(
+        self,
+        skip_deserialization: typing_extensions.Literal[True],
+        query_params: RequestQueryParams = frozendict.frozendict(),
+        path_params: RequestPathParams = frozendict.frozendict(),
+        accept_content_types: typing.Tuple[str] = _all_accept_content_types,
+        stream: bool = False,
+        timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
+    ) -> api_client.ApiResponseWithoutDeserialization: ...
+
+    @typing.overload
+    def get_table_data(
+        self,
+        query_params: RequestQueryParams = frozendict.frozendict(),
+        path_params: RequestPathParams = frozendict.frozendict(),
+        accept_content_types: typing.Tuple[str] = _all_accept_content_types,
+        stream: bool = False,
+        timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
+        skip_deserialization: bool = ...,
+    ) -> typing.Union[
+        ApiResponseFor200,
+        ApiResponseForDefault,
+        api_client.ApiResponseWithoutDeserialization,
+    ]: ...
+
+    def get_table_data(
+        self,
         query_params: RequestQueryParams = frozendict.frozendict(),
         path_params: RequestPathParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
         skip_deserialization: bool = False,
-    ) -> typing.Union[
-        ApiResponseFor200,
-        ApiResponseForDefault,
-        api_client.ApiResponseWithoutDeserialization
-    ]:
+    ):
         return self._get_table_data_oapg(
             query_params=query_params,
             path_params=path_params,
@@ -167,19 +356,55 @@ class GetTableData(BaseApi):
 class ApiForget(BaseApi):
     # this class is used by api classes that refer to endpoints by path and http method names
 
+    @typing.overload
     def get(
-        self: BaseApi,
+        self,
+        query_params: RequestQueryParams = frozendict.frozendict(),
+        path_params: RequestPathParams = frozendict.frozendict(),
+        accept_content_types: typing.Tuple[str] = _all_accept_content_types,
+        stream: bool = False,
+        timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
+        skip_deserialization: typing_extensions.Literal[False] = ...,
+    ) -> typing.Union[
+        ApiResponseFor200,
+        ApiResponseForDefault,
+    ]: ...
+
+    @typing.overload
+    def get(
+        self,
+        skip_deserialization: typing_extensions.Literal[True],
+        query_params: RequestQueryParams = frozendict.frozendict(),
+        path_params: RequestPathParams = frozendict.frozendict(),
+        accept_content_types: typing.Tuple[str] = _all_accept_content_types,
+        stream: bool = False,
+        timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
+    ) -> api_client.ApiResponseWithoutDeserialization: ...
+
+    @typing.overload
+    def get(
+        self,
+        query_params: RequestQueryParams = frozendict.frozendict(),
+        path_params: RequestPathParams = frozendict.frozendict(),
+        accept_content_types: typing.Tuple[str] = _all_accept_content_types,
+        stream: bool = False,
+        timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
+        skip_deserialization: bool = ...,
+    ) -> typing.Union[
+        ApiResponseFor200,
+        ApiResponseForDefault,
+        api_client.ApiResponseWithoutDeserialization,
+    ]: ...
+
+    def get(
+        self,
         query_params: RequestQueryParams = frozendict.frozendict(),
         path_params: RequestPathParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
         skip_deserialization: bool = False,
-    ) -> typing.Union[
-        ApiResponseFor200,
-        ApiResponseForDefault,
-        api_client.ApiResponseWithoutDeserialization
-    ]:
+    ):
         return self._get_table_data_oapg(
             query_params=query_params,
             path_params=path_params,

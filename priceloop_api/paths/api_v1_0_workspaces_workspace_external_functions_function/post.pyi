@@ -25,7 +25,7 @@ import frozendict  # noqa: F401
 
 from priceloop_api import schemas  # noqa: F401
 
-# query params
+# Query params
 
 
 class RuntimeSchema(
@@ -97,32 +97,192 @@ class ParamTypeSchema(
 
     def __getitem__(self, i: int) -> MetaOapg.items:
         return super().__getitem__(i)
-# path params
+RequestRequiredQueryParams = typing_extensions.TypedDict(
+    'RequestRequiredQueryParams',
+    {
+        'runtime': typing.Union[RuntimeSchema, str, ],
+        'returnType': typing.Union[ReturnTypeSchema, str, ],
+    }
+)
+RequestOptionalQueryParams = typing_extensions.TypedDict(
+    'RequestOptionalQueryParams',
+    {
+        'paramType': typing.Union[ParamTypeSchema, list, tuple, ],
+    },
+    total=False
+)
+
+
+class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams):
+    pass
+
+
+request_query_runtime = api_client.QueryParameter(
+    name="runtime",
+    style=api_client.ParameterStyle.FORM,
+    schema=RuntimeSchema,
+    required=True,
+    explode=True,
+)
+request_query_return_type = api_client.QueryParameter(
+    name="returnType",
+    style=api_client.ParameterStyle.FORM,
+    schema=ReturnTypeSchema,
+    required=True,
+    explode=True,
+)
+request_query_param_type = api_client.QueryParameter(
+    name="paramType",
+    style=api_client.ParameterStyle.FORM,
+    schema=ParamTypeSchema,
+    explode=True,
+)
+# Path params
 WorkspaceSchema = schemas.StrSchema
 FunctionSchema = schemas.StrSchema
+RequestRequiredPathParams = typing_extensions.TypedDict(
+    'RequestRequiredPathParams',
+    {
+        'workspace': typing.Union[WorkspaceSchema, str, ],
+        'function': typing.Union[FunctionSchema, str, ],
+    }
+)
+RequestOptionalPathParams = typing_extensions.TypedDict(
+    'RequestOptionalPathParams',
+    {
+    },
+    total=False
+)
+
+
+class RequestPathParams(RequestRequiredPathParams, RequestOptionalPathParams):
+    pass
+
+
+request_path_workspace = api_client.PathParameter(
+    name="workspace",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=WorkspaceSchema,
+    required=True,
+)
+request_path_function = api_client.PathParameter(
+    name="function",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=FunctionSchema,
+    required=True,
+)
 SchemaFor200ResponseBodyTextPlain = schemas.StrSchema
+
+
+@dataclass
+class ApiResponseFor200(api_client.ApiResponse):
+    response: urllib3.HTTPResponse
+    body: typing.Union[
+        SchemaFor200ResponseBodyTextPlain,
+    ]
+    headers: schemas.Unset = schemas.unset
+
+
+_response_for_200 = api_client.OpenApiResponse(
+    response_cls=ApiResponseFor200,
+    content={
+        'text/plain': api_client.MediaType(
+            schema=SchemaFor200ResponseBodyTextPlain),
+    },
+)
 SchemaFor400ResponseBodyTextPlain = schemas.StrSchema
+
+
+@dataclass
+class ApiResponseFor400(api_client.ApiResponse):
+    response: urllib3.HTTPResponse
+    body: typing.Union[
+        SchemaFor400ResponseBodyTextPlain,
+    ]
+    headers: schemas.Unset = schemas.unset
+
+
+_response_for_400 = api_client.OpenApiResponse(
+    response_cls=ApiResponseFor400,
+    content={
+        'text/plain': api_client.MediaType(
+            schema=SchemaFor400ResponseBodyTextPlain),
+    },
+)
 SchemaFor0ResponseBodyTextPlain = schemas.StrSchema
+
+
+@dataclass
+class ApiResponseForDefault(api_client.ApiResponse):
+    response: urllib3.HTTPResponse
+    body: typing.Union[
+        SchemaFor0ResponseBodyTextPlain,
+    ]
+    headers: schemas.Unset = schemas.unset
+
+
+_response_for_default = api_client.OpenApiResponse(
+    response_cls=ApiResponseForDefault,
+    content={
+        'text/plain': api_client.MediaType(
+            schema=SchemaFor0ResponseBodyTextPlain),
+    },
+)
 _all_accept_content_types = (
     'text/plain',
 )
 
 
 class BaseApi(api_client.Api):
+    @typing.overload
+    def _create_external_function_oapg(
+        self,
+        query_params: RequestQueryParams = frozendict.frozendict(),
+        path_params: RequestPathParams = frozendict.frozendict(),
+        accept_content_types: typing.Tuple[str] = _all_accept_content_types,
+        stream: bool = False,
+        timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
+        skip_deserialization: typing_extensions.Literal[False] = ...,
+    ) -> typing.Union[
+        ApiResponseFor200,
+        ApiResponseForDefault,
+    ]: ...
+
+    @typing.overload
+    def _create_external_function_oapg(
+        self,
+        skip_deserialization: typing_extensions.Literal[True],
+        query_params: RequestQueryParams = frozendict.frozendict(),
+        path_params: RequestPathParams = frozendict.frozendict(),
+        accept_content_types: typing.Tuple[str] = _all_accept_content_types,
+        stream: bool = False,
+        timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
+    ) -> api_client.ApiResponseWithoutDeserialization: ...
+
+    @typing.overload
+    def _create_external_function_oapg(
+        self,
+        query_params: RequestQueryParams = frozendict.frozendict(),
+        path_params: RequestPathParams = frozendict.frozendict(),
+        accept_content_types: typing.Tuple[str] = _all_accept_content_types,
+        stream: bool = False,
+        timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
+        skip_deserialization: bool = ...,
+    ) -> typing.Union[
+        ApiResponseFor200,
+        ApiResponseForDefault,
+        api_client.ApiResponseWithoutDeserialization,
+    ]: ...
 
     def _create_external_function_oapg(
-        self: api_client.Api,
+        self,
         query_params: RequestQueryParams = frozendict.frozendict(),
         path_params: RequestPathParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
         skip_deserialization: bool = False,
-    ) -> typing.Union[
-        ApiResponseFor200,
-        ApiResponseForDefault,
-        api_client.ApiResponseWithoutDeserialization
-    ]:
+    ):
         """
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
@@ -198,19 +358,55 @@ class BaseApi(api_client.Api):
 class CreateExternalFunction(BaseApi):
     # this class is used by api classes that refer to endpoints with operationId fn names
 
+    @typing.overload
     def create_external_function(
-        self: BaseApi,
+        self,
+        query_params: RequestQueryParams = frozendict.frozendict(),
+        path_params: RequestPathParams = frozendict.frozendict(),
+        accept_content_types: typing.Tuple[str] = _all_accept_content_types,
+        stream: bool = False,
+        timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
+        skip_deserialization: typing_extensions.Literal[False] = ...,
+    ) -> typing.Union[
+        ApiResponseFor200,
+        ApiResponseForDefault,
+    ]: ...
+
+    @typing.overload
+    def create_external_function(
+        self,
+        skip_deserialization: typing_extensions.Literal[True],
+        query_params: RequestQueryParams = frozendict.frozendict(),
+        path_params: RequestPathParams = frozendict.frozendict(),
+        accept_content_types: typing.Tuple[str] = _all_accept_content_types,
+        stream: bool = False,
+        timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
+    ) -> api_client.ApiResponseWithoutDeserialization: ...
+
+    @typing.overload
+    def create_external_function(
+        self,
+        query_params: RequestQueryParams = frozendict.frozendict(),
+        path_params: RequestPathParams = frozendict.frozendict(),
+        accept_content_types: typing.Tuple[str] = _all_accept_content_types,
+        stream: bool = False,
+        timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
+        skip_deserialization: bool = ...,
+    ) -> typing.Union[
+        ApiResponseFor200,
+        ApiResponseForDefault,
+        api_client.ApiResponseWithoutDeserialization,
+    ]: ...
+
+    def create_external_function(
+        self,
         query_params: RequestQueryParams = frozendict.frozendict(),
         path_params: RequestPathParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
         skip_deserialization: bool = False,
-    ) -> typing.Union[
-        ApiResponseFor200,
-        ApiResponseForDefault,
-        api_client.ApiResponseWithoutDeserialization
-    ]:
+    ):
         return self._create_external_function_oapg(
             query_params=query_params,
             path_params=path_params,
@@ -224,19 +420,55 @@ class CreateExternalFunction(BaseApi):
 class ApiForpost(BaseApi):
     # this class is used by api classes that refer to endpoints by path and http method names
 
+    @typing.overload
     def post(
-        self: BaseApi,
+        self,
+        query_params: RequestQueryParams = frozendict.frozendict(),
+        path_params: RequestPathParams = frozendict.frozendict(),
+        accept_content_types: typing.Tuple[str] = _all_accept_content_types,
+        stream: bool = False,
+        timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
+        skip_deserialization: typing_extensions.Literal[False] = ...,
+    ) -> typing.Union[
+        ApiResponseFor200,
+        ApiResponseForDefault,
+    ]: ...
+
+    @typing.overload
+    def post(
+        self,
+        skip_deserialization: typing_extensions.Literal[True],
+        query_params: RequestQueryParams = frozendict.frozendict(),
+        path_params: RequestPathParams = frozendict.frozendict(),
+        accept_content_types: typing.Tuple[str] = _all_accept_content_types,
+        stream: bool = False,
+        timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
+    ) -> api_client.ApiResponseWithoutDeserialization: ...
+
+    @typing.overload
+    def post(
+        self,
+        query_params: RequestQueryParams = frozendict.frozendict(),
+        path_params: RequestPathParams = frozendict.frozendict(),
+        accept_content_types: typing.Tuple[str] = _all_accept_content_types,
+        stream: bool = False,
+        timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
+        skip_deserialization: bool = ...,
+    ) -> typing.Union[
+        ApiResponseFor200,
+        ApiResponseForDefault,
+        api_client.ApiResponseWithoutDeserialization,
+    ]: ...
+
+    def post(
+        self,
         query_params: RequestQueryParams = frozendict.frozendict(),
         path_params: RequestPathParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
         skip_deserialization: bool = False,
-    ) -> typing.Union[
-        ApiResponseFor200,
-        ApiResponseForDefault,
-        api_client.ApiResponseWithoutDeserialization
-    ]:
+    ):
         return self._create_external_function_oapg(
             query_params=query_params,
             path_params=path_params,

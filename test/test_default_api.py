@@ -23,6 +23,30 @@ class TestDefaultApi(unittest.TestCase):
     def tearDown(self):
         pass
 
+    def test_create_external_function(self):
+        """Test case for create_external_function
+
+        """
+        pass
+
+    def test_delete_external_function(self):
+        """Test case for delete_external_function
+
+        """
+        pass
+
+    def test_delete_table(self):
+        """Test case for delete_table
+
+        """
+        pass
+
+    def test_get_external_functions(self):
+        """Test case for get_external_functions
+
+        """
+        pass
+
     def test_get_table(self):
         """Test case for get_table
 
@@ -35,14 +59,38 @@ class TestDefaultApi(unittest.TestCase):
         """
         pass
 
+    def test_get_table_upload_csv_url(self):
+        """Test case for get_table_upload_csv_url
+
+        """
+        pass
+
     def test_get_workspace(self):
         """Test case for get_workspace
 
         """
         pass
 
+    def test_hello(self):
+        """Test case for hello
+
+        """
+        pass
+
+    def test_hello_auth(self):
+        """Test case for hello_auth
+
+        """
+        pass
+
     def test_list_workspaces(self):
         """Test case for list_workspaces
+
+        """
+        pass
+
+    def test_update_external_function(self):
+        """Test case for update_external_function
 
         """
         pass

@@ -12,7 +12,9 @@ import sys
 import unittest
 
 import priceloop_api
+from priceloop_api.model.api_external_function import ApiExternalFunction
 from priceloop_api.model.api_table import ApiTable
+globals()['ApiExternalFunction'] = ApiExternalFunction
 globals()['ApiTable'] = ApiTable
 from priceloop_api.model.api_workspace import ApiWorkspace
 

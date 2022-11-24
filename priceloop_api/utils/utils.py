@@ -26,7 +26,7 @@ def to_nocode(
         url = api_instance.get_table_upload_csv_url(
             path_params={"workspace": workspace_name, "table": table_name},
             query_params={"mode": mode},
-        )
+        ).body
         requests.put(url, data=csv_buffer.getvalue().encode("utf-8"))
         print("Upload Successful, please wait a moment for the changes to appear")
 

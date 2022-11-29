@@ -5,7 +5,8 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_data_column**](#add_data_column) | **post** /api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column} | 
+[**add_data_column**](#add_data_column) | **post** /api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/data | 
+[**add_formula_column**](#add_formula_column) | **post** /api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/expression | 
 [**create_external_function**](#create_external_function) | **post** /api/v1.0/workspaces/{workspace}/external-functions/{function} | 
 [**delete_external_function**](#delete_external_function) | **delete** /api/v1.0/workspaces/{workspace}/external-functions/{function} | 
 [**delete_table**](#delete_table) | **delete** /api/v1.0/workspaces/{workspace}/tables/{table} | 
@@ -26,7 +27,7 @@ Method | HTTP request | Description
 
 
 
-Add a column to a table.
+Add a data column to a table.
 
 ### Example
 
@@ -185,6 +186,166 @@ Input Type | Accessed Type | Description | Notes
 str,  | str,  |  | 
 
 #### add_data_column.ApiResponseForDefault
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor0ResponseBodyTextPlain, ] |  |
+headers | Unset | headers were not defined |
+
+# SchemaFor0ResponseBodyTextPlain
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+
+### Authorization
+
+[oauth2Auth](../../../README.md#oauth2Auth)
+
+[[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
+
+# **add_formula_column**
+<a name="add_formula_column"></a>
+> ApiColumn add_formula_column(workspacetablecolumnbody)
+
+
+
+Add an expression column to a table.
+
+### Example
+
+* OAuth Authentication (oauth2Auth):
+```python
+import priceloop_api
+from priceloop_api.apis.tags import default_api
+from priceloop_api.model.api_column import ApiColumn
+from pprint import pprint
+# Defining the host is optional and defaults to http://localhost
+# See configuration.py for a list of all supported configuration parameters.
+configuration = priceloop_api.Configuration(
+    host = "http://localhost"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure OAuth2 access token for authorization: oauth2Auth
+configuration = priceloop_api.Configuration(
+    host = "http://localhost"
+)
+configuration.access_token = 'YOUR_ACCESS_TOKEN'
+# Enter a context with an instance of the API client
+with priceloop_api.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = default_api.DefaultApi(api_client)
+
+    # example passing only required values which don't have defaults set
+    path_params = {
+        'workspace': "workspace_example",
+        'table': "table_example",
+        'column': "column_example",
+    }
+    body = "body_example"
+    try:
+        api_response = api_instance.add_formula_column(
+            path_params=path_params,
+            body=body,
+        )
+        pprint(api_response)
+    except priceloop_api.ApiException as e:
+        print("Exception when calling DefaultApi->add_formula_column: %s\n" % e)
+```
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+body | typing.Union[SchemaForRequestBodyTextPlain] | required |
+path_params | RequestPathParams | |
+content_type | str | optional, default is 'text/plain' | Selects the schema and serialization of the request body
+accept_content_types | typing.Tuple[str] | default is ('application/json', 'text/plain', ) | Tells the server the content type(s) that are accepted by the client
+stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
+timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
+skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
+
+### body
+
+# SchemaForRequestBodyTextPlain
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+
+### path_params
+#### RequestPathParams
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+workspace | WorkspaceSchema | | 
+table | TableSchema | | 
+column | ColumnSchema | | 
+
+# WorkspaceSchema
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+
+# TableSchema
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+
+# ColumnSchema
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+
+### Return Types, Responses
+
+Code | Class | Description
+------------- | ------------- | -------------
+n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
+200 | [ApiResponseFor200](#add_formula_column.ApiResponseFor200) | 
+400 | [ApiResponseFor400](#add_formula_column.ApiResponseFor400) | Invalid value for: body
+default | [ApiResponseForDefault](#add_formula_column.ApiResponseForDefault) | 
+
+#### add_formula_column.ApiResponseFor200
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor200ResponseBodyApplicationJson, ] |  |
+headers | Unset | headers were not defined |
+
+# SchemaFor200ResponseBodyApplicationJson
+Type | Description  | Notes
+------------- | ------------- | -------------
+[**ApiColumn**](../../models/ApiColumn.md) |  | 
+
+
+#### add_formula_column.ApiResponseFor400
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor400ResponseBodyTextPlain, ] |  |
+headers | Unset | headers were not defined |
+
+# SchemaFor400ResponseBodyTextPlain
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+
+#### add_formula_column.ApiResponseForDefault
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |

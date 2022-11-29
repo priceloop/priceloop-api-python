@@ -11,7 +11,7 @@
 import unittest
 
 import priceloop_api
-from priceloop_api.api.default_api import DefaultApi  # noqa: E501
+from priceloop_api.apis.tags.default_api import DefaultApi
 
 
 class TestDefaultApi(unittest.TestCase):

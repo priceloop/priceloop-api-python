@@ -20,4 +20,4 @@ jobs:
 
       - name: Test
         run: |
-          pytest --cov=priceloop_api
+          pytest

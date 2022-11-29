@@ -8,10 +8,19 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     name: "Build"
+    strategy:
+      matrix:
+        python-version: ["3.8"]
     steps:
       - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.8
+          cache: "pip"
 
       - name: Pip Install
         run: |

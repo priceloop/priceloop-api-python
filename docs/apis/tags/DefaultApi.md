@@ -1211,7 +1211,7 @@ str,  | str,  |  |
 
 # **get_table_upload_csv_url**
 <a name="get_table_upload_csv_url"></a>
-> str get_table_upload_csv_url(workspacetable)
+> PresignedUrl get_table_upload_csv_url(workspacetable)
 
 
 
@@ -1223,6 +1223,7 @@ Upload a CSV file into your table. This API endpoint returns a url, to which you
 ```python
 import priceloop_api
 from priceloop_api.apis.tags import default_api
+from priceloop_api.model.presigned_url import PresignedUrl
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -1284,7 +1285,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 query_params | RequestQueryParams | |
 path_params | RequestPathParams | |
-accept_content_types | typing.Tuple[str] | default is ('text/plain', ) | Tells the server the content type(s) that are accepted by the client
+accept_content_types | typing.Tuple[str] | default is ('application/json', 'text/plain', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
@@ -1339,15 +1340,14 @@ default | [ApiResponseForDefault](#get_table_upload_csv_url.ApiResponseForDefaul
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor200ResponseBodyTextPlain, ] |  |
+body | typing.Union[SchemaFor200ResponseBodyApplicationJson, ] |  |
 headers | Unset | headers were not defined |
 
-# SchemaFor200ResponseBodyTextPlain
+# SchemaFor200ResponseBodyApplicationJson
+Type | Description  | Notes
+------------- | ------------- | -------------
+[**PresignedUrl**](../../models/PresignedUrl.md) |  | 
 
-## Model Type Info
-Input Type | Accessed Type | Description | Notes
------------- | ------------- | ------------- | -------------
-str,  | str,  |  | 
 
 #### get_table_upload_csv_url.ApiResponseFor400
 Name | Type | Description  | Notes

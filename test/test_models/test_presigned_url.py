@@ -12,12 +12,12 @@
 import unittest
 
 import priceloop_api
-from priceloop_api.model.table_data import TableData
+from priceloop_api.model.presigned_url import PresignedUrl
 from priceloop_api import configuration
 
 
-class TestTableData(unittest.TestCase):
-    """TableData unit test stubs"""
+class TestPresignedUrl(unittest.TestCase):
+    """PresignedUrl unit test stubs"""
     _configuration = configuration.Configuration()
 
 

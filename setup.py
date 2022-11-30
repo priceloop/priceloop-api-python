@@ -10,14 +10,26 @@
 
 from setuptools import setup, find_packages  # noqa: H301
 
+import os
+import re
+
+
+def text_of(relpath):
+    """
+    Return string containing the contents of the file at *relpath* relative to
+    this file.
+    """
+    thisdir = os.path.dirname(__file__)
+    file_path = os.path.join(thisdir, os.path.normpath(relpath))
+    with open(file_path) as f:
+        text = f.read()
+    return text
+
+
 NAME = "priceloop-api"
-VERSION = "v0.41.0"
-# To install the library, run the following
-#
-# python setup.py install
-#
-# prerequisite: setuptools
-# http://pypi.python.org/pypi/setuptools
+VERSION = re.search(
+    '__version__ = "([^\']+)"', text_of("./priceloop_api/__init__.py")
+).group(1)
 
 REQUIRES = [
   "urllib3 >= 1.25.3",

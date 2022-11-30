@@ -16,7 +16,7 @@ def to_nocode(
     df.to_csv(csv_buffer, index=None)
     with ApiClient(configuration) as api_client:
         api_instance = DefaultApi(api_client)
-        if workspace is None:
+        if workspace_name is None:
             workspaces = api_instance.list_workspaces().body
             workspace = api_instance.get_workspace(
                 path_params={"workspace": workspaces[0]}
@@ -37,7 +37,7 @@ def read_nocode(
     csv_buffer = StringIO()
     with ApiClient(configuration) as api_client:
         api_instance = DefaultApi(api_client)
-        if workspace is None:
+        if workspace_name is None:
             workspaces = api_instance.list_workspaces().body
             workspace = api_instance.get_workspace(
                 path_params={"workspace": workspaces[0]}

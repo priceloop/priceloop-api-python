@@ -28,15 +28,17 @@ def text_of(relpath):
 
 NAME = "priceloop-api"
 VERSION = re.search(
-    '__version__ = "([^\']+)"', text_of("./priceloop_api/__init__.py")
+    '__version__ = "([^\']+)"', text_of("priceloop_api/__init__.py")
 ).group(1)
 
 REQUIRES = [
-  "urllib3 >= 1.25.3",
-  "python-dateutil",
-  "requests",
-  "boto3",
-  "pandas"
+    "urllib3 >= 1.25.3",
+    "boto3~=1.24.78",
+    "requests~=2.28.1",
+    "python-dateutil~=2.8.2",
+    "frozendict==2.3.4",
+    "pandas==1.5.2",
+    "typing_extensions==4.4.0",
 ]
 
 setup(
@@ -53,5 +55,5 @@ setup(
     include_package_data=True,
     long_description="""\
     Connect to your Priceloop Data through our API
-    """
+    """,
 )

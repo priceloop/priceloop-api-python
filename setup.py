@@ -34,7 +34,7 @@ VERSION = re.search(
 REQUIRES = [
     "urllib3 >= 1.25.3",
     "boto3~=1.24.78",
-    "requests~=2.28.1",
+    "requests==2.25",
     "python-dateutil~=2.8.2",
     "frozendict==2.3.4",
     "pandas==1.5.2",

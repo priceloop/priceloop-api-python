@@ -16,3 +16,4 @@ from priceloop_api.model.api_external_function import ApiExternalFunction
 from priceloop_api.model.api_table import ApiTable
 from priceloop_api.model.api_table_data import ApiTableData
 from priceloop_api.model.api_workspace import ApiWorkspace
+from priceloop_api.model.presigned_url import PresignedUrl

@@ -78,6 +78,7 @@ class ReturnTypeSchema(
             "string": "STRING",
             "boolean": "BOOLEAN",
             "date": "DATE",
+            "json": "JSON",
         }
     
     @schemas.classproperty
@@ -95,6 +96,10 @@ class ReturnTypeSchema(
     @schemas.classproperty
     def DATE(cls):
         return cls("date")
+    
+    @schemas.classproperty
+    def JSON(cls):
+        return cls("json")
 
 
 class ParamTypeSchema(

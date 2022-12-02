@@ -7,8 +7,8 @@ import pandas as pd
 
 class UtilsTest(unittest.TestCase):
     configuration = DefaultConfiguration.with_user_credentials(
-        os.environ["NOCODE_USER"],
-        os.environ["NOCODE_PASSWORD"],
+        os.environ["NOCODE_TEST_USER"],
+        os.environ["NOCODE_TEST_PASSWORD"],
         host="alpha-dev.priceloop.ai"
     )
 

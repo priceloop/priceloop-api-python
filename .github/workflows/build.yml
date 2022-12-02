@@ -23,7 +23,7 @@ jobs:
           python-version: 3.8
           cache: "pip"
 
-      - name: Pip Install
+      - name: build package
         run: |
           pip install -r requirements.txt
           pip install -r test-requirements.txt

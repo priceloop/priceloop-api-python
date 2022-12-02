@@ -28,9 +28,14 @@ jobs:
           pip install -r requirements.txt
           pip install -r test-requirements.txt
 
-      # - name: Test
-      #   run: |
-      #     pytest
+      - name: Test
+        run: |
+          pytest
+        env:
+          NOCODE_TEST_USER: ${{ secrets.NOCODE_TEST_USER }}
+          NOCODE_TEST_PASSWORD: ${{ secrets.NOCODE_TEST_PASSWORD }}
+          NOCODE_TEST_TABLE: ${{ secrets.NOCODE_TEST_TABLE }}
+
   publish:
     if: github.ref_type == 'tag'
     runs-on: ubuntu-22.04

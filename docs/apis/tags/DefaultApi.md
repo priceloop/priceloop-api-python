@@ -473,7 +473,7 @@ str,  | str,  |  | must be one of ["python", "python_numpy", "python_pandas", "n
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-str,  | str,  |  | must be one of ["number", "string", "boolean", "date", ] 
+str,  | str,  |  | must be one of ["number", "string", "boolean", "date", "json", ] 
 
 # ParamTypeSchema
 

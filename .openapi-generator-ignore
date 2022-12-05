@@ -25,3 +25,4 @@
 /README.md
 /setup.py
 /requirements.txt
+/test/test_utils.py

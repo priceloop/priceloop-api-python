@@ -35,22 +35,42 @@ class ApiExternalFunction(
 
     class MetaOapg:
         required = {
-            "parameterTypes",
             "functionName",
             "returnType",
         }
         
         class properties:
             functionName = schemas.StrSchema
-            parameterTypes = schemas.StrSchema
             returnType = schemas.StrSchema
+            
+            
+            class parameterTypes(
+                schemas.ListSchema
+            ):
+            
+            
+                class MetaOapg:
+                    items = schemas.StrSchema
+            
+                def __new__(
+                    cls,
+                    arg: typing.Union[typing.Tuple[typing.Union[MetaOapg.items, str, ]], typing.List[typing.Union[MetaOapg.items, str, ]]],
+                    _configuration: typing.Optional[schemas.Configuration] = None,
+                ) -> 'parameterTypes':
+                    return super().__new__(
+                        cls,
+                        arg,
+                        _configuration=_configuration,
+                    )
+            
+                def __getitem__(self, i: int) -> MetaOapg.items:
+                    return super().__getitem__(i)
             __annotations__ = {
                 "functionName": functionName,
-                "parameterTypes": parameterTypes,
                 "returnType": returnType,
+                "parameterTypes": parameterTypes,
             }
     
-    parameterTypes: MetaOapg.properties.parameterTypes
     functionName: MetaOapg.properties.functionName
     returnType: MetaOapg.properties.returnType
     
@@ -58,15 +78,15 @@ class ApiExternalFunction(
     def __getitem__(self, name: typing_extensions.Literal["functionName"]) -> MetaOapg.properties.functionName: ...
     
     @typing.overload
-    def __getitem__(self, name: typing_extensions.Literal["parameterTypes"]) -> MetaOapg.properties.parameterTypes: ...
+    def __getitem__(self, name: typing_extensions.Literal["returnType"]) -> MetaOapg.properties.returnType: ...
     
     @typing.overload
-    def __getitem__(self, name: typing_extensions.Literal["returnType"]) -> MetaOapg.properties.returnType: ...
+    def __getitem__(self, name: typing_extensions.Literal["parameterTypes"]) -> MetaOapg.properties.parameterTypes: ...
     
     @typing.overload
     def __getitem__(self, name: str) -> schemas.UnsetAnyTypeSchema: ...
     
-    def __getitem__(self, name: typing.Union[typing_extensions.Literal["functionName", "parameterTypes", "returnType", ], str]):
+    def __getitem__(self, name: typing.Union[typing_extensions.Literal["functionName", "returnType", "parameterTypes", ], str]):
         # dict_instance[name] accessor
         return super().__getitem__(name)
     
@@ -75,33 +95,33 @@ class ApiExternalFunction(
     def get_item_oapg(self, name: typing_extensions.Literal["functionName"]) -> MetaOapg.properties.functionName: ...
     
     @typing.overload
-    def get_item_oapg(self, name: typing_extensions.Literal["parameterTypes"]) -> MetaOapg.properties.parameterTypes: ...
+    def get_item_oapg(self, name: typing_extensions.Literal["returnType"]) -> MetaOapg.properties.returnType: ...
     
     @typing.overload
-    def get_item_oapg(self, name: typing_extensions.Literal["returnType"]) -> MetaOapg.properties.returnType: ...
+    def get_item_oapg(self, name: typing_extensions.Literal["parameterTypes"]) -> typing.Union[MetaOapg.properties.parameterTypes, schemas.Unset]: ...
     
     @typing.overload
     def get_item_oapg(self, name: str) -> typing.Union[schemas.UnsetAnyTypeSchema, schemas.Unset]: ...
     
-    def get_item_oapg(self, name: typing.Union[typing_extensions.Literal["functionName", "parameterTypes", "returnType", ], str]):
+    def get_item_oapg(self, name: typing.Union[typing_extensions.Literal["functionName", "returnType", "parameterTypes", ], str]):
         return super().get_item_oapg(name)
     
 
     def __new__(
         cls,
         *args: typing.Union[dict, frozendict.frozendict, ],
-        parameterTypes: typing.Union[MetaOapg.properties.parameterTypes, str, ],
         functionName: typing.Union[MetaOapg.properties.functionName, str, ],
         returnType: typing.Union[MetaOapg.properties.returnType, str, ],
+        parameterTypes: typing.Union[MetaOapg.properties.parameterTypes, list, tuple, schemas.Unset] = schemas.unset,
         _configuration: typing.Optional[schemas.Configuration] = None,
         **kwargs: typing.Union[schemas.AnyTypeSchema, dict, frozendict.frozendict, str, date, datetime, uuid.UUID, int, float, decimal.Decimal, None, list, tuple, bytes],
     ) -> 'ApiExternalFunction':
         return super().__new__(
             cls,
             *args,
-            parameterTypes=parameterTypes,
             functionName=functionName,
             returnType=returnType,
+            parameterTypes=parameterTypes,
             _configuration=_configuration,
             **kwargs,
         )

@@ -12,6 +12,7 @@
 from priceloop_api.paths.api_v1_0_workspaces_workspace_tables_table_columns_column_data.post import AddDataColumn
 from priceloop_api.paths.api_v1_0_workspaces_workspace_tables_table_columns_column_expression.post import AddFormulaColumn
 from priceloop_api.paths.api_v1_0_workspaces_workspace_external_functions_function.post import CreateExternalFunction
+from priceloop_api.paths.api_v1_0_workspaces_workspace.post import CreateWorkspace
 from priceloop_api.paths.api_v1_0_workspaces_workspace_external_functions_function.delete import DeleteExternalFunction
 from priceloop_api.paths.api_v1_0_workspaces_workspace_tables_table.delete import DeleteTable
 from priceloop_api.paths.api_v1_0_workspaces_workspace_external_functions_function.get import GetExternalFunctions
@@ -30,6 +31,7 @@ class DefaultApi(
     AddDataColumn,
     AddFormulaColumn,
     CreateExternalFunction,
+    CreateWorkspace,
     DeleteExternalFunction,
     DeleteTable,
     GetExternalFunctions,

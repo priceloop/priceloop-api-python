@@ -25,152 +25,12 @@ import frozendict  # noqa: F401
 
 from priceloop_api import schemas  # noqa: F401
 
-from . import path
-
-# Query params
-
-
-class RuntimeSchema(
-    schemas.EnumBase,
-    schemas.StrSchema
-):
-
-
-    class MetaOapg:
-        enum_value_to_name = {
-            "python": "PYTHON",
-            "python_numpy": "PYTHON_NUMPY",
-            "python_pandas": "PYTHON_PANDAS",
-            "nodejs": "NODEJS",
-            "go": "GO",
-        }
-    
-    @schemas.classproperty
-    def PYTHON(cls):
-        return cls("python")
-    
-    @schemas.classproperty
-    def PYTHON_NUMPY(cls):
-        return cls("python_numpy")
-    
-    @schemas.classproperty
-    def PYTHON_PANDAS(cls):
-        return cls("python_pandas")
-    
-    @schemas.classproperty
-    def NODEJS(cls):
-        return cls("nodejs")
-    
-    @schemas.classproperty
-    def GO(cls):
-        return cls("go")
-
-
-class ReturnTypeSchema(
-    schemas.EnumBase,
-    schemas.StrSchema
-):
-
-
-    class MetaOapg:
-        enum_value_to_name = {
-            "number": "NUMBER",
-            "string": "STRING",
-            "boolean": "BOOLEAN",
-            "date": "DATE",
-            "json": "JSON",
-        }
-    
-    @schemas.classproperty
-    def NUMBER(cls):
-        return cls("number")
-    
-    @schemas.classproperty
-    def STRING(cls):
-        return cls("string")
-    
-    @schemas.classproperty
-    def BOOLEAN(cls):
-        return cls("boolean")
-    
-    @schemas.classproperty
-    def DATE(cls):
-        return cls("date")
-    
-    @schemas.classproperty
-    def JSON(cls):
-        return cls("json")
-
-
-class ParamTypeSchema(
-    schemas.ListSchema
-):
-
-
-    class MetaOapg:
-        items = schemas.StrSchema
-
-    def __new__(
-        cls,
-        arg: typing.Union[typing.Tuple[typing.Union[MetaOapg.items, str, ]], typing.List[typing.Union[MetaOapg.items, str, ]]],
-        _configuration: typing.Optional[schemas.Configuration] = None,
-    ) -> 'ParamTypeSchema':
-        return super().__new__(
-            cls,
-            arg,
-            _configuration=_configuration,
-        )
-
-    def __getitem__(self, i: int) -> MetaOapg.items:
-        return super().__getitem__(i)
-RequestRequiredQueryParams = typing_extensions.TypedDict(
-    'RequestRequiredQueryParams',
-    {
-        'runtime': typing.Union[RuntimeSchema, str, ],
-        'returnType': typing.Union[ReturnTypeSchema, str, ],
-    }
-)
-RequestOptionalQueryParams = typing_extensions.TypedDict(
-    'RequestOptionalQueryParams',
-    {
-        'paramType': typing.Union[ParamTypeSchema, list, tuple, ],
-    },
-    total=False
-)
-
-
-class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams):
-    pass
-
-
-request_query_runtime = api_client.QueryParameter(
-    name="runtime",
-    style=api_client.ParameterStyle.FORM,
-    schema=RuntimeSchema,
-    required=True,
-    explode=True,
-)
-request_query_return_type = api_client.QueryParameter(
-    name="returnType",
-    style=api_client.ParameterStyle.FORM,
-    schema=ReturnTypeSchema,
-    required=True,
-    explode=True,
-)
-request_query_param_type = api_client.QueryParameter(
-    name="paramType",
-    style=api_client.ParameterStyle.FORM,
-    schema=ParamTypeSchema,
-    explode=True,
-)
 # Path params
 WorkspaceSchema = schemas.StrSchema
-FunctionSchema = schemas.StrSchema
 RequestRequiredPathParams = typing_extensions.TypedDict(
     'RequestRequiredPathParams',
     {
         'workspace': typing.Union[WorkspaceSchema, str, ],
-        'function': typing.Union[FunctionSchema, str, ],
     }
 )
 RequestOptionalPathParams = typing_extensions.TypedDict(
@@ -191,23 +51,14 @@ request_path_workspace = api_client.PathParameter(
     schema=WorkspaceSchema,
     required=True,
 )
-request_path_function = api_client.PathParameter(
-    name="function",
-    style=api_client.ParameterStyle.SIMPLE,
-    schema=FunctionSchema,
-    required=True,
-)
-_auth = [
-    'oauth2Auth',
-]
-SchemaFor200ResponseBodyTextPlain = schemas.StrSchema
+SchemaFor200ResponseBodyApplicationJson = schemas.StrSchema
 
 
 @dataclass
 class ApiResponseFor200(api_client.ApiResponse):
     response: urllib3.HTTPResponse
     body: typing.Union[
-        SchemaFor200ResponseBodyTextPlain,
+        SchemaFor200ResponseBodyApplicationJson,
     ]
     headers: schemas.Unset = schemas.unset
 
@@ -215,27 +66,8 @@ class ApiResponseFor200(api_client.ApiResponse):
 _response_for_200 = api_client.OpenApiResponse(
     response_cls=ApiResponseFor200,
     content={
-        'text/plain': api_client.MediaType(
-            schema=SchemaFor200ResponseBodyTextPlain),
-    },
-)
-SchemaFor400ResponseBodyTextPlain = schemas.StrSchema
-
-
-@dataclass
-class ApiResponseFor400(api_client.ApiResponse):
-    response: urllib3.HTTPResponse
-    body: typing.Union[
-        SchemaFor400ResponseBodyTextPlain,
-    ]
-    headers: schemas.Unset = schemas.unset
-
-
-_response_for_400 = api_client.OpenApiResponse(
-    response_cls=ApiResponseFor400,
-    content={
-        'text/plain': api_client.MediaType(
-            schema=SchemaFor400ResponseBodyTextPlain),
+        'application/json': api_client.MediaType(
+            schema=SchemaFor200ResponseBodyApplicationJson),
     },
 )
 SchemaFor0ResponseBodyTextPlain = schemas.StrSchema
@@ -257,21 +89,16 @@ _response_for_default = api_client.OpenApiResponse(
             schema=SchemaFor0ResponseBodyTextPlain),
     },
 )
-_status_code_to_response = {
-    '200': _response_for_200,
-    '400': _response_for_400,
-    'default': _response_for_default,
-}
 _all_accept_content_types = (
+    'application/json',
     'text/plain',
 )
 
 
 class BaseApi(api_client.Api):
     @typing.overload
-    def _create_external_function_oapg(
+    def _create_workspace_oapg(
         self,
-        query_params: RequestQueryParams = frozendict.frozendict(),
         path_params: RequestPathParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
@@ -283,10 +110,9 @@ class BaseApi(api_client.Api):
     ]: ...
 
     @typing.overload
-    def _create_external_function_oapg(
+    def _create_workspace_oapg(
         self,
         skip_deserialization: typing_extensions.Literal[True],
-        query_params: RequestQueryParams = frozendict.frozendict(),
         path_params: RequestPathParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
@@ -294,9 +120,8 @@ class BaseApi(api_client.Api):
     ) -> api_client.ApiResponseWithoutDeserialization: ...
 
     @typing.overload
-    def _create_external_function_oapg(
+    def _create_workspace_oapg(
         self,
-        query_params: RequestQueryParams = frozendict.frozendict(),
         path_params: RequestPathParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
@@ -308,9 +133,8 @@ class BaseApi(api_client.Api):
         api_client.ApiResponseWithoutDeserialization,
     ]: ...
 
-    def _create_external_function_oapg(
+    def _create_workspace_oapg(
         self,
-        query_params: RequestQueryParams = frozendict.frozendict(),
         path_params: RequestPathParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
@@ -322,14 +146,12 @@ class BaseApi(api_client.Api):
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
-        self._verify_typed_dict_inputs_oapg(RequestQueryParams, query_params)
         self._verify_typed_dict_inputs_oapg(RequestPathParams, path_params)
         used_path = path.value
 
         _path_params = {}
         for parameter in (
             request_path_workspace,
-            request_path_function,
         ):
             parameter_data = path_params.get(parameter.name, schemas.unset)
             if parameter_data is schemas.unset:
@@ -339,21 +161,6 @@ class BaseApi(api_client.Api):
 
         for k, v in _path_params.items():
             used_path = used_path.replace('{%s}' % k, v)
-
-        prefix_separator_iterator = None
-        for parameter in (
-            request_query_runtime,
-            request_query_return_type,
-            request_query_param_type,
-        ):
-            parameter_data = query_params.get(parameter.name, schemas.unset)
-            if parameter_data is schemas.unset:
-                continue
-            if prefix_separator_iterator is None:
-                prefix_separator_iterator = parameter.get_prefix_separator_iterator()
-            serialized_data = parameter.serialize(parameter_data, prefix_separator_iterator)
-            for serialized_value in serialized_data.values():
-                used_path += serialized_value
 
         _headers = HTTPHeaderDict()
         # TODO add cookie handling
@@ -389,13 +196,12 @@ class BaseApi(api_client.Api):
         return api_response
 
 
-class CreateExternalFunction(BaseApi):
+class CreateWorkspace(BaseApi):
     # this class is used by api classes that refer to endpoints with operationId fn names
 
     @typing.overload
-    def create_external_function(
+    def create_workspace(
         self,
-        query_params: RequestQueryParams = frozendict.frozendict(),
         path_params: RequestPathParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
@@ -407,10 +213,9 @@ class CreateExternalFunction(BaseApi):
     ]: ...
 
     @typing.overload
-    def create_external_function(
+    def create_workspace(
         self,
         skip_deserialization: typing_extensions.Literal[True],
-        query_params: RequestQueryParams = frozendict.frozendict(),
         path_params: RequestPathParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
@@ -418,9 +223,8 @@ class CreateExternalFunction(BaseApi):
     ) -> api_client.ApiResponseWithoutDeserialization: ...
 
     @typing.overload
-    def create_external_function(
+    def create_workspace(
         self,
-        query_params: RequestQueryParams = frozendict.frozendict(),
         path_params: RequestPathParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
@@ -432,17 +236,15 @@ class CreateExternalFunction(BaseApi):
         api_client.ApiResponseWithoutDeserialization,
     ]: ...
 
-    def create_external_function(
+    def create_workspace(
         self,
-        query_params: RequestQueryParams = frozendict.frozendict(),
         path_params: RequestPathParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
         skip_deserialization: bool = False,
     ):
-        return self._create_external_function_oapg(
-            query_params=query_params,
+        return self._create_workspace_oapg(
             path_params=path_params,
             accept_content_types=accept_content_types,
             stream=stream,
@@ -457,7 +259,6 @@ class ApiForpost(BaseApi):
     @typing.overload
     def post(
         self,
-        query_params: RequestQueryParams = frozendict.frozendict(),
         path_params: RequestPathParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
@@ -472,7 +273,6 @@ class ApiForpost(BaseApi):
     def post(
         self,
         skip_deserialization: typing_extensions.Literal[True],
-        query_params: RequestQueryParams = frozendict.frozendict(),
         path_params: RequestPathParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
@@ -482,7 +282,6 @@ class ApiForpost(BaseApi):
     @typing.overload
     def post(
         self,
-        query_params: RequestQueryParams = frozendict.frozendict(),
         path_params: RequestPathParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
@@ -496,15 +295,13 @@ class ApiForpost(BaseApi):
 
     def post(
         self,
-        query_params: RequestQueryParams = frozendict.frozendict(),
         path_params: RequestPathParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
         skip_deserialization: bool = False,
     ):
-        return self._create_external_function_oapg(
-            query_params=query_params,
+        return self._create_workspace_oapg(
             path_params=path_params,
             accept_content_types=accept_content_types,
             stream=stream,

@@ -25,4 +25,5 @@
 /README.md
 /setup.py
 /requirements.txt
-/test/test_utils.py
+test/test_utils.py
+.gitignore

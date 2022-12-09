@@ -100,7 +100,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 query_params | RequestQueryParams | |
 path_params | RequestPathParams | |
-accept_content_types | typing.Tuple[str] | default is ('application/json', 'text/plain', ) | Tells the server the content type(s) that are accepted by the client
+accept_content_types | typing.Tuple[str] | default is ('application/json; charset&#x3D;UTF-8', 'text/plain; charset&#x3D;utf-8', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
@@ -156,49 +156,60 @@ Code | Class | Description
 ------------- | ------------- | -------------
 n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
 200 | [ApiResponseFor200](#add_data_column.ApiResponseFor200) | 
-400 | [ApiResponseFor400](#add_data_column.ApiResponseFor400) | Invalid value for: query parameter type
-default | [ApiResponseForDefault](#add_data_column.ApiResponseForDefault) | 
+400 | [ApiResponseFor400](#add_data_column.ApiResponseFor400) | 
 
 #### add_data_column.ApiResponseFor200
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor200ResponseBodyApplicationJson, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor200ResponseBodyApplicationJsonCharsetUTF8, ] |  |
+headers | ResponseHeadersFor200 |  |
 
-# SchemaFor200ResponseBodyApplicationJson
+# SchemaFor200ResponseBodyApplicationJsonCharsetUTF8
 Type | Description  | Notes
 ------------- | ------------- | -------------
 [**ApiColumn**](../../models/ApiColumn.md) |  | 
+
+#### ResponseHeadersFor200
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+Content-Type | ContentTypeSchema | | 
+
+# ContentTypeSchema
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
 
 
 #### add_data_column.ApiResponseFor400
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor400ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor400ResponseBodyTextPlainCharsetutf8, ] |  |
+headers | ResponseHeadersFor400 |  |
 
-# SchemaFor400ResponseBodyTextPlain
+# SchemaFor400ResponseBodyTextPlainCharsetutf8
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+#### ResponseHeadersFor400
 
-#### add_data_column.ApiResponseForDefault
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor0ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+Content-Type | ContentTypeSchema | | 
 
-# SchemaFor0ResponseBodyTextPlain
+# ContentTypeSchema
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+
 
 ### Authorization
 
@@ -266,7 +277,7 @@ Name | Type | Description  | Notes
 body | typing.Union[SchemaForRequestBodyTextPlain] | required |
 path_params | RequestPathParams | |
 content_type | str | optional, default is 'text/plain' | Selects the schema and serialization of the request body
-accept_content_types | typing.Tuple[str] | default is ('application/json', 'text/plain', ) | Tells the server the content type(s) that are accepted by the client
+accept_content_types | typing.Tuple[str] | default is ('application/json; charset&#x3D;UTF-8', 'text/plain; charset&#x3D;utf-8', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
@@ -316,49 +327,60 @@ Code | Class | Description
 ------------- | ------------- | -------------
 n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
 200 | [ApiResponseFor200](#add_formula_column.ApiResponseFor200) | 
-400 | [ApiResponseFor400](#add_formula_column.ApiResponseFor400) | Invalid value for: body
-default | [ApiResponseForDefault](#add_formula_column.ApiResponseForDefault) | 
+400 | [ApiResponseFor400](#add_formula_column.ApiResponseFor400) | 
 
 #### add_formula_column.ApiResponseFor200
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor200ResponseBodyApplicationJson, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor200ResponseBodyApplicationJsonCharsetUTF8, ] |  |
+headers | ResponseHeadersFor200 |  |
 
-# SchemaFor200ResponseBodyApplicationJson
+# SchemaFor200ResponseBodyApplicationJsonCharsetUTF8
 Type | Description  | Notes
 ------------- | ------------- | -------------
 [**ApiColumn**](../../models/ApiColumn.md) |  | 
+
+#### ResponseHeadersFor200
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+Content-Type | ContentTypeSchema | | 
+
+# ContentTypeSchema
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
 
 
 #### add_formula_column.ApiResponseFor400
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor400ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor400ResponseBodyTextPlainCharsetutf8, ] |  |
+headers | ResponseHeadersFor400 |  |
 
-# SchemaFor400ResponseBodyTextPlain
+# SchemaFor400ResponseBodyTextPlainCharsetutf8
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+#### ResponseHeadersFor400
 
-#### add_formula_column.ApiResponseForDefault
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor0ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+Content-Type | ContentTypeSchema | | 
 
-# SchemaFor0ResponseBodyTextPlain
+# ContentTypeSchema
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+
 
 ### Authorization
 
@@ -368,7 +390,7 @@ str,  | str,  |  |
 
 # **create_external_function**
 <a name="create_external_function"></a>
-> str create_external_function(workspacefunctionruntimereturn_type)
+> PresignedUrl create_external_function(workspacefunctionruntimereturn_type)
 
 
 
@@ -380,6 +402,7 @@ Create a new external function, specifying the function name, runtime, return ty
 ```python
 import priceloop_api
 from priceloop_api.apis.tags import default_api
+from priceloop_api.model.presigned_url import PresignedUrl
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -447,7 +470,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 query_params | RequestQueryParams | |
 path_params | RequestPathParams | |
-accept_content_types | typing.Tuple[str] | default is ('text/plain', ) | Tells the server the content type(s) that are accepted by the client
+accept_content_types | typing.Tuple[str] | default is ('application/json; charset&#x3D;UTF-8', 'text/plain; charset&#x3D;utf-8', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
@@ -516,50 +539,60 @@ Code | Class | Description
 ------------- | ------------- | -------------
 n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
 200 | [ApiResponseFor200](#create_external_function.ApiResponseFor200) | 
-400 | [ApiResponseFor400](#create_external_function.ApiResponseFor400) | Invalid value for: query parameter runtime, Invalid value for: query parameter returnType, Invalid value for: query parameter paramType
-default | [ApiResponseForDefault](#create_external_function.ApiResponseForDefault) | 
+400 | [ApiResponseFor400](#create_external_function.ApiResponseFor400) | 
 
 #### create_external_function.ApiResponseFor200
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor200ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor200ResponseBodyApplicationJsonCharsetUTF8, ] |  |
+headers | ResponseHeadersFor200 |  |
 
-# SchemaFor200ResponseBodyTextPlain
+# SchemaFor200ResponseBodyApplicationJsonCharsetUTF8
+Type | Description  | Notes
+------------- | ------------- | -------------
+[**PresignedUrl**](../../models/PresignedUrl.md) |  | 
+
+#### ResponseHeadersFor200
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+Content-Type | ContentTypeSchema | | 
+
+# ContentTypeSchema
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+
 
 #### create_external_function.ApiResponseFor400
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor400ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor400ResponseBodyTextPlainCharsetutf8, ] |  |
+headers | ResponseHeadersFor400 |  |
 
-# SchemaFor400ResponseBodyTextPlain
+# SchemaFor400ResponseBodyTextPlainCharsetutf8
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+#### ResponseHeadersFor400
 
-#### create_external_function.ApiResponseForDefault
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor0ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+Content-Type | ContentTypeSchema | | 
 
-# SchemaFor0ResponseBodyTextPlain
+# ContentTypeSchema
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+
 
 ### Authorization
 
@@ -573,7 +606,7 @@ str,  | str,  |  |
 
 
 
-Create a workspace from a userId.
+Create a workspace with the provided name.
 
 ### Example
 
@@ -620,7 +653,7 @@ with priceloop_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 path_params | RequestPathParams | |
-accept_content_types | typing.Tuple[str] | default is ('application/json', 'text/plain', ) | Tells the server the content type(s) that are accepted by the client
+accept_content_types | typing.Tuple[str] | default is ('application/json; charset&#x3D;UTF-8', 'text/plain; charset&#x3D;utf-8', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
@@ -645,35 +678,61 @@ Code | Class | Description
 ------------- | ------------- | -------------
 n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
 200 | [ApiResponseFor200](#create_workspace.ApiResponseFor200) | 
-default | [ApiResponseForDefault](#create_workspace.ApiResponseForDefault) | 
+400 | [ApiResponseFor400](#create_workspace.ApiResponseFor400) | 
 
 #### create_workspace.ApiResponseFor200
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor200ResponseBodyApplicationJson, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor200ResponseBodyApplicationJsonCharsetUTF8, ] |  |
+headers | ResponseHeadersFor200 |  |
 
-# SchemaFor200ResponseBodyApplicationJson
+# SchemaFor200ResponseBodyApplicationJsonCharsetUTF8
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+#### ResponseHeadersFor200
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+Content-Type | ContentTypeSchema | | 
+
+# ContentTypeSchema
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
 
-#### create_workspace.ApiResponseForDefault
+
+#### create_workspace.ApiResponseFor400
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor0ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor400ResponseBodyTextPlainCharsetutf8, ] |  |
+headers | ResponseHeadersFor400 |  |
 
-# SchemaFor0ResponseBodyTextPlain
+# SchemaFor400ResponseBodyTextPlainCharsetutf8
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+#### ResponseHeadersFor400
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+Content-Type | ContentTypeSchema | | 
+
+# ContentTypeSchema
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+
 
 ### Authorization
 
@@ -734,7 +793,7 @@ with priceloop_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 path_params | RequestPathParams | |
-accept_content_types | typing.Tuple[str] | default is ('text/plain', ) | Tells the server the content type(s) that are accepted by the client
+accept_content_types | typing.Tuple[str] | default is ('text/plain; charset&#x3D;utf-8', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
@@ -767,28 +826,54 @@ Code | Class | Description
 ------------- | ------------- | -------------
 n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
 200 | [ApiResponseFor200](#delete_external_function.ApiResponseFor200) | 
-default | [ApiResponseForDefault](#delete_external_function.ApiResponseForDefault) | 
+400 | [ApiResponseFor400](#delete_external_function.ApiResponseFor400) | 
 
 #### delete_external_function.ApiResponseFor200
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
 body | Unset | body was not defined |
-headers | Unset | headers were not defined |
+headers | ResponseHeadersFor200 |  |
+#### ResponseHeadersFor200
 
-#### delete_external_function.ApiResponseForDefault
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor0ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+Content-Type | ContentTypeSchema | | 
 
-# SchemaFor0ResponseBodyTextPlain
+# ContentTypeSchema
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+
+
+#### delete_external_function.ApiResponseFor400
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor400ResponseBodyTextPlainCharsetutf8, ] |  |
+headers | ResponseHeadersFor400 |  |
+
+# SchemaFor400ResponseBodyTextPlainCharsetutf8
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+#### ResponseHeadersFor400
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+Content-Type | ContentTypeSchema | | 
+
+# ContentTypeSchema
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+
 
 ### Authorization
 
@@ -849,7 +934,7 @@ with priceloop_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 path_params | RequestPathParams | |
-accept_content_types | typing.Tuple[str] | default is ('text/plain', ) | Tells the server the content type(s) that are accepted by the client
+accept_content_types | typing.Tuple[str] | default is ('text/plain; charset&#x3D;utf-8', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
@@ -882,28 +967,54 @@ Code | Class | Description
 ------------- | ------------- | -------------
 n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
 200 | [ApiResponseFor200](#delete_table.ApiResponseFor200) | 
-default | [ApiResponseForDefault](#delete_table.ApiResponseForDefault) | 
+400 | [ApiResponseFor400](#delete_table.ApiResponseFor400) | 
 
 #### delete_table.ApiResponseFor200
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
 body | Unset | body was not defined |
-headers | Unset | headers were not defined |
+headers | ResponseHeadersFor200 |  |
+#### ResponseHeadersFor200
 
-#### delete_table.ApiResponseForDefault
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor0ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+Content-Type | ContentTypeSchema | | 
 
-# SchemaFor0ResponseBodyTextPlain
+# ContentTypeSchema
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+
+
+#### delete_table.ApiResponseFor400
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor400ResponseBodyTextPlainCharsetutf8, ] |  |
+headers | ResponseHeadersFor400 |  |
+
+# SchemaFor400ResponseBodyTextPlainCharsetutf8
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+#### ResponseHeadersFor400
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+Content-Type | ContentTypeSchema | | 
+
+# ContentTypeSchema
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+
 
 ### Authorization
 
@@ -966,7 +1077,7 @@ with priceloop_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 path_params | RequestPathParams | |
-accept_content_types | typing.Tuple[str] | default is ('application/json', 'text/plain', ) | Tells the server the content type(s) that are accepted by the client
+accept_content_types | typing.Tuple[str] | default is ('application/json; charset&#x3D;UTF-8', 'text/plain; charset&#x3D;utf-8', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
@@ -999,34 +1110,60 @@ Code | Class | Description
 ------------- | ------------- | -------------
 n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
 200 | [ApiResponseFor200](#get_external_functions.ApiResponseFor200) | 
-default | [ApiResponseForDefault](#get_external_functions.ApiResponseForDefault) | 
+400 | [ApiResponseFor400](#get_external_functions.ApiResponseFor400) | 
 
 #### get_external_functions.ApiResponseFor200
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor200ResponseBodyApplicationJson, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor200ResponseBodyApplicationJsonCharsetUTF8, ] |  |
+headers | ResponseHeadersFor200 |  |
 
-# SchemaFor200ResponseBodyApplicationJson
+# SchemaFor200ResponseBodyApplicationJsonCharsetUTF8
 Type | Description  | Notes
 ------------- | ------------- | -------------
 [**ApiExternalFunction**](../../models/ApiExternalFunction.md) |  | 
 
+#### ResponseHeadersFor200
 
-#### get_external_functions.ApiResponseForDefault
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor0ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+Content-Type | ContentTypeSchema | | 
 
-# SchemaFor0ResponseBodyTextPlain
+# ContentTypeSchema
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+
+
+#### get_external_functions.ApiResponseFor400
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor400ResponseBodyTextPlainCharsetutf8, ] |  |
+headers | ResponseHeadersFor400 |  |
+
+# SchemaFor400ResponseBodyTextPlainCharsetutf8
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+#### ResponseHeadersFor400
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+Content-Type | ContentTypeSchema | | 
+
+# ContentTypeSchema
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+
 
 ### Authorization
 
@@ -1089,7 +1226,7 @@ with priceloop_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 path_params | RequestPathParams | |
-accept_content_types | typing.Tuple[str] | default is ('application/json', 'text/plain', ) | Tells the server the content type(s) that are accepted by the client
+accept_content_types | typing.Tuple[str] | default is ('application/json; charset&#x3D;UTF-8', 'text/plain; charset&#x3D;utf-8', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
@@ -1122,34 +1259,60 @@ Code | Class | Description
 ------------- | ------------- | -------------
 n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
 200 | [ApiResponseFor200](#get_table.ApiResponseFor200) | 
-default | [ApiResponseForDefault](#get_table.ApiResponseForDefault) | 
+400 | [ApiResponseFor400](#get_table.ApiResponseFor400) | 
 
 #### get_table.ApiResponseFor200
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor200ResponseBodyApplicationJson, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor200ResponseBodyApplicationJsonCharsetUTF8, ] |  |
+headers | ResponseHeadersFor200 |  |
 
-# SchemaFor200ResponseBodyApplicationJson
+# SchemaFor200ResponseBodyApplicationJsonCharsetUTF8
 Type | Description  | Notes
 ------------- | ------------- | -------------
 [**ApiTable**](../../models/ApiTable.md) |  | 
 
+#### ResponseHeadersFor200
 
-#### get_table.ApiResponseForDefault
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor0ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+Content-Type | ContentTypeSchema | | 
 
-# SchemaFor0ResponseBodyTextPlain
+# ContentTypeSchema
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+
+
+#### get_table.ApiResponseFor400
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor400ResponseBodyTextPlainCharsetutf8, ] |  |
+headers | ResponseHeadersFor400 |  |
+
+# SchemaFor400ResponseBodyTextPlainCharsetutf8
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+#### ResponseHeadersFor400
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+Content-Type | ContentTypeSchema | | 
+
+# ContentTypeSchema
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+
 
 ### Authorization
 
@@ -1218,7 +1381,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 query_params | RequestQueryParams | |
 path_params | RequestPathParams | |
-accept_content_types | typing.Tuple[str] | default is ('application/json', 'text/plain', ) | Tells the server the content type(s) that are accepted by the client
+accept_content_types | typing.Tuple[str] | default is ('application/json; charset&#x3D;UTF-8', 'text/plain; charset&#x3D;utf-8', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
@@ -1274,49 +1437,60 @@ Code | Class | Description
 ------------- | ------------- | -------------
 n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
 200 | [ApiResponseFor200](#get_table_data.ApiResponseFor200) | 
-400 | [ApiResponseFor400](#get_table_data.ApiResponseFor400) | Invalid value for: query parameter limit, Invalid value for: query parameter offset
-default | [ApiResponseForDefault](#get_table_data.ApiResponseForDefault) | 
+400 | [ApiResponseFor400](#get_table_data.ApiResponseFor400) | 
 
 #### get_table_data.ApiResponseFor200
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor200ResponseBodyApplicationJson, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor200ResponseBodyApplicationJsonCharsetUTF8, ] |  |
+headers | ResponseHeadersFor200 |  |
 
-# SchemaFor200ResponseBodyApplicationJson
+# SchemaFor200ResponseBodyApplicationJsonCharsetUTF8
 Type | Description  | Notes
 ------------- | ------------- | -------------
 [**ApiTableData**](../../models/ApiTableData.md) |  | 
+
+#### ResponseHeadersFor200
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+Content-Type | ContentTypeSchema | | 
+
+# ContentTypeSchema
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
 
 
 #### get_table_data.ApiResponseFor400
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor400ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor400ResponseBodyTextPlainCharsetutf8, ] |  |
+headers | ResponseHeadersFor400 |  |
 
-# SchemaFor400ResponseBodyTextPlain
+# SchemaFor400ResponseBodyTextPlainCharsetutf8
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+#### ResponseHeadersFor400
 
-#### get_table_data.ApiResponseForDefault
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor0ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+Content-Type | ContentTypeSchema | | 
 
-# SchemaFor0ResponseBodyTextPlain
+# ContentTypeSchema
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+
 
 ### Authorization
 
@@ -1400,7 +1574,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 query_params | RequestQueryParams | |
 path_params | RequestPathParams | |
-accept_content_types | typing.Tuple[str] | default is ('application/json', 'text/plain', ) | Tells the server the content type(s) that are accepted by the client
+accept_content_types | typing.Tuple[str] | default is ('application/json; charset&#x3D;UTF-8', 'text/plain; charset&#x3D;utf-8', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
@@ -1448,49 +1622,60 @@ Code | Class | Description
 ------------- | ------------- | -------------
 n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
 200 | [ApiResponseFor200](#get_table_upload_csv_url.ApiResponseFor200) | 
-400 | [ApiResponseFor400](#get_table_upload_csv_url.ApiResponseFor400) | Invalid value for: query parameter mode
-default | [ApiResponseForDefault](#get_table_upload_csv_url.ApiResponseForDefault) | 
+400 | [ApiResponseFor400](#get_table_upload_csv_url.ApiResponseFor400) | 
 
 #### get_table_upload_csv_url.ApiResponseFor200
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor200ResponseBodyApplicationJson, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor200ResponseBodyApplicationJsonCharsetUTF8, ] |  |
+headers | ResponseHeadersFor200 |  |
 
-# SchemaFor200ResponseBodyApplicationJson
+# SchemaFor200ResponseBodyApplicationJsonCharsetUTF8
 Type | Description  | Notes
 ------------- | ------------- | -------------
 [**PresignedUrl**](../../models/PresignedUrl.md) |  | 
+
+#### ResponseHeadersFor200
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+Content-Type | ContentTypeSchema | | 
+
+# ContentTypeSchema
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
 
 
 #### get_table_upload_csv_url.ApiResponseFor400
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor400ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor400ResponseBodyTextPlainCharsetutf8, ] |  |
+headers | ResponseHeadersFor400 |  |
 
-# SchemaFor400ResponseBodyTextPlain
+# SchemaFor400ResponseBodyTextPlainCharsetutf8
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+#### ResponseHeadersFor400
 
-#### get_table_upload_csv_url.ApiResponseForDefault
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor0ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+Content-Type | ContentTypeSchema | | 
 
-# SchemaFor0ResponseBodyTextPlain
+# ContentTypeSchema
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+
 
 ### Authorization
 
@@ -1552,7 +1737,7 @@ with priceloop_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 path_params | RequestPathParams | |
-accept_content_types | typing.Tuple[str] | default is ('application/json', 'text/plain', ) | Tells the server the content type(s) that are accepted by the client
+accept_content_types | typing.Tuple[str] | default is ('application/json; charset&#x3D;UTF-8', 'text/plain; charset&#x3D;utf-8', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
@@ -1577,34 +1762,60 @@ Code | Class | Description
 ------------- | ------------- | -------------
 n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
 200 | [ApiResponseFor200](#get_workspace.ApiResponseFor200) | 
-default | [ApiResponseForDefault](#get_workspace.ApiResponseForDefault) | 
+400 | [ApiResponseFor400](#get_workspace.ApiResponseFor400) | 
 
 #### get_workspace.ApiResponseFor200
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor200ResponseBodyApplicationJson, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor200ResponseBodyApplicationJsonCharsetUTF8, ] |  |
+headers | ResponseHeadersFor200 |  |
 
-# SchemaFor200ResponseBodyApplicationJson
+# SchemaFor200ResponseBodyApplicationJsonCharsetUTF8
 Type | Description  | Notes
 ------------- | ------------- | -------------
 [**ApiWorkspace**](../../models/ApiWorkspace.md) |  | 
 
+#### ResponseHeadersFor200
 
-#### get_workspace.ApiResponseForDefault
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor0ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+Content-Type | ContentTypeSchema | | 
 
-# SchemaFor0ResponseBodyTextPlain
+# ContentTypeSchema
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+
+
+#### get_workspace.ApiResponseFor400
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor400ResponseBodyTextPlainCharsetutf8, ] |  |
+headers | ResponseHeadersFor400 |  |
+
+# SchemaFor400ResponseBodyTextPlainCharsetutf8
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+#### ResponseHeadersFor400
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+Content-Type | ContentTypeSchema | | 
+
+# ContentTypeSchema
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+
 
 ### Authorization
 
@@ -1657,29 +1868,55 @@ default | [ApiResponseForDefault](#hello.ApiResponseForDefault) |
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor200ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor200ResponseBodyTextPlainCharsetutf8, ] |  |
+headers | ResponseHeadersFor200 |  |
 
-# SchemaFor200ResponseBodyTextPlain
+# SchemaFor200ResponseBodyTextPlainCharsetutf8
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+#### ResponseHeadersFor200
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+Content-Type | ContentTypeSchema | | 
+
+# ContentTypeSchema
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+
 
 #### hello.ApiResponseForDefault
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor0ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor0ResponseBodyTextPlainCharsetutf8, ] |  |
+headers | ResponseHeadersFor0 |  |
 
-# SchemaFor0ResponseBodyTextPlain
+# SchemaFor0ResponseBodyTextPlainCharsetutf8
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+#### ResponseHeadersFor0
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+Content-Type | ContentTypeSchema | | 
+
+# ContentTypeSchema
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+
 
 ### Authorization
 
@@ -1743,29 +1980,55 @@ default | [ApiResponseForDefault](#hello_auth.ApiResponseForDefault) |
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor200ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor200ResponseBodyTextPlainCharsetutf8, ] |  |
+headers | ResponseHeadersFor200 |  |
 
-# SchemaFor200ResponseBodyTextPlain
+# SchemaFor200ResponseBodyTextPlainCharsetutf8
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+#### ResponseHeadersFor200
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+Content-Type | ContentTypeSchema | | 
+
+# ContentTypeSchema
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+
 
 #### hello_auth.ApiResponseForDefault
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor0ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor0ResponseBodyTextPlainCharsetutf8, ] |  |
+headers | ResponseHeadersFor0 |  |
 
-# SchemaFor0ResponseBodyTextPlain
+# SchemaFor0ResponseBodyTextPlainCharsetutf8
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+#### ResponseHeadersFor0
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+Content-Type | ContentTypeSchema | | 
+
+# ContentTypeSchema
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+
 
 ### Authorization
 
@@ -1831,10 +2094,10 @@ default | [ApiResponseForDefault](#list_workspaces.ApiResponseForDefault) |
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor200ResponseBodyApplicationJson, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor200ResponseBodyApplicationJsonCharsetUTF8, ] |  |
+headers | ResponseHeadersFor200 |  |
 
-# SchemaFor200ResponseBodyApplicationJson
+# SchemaFor200ResponseBodyApplicationJsonCharsetUTF8
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
@@ -1845,20 +2108,46 @@ list, tuple,  | tuple,  |  |
 Class Name | Input Type | Accessed Type | Description | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 items | str,  | str,  |  | 
+#### ResponseHeadersFor200
 
-#### list_workspaces.ApiResponseForDefault
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor0ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+Content-Type | ContentTypeSchema | | 
 
-# SchemaFor0ResponseBodyTextPlain
+# ContentTypeSchema
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+
+
+#### list_workspaces.ApiResponseForDefault
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+response | urllib3.HTTPResponse | Raw response |
+body | typing.Union[SchemaFor0ResponseBodyTextPlainCharsetutf8, ] |  |
+headers | ResponseHeadersFor0 |  |
+
+# SchemaFor0ResponseBodyTextPlainCharsetutf8
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+#### ResponseHeadersFor0
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+Content-Type | ContentTypeSchema | | 
+
+# ContentTypeSchema
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+
 
 ### Authorization
 
@@ -1925,7 +2214,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 query_params | RequestQueryParams | |
 path_params | RequestPathParams | |
-accept_content_types | typing.Tuple[str] | default is ('text/plain', ) | Tells the server the content type(s) that are accepted by the client
+accept_content_types | typing.Tuple[str] | default is ('text/plain; charset&#x3D;utf-8', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
@@ -1981,43 +2270,54 @@ Code | Class | Description
 ------------- | ------------- | -------------
 n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
 200 | [ApiResponseFor200](#update_column_position.ApiResponseFor200) | 
-400 | [ApiResponseFor400](#update_column_position.ApiResponseFor400) | Invalid value for: query parameter position
-default | [ApiResponseForDefault](#update_column_position.ApiResponseForDefault) | 
+400 | [ApiResponseFor400](#update_column_position.ApiResponseFor400) | 
 
 #### update_column_position.ApiResponseFor200
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
 body | Unset | body was not defined |
-headers | Unset | headers were not defined |
+headers | ResponseHeadersFor200 |  |
+#### ResponseHeadersFor200
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+Content-Type | ContentTypeSchema | | 
+
+# ContentTypeSchema
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+
 
 #### update_column_position.ApiResponseFor400
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor400ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor400ResponseBodyTextPlainCharsetutf8, ] |  |
+headers | ResponseHeadersFor400 |  |
 
-# SchemaFor400ResponseBodyTextPlain
+# SchemaFor400ResponseBodyTextPlainCharsetutf8
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+#### ResponseHeadersFor400
 
-#### update_column_position.ApiResponseForDefault
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor0ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+Content-Type | ContentTypeSchema | | 
 
-# SchemaFor0ResponseBodyTextPlain
+# ContentTypeSchema
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+
 
 ### Authorization
 
@@ -2027,7 +2327,7 @@ str,  | str,  |  |
 
 # **update_external_function**
 <a name="update_external_function"></a>
-> str update_external_function(workspacefunction)
+> PresignedUrl update_external_function(workspacefunction)
 
 
 
@@ -2039,6 +2339,7 @@ Create the code of an existing external function. This API endpoint returns a ur
 ```python
 import priceloop_api
 from priceloop_api.apis.tags import default_api
+from priceloop_api.model.presigned_url import PresignedUrl
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -2079,7 +2380,7 @@ with priceloop_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 path_params | RequestPathParams | |
-accept_content_types | typing.Tuple[str] | default is ('text/plain', ) | Tells the server the content type(s) that are accepted by the client
+accept_content_types | typing.Tuple[str] | default is ('application/json; charset&#x3D;UTF-8', 'text/plain; charset&#x3D;utf-8', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
@@ -2112,35 +2413,60 @@ Code | Class | Description
 ------------- | ------------- | -------------
 n/a | api_client.ApiResponseWithoutDeserialization | When skip_deserialization is True this response is returned
 200 | [ApiResponseFor200](#update_external_function.ApiResponseFor200) | 
-default | [ApiResponseForDefault](#update_external_function.ApiResponseForDefault) | 
+400 | [ApiResponseFor400](#update_external_function.ApiResponseFor400) | 
 
 #### update_external_function.ApiResponseFor200
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor200ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor200ResponseBodyApplicationJsonCharsetUTF8, ] |  |
+headers | ResponseHeadersFor200 |  |
 
-# SchemaFor200ResponseBodyTextPlain
+# SchemaFor200ResponseBodyApplicationJsonCharsetUTF8
+Type | Description  | Notes
+------------- | ------------- | -------------
+[**PresignedUrl**](../../models/PresignedUrl.md) |  | 
+
+#### ResponseHeadersFor200
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+Content-Type | ContentTypeSchema | | 
+
+# ContentTypeSchema
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
 
-#### update_external_function.ApiResponseForDefault
+
+#### update_external_function.ApiResponseFor400
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor0ResponseBodyTextPlain, ] |  |
-headers | Unset | headers were not defined |
+body | typing.Union[SchemaFor400ResponseBodyTextPlainCharsetutf8, ] |  |
+headers | ResponseHeadersFor400 |  |
 
-# SchemaFor0ResponseBodyTextPlain
+# SchemaFor400ResponseBodyTextPlainCharsetutf8
 
 ## Model Type Info
 Input Type | Accessed Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 str,  | str,  |  | 
+#### ResponseHeadersFor400
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+Content-Type | ContentTypeSchema | | 
+
+# ContentTypeSchema
+
+## Model Type Info
+Input Type | Accessed Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+str,  | str,  |  | 
+
 
 ### Authorization
 

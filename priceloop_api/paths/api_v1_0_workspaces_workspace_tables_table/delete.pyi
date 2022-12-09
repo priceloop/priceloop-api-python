@@ -59,39 +59,59 @@ request_path_table = api_client.PathParameter(
     schema=TableSchema,
     required=True,
 )
+ContentTypeSchema = schemas.StrSchema
+ResponseHeadersFor200 = typing_extensions.TypedDict(
+    'ResponseHeadersFor200',
+    {
+        'Content-Type': ContentTypeSchema,
+    }
+)
 
 
 @dataclass
 class ApiResponseFor200(api_client.ApiResponse):
     response: urllib3.HTTPResponse
+    headers: ResponseHeadersFor200
     body: schemas.Unset = schemas.unset
-    headers: schemas.Unset = schemas.unset
 
 
 _response_for_200 = api_client.OpenApiResponse(
     response_cls=ApiResponseFor200,
+    headers=[
+        content_type_parameter,
+    ]
 )
-SchemaFor0ResponseBodyTextPlain = schemas.StrSchema
+ContentTypeSchema = schemas.StrSchema
+SchemaFor400ResponseBodyTextPlainCharsetutf8 = schemas.StrSchema
+ResponseHeadersFor400 = typing_extensions.TypedDict(
+    'ResponseHeadersFor400',
+    {
+        'Content-Type': ContentTypeSchema,
+    }
+)
 
 
 @dataclass
-class ApiResponseForDefault(api_client.ApiResponse):
+class ApiResponseFor400(api_client.ApiResponse):
     response: urllib3.HTTPResponse
     body: typing.Union[
-        SchemaFor0ResponseBodyTextPlain,
+        SchemaFor400ResponseBodyTextPlainCharsetutf8,
     ]
-    headers: schemas.Unset = schemas.unset
+    headers: ResponseHeadersFor400
 
 
-_response_for_default = api_client.OpenApiResponse(
-    response_cls=ApiResponseForDefault,
+_response_for_400 = api_client.OpenApiResponse(
+    response_cls=ApiResponseFor400,
     content={
-        'text/plain': api_client.MediaType(
-            schema=SchemaFor0ResponseBodyTextPlain),
+        'text/plain; charset=utf-8': api_client.MediaType(
+            schema=SchemaFor400ResponseBodyTextPlainCharsetutf8),
     },
+    headers=[
+        content_type_parameter,
+    ]
 )
 _all_accept_content_types = (
-    'text/plain',
+    'text/plain; charset=utf-8',
 )
 
 
@@ -106,7 +126,6 @@ class BaseApi(api_client.Api):
         skip_deserialization: typing_extensions.Literal[False] = ...,
     ) -> typing.Union[
         ApiResponseFor200,
-        ApiResponseForDefault,
     ]: ...
 
     @typing.overload
@@ -129,7 +148,6 @@ class BaseApi(api_client.Api):
         skip_deserialization: bool = ...,
     ) -> typing.Union[
         ApiResponseFor200,
-        ApiResponseForDefault,
         api_client.ApiResponseWithoutDeserialization,
     ]: ...
 
@@ -185,11 +203,7 @@ class BaseApi(api_client.Api):
             if response_for_status:
                 api_response = response_for_status.deserialize(response, self.api_client.configuration)
             else:
-                default_response = _status_code_to_response.get('default')
-                if default_response:
-                    api_response = default_response.deserialize(response, self.api_client.configuration)
-                else:
-                    api_response = api_client.ApiResponseWithoutDeserialization(response=response)
+                api_response = api_client.ApiResponseWithoutDeserialization(response=response)
 
         if not 200 <= response.status <= 299:
             raise exceptions.ApiException(api_response=api_response)
@@ -210,7 +224,6 @@ class DeleteTable(BaseApi):
         skip_deserialization: typing_extensions.Literal[False] = ...,
     ) -> typing.Union[
         ApiResponseFor200,
-        ApiResponseForDefault,
     ]: ...
 
     @typing.overload
@@ -233,7 +246,6 @@ class DeleteTable(BaseApi):
         skip_deserialization: bool = ...,
     ) -> typing.Union[
         ApiResponseFor200,
-        ApiResponseForDefault,
         api_client.ApiResponseWithoutDeserialization,
     ]: ...
 
@@ -267,7 +279,6 @@ class ApiFordelete(BaseApi):
         skip_deserialization: typing_extensions.Literal[False] = ...,
     ) -> typing.Union[
         ApiResponseFor200,
-        ApiResponseForDefault,
     ]: ...
 
     @typing.overload
@@ -290,7 +301,6 @@ class ApiFordelete(BaseApi):
         skip_deserialization: bool = ...,
     ) -> typing.Union[
         ApiResponseFor200,
-        ApiResponseForDefault,
         api_client.ApiResponseWithoutDeserialization,
     ]: ...
 

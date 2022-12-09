@@ -29,7 +29,7 @@ jobs:
           pip install -r test-requirements.txt
       - name: Run tests
         run: |
-          pytest
+          pytest test/test_utils.py
         env:
           NOCODE_TEST_USER: ${{ secrets.NOCODE_TEST_USER }}
           NOCODE_TEST_PASSWORD: ${{ secrets.NOCODE_TEST_PASSWORD }}

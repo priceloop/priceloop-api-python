@@ -30,50 +30,82 @@ from . import path
 _auth = [
     'oauth2Auth',
 ]
-SchemaFor200ResponseBodyTextPlain = schemas.StrSchema
+ContentTypeSchema = schemas.StrSchema
+content_type_parameter = api_client.HeaderParameter(
+    name="Content-Type",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=ContentTypeSchema,
+    required=True,
+)
+SchemaFor200ResponseBodyTextPlainCharsetutf8 = schemas.StrSchema
+ResponseHeadersFor200 = typing_extensions.TypedDict(
+    'ResponseHeadersFor200',
+    {
+        'Content-Type': ContentTypeSchema,
+    }
+)
 
 
 @dataclass
 class ApiResponseFor200(api_client.ApiResponse):
     response: urllib3.HTTPResponse
     body: typing.Union[
-        SchemaFor200ResponseBodyTextPlain,
+        SchemaFor200ResponseBodyTextPlainCharsetutf8,
     ]
-    headers: schemas.Unset = schemas.unset
+    headers: ResponseHeadersFor200
 
 
 _response_for_200 = api_client.OpenApiResponse(
     response_cls=ApiResponseFor200,
     content={
-        'text/plain': api_client.MediaType(
-            schema=SchemaFor200ResponseBodyTextPlain),
+        'text/plain; charset=utf-8': api_client.MediaType(
+            schema=SchemaFor200ResponseBodyTextPlainCharsetutf8),
     },
+    headers=[
+        content_type_parameter,
+    ]
 )
-SchemaFor0ResponseBodyTextPlain = schemas.StrSchema
+ContentTypeSchema = schemas.StrSchema
+content_type_parameter = api_client.HeaderParameter(
+    name="Content-Type",
+    style=api_client.ParameterStyle.SIMPLE,
+    schema=ContentTypeSchema,
+    required=True,
+)
+SchemaFor0ResponseBodyTextPlainCharsetutf8 = schemas.StrSchema
+ResponseHeadersFor0 = typing_extensions.TypedDict(
+    'ResponseHeadersFor0',
+    {
+        'Content-Type': ContentTypeSchema,
+    }
+)
 
 
 @dataclass
 class ApiResponseForDefault(api_client.ApiResponse):
     response: urllib3.HTTPResponse
     body: typing.Union[
-        SchemaFor0ResponseBodyTextPlain,
+        SchemaFor0ResponseBodyTextPlainCharsetutf8,
     ]
-    headers: schemas.Unset = schemas.unset
+    headers: ResponseHeadersFor0
 
 
 _response_for_default = api_client.OpenApiResponse(
     response_cls=ApiResponseForDefault,
     content={
-        'text/plain': api_client.MediaType(
-            schema=SchemaFor0ResponseBodyTextPlain),
+        'text/plain; charset=utf-8': api_client.MediaType(
+            schema=SchemaFor0ResponseBodyTextPlainCharsetutf8),
     },
+    headers=[
+        content_type_parameter,
+    ]
 )
 _status_code_to_response = {
     '200': _response_for_200,
     'default': _response_for_default,
 }
 _all_accept_content_types = (
-    'text/plain',
+    'text/plain; charset=utf-8',
 )
 
 

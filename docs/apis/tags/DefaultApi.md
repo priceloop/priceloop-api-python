@@ -368,7 +368,7 @@ str,  | str,  |  |
 
 # **create_external_function**
 <a name="create_external_function"></a>
-> str create_external_function(workspacefunctionruntimereturn_type)
+> PresignedUrl create_external_function(workspacefunctionruntimereturn_type)
 
 
 
@@ -380,6 +380,7 @@ Create a new external function, specifying the function name, runtime, return ty
 ```python
 import priceloop_api
 from priceloop_api.apis.tags import default_api
+from priceloop_api.model.presigned_url import PresignedUrl
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -447,7 +448,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 query_params | RequestQueryParams | |
 path_params | RequestPathParams | |
-accept_content_types | typing.Tuple[str] | default is ('text/plain', ) | Tells the server the content type(s) that are accepted by the client
+accept_content_types | typing.Tuple[str] | default is ('application/json', 'text/plain', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
@@ -523,15 +524,14 @@ default | [ApiResponseForDefault](#create_external_function.ApiResponseForDefaul
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor200ResponseBodyTextPlain, ] |  |
+body | typing.Union[SchemaFor200ResponseBodyApplicationJson, ] |  |
 headers | Unset | headers were not defined |
 
-# SchemaFor200ResponseBodyTextPlain
+# SchemaFor200ResponseBodyApplicationJson
+Type | Description  | Notes
+------------- | ------------- | -------------
+[**PresignedUrl**](../../models/PresignedUrl.md) |  | 
 
-## Model Type Info
-Input Type | Accessed Type | Description | Notes
------------- | ------------- | ------------- | -------------
-str,  | str,  |  | 
 
 #### create_external_function.ApiResponseFor400
 Name | Type | Description  | Notes
@@ -2027,7 +2027,7 @@ str,  | str,  |  |
 
 # **update_external_function**
 <a name="update_external_function"></a>
-> str update_external_function(workspacefunction)
+> PresignedUrl update_external_function(workspacefunction)
 
 
 
@@ -2039,6 +2039,7 @@ Create the code of an existing external function. This API endpoint returns a ur
 ```python
 import priceloop_api
 from priceloop_api.apis.tags import default_api
+from priceloop_api.model.presigned_url import PresignedUrl
 from pprint import pprint
 # Defining the host is optional and defaults to http://localhost
 # See configuration.py for a list of all supported configuration parameters.
@@ -2079,7 +2080,7 @@ with priceloop_api.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 path_params | RequestPathParams | |
-accept_content_types | typing.Tuple[str] | default is ('text/plain', ) | Tells the server the content type(s) that are accepted by the client
+accept_content_types | typing.Tuple[str] | default is ('application/json', 'text/plain', ) | Tells the server the content type(s) that are accepted by the client
 stream | bool | default is False | if True then the response.content will be streamed and loaded from a file like object. When downloading a file, set this to True to force the code to deserialize the content to a FileSchema file
 timeout | typing.Optional[typing.Union[int, typing.Tuple]] | default is None | the timeout used by the rest client
 skip_deserialization | bool | default is False | when True, headers and body will be unset and an instance of api_client.ApiResponseWithoutDeserialization will be returned
@@ -2118,15 +2119,14 @@ default | [ApiResponseForDefault](#update_external_function.ApiResponseForDefaul
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 response | urllib3.HTTPResponse | Raw response |
-body | typing.Union[SchemaFor200ResponseBodyTextPlain, ] |  |
+body | typing.Union[SchemaFor200ResponseBodyApplicationJson, ] |  |
 headers | Unset | headers were not defined |
 
-# SchemaFor200ResponseBodyTextPlain
+# SchemaFor200ResponseBodyApplicationJson
+Type | Description  | Notes
+------------- | ------------- | -------------
+[**PresignedUrl**](../../models/PresignedUrl.md) |  | 
 
-## Model Type Info
-Input Type | Accessed Type | Description | Notes
------------- | ------------- | ------------- | -------------
-str,  | str,  |  | 
 
 #### update_external_function.ApiResponseForDefault
 Name | Type | Description  | Notes

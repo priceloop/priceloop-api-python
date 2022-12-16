@@ -25,6 +25,8 @@ import frozendict  # noqa: F401
 
 from priceloop_api import schemas  # noqa: F401
 
+from priceloop_api.model.presigned_url import PresignedUrl
+
 # Path params
 WorkspaceSchema = schemas.StrSchema
 FunctionSchema = schemas.StrSchema
@@ -59,14 +61,14 @@ request_path_function = api_client.PathParameter(
     schema=FunctionSchema,
     required=True,
 )
-SchemaFor200ResponseBodyTextPlain = schemas.StrSchema
+SchemaFor200ResponseBodyApplicationJson = PresignedUrl
 
 
 @dataclass
 class ApiResponseFor200(api_client.ApiResponse):
     response: urllib3.HTTPResponse
     body: typing.Union[
-        SchemaFor200ResponseBodyTextPlain,
+        SchemaFor200ResponseBodyApplicationJson,
     ]
     headers: schemas.Unset = schemas.unset
 
@@ -74,8 +76,8 @@ class ApiResponseFor200(api_client.ApiResponse):
 _response_for_200 = api_client.OpenApiResponse(
     response_cls=ApiResponseFor200,
     content={
-        'text/plain': api_client.MediaType(
-            schema=SchemaFor200ResponseBodyTextPlain),
+        'application/json': api_client.MediaType(
+            schema=SchemaFor200ResponseBodyApplicationJson),
     },
 )
 SchemaFor0ResponseBodyTextPlain = schemas.StrSchema
@@ -98,6 +100,7 @@ _response_for_default = api_client.OpenApiResponse(
     },
 )
 _all_accept_content_types = (
+    'application/json',
     'text/plain',
 )
 

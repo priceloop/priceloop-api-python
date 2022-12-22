@@ -45,32 +45,13 @@ class ApiTableData(
             
                 class MetaOapg:
                     
-                    
-                    class items(
-                        schemas.ListSchema
-                    ):
-                    
-                    
-                        class MetaOapg:
-                            items = schemas.StrSchema
-                    
-                        def __new__(
-                            cls,
-                            arg: typing.Union[typing.Tuple[typing.Union[MetaOapg.items, str, ]], typing.List[typing.Union[MetaOapg.items, str, ]]],
-                            _configuration: typing.Optional[schemas.Configuration] = None,
-                        ) -> 'items':
-                            return super().__new__(
-                                cls,
-                                arg,
-                                _configuration=_configuration,
-                            )
-                    
-                        def __getitem__(self, i: int) -> MetaOapg.items:
-                            return super().__getitem__(i)
+                    @staticmethod
+                    def items() -> typing.Type['TableRow']:
+                        return TableRow
             
                 def __new__(
                     cls,
-                    arg: typing.Union[typing.Tuple[typing.Union[MetaOapg.items, list, tuple, ]], typing.List[typing.Union[MetaOapg.items, list, tuple, ]]],
+                    arg: typing.Union[typing.Tuple['TableRow'], typing.List['TableRow']],
                     _configuration: typing.Optional[schemas.Configuration] = None,
                 ) -> 'rows':
                     return super().__new__(
@@ -79,7 +60,7 @@ class ApiTableData(
                         _configuration=_configuration,
                     )
             
-                def __getitem__(self, i: int) -> MetaOapg.items:
+                def __getitem__(self, i: int) -> 'TableRow':
                     return super().__getitem__(i)
             __annotations__ = {
                 "rows": rows,
@@ -120,3 +101,5 @@ class ApiTableData(
             _configuration=_configuration,
             **kwargs,
         )
+
+from priceloop_api.model.table_row import TableRow

@@ -7,6 +7,7 @@ docs/models/ApiTable.md
 docs/models/ApiTableData.md
 docs/models/ApiWorkspace.md
 docs/models/PresignedUrl.md
+docs/models/TableRow.md
 git_push.sh
 priceloop_api/__init__.py
 priceloop_api/api_client.py
@@ -27,6 +28,8 @@ priceloop_api/model/api_workspace.py
 priceloop_api/model/api_workspace.pyi
 priceloop_api/model/presigned_url.py
 priceloop_api/model/presigned_url.pyi
+priceloop_api/model/table_row.py
+priceloop_api/model/table_row.pyi
 priceloop_api/models/__init__.py
 priceloop_api/rest.py
 priceloop_api/schemas.py
@@ -40,4 +43,5 @@ test/test_models/test_api_table.py
 test/test_models/test_api_table_data.py
 test/test_models/test_api_workspace.py
 test/test_models/test_presigned_url.py
+test/test_models/test_table_row.py
 tox.ini

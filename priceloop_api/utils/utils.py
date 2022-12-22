@@ -55,7 +55,7 @@ def read_nocode(
                 "table": table_name,
             },
         ).body
-        table_data = pd.DataFrame(raw_table_data["rows"], columns = header).drop(
+        table_data = pd.DataFrame([v["values"] for v in raw_table_data["rows"]], columns = header).drop(
             columns = "index"
         )
         # To-do: infer type from nocode

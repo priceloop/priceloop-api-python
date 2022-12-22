@@ -47,7 +47,7 @@ def read_nocode(
         raw_header = api_instance.get_table(
             path_params = {"workspace": workspace_name, "table": table_name}
         ).body
-        header = ["index"] + [i["name"] for i in raw_header["columns"]]
+        header = [i["name"] for i in raw_header["columns"]]
         raw_table_data = api_instance.get_table_data(
             query_params = {"limit": limit, "offset": offset},
             path_params = {
@@ -55,9 +55,7 @@ def read_nocode(
                 "table": table_name,
             },
         ).body
-        table_data = pd.DataFrame([v["values"] for v in raw_table_data["rows"]], columns = header).drop(
-            columns = "index"
-        )
+        table_data = pd.DataFrame([v["values"] for v in raw_table_data["rows"]], columns = header)
         # To-do: infer type from nocode
         table_data.to_csv(csv_buffer, index = None)
         csv_buffer.seek(0)

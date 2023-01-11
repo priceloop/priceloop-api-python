@@ -26,7 +26,6 @@ jobs:
       - name: build package
         run: |
           pip install -r requirements.txt
-          pip install -r test-requirements.txt
 
   publish:
     if: github.ref_type == 'tag'

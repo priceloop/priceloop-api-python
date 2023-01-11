@@ -5,6 +5,7 @@ import attr
 
 default_host = "alpha.priceloop.ai"
 
+
 @attr.s(auto_attribs=True)
 class Client:
     """A class for keeping track of data related to the API
@@ -63,10 +64,10 @@ class AuthenticatedClient(Client):
         auth_header_value = f"{self.prefix} {self.token}" if self.prefix else self.token
         """Get headers to be used in authenticated endpoints"""
         return {self.auth_header_name: auth_header_value, **self.headers}
-    
+
     @staticmethod
     def with_credentials(username: str, password: str, host: str = default_host):
         auth_state = AuthState(username, password, host)
         token = auth_state.access_token()
         nocode_config = get_config(f"https://{host}/app_config.json")
-        return AuthenticatedClient(base_url=nocode_config.base_url, token=token)
+        return AuthenticatedClient(base_url=nocode_config.base_url, token=token, timeout=30.0)

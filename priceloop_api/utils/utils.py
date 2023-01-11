@@ -4,7 +4,7 @@ from io import StringIO
 
 # from priceloop_api import ApiClient
 # from priceloop_api.apis.tags.default_api import DefaultApi
-
+from priceloop_api.models.get_table_upload_csv_url_mode import GetTableUploadCsvUrlMode
 from priceloop_api.client import AuthenticatedClient
 from priceloop_api.api.default import (
     list_workspaces,
@@ -19,7 +19,7 @@ def to_nocode(
     df: pd.DataFrame,
     table_name: str,
     client: AuthenticatedClient,
-    mode = "delete_and_recreate",
+    mode: GetTableUploadCsvUrlMode = GetTableUploadCsvUrlMode.DELETE_AND_RECREATE,
     workspace_name: str = None,
 ) -> None:
     csv_buffer = StringIO()
@@ -30,7 +30,7 @@ def to_nocode(
         workspace = get_workspace.sync(workspaces[0], client=client)
         workspace_name = workspace.name
 
-    url = get_table_upload_csv_url.sync(workspace_name, table_name, client=client)
+    url = get_table_upload_csv_url.sync(workspace_name, table_name, mode=mode, client=client)
     
     requests.put(url.put_url, data = csv_buffer.getvalue().encode("utf-8"))
     print("Upload Successful, please wait a moment for the changes to appear")

@@ -6,7 +6,9 @@ here = pathlib.Path(__file__).parent.resolve()
 long_description = (here / "README.md").read_text(encoding="utf-8")
 
 REQUIRES = [
-    "httpx >= 0.15.0, < 0.24.0", "attrs >= 21.3.0", "python-dateutil >= 2.8.0, < 3",
+    "httpx >= 0.15.0, < 0.24.0",
+    "attrs >= 21.3.0",
+    "python-dateutil >= 2.8.0, < 3",
     "boto3~=1.24.78",
     "requests==2.25",
     "frozendict==2.3.4",
@@ -15,7 +17,7 @@ REQUIRES = [
 
 setup(
     name="priceloop-api",
-    version="1.0",
+    version="1.0.1",
     description="A client library for accessing Priceloop API",
     author="Priceloop",
     author_email="hello@priceloop.ai",

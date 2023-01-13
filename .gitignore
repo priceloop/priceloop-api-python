@@ -29,3 +29,6 @@ dmypy.json
 
 .vscode
 test.py
+
+# generated code
+/priceloop-api-python

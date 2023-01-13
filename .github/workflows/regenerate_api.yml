@@ -1,0 +1,83 @@
+name: Regenerate API
+
+on:
+  pull_request:
+    types: [ opened, synchronize, labeled, closed ]
+
+
+jobs:
+  tag-after-merge:
+    if: github.event.action == 'closed' && github.event.pull_request.merged && contains(github.event.pull_request.labels.*.name, 'openapi')
+    runs-on: ubuntu-22.04
+    name: "Tag after merge"
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - name: Commit changes
+        run: |
+          version=$(cat ./openapi.json | jq -r '.info.version')
+
+          echo "Version: $version"
+          git tag "v$version"
+          git push --tags
+
+  regenerate-api:
+    if: (github.event.action == 'labeled' && github.event.label.name == 'openapi') || ((github.event.action == 'synchronize' || github.event.action == 'opened') && contains(github.event.pull_request.labels.*.name, 'openapi'))
+    runs-on: ubuntu-22.04
+    name: "Regenerate API"
+    strategy:
+      matrix:
+        python-version: ["3.8"]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Get Version Diff
+        uses: technote-space/get-diff-action@f27caffdd0fb9b13f4fc191c016bb4e0632844af # pin@v6
+        with:
+          PATTERNS: |
+            openapi.json
+
+      - name: Set up Python ${{ matrix.python-version }}
+        if: env.GIT_DIFF_FILTERED
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.8
+          cache: "pip"
+
+      - name: Pip install
+        if: env.GIT_DIFF_FILTERED
+        run: |
+          pip install -r requirements_dev.txt
+
+      - name: Regenerate API Project
+        if: env.GIT_DIFF_FILTERED
+        run: |
+          ./generate_api.sh
+
+      - name: Commit changes
+        if: env.GIT_DIFF_FILTERED
+        run: |
+          version=$(cat ./openapi.json | jq -r '.info.version')
+
+          echo "Version: $version"
+          git status
+
+          if [[ "$(git diff --stat)" != "" ]]; then
+            git config user.name "priceloop"
+            git config user.email "ogopogo@priceloop.ai"
+
+            git add -A
+            git commit -m "Generate api project for $version"
+
+            git push
+
+            echo "Failing this run because currently the openapi.json is not up-to-date."
+            echo "A commit with updates was automatically pushed to this branch."
+            false
+          else
+            echo "The openapi.json is up-to-date"
+          fi

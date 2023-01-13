@@ -11,7 +11,7 @@ First, create a client:
 `AuthenticatedClient`:
 
 ```python
-from priceloop_api import PriceloopClient
+from priceloop_api.priceloop.auth import PriceloopClient
 
 client = PriceloopClient.with_credentials("username", "password")
 ```
@@ -20,7 +20,7 @@ read and write to nocode:
 
 ```python
 import pandas as pd
-from priceloop_api.utils import to_nocode, read_nocode
+from priceloop_api.priceloop.data import to_nocode, read_nocode
 
 # write to nocode
 data = [["Alex", 10], ["Bob", 12], ["Clarke", 13]]

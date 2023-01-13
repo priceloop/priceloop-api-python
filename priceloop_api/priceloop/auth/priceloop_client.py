@@ -1,4 +1,5 @@
-from priceloop_api.auth import AuthState, get_config
+from priceloop_api.auth import AuthState
+from priceloop_api import Client
 
 import attr
 
@@ -16,7 +17,7 @@ class PriceloopClient(Client):
 
     def get_headers(self) -> Dict[str, str]:
         """Get headers to be used in authenticated endpoints"""
-        auth_header_value = f"Bearer {self._auth_state.access_token}"
+        auth_header_value = f"Bearer {self._auth_state.access_token()}"
         return {"Authorization": auth_header_value, **self.headers}
 
     @staticmethod

@@ -1,9 +1,7 @@
 import ssl
 from typing import Dict, Union
-from priceloop_api.auth import AuthState, get_config
-import attr
 
-default_host = "alpha.priceloop.ai"
+import attr
 
 
 @attr.s(auto_attribs=True)
@@ -64,10 +62,3 @@ class AuthenticatedClient(Client):
         """Get headers to be used in authenticated endpoints"""
         auth_header_value = f"{self.prefix} {self.token}" if self.prefix else self.token
         return {self.auth_header_name: auth_header_value, **self.headers}
-
-    @staticmethod
-    def with_credentials(username: str, password: str, host: str = default_host):
-        auth_state = AuthState(username, password, host)
-        token = auth_state.access_token()
-        nocode_config = get_config(f"https://{host}/app_config.json")
-        return AuthenticatedClient(base_url=nocode_config.base_url, token=token, timeout=30.0)

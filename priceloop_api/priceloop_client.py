@@ -1,12 +1,25 @@
 from priceloop_api.auth import AuthState, get_config
 
+import attr
+
 default_host = "alpha.priceloop.ai"
 
 
-class PriceloopClient():
+@attr.s(auto_attribs=True)
+class PriceloopClient(Client):
+    """A Client which has been authenticated for use on secured endpoints"""
+
+    _auth_state: AuthState
+
+    def __init__(auth_state: AuthState):
+        self._auth_state = auth_state
+
+    def get_headers(self) -> Dict[str, str]:
+        """Get headers to be used in authenticated endpoints"""
+        auth_header_value = f"Bearer {self._auth_state.access_token}"
+        return {"Authorization": auth_header_value, **self.headers}
+
     @staticmethod
     def with_credentials(username: str, password: str, host: str = default_host):
         auth_state = AuthState(username, password, host)
-        token = auth_state.access_token()
-        nocode_config = get_config(f"https://{host}/app_config.json")
-        return AuthenticatedClient(base_url=nocode_config.base_url, token=token, timeout=30.0)
+        return PriceloopClient(auth_state)

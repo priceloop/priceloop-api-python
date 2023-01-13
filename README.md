@@ -11,9 +11,9 @@ First, create a client:
 `AuthenticatedClient`:
 
 ```python
-from priceloop_api import AuthenticatedClient
+from priceloop_api import PriceloopClient
 
-client = AuthenticatedClient.with_credentials("username", "password")
+client = PriceloopClient.with_credentials("username", "password")
 ```
 
 read and write to nocode:

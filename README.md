@@ -1,6 +1,11 @@
 # priceloop-api-python
 A client library for accessing Priceloop API
 
+## Install
+```
+pip install priceloop-api
+```
+
 ## Usage
 First, create a client:
 `AuthenticatedClient`:

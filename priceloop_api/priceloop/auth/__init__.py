@@ -1,1 +1,1 @@
-from .auth import PriceloopClient
+from .priceloop_client import PriceloopClient

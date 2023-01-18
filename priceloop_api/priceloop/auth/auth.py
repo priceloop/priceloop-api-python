@@ -28,14 +28,18 @@ class AuthState(object):
     nocode_config: ApiConfig = None
     auth_tokens: AuthTokens = None
 
-    def access_token(self):
+    def config(self):
         if self.nocode_config is None:
             endpoint = f"https://{self.host}/app_config.json"
 
             self.nocode_config = get_config(endpoint)
 
+        return self.nocode_config
+
+
+    def access_token(self):
         if self.auth_tokens is None or is_expired(datetime.now(), self.auth_tokens):
-            self.auth_tokens = get_oauth_tokens(self.nocode_config, self.username, self.password)
+            self.auth_tokens = get_oauth_tokens(self.config(), self.username, self.password)
 
         return self.auth_tokens.access_token
 

@@ -35,31 +35,21 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
-      - name: Get Version Diff
-        uses: technote-space/get-diff-action@f27caffdd0fb9b13f4fc191c016bb4e0632844af # pin@v6
-        with:
-          PATTERNS: |
-            openapi.json
-
       - name: Set up Python ${{ matrix.python-version }}
-        if: env.GIT_DIFF_FILTERED
         uses: actions/setup-python@v3
         with:
           python-version: 3.8
           cache: "pip"
 
       - name: Pip install
-        if: env.GIT_DIFF_FILTERED
         run: |
           pip install -r requirements_dev.txt
 
       - name: Regenerate API Project
-        if: env.GIT_DIFF_FILTERED
         run: |
           ./generate_api.sh
 
       - name: Commit changes
-        if: env.GIT_DIFF_FILTERED
         run: |
           version=$(cat ./openapi.json | jq -r '.info.version')
 

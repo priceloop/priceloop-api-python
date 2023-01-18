@@ -154,7 +154,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.53.7"
+    "version" : "v0.56.1"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -912,7 +912,7 @@
         ]
       }
     },
-    "/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/expression" : {
+    "/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/formula" : {
       "post" : {
         "description" : "Add an expression column to a table.",
         "operationId" : "addFormulaColumn",
@@ -940,18 +940,16 @@
             "schema" : {
               "type" : "string"
             }
+          },
+          {
+            "in" : "query",
+            "name" : "expression",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
           }
         ],
-        "requestBody" : {
-          "content" : {
-            "text/plain" : {
-              "schema" : {
-                "type" : "string"
-              }
-            }
-          },
-          "required" : true
-        },
         "responses" : {
           "200" : {
             "content" : {
@@ -971,7 +969,7 @@
                 }
               }
             },
-            "description" : "Invalid value for: body"
+            "description" : "Invalid value for: query parameter expression"
           },
           "default" : {
             "content" : {
@@ -1055,6 +1053,51 @@
               }
             },
             "description" : "Invalid value for: query parameter limit, Invalid value for: query parameter offset"
+          },
+          "default" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/tables/{table}/truncate" : {
+      "post" : {
+        "description" : "Truncate your table.",
+        "operationId" : "truncateTable",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "table",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : ""
           },
           "default" : {
             "content" : {

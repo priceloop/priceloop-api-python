@@ -6,7 +6,7 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.api_column import ApiColumn
-from ...types import Response
+from ...types import UNSET, Response
 
 
 def _get_kwargs(
@@ -15,13 +15,19 @@ def _get_kwargs(
     column: str,
     *,
     client: AuthenticatedClient,
+    expression: str,
 ) -> Dict[str, Any]:
-    url = "{}/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/expression".format(
+    url = "{}/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/formula".format(
         client.base_url, workspace=workspace, table=table, column=column
     )
 
     headers: Dict[str, str] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
+
+    params: Dict[str, Any] = {}
+    params["expression"] = expression
+
+    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     return {
         "method": "post",
@@ -29,6 +35,7 @@ def _get_kwargs(
         "headers": headers,
         "cookies": cookies,
         "timeout": client.get_timeout(),
+        "params": params,
     }
 
 
@@ -58,7 +65,7 @@ def sync_detailed(
     column: str,
     *,
     client: AuthenticatedClient,
-    content: str
+    expression: str,
 ) -> Response[ApiColumn]:
     """Add an expression column to a table.
 
@@ -66,6 +73,7 @@ def sync_detailed(
         workspace (str):
         table (str):
         column (str):
+        expression (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -80,12 +88,12 @@ def sync_detailed(
         table=table,
         column=column,
         client=client,
+        expression=expression,
     )
 
     response = httpx.request(
         verify=client.verify_ssl,
         **kwargs,
-        content=content
     )
 
     return _build_response(client=client, response=response)
@@ -97,7 +105,7 @@ def sync(
     column: str,
     *,
     client: AuthenticatedClient,
-    content: str
+    expression: str,
 ) -> Optional[ApiColumn]:
     """Add an expression column to a table.
 
@@ -105,6 +113,7 @@ def sync(
         workspace (str):
         table (str):
         column (str):
+        expression (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -119,7 +128,7 @@ def sync(
         table=table,
         column=column,
         client=client,
-        content=content
+        expression=expression,
     ).parsed
 
 
@@ -129,6 +138,7 @@ async def asyncio_detailed(
     column: str,
     *,
     client: AuthenticatedClient,
+    expression: str,
 ) -> Response[ApiColumn]:
     """Add an expression column to a table.
 
@@ -136,6 +146,7 @@ async def asyncio_detailed(
         workspace (str):
         table (str):
         column (str):
+        expression (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -150,6 +161,7 @@ async def asyncio_detailed(
         table=table,
         column=column,
         client=client,
+        expression=expression,
     )
 
     async with httpx.AsyncClient(verify=client.verify_ssl) as _client:
@@ -164,6 +176,7 @@ async def asyncio(
     column: str,
     *,
     client: AuthenticatedClient,
+    expression: str,
 ) -> Optional[ApiColumn]:
     """Add an expression column to a table.
 
@@ -171,6 +184,7 @@ async def asyncio(
         workspace (str):
         table (str):
         column (str):
+        expression (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -186,5 +200,6 @@ async def asyncio(
             table=table,
             column=column,
             client=client,
+            expression=expression,
         )
     ).parsed

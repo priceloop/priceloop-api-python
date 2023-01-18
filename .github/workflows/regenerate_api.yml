@@ -20,7 +20,7 @@ jobs:
           version=$(cat ./openapi.json | jq -r '.info.version')
 
           echo "Version: $version"
-          git tag "v$version"
+          git tag "$version"
           git push --tags
 
   regenerate-api:

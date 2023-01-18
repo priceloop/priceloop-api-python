@@ -10,9 +10,10 @@ if [[ "$(git diff --stat)" != "" ]]; then
 fi
 
 version=$(cat ./openapi.json | jq -r '.info.version')
+version_numbers=$(echo $version | sed s/^v//)
 
 # replace version in setup.py
-sed "s/version=.*$/version=$version/" -i setup.py
+sed "s/version=.*$/version=$version_numbers/" -i setup.py
 
 # regenerate the whole python project
 rm -rf priceloop-api-python

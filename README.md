@@ -7,8 +7,7 @@ pip install priceloop-api
 ```
 
 ## Usage
-First, create an
-`PriceloopClient`:
+First, create a `PriceloopClient`:
 
 ```python
 from priceloop_api.priceloop.auth import PriceloopClient

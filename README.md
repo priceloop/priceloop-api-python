@@ -7,7 +7,7 @@ pip install priceloop-api
 ```
 
 ## Usage
-First, create a client:
+First, create an
 `AuthenticatedClient`:
 
 ```python
@@ -46,7 +46,7 @@ from priceloop_api.api.default import add_data_column, add_formula_column
 from priceloop_api.models import AddDataColumnType
 
 add_data_column.sync(workspace.name, "table_name", "column_name", type=AddDataColumnType.STRING, client=client)
-add_formula_column.sync(workspace.name, "table_name", "column_name", content="formula", client=client)
+add_formula_column.sync(workspace.name, "table_name", "column_name", "expression", client=client)
 ```
 
 

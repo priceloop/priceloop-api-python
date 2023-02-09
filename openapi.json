@@ -154,7 +154,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.65.5"
+    "version" : "v0.65.6"
   },
   "openapi" : "3.0.3",
   "paths" : {

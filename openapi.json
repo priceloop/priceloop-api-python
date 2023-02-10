@@ -1,1196 +1,1250 @@
 {
-  "components" : {
-    "schemas" : {
-      "ApiColumn" : {
-        "properties" : {
-          "name" : {
-            "type" : "string"
+  "components": {
+    "schemas": {
+      "ApiColumn": {
+        "properties": {
+          "name": {
+            "type": "string"
           },
-          "position" : {
-            "format" : "int32",
-            "type" : "integer"
+          "position": {
+            "format": "int32",
+            "type": "integer"
           },
-          "tableName" : {
-            "type" : "string"
+          "tableName": {
+            "type": "string"
           },
-          "tpe" : {
-            "type" : "string"
+          "tpe": {
+            "type": "string"
           }
         },
-        "required" : [
+        "required": [
           "tableName",
           "name",
           "tpe",
           "position"
         ],
-        "type" : "object"
+        "type": "object"
       },
-      "ApiExternalFunction" : {
-        "properties" : {
-          "functionName" : {
-            "type" : "string"
+      "ApiExternalFunction": {
+        "properties": {
+          "functionName": {
+            "type": "string"
           },
-          "parameterTypes" : {
-            "items" : {
-              "type" : "string"
+          "parameterTypes": {
+            "items": {
+              "type": "string"
             },
-            "type" : "array"
+            "type": "array"
           },
-          "returnType" : {
-            "type" : "string"
+          "returnType": {
+            "type": "string"
           }
         },
-        "required" : [
+        "required": [
           "functionName",
           "returnType"
         ],
-        "type" : "object"
+        "type": "object"
       },
-      "ApiTable" : {
-        "properties" : {
-          "columns" : {
-            "items" : {
-              "$ref" : "#/components/schemas/ApiColumn"
+      "ApiTable": {
+        "properties": {
+          "columns": {
+            "items": {
+              "$ref": "#/components/schemas/ApiColumn"
             },
-            "type" : "array"
+            "type": "array"
           },
-          "name" : {
-            "type" : "string"
+          "name": {
+            "type": "string"
           },
-          "position" : {
-            "format" : "int32",
-            "type" : "integer"
+          "position": {
+            "format": "int32",
+            "type": "integer"
           }
         },
-        "required" : [
+        "required": [
           "name",
           "position"
         ],
-        "type" : "object"
+        "type": "object"
       },
-      "ApiTableData" : {
-        "properties" : {
-          "rows" : {
-            "items" : {
-              "$ref" : "#/components/schemas/TableRow"
+      "ApiTableData": {
+        "properties": {
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/TableRow"
             },
-            "type" : "array"
+            "type": "array"
           }
         },
-        "type" : "object"
+        "type": "object"
       },
-      "ApiWorkspace" : {
-        "properties" : {
-          "externalFunctions" : {
-            "items" : {
-              "$ref" : "#/components/schemas/ApiExternalFunction"
+      "ApiWorkspace": {
+        "properties": {
+          "externalFunctions": {
+            "items": {
+              "$ref": "#/components/schemas/ApiExternalFunction"
             },
-            "type" : "array"
+            "type": "array"
           },
-          "name" : {
-            "type" : "string"
+          "name": {
+            "type": "string"
           },
-          "tables" : {
-            "items" : {
-              "$ref" : "#/components/schemas/ApiTable"
+          "tables": {
+            "items": {
+              "$ref": "#/components/schemas/ApiTable"
             },
-            "type" : "array"
+            "type": "array"
           }
         },
-        "required" : [
+        "required": [
           "name"
         ],
-        "type" : "object"
+        "type": "object"
       },
-      "PresignedUrl" : {
-        "properties" : {
-          "description" : {
-            "type" : "string"
+      "PresignedUrl": {
+        "properties": {
+          "description": {
+            "type": "string"
           },
-          "putUrl" : {
-            "type" : "string"
+          "putUrl": {
+            "type": "string"
           }
         },
-        "required" : [
+        "required": [
           "putUrl",
           "description"
         ],
-        "type" : "object"
+        "type": "object"
       },
-      "TableRow" : {
-        "properties" : {
-          "id" : {
-            "format" : "int32",
-            "type" : "integer"
+      "TableRow": {
+        "properties": {
+          "id": {
+            "format": "int32",
+            "type": "integer"
           },
-          "values" : {
-            "items" : {
-              "type" : "string"
+          "values": {
+            "items": {
+              "type": "string"
             },
-            "type" : "array"
+            "type": "array"
           }
         },
-        "required" : [
+        "required": [
           "id"
         ],
-        "type" : "object"
+        "type": "object"
       }
     },
-    "securitySchemes" : {
-      "oauth2Auth" : {
-        "flows" : {
-          "authorizationCode" : {
-            "authorizationUrl" : "https://auth.alpha.priceloop.ai/oauth2/authorize",
-            "scopes" : {
-              "user/api" : "Access to the Priceloop API"
+    "securitySchemes": {
+      "oauth2Auth": {
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://auth.alpha-dev.priceloop.ai/oauth2/authorize",
+            "scopes": {
+              "user/api": "Access to the Priceloop API"
             },
-            "tokenUrl" : "https://auth.alpha.priceloop.ai/oauth2/token"
+            "tokenUrl": "https://auth.alpha-dev.priceloop.ai/oauth2/token"
           }
         },
-        "type" : "oauth2"
+        "type": "oauth2"
       }
     }
   },
-  "info" : {
-    "description" : "Connect to your Priceloop Data through our API.",
-    "title" : "Priceloop-API",
-    "version" : "v0.65.6"
+  "info": {
+    "description": "Connect to your Priceloop Data through our API.",
+    "title": "Priceloop-API",
+    "version": "v0.65.7-beta"
   },
-  "openapi" : "3.0.3",
-  "paths" : {
-    "/api/v1.0/hello" : {
-      "get" : {
-        "operationId" : "hello",
-        "responses" : {
-          "200" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+  "openapi": "3.0.3",
+  "paths": {
+    "/api/v1.0/hello": {
+      "get": {
+        "operationId": "hello",
+        "responses": {
+          "200": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           },
-          "default" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "default": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           }
         }
       }
     },
-    "/api/v1.0/hello-auth" : {
-      "get" : {
-        "operationId" : "helloAuth",
-        "responses" : {
-          "200" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+    "/api/v1.0/hello-auth": {
+      "get": {
+        "operationId": "helloAuth",
+        "responses": {
+          "200": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           },
-          "default" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "default": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           }
         },
-        "security" : [
+        "security": [
           {
-            "oauth2Auth" : [
-            ]
+            "oauth2Auth": []
           }
         ]
       }
     },
-    "/api/v1.0/redirect" : {
-      "get" : {
-        "operationId" : "redirect",
-        "parameters" : [
+    "/api/v1.0/redirect": {
+      "get": {
+        "operationId": "redirect",
+        "parameters": [
           {
-            "in" : "query",
-            "name" : "state",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "query",
+            "name": "state",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "query",
-            "name" : "selling_partner_id",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "query",
+            "name": "selling_partner_id",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "query",
-            "name" : "spapi_oauth_code",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "query",
+            "name": "spapi_oauth_code",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           }
         ],
-        "responses" : {
-          "303" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+        "responses": {
+          "303": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : "",
-            "headers" : {
-              "Location" : {
-                "required" : true,
-                "schema" : {
-                  "type" : "string"
+            "description": "",
+            "headers": {
+              "Location": {
+                "required": true,
+                "schema": {
+                  "type": "string"
                 }
               }
             }
           },
-          "400" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "400": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : "Invalid value for: query parameter state, Invalid value for: query parameter selling_partner_id, Invalid value for: query parameter spapi_oauth_code"
+            "description": "Invalid value for: query parameter state, Invalid value for: query parameter selling_partner_id, Invalid value for: query parameter spapi_oauth_code"
           },
-          "default" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "default": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           }
         }
       }
     },
-    "/api/v1.0/workspaces" : {
-      "get" : {
-        "description" : "List all your existing workspaces.",
-        "operationId" : "listWorkspaces",
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "items" : {
-                    "type" : "string"
+    "/api/v1.0/workspaces": {
+      "get": {
+        "description": "List all your existing workspaces.",
+        "operationId": "listWorkspaces",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "string"
                   },
-                  "type" : "array"
+                  "type": "array"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           },
-          "default" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "default": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           }
         },
-        "security" : [
+        "security": [
           {
-            "oauth2Auth" : [
-            ]
+            "oauth2Auth": []
           }
         ]
       }
     },
-    "/api/v1.0/workspaces/{workspace}" : {
-      "get" : {
-        "description" : "Get all details about your workspace.",
-        "operationId" : "getWorkspace",
-        "parameters" : [
+    "/api/v1.0/workspaces/{workspace}": {
+      "get": {
+        "description": "Get all details about your workspace.",
+        "operationId": "getWorkspace",
+        "parameters": [
           {
-            "in" : "path",
-            "name" : "workspace",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "workspace",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           }
         ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ApiWorkspace"
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiWorkspace"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           },
-          "default" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "default": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           }
         },
-        "security" : [
+        "security": [
           {
-            "oauth2Auth" : [
-            ]
+            "oauth2Auth": []
           }
         ]
       },
-      "post" : {
-        "description" : "Create a workspace from a userId.",
-        "operationId" : "createWorkspace",
-        "parameters" : [
+      "post": {
+        "description": "Create a workspace from a userId.",
+        "operationId": "createWorkspace",
+        "parameters": [
           {
-            "in" : "path",
-            "name" : "workspace",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "workspace",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           }
         ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "type" : "string"
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           },
-          "default" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "default": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           }
         },
-        "security" : [
+        "security": [
           {
-            "oauth2Auth" : [
-            ]
+            "oauth2Auth": []
           }
         ]
       }
     },
-    "/api/v1.0/workspaces/{workspace}/external-functions/{function}" : {
-      "delete" : {
-        "description" : "Delete an existing external function.",
-        "operationId" : "deleteExternalFunction",
-        "parameters" : [
+    "/api/v1.0/workspaces/{workspace}/external-functions/{function}": {
+      "delete": {
+        "description": "Delete an existing external function.",
+        "operationId": "deleteExternalFunction",
+        "parameters": [
           {
-            "in" : "path",
-            "name" : "workspace",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "workspace",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "path",
-            "name" : "function",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
-            }
-          }
-        ],
-        "responses" : {
-          "200" : {
-            "description" : ""
-          },
-          "default" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            },
-            "description" : ""
-          }
-        },
-        "security" : [
-          {
-            "oauth2Auth" : [
-            ]
-          }
-        ]
-      },
-      "get" : {
-        "description" : "Get details about your existing external function.",
-        "operationId" : "getExternalFunctions",
-        "parameters" : [
-          {
-            "in" : "path",
-            "name" : "workspace",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
-            }
-          },
-          {
-            "in" : "path",
-            "name" : "function",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "function",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           }
         ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ApiExternalFunction"
-                }
-              }
-            },
-            "description" : ""
+        "responses": {
+          "200": {
+            "description": ""
           },
-          "default" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "default": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           }
         },
-        "security" : [
+        "security": [
           {
-            "oauth2Auth" : [
-            ]
+            "oauth2Auth": []
           }
         ]
       },
-      "post" : {
-        "description" : "Create a new external function, specifying the function name, runtime, return type and the paremeter types. This API endpoint returns a url, to which you can upload your function code. You can do a PUT request on the returned url, e.g.: curl -XPUT -T <zip-file> '<url>'.",
-        "operationId" : "createExternalFunction",
-        "parameters" : [
+      "get": {
+        "description": "Get details about your existing external function.",
+        "operationId": "getExternalFunctions",
+        "parameters": [
           {
-            "in" : "path",
-            "name" : "workspace",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "workspace",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "path",
-            "name" : "function",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "function",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiExternalFunction"
+                }
+              }
+            },
+            "description": ""
+          },
+          "default": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "oauth2Auth": []
+          }
+        ]
+      },
+      "post": {
+        "description": "Create a new external function, specifying the function name, runtime, return type and the paremeter types. This API endpoint returns a url, to which you can upload your function code. You can do a PUT request on the returned url, e.g.: curl -XPUT -T <zip-file> '<url>'.",
+        "operationId": "createExternalFunction",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "workspace",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "query",
-            "name" : "runtime",
-            "required" : true,
-            "schema" : {
-              "enum" : [
+            "in": "path",
+            "name": "function",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "runtime",
+            "required": true,
+            "schema": {
+              "enum": [
                 "python",
                 "python_numpy",
                 "python_pandas",
                 "nodejs",
                 "go"
               ],
-              "type" : "string"
+              "type": "string"
             }
           },
           {
-            "in" : "query",
-            "name" : "returnType",
-            "required" : true,
-            "schema" : {
-              "enum" : [
+            "in": "query",
+            "name": "returnType",
+            "required": true,
+            "schema": {
+              "enum": [
                 "number",
                 "string",
                 "boolean",
                 "date",
                 "json"
               ],
-              "type" : "string"
+              "type": "string"
             }
           },
           {
-            "description" : "Specify parameter types. Expected: number,string,boolean,date,json",
-            "in" : "query",
-            "name" : "paramType",
-            "required" : false,
-            "schema" : {
-              "items" : {
-                "type" : "string"
+            "description": "Specify parameter types. Expected: number,string,boolean,date,json",
+            "in": "query",
+            "name": "paramType",
+            "required": false,
+            "schema": {
+              "items": {
+                "type": "string"
               },
-              "type" : "array"
+              "type": "array"
             }
           }
         ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/PresignedUrl"
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PresignedUrl"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           },
-          "400" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "400": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : "Invalid value for: query parameter runtime, Invalid value for: query parameter returnType, Invalid value for: query parameter paramType"
+            "description": "Invalid value for: query parameter runtime, Invalid value for: query parameter returnType, Invalid value for: query parameter paramType"
           },
-          "default" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "default": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           }
         },
-        "security" : [
+        "security": [
           {
-            "oauth2Auth" : [
-            ]
+            "oauth2Auth": []
           }
         ]
       },
-      "put" : {
-        "description" : "Create the code of an existing external function. This API endpoint returns a url, to which you can upload your function code. You can do a PUT request on the returned url, e.g.: curl -XPUT -T <zip-file> '<url>'.",
-        "operationId" : "updateExternalFunction",
-        "parameters" : [
+      "put": {
+        "description": "Create the code of an existing external function. This API endpoint returns a url, to which you can upload your function code. You can do a PUT request on the returned url, e.g.: curl -XPUT -T <zip-file> '<url>'.",
+        "operationId": "updateExternalFunction",
+        "parameters": [
           {
-            "in" : "path",
-            "name" : "workspace",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "workspace",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "path",
-            "name" : "function",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "function",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           }
         ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/PresignedUrl"
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PresignedUrl"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           },
-          "default" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "default": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           }
         },
-        "security" : [
+        "security": [
           {
-            "oauth2Auth" : [
-            ]
+            "oauth2Auth": []
           }
         ]
       }
     },
-    "/api/v1.0/workspaces/{workspace}/tables/{table}" : {
-      "delete" : {
-        "description" : "Delete your table.",
-        "operationId" : "deleteTable",
-        "parameters" : [
+    "/api/v1.0/workspaces/{workspace}/tables/{table}": {
+      "delete": {
+        "description": "Delete your table.",
+        "operationId": "deleteTable",
+        "parameters": [
           {
-            "in" : "path",
-            "name" : "workspace",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "workspace",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "path",
-            "name" : "table",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           }
         ],
-        "responses" : {
-          "200" : {
-            "description" : ""
+        "responses": {
+          "200": {
+            "description": ""
           },
-          "default" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "default": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           }
         },
-        "security" : [
+        "security": [
           {
-            "oauth2Auth" : [
-            ]
+            "oauth2Auth": []
           }
         ]
       },
-      "get" : {
-        "description" : "Get the metadata of your table.",
-        "operationId" : "getTable",
-        "parameters" : [
+      "get": {
+        "description": "Get the metadata of your table.",
+        "operationId": "getTable",
+        "parameters": [
           {
-            "in" : "path",
-            "name" : "workspace",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "workspace",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "path",
-            "name" : "table",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           }
         ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ApiTable"
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiTable"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           },
-          "default" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "default": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           }
         },
-        "security" : [
+        "security": [
           {
-            "oauth2Auth" : [
-            ]
+            "oauth2Auth": []
           }
         ]
       }
     },
-    "/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}" : {
-      "put" : {
-        "description" : "Change column position in a table.",
-        "operationId" : "updateColumnPosition",
-        "parameters" : [
+    "/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}": {
+      "put": {
+        "description": "Change column position in a table.",
+        "operationId": "updateColumnPosition",
+        "parameters": [
           {
-            "in" : "path",
-            "name" : "workspace",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "workspace",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "path",
-            "name" : "table",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "path",
-            "name" : "column",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "column",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "query",
-            "name" : "position",
-            "required" : true,
-            "schema" : {
-              "format" : "int32",
-              "type" : "integer"
+            "in": "query",
+            "name": "position",
+            "required": true,
+            "schema": {
+              "format": "int32",
+              "type": "integer"
             }
           }
         ],
-        "responses" : {
-          "200" : {
-            "description" : ""
+        "responses": {
+          "200": {
+            "description": ""
           },
-          "400" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "400": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : "Invalid value for: query parameter position"
+            "description": "Invalid value for: query parameter position"
           },
-          "default" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "default": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           }
         },
-        "security" : [
+        "security": [
           {
-            "oauth2Auth" : [
-            ]
+            "oauth2Auth": []
           }
         ]
       }
     },
-    "/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/data" : {
-      "post" : {
-        "description" : "Add a data column to a table.",
-        "operationId" : "addDataColumn",
-        "parameters" : [
+    "/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/data": {
+      "post": {
+        "description": "Add a data column to a table.",
+        "operationId": "addDataColumn",
+        "parameters": [
           {
-            "in" : "path",
-            "name" : "workspace",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "workspace",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "path",
-            "name" : "table",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "path",
-            "name" : "column",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "column",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "query",
-            "name" : "type",
-            "required" : false,
-            "schema" : {
-              "default" : "string",
-              "enum" : [
+            "in": "query",
+            "name": "type",
+            "required": false,
+            "schema": {
+              "default": "string",
+              "enum": [
                 "string",
                 "number",
                 "boolean",
                 "date",
                 "json"
               ],
-              "type" : "string"
+              "type": "string"
             }
           }
         ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ApiColumn"
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiColumn"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           },
-          "400" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "400": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : "Invalid value for: query parameter type"
+            "description": "Invalid value for: query parameter type"
           },
-          "default" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "default": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           }
         },
-        "security" : [
+        "security": [
           {
-            "oauth2Auth" : [
-            ]
+            "oauth2Auth": []
           }
         ]
       }
     },
-    "/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/formula" : {
-      "post" : {
-        "description" : "Add an expression column to a table.",
-        "operationId" : "addFormulaColumn",
-        "parameters" : [
+    "/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/formula": {
+      "post": {
+        "description": "Add an expression column to a table.",
+        "operationId": "addFormulaColumn",
+        "parameters": [
           {
-            "in" : "path",
-            "name" : "workspace",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "workspace",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "path",
-            "name" : "table",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "path",
-            "name" : "column",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "column",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "query",
-            "name" : "expression",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "query",
+            "name": "expression",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           }
         ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ApiColumn"
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiColumn"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           },
-          "400" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "400": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : "Invalid value for: query parameter expression"
+            "description": "Invalid value for: query parameter expression"
           },
-          "default" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "default": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           }
         },
-        "security" : [
+        "security": [
           {
-            "oauth2Auth" : [
-            ]
+            "oauth2Auth": []
           }
         ]
       }
     },
-    "/api/v1.0/workspaces/{workspace}/tables/{table}/data" : {
-      "get" : {
-        "description" : "Get the data of your table.",
-        "operationId" : "getTableData",
-        "parameters" : [
+    "/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/visibility": {
+      "put": {
+        "description": "Change column visibility in a table.",
+        "operationId": "updateColumnVisibility",
+        "parameters": [
           {
-            "in" : "path",
-            "name" : "workspace",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "workspace",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "path",
-            "name" : "table",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "query",
-            "name" : "limit",
-            "required" : true,
-            "schema" : {
-              "exclusiveMinimum" : true,
-              "format" : "int32",
-              "minimum" : 0,
-              "type" : "integer"
+            "in": "path",
+            "name": "column",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "query",
-            "name" : "offset",
-            "required" : true,
-            "schema" : {
-              "format" : "int32",
-              "minimum" : 0,
-              "type" : "integer"
+            "in": "query",
+            "name": "visibility",
+            "required": true,
+            "schema": {
+              "type": "boolean"
             }
           }
         ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/ApiTableData"
-                }
-              }
-            },
-            "description" : ""
+        "responses": {
+          "200": {
+            "description": ""
           },
-          "400" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "400": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : "Invalid value for: query parameter limit, Invalid value for: query parameter offset"
+            "description": "Invalid value for: query parameter visibility"
           },
-          "default" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "default": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           }
         },
-        "security" : [
+        "security": [
           {
-            "oauth2Auth" : [
-            ]
+            "oauth2Auth": []
           }
         ]
       }
     },
-    "/api/v1.0/workspaces/{workspace}/tables/{table}/truncate" : {
-      "post" : {
-        "description" : "Truncate your table.",
-        "operationId" : "truncateTable",
-        "parameters" : [
+    "/api/v1.0/workspaces/{workspace}/tables/{table}/data": {
+      "get": {
+        "description": "Get the data of your table.",
+        "operationId": "getTableData",
+        "parameters": [
           {
-            "in" : "path",
-            "name" : "workspace",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "workspace",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "path",
-            "name" : "table",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": true,
+            "schema": {
+              "exclusiveMinimum": true,
+              "format": "int32",
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": true,
+            "schema": {
+              "format": "int32",
+              "minimum": 0,
+              "type": "integer"
             }
           }
         ],
-        "responses" : {
-          "200" : {
-            "description" : ""
-          },
-          "default" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiTableData"
                 }
               }
             },
-            "description" : ""
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": "Invalid value for: query parameter limit, Invalid value for: query parameter offset"
+          },
+          "default": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": ""
           }
         },
-        "security" : [
+        "security": [
           {
-            "oauth2Auth" : [
-            ]
+            "oauth2Auth": []
           }
         ]
       }
     },
-    "/api/v1.0/workspaces/{workspace}/tables/{table}/upload-csv-url" : {
-      "get" : {
-        "description" : "Upload a CSV file into your table. This API endpoint returns a url, to which you can upload your csv file. You can do a PUT request on the returned url, e.g.: curl -XPUT -T <csv-file> '<url>'.",
-        "operationId" : "getTableUploadCsvUrl",
-        "parameters" : [
+    "/api/v1.0/workspaces/{workspace}/tables/{table}/truncate": {
+      "post": {
+        "description": "Truncate your table.",
+        "operationId": "truncateTable",
+        "parameters": [
           {
-            "in" : "path",
-            "name" : "workspace",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "workspace",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "path",
-            "name" : "table",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "default": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "oauth2Auth": []
+          }
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/tables/{table}/upload-csv-url": {
+      "get": {
+        "description": "Upload a CSV file into your table. This API endpoint returns a url, to which you can upload your csv file. You can do a PUT request on the returned url, e.g.: curl -XPUT -T <csv-file> '<url>'.",
+        "operationId": "getTableUploadCsvUrl",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "workspace",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
           {
-            "in" : "query",
-            "name" : "mode",
-            "required" : false,
-            "schema" : {
-              "default" : "new",
-              "enum" : [
+            "in": "path",
+            "name": "table",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "mode",
+            "required": false,
+            "schema": {
+              "default": "new",
+              "enum": [
                 "new",
                 "delete_and_recreate",
                 "replace_data",
                 "append_data"
               ],
-              "type" : "string"
+              "type": "string"
             }
           }
         ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/PresignedUrl"
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PresignedUrl"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           },
-          "400" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "400": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : "Invalid value for: query parameter mode"
+            "description": "Invalid value for: query parameter mode"
           },
-          "default" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
+          "default": {
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
                 }
               }
             },
-            "description" : ""
+            "description": ""
           }
         },
-        "security" : [
+        "security": [
           {
-            "oauth2Auth" : [
-            ]
+            "oauth2Auth": []
           }
         ]
       }

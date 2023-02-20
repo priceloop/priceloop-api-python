@@ -12,6 +12,8 @@ from priceloop_api.api.default import (
     get_table_data,
 )
 
+d = {"t": True, "f": False}
+
 
 def to_nocode(
     df: pd.DataFrame,
@@ -48,9 +50,11 @@ def read_nocode(
     raw_header = get_table.sync(workspace_name, table_name, client=client)
 
     header = [i.name for i in raw_header.columns]
+    boolean_cols = [i.name for i in raw_header.columns if i.tpe == "boolean"]
     raw_table_data = get_table_data.sync(workspace_name, table_name, client=client, limit=limit, offset=offset)
-
     table_data = pd.DataFrame([v.values for v in raw_table_data.rows], columns=header)
+    for col in boolean_cols:
+        table_data[col] = table_data[col].map(d)
     # To-do: infer type from nocode
     table_data.to_csv(csv_buffer, index=None)
     csv_buffer.seek(0)

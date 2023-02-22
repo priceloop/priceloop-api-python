@@ -10,6 +10,7 @@ from .create_external_function_return_type import CreateExternalFunctionReturnTy
 from .create_external_function_runtime import CreateExternalFunctionRuntime
 from .get_table_upload_csv_url_mode import GetTableUploadCsvUrlMode
 from .presigned_url import PresignedUrl
+from .status import Status
 from .table_row import TableRow
 
 __all__ = (
@@ -23,5 +24,6 @@ __all__ = (
     "CreateExternalFunctionRuntime",
     "GetTableUploadCsvUrlMode",
     "PresignedUrl",
+    "Status",
     "TableRow",
 )

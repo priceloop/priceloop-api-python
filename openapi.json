@@ -1,6 +1,42 @@
 {
   "components" : {
     "schemas" : {
+      "Active" : {
+        "type" : "object"
+      },
+      "Ape" : {
+        "type" : "object"
+      },
+      "ApeData" : {
+        "properties" : {
+          "typeform" : {
+            "$ref" : "#/components/schemas/ApeDataTypeform"
+          }
+        },
+        "required" : [
+          "typeform"
+        ],
+        "type" : "object"
+      },
+      "ApeDataTypeform" : {
+        "properties" : {
+          "embedId" : {
+            "type" : "string"
+          },
+          "formId" : {
+            "type" : "string"
+          },
+          "responseId" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "embedId",
+          "responseId",
+          "formId"
+        ],
+        "type" : "object"
+      },
       "ApiColumn" : {
         "properties" : {
           "name" : {
@@ -102,6 +138,64 @@
         ],
         "type" : "object"
       },
+      "Inactive" : {
+        "type" : "object"
+      },
+      "Plugin" : {
+        "properties" : {
+          "data" : {
+            "$ref" : "#/components/schemas/PluginData"
+          },
+          "externalData" : {
+            "type" : "object"
+          },
+          "name" : {
+            "$ref" : "#/components/schemas/PluginName"
+          },
+          "status" : {
+            "$ref" : "#/components/schemas/PluginStatus"
+          }
+        },
+        "required" : [
+          "name",
+          "status",
+          "data",
+          "externalData"
+        ],
+        "type" : "object"
+      },
+      "PluginData" : {
+        "oneOf" : [
+          {
+            "$ref" : "#/components/schemas/ApeData"
+          }
+        ]
+      },
+      "PluginName" : {
+        "oneOf" : [
+          {
+            "$ref" : "#/components/schemas/Ape"
+          }
+        ]
+      },
+      "PluginStatus" : {
+        "oneOf" : [
+          {
+            "$ref" : "#/components/schemas/Active"
+          },
+          {
+            "$ref" : "#/components/schemas/Inactive"
+          }
+        ]
+      },
+      "PluginTokens" : {
+        "properties" : {
+          "amazonSellerRefreshToken" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
       "PresignedUrl" : {
         "properties" : {
           "description" : {
@@ -171,7 +265,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.72.1"
+    "version" : "v0.74.1"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -676,6 +770,123 @@
         ]
       }
     },
+    "/api/v1.0/workspaces/{workspace}/plugin/{plugin}" : {
+      "get" : {
+        "description" : "Get details about the ape plugin inside a workspace",
+        "operationId" : "getPlugin",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Plugin"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "default" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/external-data" : {
+      "post" : {
+        "description" : "Set external data of APE plugin",
+        "operationId" : "setPluginExternalData",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Invalid value for: body"
+          },
+          "default" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ]
+      }
+    },
     "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/import-errors" : {
       "get" : {
         "description" : "Get details about the import state of all ape tables",
@@ -704,6 +915,123 @@
               "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Status"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "default" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/status" : {
+      "post" : {
+        "description" : "Set external data of APE plugin",
+        "operationId" : "setPluginStatus",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PluginStatus"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Invalid value for: body"
+          },
+          "default" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/tokens" : {
+      "get" : {
+        "description" : "Get plugin tokens",
+        "operationId" : "getPluginTokens",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PluginTokens"
                 }
               }
             },
@@ -1039,6 +1367,77 @@
               }
             },
             "description" : "Invalid value for: query parameter expression"
+          },
+          "default" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/is-gui-locked" : {
+      "put" : {
+        "description" : "Change whether a column is locked (non-editable) in the GUI (webapp).",
+        "operationId" : "updateColumnIsGuiLocked",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "table",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "column",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "query",
+            "name" : "is-gui-locked",
+            "required" : true,
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Invalid value for: query parameter is-gui-locked"
           },
           "default" : {
             "content" : {

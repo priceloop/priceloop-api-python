@@ -4,6 +4,20 @@
       "Active" : {
         "type" : "object"
       },
+      "Amazon" : {
+        "properties" : {
+          "refreshToken" : {
+            "type" : "string"
+          },
+          "sellingPartnerId" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "refreshToken"
+        ],
+        "type" : "object"
+      },
       "Ape" : {
         "type" : "object"
       },
@@ -138,6 +152,84 @@
         ],
         "type" : "object"
       },
+      "CsvSeparator" : {
+        "properties" : {
+          "separator" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "separator"
+        ],
+        "type" : "object"
+      },
+      "ImportJob" : {
+        "properties" : {
+          "createdAt" : {
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "csvSeparator" : {
+            "$ref" : "#/components/schemas/CsvSeparator"
+          },
+          "finishedAt" : {
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "id" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "isSuccessful" : {
+            "type" : "boolean"
+          },
+          "message" : {
+            "type" : "string"
+          },
+          "s3Key" : {
+            "$ref" : "#/components/schemas/S3Key"
+          },
+          "startedAt" : {
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "tableImportMode" : {
+            "type" : "string"
+          },
+          "tableName" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "id",
+          "createdAt",
+          "s3Key",
+          "tableName",
+          "csvSeparator",
+          "tableImportMode"
+        ],
+        "type" : "object"
+      },
+      "ImportJobResponse" : {
+        "properties" : {
+          "importJobId" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "infoMessage" : {
+            "type" : "string"
+          },
+          "putUrl" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "importJobId",
+          "putUrl",
+          "infoMessage"
+        ],
+        "type" : "object"
+      },
       "Inactive" : {
         "type" : "object"
       },
@@ -190,8 +282,8 @@
       },
       "PluginTokens" : {
         "properties" : {
-          "amazonSellerRefreshToken" : {
-            "type" : "string"
+          "amazon" : {
+            "$ref" : "#/components/schemas/Amazon"
           }
         },
         "type" : "object"
@@ -211,20 +303,14 @@
         ],
         "type" : "object"
       },
-      "Status" : {
+      "S3Key" : {
         "properties" : {
-          "messages" : {
-            "items" : {
-              "type" : "string"
-            },
-            "type" : "array"
-          },
-          "valid" : {
-            "type" : "boolean"
+          "value" : {
+            "type" : "string"
           }
         },
         "required" : [
-          "valid"
+          "value"
         ],
         "type" : "object"
       },
@@ -265,7 +351,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.74.1"
+    "version" : "v0.77.1"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -503,6 +589,69 @@
               }
             },
             "description" : ""
+          },
+          "default" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/csv-import-jobs/{import-job-id}" : {
+      "get" : {
+        "description" : "Gets the current state of the import job.",
+        "operationId" : "getCsvImportJob",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "import-job-id",
+            "required" : true,
+            "schema" : {
+              "format" : "int32",
+              "type" : "integer"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ImportJob"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Invalid value for: path parameter import-job-id"
           },
           "default" : {
             "content" : {
@@ -820,6 +969,71 @@
             ]
           }
         ]
+      },
+      "put" : {
+        "description" : "Set external data of APE plugin",
+        "operationId" : "setPluginStatus",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "query",
+            "name" : "status",
+            "required" : false,
+            "schema" : {
+              "enum" : [
+                "active",
+                "inactive"
+              ],
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Invalid value for: query parameter status"
+          },
+          "default" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ]
       }
     },
     "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/external-data" : {
@@ -887,10 +1101,10 @@
         ]
       }
     },
-    "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/import-errors" : {
+    "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/prepare-ape-tables" : {
       "get" : {
         "description" : "Get details about the import state of all ape tables",
-        "operationId" : "getImportErrors",
+        "operationId" : "prepareApeTables",
         "parameters" : [
           {
             "in" : "path",
@@ -911,79 +1125,7 @@
         ],
         "responses" : {
           "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/Status"
-                }
-              }
-            },
             "description" : ""
-          },
-          "default" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            },
-            "description" : ""
-          }
-        },
-        "security" : [
-          {
-            "oauth2Auth" : [
-            ]
-          }
-        ]
-      }
-    },
-    "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/status" : {
-      "post" : {
-        "description" : "Set external data of APE plugin",
-        "operationId" : "setPluginStatus",
-        "parameters" : [
-          {
-            "in" : "path",
-            "name" : "workspace",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
-            }
-          },
-          {
-            "in" : "path",
-            "name" : "plugin",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
-            }
-          }
-        ],
-        "requestBody" : {
-          "content" : {
-            "application/json" : {
-              "schema" : {
-                "$ref" : "#/components/schemas/PluginStatus"
-              }
-            }
-          },
-          "required" : true
-        },
-        "responses" : {
-          "200" : {
-            "description" : ""
-          },
-          "400" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            },
-            "description" : "Invalid value for: body"
           },
           "default" : {
             "content" : {
@@ -1152,6 +1294,57 @@
       }
     },
     "/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}" : {
+      "delete" : {
+        "description" : "Delete column by column name.",
+        "operationId" : "deleteColumn",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "table",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "column",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "default" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ]
+      },
       "put" : {
         "description" : "Change column position in a table.",
         "operationId" : "updateColumnPosition",
@@ -1509,6 +1702,91 @@
               }
             },
             "description" : "Invalid value for: query parameter hide"
+          },
+          "default" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/tables/{table}/csv-import-jobs" : {
+      "post" : {
+        "description" : "Upload a CSV file into your table. This API endpoint returns a url, to which you can upload your csv file. You can do a PUT request on the returned url, e.g.: curl -XPUT -T <csv-file> '<url>'.",
+        "operationId" : "createCsvImportJob",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "table",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "query",
+            "name" : "mode",
+            "required" : true,
+            "schema" : {
+              "enum" : [
+                "new",
+                "delete_and_recreate",
+                "replace_data",
+                "append_data"
+              ],
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "query",
+            "name" : "separator",
+            "required" : false,
+            "schema" : {
+              "default" : ",",
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ImportJobResponse"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Invalid value for: query parameter mode"
           },
           "default" : {
             "content" : {

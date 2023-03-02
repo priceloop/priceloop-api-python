@@ -1,57 +1,58 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 
-from ..types import UNSET, Unset
-
-if TYPE_CHECKING:
-    from ..models.amazon import Amazon
-
-
-T = TypeVar("T", bound="PluginTokens")
+T = TypeVar("T", bound="ImportJobResponse")
 
 
 @attr.s(auto_attribs=True)
-class PluginTokens:
+class ImportJobResponse:
     """
     Attributes:
-        amazon (Union[Unset, Amazon]):
+        import_job_id (int):
+        info_message (str):
+        put_url (str):
     """
 
-    amazon: Union[Unset, "Amazon"] = UNSET
+    import_job_id: int
+    info_message: str
+    put_url: str
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        amazon: Union[Unset, Dict[str, Any]] = UNSET
-        if not isinstance(self.amazon, Unset):
-            amazon = self.amazon.to_dict()
+        import_job_id = self.import_job_id
+        info_message = self.info_message
+        put_url = self.put_url
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if amazon is not UNSET:
-            field_dict["amazon"] = amazon
+        field_dict.update(
+            {
+                "importJobId": import_job_id,
+                "infoMessage": info_message,
+                "putUrl": put_url,
+            }
+        )
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.amazon import Amazon
-
         d = src_dict.copy()
-        _amazon = d.pop("amazon", UNSET)
-        amazon: Union[Unset, Amazon]
-        if isinstance(_amazon, Unset):
-            amazon = UNSET
-        else:
-            amazon = Amazon.from_dict(_amazon)
+        import_job_id = d.pop("importJobId")
 
-        plugin_tokens = cls(
-            amazon=amazon,
+        info_message = d.pop("infoMessage")
+
+        put_url = d.pop("putUrl")
+
+        import_job_response = cls(
+            import_job_id=import_job_id,
+            info_message=info_message,
+            put_url=put_url,
         )
 
-        plugin_tokens.additional_properties = d
-        return plugin_tokens
+        import_job_response.additional_properties = d
+        return import_job_response
 
     @property
     def additional_keys(self) -> List[str]:

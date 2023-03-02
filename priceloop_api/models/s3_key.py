@@ -1,57 +1,44 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 
-from ..types import UNSET, Unset
-
-if TYPE_CHECKING:
-    from ..models.amazon import Amazon
-
-
-T = TypeVar("T", bound="PluginTokens")
+T = TypeVar("T", bound="S3Key")
 
 
 @attr.s(auto_attribs=True)
-class PluginTokens:
+class S3Key:
     """
     Attributes:
-        amazon (Union[Unset, Amazon]):
+        value (str):
     """
 
-    amazon: Union[Unset, "Amazon"] = UNSET
+    value: str
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        amazon: Union[Unset, Dict[str, Any]] = UNSET
-        if not isinstance(self.amazon, Unset):
-            amazon = self.amazon.to_dict()
+        value = self.value
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if amazon is not UNSET:
-            field_dict["amazon"] = amazon
+        field_dict.update(
+            {
+                "value": value,
+            }
+        )
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.amazon import Amazon
-
         d = src_dict.copy()
-        _amazon = d.pop("amazon", UNSET)
-        amazon: Union[Unset, Amazon]
-        if isinstance(_amazon, Unset):
-            amazon = UNSET
-        else:
-            amazon = Amazon.from_dict(_amazon)
+        value = d.pop("value")
 
-        plugin_tokens = cls(
-            amazon=amazon,
+        s3_key = cls(
+            value=value,
         )
 
-        plugin_tokens.additional_properties = d
-        return plugin_tokens
+        s3_key.additional_properties = d
+        return s3_key
 
     @property
     def additional_keys(self) -> List[str]:

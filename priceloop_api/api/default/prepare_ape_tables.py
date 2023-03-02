@@ -1,12 +1,11 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, Optional
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.set_plugin_status_status import SetPluginStatusStatus
-from ...types import UNSET, Response, Unset
+from ...types import Response
 
 
 def _get_kwargs(
@@ -14,31 +13,20 @@ def _get_kwargs(
     plugin: str,
     *,
     client: AuthenticatedClient,
-    status: Union[Unset, None, SetPluginStatusStatus] = UNSET,
 ) -> Dict[str, Any]:
-    url = "{}/api/v1.0/workspaces/{workspace}/plugin/{plugin}".format(
+    url = "{}/api/v1.0/workspaces/{workspace}/plugin/{plugin}/prepare-ape-tables".format(
         client.base_url, workspace=workspace, plugin=plugin
     )
 
     headers: Dict[str, str] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
 
-    params: Dict[str, Any] = {}
-    json_status: Union[Unset, None, str] = UNSET
-    if not isinstance(status, Unset):
-        json_status = status.value if status else None
-
-    params["status"] = json_status
-
-    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
     return {
-        "method": "put",
+        "method": "get",
         "url": url,
         "headers": headers,
         "cookies": cookies,
         "timeout": client.get_timeout(),
-        "params": params,
     }
 
 
@@ -65,14 +53,12 @@ def sync_detailed(
     plugin: str,
     *,
     client: AuthenticatedClient,
-    status: Union[Unset, None, SetPluginStatusStatus] = UNSET,
 ) -> Response[Any]:
-    """Set external data of APE plugin
+    """Get details about the import state of all ape tables
 
     Args:
         workspace (str):
         plugin (str):
-        status (Union[Unset, None, SetPluginStatusStatus]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -86,7 +72,6 @@ def sync_detailed(
         workspace=workspace,
         plugin=plugin,
         client=client,
-        status=status,
     )
 
     response = httpx.request(
@@ -102,14 +87,12 @@ async def asyncio_detailed(
     plugin: str,
     *,
     client: AuthenticatedClient,
-    status: Union[Unset, None, SetPluginStatusStatus] = UNSET,
 ) -> Response[Any]:
-    """Set external data of APE plugin
+    """Get details about the import state of all ape tables
 
     Args:
         workspace (str):
         plugin (str):
-        status (Union[Unset, None, SetPluginStatusStatus]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -123,7 +106,6 @@ async def asyncio_detailed(
         workspace=workspace,
         plugin=plugin,
         client=client,
-        status=status,
     )
 
     async with httpx.AsyncClient(verify=client.verify_ssl) as _client:

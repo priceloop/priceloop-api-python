@@ -1,56 +1,44 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 
-from ..types import UNSET, Unset
-
-T = TypeVar("T", bound="Status")
+T = TypeVar("T", bound="CsvSeparator")
 
 
 @attr.s(auto_attribs=True)
-class Status:
+class CsvSeparator:
     """
     Attributes:
-        valid (bool):
-        messages (Union[Unset, List[str]]):
+        separator (str):
     """
 
-    valid: bool
-    messages: Union[Unset, List[str]] = UNSET
+    separator: str
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        valid = self.valid
-        messages: Union[Unset, List[str]] = UNSET
-        if not isinstance(self.messages, Unset):
-            messages = self.messages
+        separator = self.separator
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "valid": valid,
+                "separator": separator,
             }
         )
-        if messages is not UNSET:
-            field_dict["messages"] = messages
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        valid = d.pop("valid")
+        separator = d.pop("separator")
 
-        messages = cast(List[str], d.pop("messages", UNSET))
-
-        status = cls(
-            valid=valid,
-            messages=messages,
+        csv_separator = cls(
+            separator=separator,
         )
 
-        status.additional_properties = d
-        return status
+        csv_separator.additional_properties = d
+        return csv_separator
 
     @property
     def additional_keys(self) -> List[str]:

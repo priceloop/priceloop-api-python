@@ -5,25 +5,25 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.status import Status
 from ...types import Response
 
 
 def _get_kwargs(
     workspace: str,
-    plugin: str,
+    table: str,
+    column: str,
     *,
     client: AuthenticatedClient,
 ) -> Dict[str, Any]:
-    url = "{}/api/v1.0/workspaces/{workspace}/plugin/{plugin}/import-errors".format(
-        client.base_url, workspace=workspace, plugin=plugin
+    url = "{}/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}".format(
+        client.base_url, workspace=workspace, table=table, column=column
     )
 
     headers: Dict[str, str] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
 
     return {
-        "method": "get",
+        "method": "delete",
         "url": url,
         "headers": headers,
         "cookies": cookies,
@@ -31,18 +31,16 @@ def _get_kwargs(
     }
 
 
-def _parse_response(*, client: Client, response: httpx.Response) -> Optional[Status]:
+def _parse_response(*, client: Client, response: httpx.Response) -> Optional[Any]:
     if response.status_code == HTTPStatus.OK:
-        response_200 = Status.from_dict(response.json())
-
-        return response_200
+        return None
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(f"Unexpected status code: {response.status_code}")
     else:
         return None
 
 
-def _build_response(*, client: Client, response: httpx.Response) -> Response[Status]:
+def _build_response(*, client: Client, response: httpx.Response) -> Response[Any]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -53,27 +51,30 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Sta
 
 def sync_detailed(
     workspace: str,
-    plugin: str,
+    table: str,
+    column: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Status]:
-    """Get details about the import state of all ape tables
+) -> Response[Any]:
+    """Delete column by column name.
 
     Args:
         workspace (str):
-        plugin (str):
+        table (str):
+        column (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Status]
+        Response[Any]
     """
 
     kwargs = _get_kwargs(
         workspace=workspace,
-        plugin=plugin,
+        table=table,
+        column=column,
         client=client,
     )
 
@@ -85,56 +86,32 @@ def sync_detailed(
     return _build_response(client=client, response=response)
 
 
-def sync(
-    workspace: str,
-    plugin: str,
-    *,
-    client: AuthenticatedClient,
-) -> Optional[Status]:
-    """Get details about the import state of all ape tables
-
-    Args:
-        workspace (str):
-        plugin (str):
-
-    Raises:
-        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
-        httpx.TimeoutException: If the request takes longer than Client.timeout.
-
-    Returns:
-        Response[Status]
-    """
-
-    return sync_detailed(
-        workspace=workspace,
-        plugin=plugin,
-        client=client,
-    ).parsed
-
-
 async def asyncio_detailed(
     workspace: str,
-    plugin: str,
+    table: str,
+    column: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Status]:
-    """Get details about the import state of all ape tables
+) -> Response[Any]:
+    """Delete column by column name.
 
     Args:
         workspace (str):
-        plugin (str):
+        table (str):
+        column (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Status]
+        Response[Any]
     """
 
     kwargs = _get_kwargs(
         workspace=workspace,
-        plugin=plugin,
+        table=table,
+        column=column,
         client=client,
     )
 
@@ -142,32 +119,3 @@ async def asyncio_detailed(
         response = await _client.request(**kwargs)
 
     return _build_response(client=client, response=response)
-
-
-async def asyncio(
-    workspace: str,
-    plugin: str,
-    *,
-    client: AuthenticatedClient,
-) -> Optional[Status]:
-    """Get details about the import state of all ape tables
-
-    Args:
-        workspace (str):
-        plugin (str):
-
-    Raises:
-        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
-        httpx.TimeoutException: If the request takes longer than Client.timeout.
-
-    Returns:
-        Response[Status]
-    """
-
-    return (
-        await asyncio_detailed(
-            workspace=workspace,
-            plugin=plugin,
-            client=client,
-        )
-    ).parsed

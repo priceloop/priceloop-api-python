@@ -351,7 +351,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.79.3"
+    "version" : "v0.80.2"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -937,6 +937,9 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
+              "enum" : [
+                "ape"
+              ],
               "type" : "string"
             }
           }
@@ -951,6 +954,16 @@
               }
             },
             "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Invalid value for: path parameter plugin"
           },
           "default" : {
             "content" : {
@@ -987,6 +1000,9 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
+              "enum" : [
+                "ape"
+              ],
               "type" : "string"
             }
           },
@@ -1015,7 +1031,7 @@
                 }
               }
             },
-            "description" : "Invalid value for: query parameter status"
+            "description" : "Invalid value for: path parameter plugin, Invalid value for: query parameter status"
           },
           "default" : {
             "content" : {
@@ -1054,6 +1070,9 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
+              "enum" : [
+                "ape"
+              ],
               "type" : "string"
             }
           }
@@ -1080,7 +1099,7 @@
                 }
               }
             },
-            "description" : "Invalid value for: body"
+            "description" : "Invalid value for: path parameter plugin, Invalid value for: body"
           },
           "default" : {
             "content" : {
@@ -1119,6 +1138,9 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
+              "enum" : [
+                "ape"
+              ],
               "type" : "string"
             }
           }
@@ -1126,6 +1148,16 @@
         "responses" : {
           "200" : {
             "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Invalid value for: path parameter plugin"
           },
           "default" : {
             "content" : {
@@ -1164,6 +1196,9 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
+              "enum" : [
+                "ape"
+              ],
               "type" : "string"
             }
           }
@@ -1178,6 +1213,16 @@
               }
             },
             "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Invalid value for: path parameter plugin"
           },
           "default" : {
             "content" : {

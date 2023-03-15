@@ -6,12 +6,13 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.set_plugin_external_data_json_body import SetPluginExternalDataJsonBody
+from ...models.set_plugin_external_data_plugin import SetPluginExternalDataPlugin
 from ...types import Response
 
 
 def _get_kwargs(
     workspace: str,
-    plugin: str,
+    plugin: SetPluginExternalDataPlugin,
     *,
     client: AuthenticatedClient,
     json_body: SetPluginExternalDataJsonBody,
@@ -55,7 +56,7 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Any
 
 def sync_detailed(
     workspace: str,
-    plugin: str,
+    plugin: SetPluginExternalDataPlugin,
     *,
     client: AuthenticatedClient,
     json_body: SetPluginExternalDataJsonBody,
@@ -64,7 +65,7 @@ def sync_detailed(
 
     Args:
         workspace (str):
-        plugin (str):
+        plugin (SetPluginExternalDataPlugin):
         json_body (SetPluginExternalDataJsonBody):
 
     Raises:
@@ -92,7 +93,7 @@ def sync_detailed(
 
 async def asyncio_detailed(
     workspace: str,
-    plugin: str,
+    plugin: SetPluginExternalDataPlugin,
     *,
     client: AuthenticatedClient,
     json_body: SetPluginExternalDataJsonBody,
@@ -101,7 +102,7 @@ async def asyncio_detailed(
 
     Args:
         workspace (str):
-        plugin (str):
+        plugin (SetPluginExternalDataPlugin):
         json_body (SetPluginExternalDataJsonBody):
 
     Raises:

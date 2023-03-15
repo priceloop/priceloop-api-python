@@ -5,12 +5,13 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.prepare_ape_tables_plugin import PrepareApeTablesPlugin
 from ...types import Response
 
 
 def _get_kwargs(
     workspace: str,
-    plugin: str,
+    plugin: PrepareApeTablesPlugin,
     *,
     client: AuthenticatedClient,
 ) -> Dict[str, Any]:
@@ -50,7 +51,7 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Any
 
 def sync_detailed(
     workspace: str,
-    plugin: str,
+    plugin: PrepareApeTablesPlugin,
     *,
     client: AuthenticatedClient,
 ) -> Response[Any]:
@@ -58,7 +59,7 @@ def sync_detailed(
 
     Args:
         workspace (str):
-        plugin (str):
+        plugin (PrepareApeTablesPlugin):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -84,7 +85,7 @@ def sync_detailed(
 
 async def asyncio_detailed(
     workspace: str,
-    plugin: str,
+    plugin: PrepareApeTablesPlugin,
     *,
     client: AuthenticatedClient,
 ) -> Response[Any]:
@@ -92,7 +93,7 @@ async def asyncio_detailed(
 
     Args:
         workspace (str):
-        plugin (str):
+        plugin (PrepareApeTablesPlugin):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

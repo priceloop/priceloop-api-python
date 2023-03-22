@@ -1,9 +1,6 @@
 {
   "components" : {
     "schemas" : {
-      "Active" : {
-        "type" : "object"
-      },
       "Amazon" : {
         "properties" : {
           "refreshToken" : {
@@ -16,9 +13,6 @@
         "required" : [
           "refreshToken"
         ],
-        "type" : "object"
-      },
-      "Ape" : {
         "type" : "object"
       },
       "ApeData" : {
@@ -152,6 +146,46 @@
         ],
         "type" : "object"
       },
+      "ColumnAttributeSchema" : {
+        "properties" : {
+          "isGuiLocked" : {
+            "type" : "boolean"
+          },
+          "isHidden" : {
+            "type" : "boolean"
+          },
+          "position" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "widthPx" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        },
+        "type" : "object"
+      },
+      "ColumnSchema" : {
+        "properties" : {
+          "attributes" : {
+            "$ref" : "#/components/schemas/ColumnAttributeSchema"
+          },
+          "formula" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "tpe" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "name",
+          "tpe"
+        ],
+        "type" : "object"
+      },
       "CsvSeparator" : {
         "properties" : {
           "separator" : {
@@ -230,9 +264,6 @@
         ],
         "type" : "object"
       },
-      "Inactive" : {
-        "type" : "object"
-      },
       "Plugin" : {
         "properties" : {
           "data" : {
@@ -242,10 +273,10 @@
             "type" : "object"
           },
           "name" : {
-            "$ref" : "#/components/schemas/PluginName"
+            "type" : "string"
           },
           "status" : {
-            "$ref" : "#/components/schemas/PluginStatus"
+            "type" : "string"
           }
         },
         "required" : [
@@ -256,27 +287,33 @@
         ],
         "type" : "object"
       },
+      "Plugin1" : {
+        "properties" : {
+          "event" : {
+            "type" : "string"
+          },
+          "pluginName" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "pluginName",
+          "event"
+        ],
+        "type" : "object"
+      },
       "PluginData" : {
         "oneOf" : [
           {
-            "$ref" : "#/components/schemas/ApeData"
-          }
-        ]
-      },
-      "PluginName" : {
-        "oneOf" : [
-          {
-            "$ref" : "#/components/schemas/Ape"
-          }
-        ]
-      },
-      "PluginStatus" : {
-        "oneOf" : [
-          {
-            "$ref" : "#/components/schemas/Active"
-          },
-          {
-            "$ref" : "#/components/schemas/Inactive"
+            "properties" : {
+              "ApeData" : {
+                "$ref" : "#/components/schemas/ApeData"
+              }
+            },
+            "required" : [
+              "ApeData"
+            ],
+            "type" : "object"
           }
         ]
       },
@@ -331,6 +368,69 @@
           "id"
         ],
         "type" : "object"
+      },
+      "TableSchema" : {
+        "properties" : {
+          "columns" : {
+            "items" : {
+              "$ref" : "#/components/schemas/ColumnSchema"
+            },
+            "type" : "array"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "name"
+        ],
+        "type" : "object"
+      },
+      "WebhookConfig" : {
+        "properties" : {
+          "webhookUrl" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "webhookUrl"
+        ],
+        "type" : "object"
+      },
+      "WebhookEventSelector" : {
+        "oneOf" : [
+          {
+            "properties" : {
+              "Plugin" : {
+                "$ref" : "#/components/schemas/Plugin1"
+              }
+            },
+            "required" : [
+              "Plugin"
+            ],
+            "type" : "object"
+          }
+        ]
+      },
+      "WebhookInfo" : {
+        "properties" : {
+          "config" : {
+            "$ref" : "#/components/schemas/WebhookConfig"
+          },
+          "eventSelector" : {
+            "$ref" : "#/components/schemas/WebhookEventSelector"
+          },
+          "id" : {
+            "format" : "uuid",
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "id",
+          "eventSelector",
+          "config"
+        ],
+        "type" : "object"
       }
     },
     "securitySchemes" : {
@@ -351,7 +451,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.79.3"
+    "version" : "v0.84.0"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -369,7 +469,47 @@
             },
             "description" : ""
           },
-          "default" : {
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -379,7 +519,10 @@
             },
             "description" : ""
           }
-        }
+        },
+        "tags" : [
+          "Other"
+        ]
       }
     },
     "/api/v1.0/hello-auth" : {
@@ -396,7 +539,47 @@
             },
             "description" : ""
           },
-          "default" : {
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -412,56 +595,41 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "tags" : [
+          "Other"
         ]
       }
     },
-    "/api/v1.0/redirect" : {
+    "/api/v1.0/plugin/{pluginName}/webhooks" : {
       "get" : {
-        "operationId" : "redirect",
+        "operationId" : "listPluginWebhooks",
         "parameters" : [
           {
-            "in" : "query",
-            "name" : "state",
+            "in" : "path",
+            "name" : "pluginName",
             "required" : true,
             "schema" : {
-              "type" : "string"
-            }
-          },
-          {
-            "in" : "query",
-            "name" : "selling_partner_id",
-            "required" : true,
-            "schema" : {
-              "type" : "string"
-            }
-          },
-          {
-            "in" : "query",
-            "name" : "spapi_oauth_code",
-            "required" : true,
-            "schema" : {
+              "enum" : [
+                "ape"
+              ],
               "type" : "string"
             }
           }
         ],
         "responses" : {
-          "303" : {
+          "200" : {
             "content" : {
-              "text/plain" : {
+              "application/json" : {
                 "schema" : {
-                  "type" : "string"
+                  "items" : {
+                    "$ref" : "#/components/schemas/WebhookInfo"
+                  },
+                  "type" : "array"
                 }
               }
             },
-            "description" : "",
-            "headers" : {
-              "Location" : {
-                "required" : true,
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            }
+            "description" : ""
           },
           "400" : {
             "content" : {
@@ -471,9 +639,39 @@
                 }
               }
             },
-            "description" : "Invalid value for: query parameter state, Invalid value for: query parameter selling_partner_id, Invalid value for: query parameter spapi_oauth_code"
+            "description" : ""
           },
-          "default" : {
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -483,12 +681,221 @@
             },
             "description" : ""
           }
-        }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "List all plugin webhooks",
+        "tags" : [
+          "Plugin Webhooks",
+          "Plugin Webhooks"
+        ]
+      },
+      "post" : {
+        "description" : "\n# Plugin Webhooks\n\nThis API allows you to register a webhook endpoint that receives plugin events from our platform.\nAll events will be sent as *POST* requests to the provided webhook url.\n\nIn case your webhook endpoint is down or responds with non-success status codes, we will retry to deliver the event up to 10 times over a time period of 1 hour.\n\n## Registration/Confirmation\n\nAfter registering, you will receive a first message on your webhook endpoint to confirm the registration.\nThe registration message looks like this:\n```json\n{\n  \"SubscribeURL\": \"https://...\"\n}\n```\n\nYou have to make a *GET* request to the `SubscribeURL` in order to receive further events.\n\n## Events\n\nAfter confirmation, you will start receiving the desired plugin events.\nThe event messages look like this:\n```json\n{\n  \"event\" : \"PluginInstalled\",\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginUninstalled\",\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginTokensUpdated\",\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```",
+        "operationId" : "addPluginWebhook",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "pluginName",
+            "required" : true,
+            "schema" : {
+              "enum" : [
+                "ape"
+              ],
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "query",
+            "name" : "event",
+            "required" : true,
+            "schema" : {
+              "enum" : [
+                "PluginInstalled",
+                "PluginUninstalled",
+                "PluginTokensUpdated"
+              ],
+              "type" : "string"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/WebhookConfig"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Register a plugin webhook",
+        "tags" : [
+          "Plugin Webhooks",
+          "Plugin Webhooks"
+        ]
+      }
+    },
+    "/api/v1.0/plugin/{pluginName}/webhooks/{webhook}" : {
+      "delete" : {
+        "operationId" : "deletePluginWebhook",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "pluginName",
+            "required" : true,
+            "schema" : {
+              "enum" : [
+                "ape"
+              ],
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "webhook",
+            "required" : true,
+            "schema" : {
+              "format" : "uuid",
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Delete a plugin webhook",
+        "tags" : [
+          "Plugin Webhooks",
+          "Plugin Webhooks"
+        ]
       }
     },
     "/api/v1.0/workspaces" : {
       "get" : {
-        "description" : "List all your existing workspaces.",
         "operationId" : "listWorkspaces",
         "responses" : {
           "200" : {
@@ -504,7 +911,47 @@
             },
             "description" : ""
           },
-          "default" : {
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -520,12 +967,15 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "List all your existing workspaces",
+        "tags" : [
+          "Workspace API"
         ]
       }
     },
     "/api/v1.0/workspaces/{workspace}" : {
       "get" : {
-        "description" : "Get all details about your workspace.",
         "operationId" : "getWorkspace",
         "parameters" : [
           {
@@ -548,7 +998,47 @@
             },
             "description" : ""
           },
-          "default" : {
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -564,10 +1054,13 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Get all details about your workspace",
+        "tags" : [
+          "Workspace API"
         ]
       },
       "post" : {
-        "description" : "Create a workspace from a userId.",
         "operationId" : "createWorkspace",
         "parameters" : [
           {
@@ -590,7 +1083,47 @@
             },
             "description" : ""
           },
-          "default" : {
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -606,12 +1139,108 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Create a new workspace",
+        "tags" : [
+          "Workspace API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/create-tables" : {
+      "post" : {
+        "operationId" : "createTable",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "items" : {
+                  "$ref" : "#/components/schemas/TableSchema"
+                },
+                "type" : "array"
+              }
+            }
+          },
+          "required" : false
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Create tables from a schema",
+        "tags" : [
+          "Table API"
         ]
       }
     },
     "/api/v1.0/workspaces/{workspace}/csv-import-jobs/{import-job-id}" : {
       "get" : {
-        "description" : "Gets the current state of the import job.",
         "operationId" : "getCsvImportJob",
         "parameters" : [
           {
@@ -651,9 +1280,39 @@
                 }
               }
             },
-            "description" : "Invalid value for: path parameter import-job-id"
+            "description" : ""
           },
-          "default" : {
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -669,12 +1328,15 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Gets the current state of the import job",
+        "tags" : [
+          "Import API"
         ]
       }
     },
     "/api/v1.0/workspaces/{workspace}/external-functions/{function}" : {
       "delete" : {
-        "description" : "Delete an existing external function.",
         "operationId" : "deleteExternalFunction",
         "parameters" : [
           {
@@ -698,7 +1360,47 @@
           "200" : {
             "description" : ""
           },
-          "default" : {
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -714,10 +1416,13 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Delete an existing external function",
+        "tags" : [
+          "External Function API"
         ]
       },
       "get" : {
-        "description" : "Get details about your existing external function.",
         "operationId" : "getExternalFunctions",
         "parameters" : [
           {
@@ -748,7 +1453,47 @@
             },
             "description" : ""
           },
-          "default" : {
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -764,10 +1509,14 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Get details about your existing external function",
+        "tags" : [
+          "External Function API"
         ]
       },
       "post" : {
-        "description" : "Create a new external function, specifying the function name, runtime, return type and the paremeter types. This API endpoint returns a url, to which you can upload your function code. You can do a PUT request on the returned url, e.g.: curl -XPUT -T <zip-file> '<url>'.",
+        "description" : "Create external functions, specifying the function name, runtime, return type and the paremeter types. This API endpoint returns a url, to which you can upload your function code. You can do a PUT request on the returned url, e.g.: curl -XPUT -T <zip-file> '<url>'.",
         "operationId" : "createExternalFunction",
         "parameters" : [
           {
@@ -848,9 +1597,39 @@
                 }
               }
             },
-            "description" : "Invalid value for: query parameter runtime, Invalid value for: query parameter returnType, Invalid value for: query parameter paramType"
+            "description" : ""
           },
-          "default" : {
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -866,10 +1645,14 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Create a new external function",
+        "tags" : [
+          "External Function API"
         ]
       },
       "put" : {
-        "description" : "Create the code of an existing external function. This API endpoint returns a url, to which you can upload your function code. You can do a PUT request on the returned url, e.g.: curl -XPUT -T <zip-file> '<url>'.",
+        "description" : "This API endpoint returns a url, to which you can upload your function code. You can do a PUT request on the returned url, e.g.: curl -XPUT -T <zip-file> '<url>'.",
         "operationId" : "updateExternalFunction",
         "parameters" : [
           {
@@ -900,7 +1683,47 @@
             },
             "description" : ""
           },
-          "default" : {
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -916,12 +1739,15 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Update the code of an existing external function",
+        "tags" : [
+          "External Function API"
         ]
       }
     },
     "/api/v1.0/workspaces/{workspace}/plugin/{plugin}" : {
       "get" : {
-        "description" : "Get details about the ape plugin inside a workspace",
         "operationId" : "getPlugin",
         "parameters" : [
           {
@@ -937,6 +1763,9 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
+              "enum" : [
+                "ape"
+              ],
               "type" : "string"
             }
           }
@@ -952,7 +1781,47 @@
             },
             "description" : ""
           },
-          "default" : {
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -968,10 +1837,13 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Get details about a plugin installation",
+        "tags" : [
+          "Plugin API"
         ]
       },
       "put" : {
-        "description" : "Set external data of APE plugin",
         "operationId" : "setPluginStatus",
         "parameters" : [
           {
@@ -987,6 +1859,9 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
+              "enum" : [
+                "ape"
+              ],
               "type" : "string"
             }
           },
@@ -1015,9 +1890,39 @@
                 }
               }
             },
-            "description" : "Invalid value for: query parameter status"
+            "description" : ""
           },
-          "default" : {
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1033,12 +1938,15 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Set external data of a plugin installation",
+        "tags" : [
+          "Plugin API"
         ]
       }
     },
     "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/external-data" : {
       "post" : {
-        "description" : "Set external data of APE plugin",
         "operationId" : "setPluginExternalData",
         "parameters" : [
           {
@@ -1054,6 +1962,9 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
+              "enum" : [
+                "ape"
+              ],
               "type" : "string"
             }
           }
@@ -1080,9 +1991,39 @@
                 }
               }
             },
-            "description" : "Invalid value for: body"
+            "description" : ""
           },
-          "default" : {
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1098,12 +2039,17 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Set external data of a plugin installation",
+        "tags" : [
+          "Plugin API"
         ]
       }
     },
     "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/prepare-ape-tables" : {
       "get" : {
-        "description" : "Get details about the import state of all ape tables",
+        "deprecated" : true,
+        "description" : "Drops and recreates the ape-tables with our expected schema. Deprecated - please use create-tables (and provide a schema) instead.",
         "operationId" : "prepareApeTables",
         "parameters" : [
           {
@@ -1119,6 +2065,9 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
+              "enum" : [
+                "ape"
+              ],
               "type" : "string"
             }
           }
@@ -1127,7 +2076,47 @@
           "200" : {
             "description" : ""
           },
-          "default" : {
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1143,12 +2132,14 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "tags" : [
+          "Plugin API"
         ]
       }
     },
     "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/tokens" : {
       "get" : {
-        "description" : "Get plugin tokens",
         "operationId" : "getPluginTokens",
         "parameters" : [
           {
@@ -1164,6 +2155,9 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
+              "enum" : [
+                "ape"
+              ],
               "type" : "string"
             }
           }
@@ -1179,7 +2173,47 @@
             },
             "description" : ""
           },
-          "default" : {
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1195,12 +2229,15 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Get plugin tokens for a workspace",
+        "tags" : [
+          "Plugin API"
         ]
       }
     },
     "/api/v1.0/workspaces/{workspace}/tables/{table}" : {
       "delete" : {
-        "description" : "Delete your table.",
         "operationId" : "deleteTable",
         "parameters" : [
           {
@@ -1224,7 +2261,47 @@
           "200" : {
             "description" : ""
           },
-          "default" : {
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1240,10 +2317,13 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Delete a table",
+        "tags" : [
+          "Table API"
         ]
       },
       "get" : {
-        "description" : "Get the metadata of your table.",
         "operationId" : "getTable",
         "parameters" : [
           {
@@ -1274,7 +2354,47 @@
             },
             "description" : ""
           },
-          "default" : {
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1290,12 +2410,15 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Get the metadata of a table",
+        "tags" : [
+          "Table API"
         ]
       }
     },
     "/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}" : {
       "delete" : {
-        "description" : "Delete column by column name.",
         "operationId" : "deleteColumn",
         "parameters" : [
           {
@@ -1327,7 +2450,47 @@
           "200" : {
             "description" : ""
           },
-          "default" : {
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1343,10 +2506,13 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Delete column by column name",
+        "tags" : [
+          "Column API"
         ]
       },
       "put" : {
-        "description" : "Change column position in a table.",
         "operationId" : "updateColumnPosition",
         "parameters" : [
           {
@@ -1395,9 +2561,39 @@
                 }
               }
             },
-            "description" : "Invalid value for: query parameter position"
+            "description" : ""
           },
-          "default" : {
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1413,12 +2609,15 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Change column position in a table",
+        "tags" : [
+          "Column API"
         ]
       }
     },
     "/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/data" : {
       "post" : {
-        "description" : "Add a data column to a table.",
         "operationId" : "addDataColumn",
         "parameters" : [
           {
@@ -1481,9 +2680,39 @@
                 }
               }
             },
-            "description" : "Invalid value for: query parameter type"
+            "description" : ""
           },
-          "default" : {
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1499,12 +2728,15 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Add a data column to a table",
+        "tags" : [
+          "Column API"
         ]
       }
     },
     "/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/formula" : {
       "post" : {
-        "description" : "Add an expression column to a table.",
         "operationId" : "addFormulaColumn",
         "parameters" : [
           {
@@ -1559,9 +2791,39 @@
                 }
               }
             },
-            "description" : "Invalid value for: query parameter expression"
+            "description" : ""
           },
-          "default" : {
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1577,6 +2839,10 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Add an expression column to a table",
+        "tags" : [
+          "Column API"
         ]
       }
     },
@@ -1630,9 +2896,39 @@
                 }
               }
             },
-            "description" : "Invalid value for: query parameter is-gui-locked"
+            "description" : ""
           },
-          "default" : {
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1648,12 +2944,15 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Change whether a column is gui-locked",
+        "tags" : [
+          "Column API"
         ]
       }
     },
     "/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/visibility" : {
       "put" : {
-        "description" : "Change column visibility in a table.",
         "operationId" : "updateColumnVisibility",
         "parameters" : [
           {
@@ -1701,9 +3000,39 @@
                 }
               }
             },
-            "description" : "Invalid value for: query parameter hide"
+            "description" : ""
           },
-          "default" : {
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1719,12 +3048,16 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Change column visibility in a table",
+        "tags" : [
+          "Column API"
         ]
       }
     },
     "/api/v1.0/workspaces/{workspace}/tables/{table}/csv-import-jobs" : {
       "post" : {
-        "description" : "Upload a CSV file into your table. This API endpoint returns a url, to which you can upload your csv file. You can do a PUT request on the returned url, e.g.: curl -XPUT -T <csv-file> '<url>'.",
+        "description" : "This API endpoint returns a url, to which you can upload your csv file. You can do a PUT request on the returned url, e.g.: curl -XPUT -T <csv-file> '<url>'.",
         "operationId" : "createCsvImportJob",
         "parameters" : [
           {
@@ -1786,9 +3119,39 @@
                 }
               }
             },
-            "description" : "Invalid value for: query parameter mode"
+            "description" : ""
           },
-          "default" : {
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1804,12 +3167,15 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Upload a CSV file into a table",
+        "tags" : [
+          "Import API"
         ]
       }
     },
     "/api/v1.0/workspaces/{workspace}/tables/{table}/data" : {
       "get" : {
-        "description" : "Get the data of your table.",
         "operationId" : "getTableData",
         "parameters" : [
           {
@@ -1869,9 +3235,39 @@
                 }
               }
             },
-            "description" : "Invalid value for: query parameter limit, Invalid value for: query parameter offset"
+            "description" : ""
           },
-          "default" : {
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1887,12 +3283,15 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Get the data of a table",
+        "tags" : [
+          "Table API"
         ]
       }
     },
     "/api/v1.0/workspaces/{workspace}/tables/{table}/truncate" : {
       "post" : {
-        "description" : "Truncate your table.",
         "operationId" : "truncateTable",
         "parameters" : [
           {
@@ -1916,7 +3315,47 @@
           "200" : {
             "description" : ""
           },
-          "default" : {
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1932,12 +3371,17 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Truncate a table",
+        "tags" : [
+          "Table API"
         ]
       }
     },
     "/api/v1.0/workspaces/{workspace}/tables/{table}/upload-csv-url" : {
       "get" : {
-        "description" : "Upload a CSV file into your table. This API endpoint returns a url, to which you can upload your csv file. You can do a PUT request on the returned url, e.g.: curl -XPUT -T <csv-file> '<url>'.",
+        "deprecated" : true,
+        "description" : "This API endpoint returns a url, to which you can upload your csv file. You can do a PUT request on the returned url, e.g.: curl -XPUT -T <csv-file> '<url>'.",
         "operationId" : "getTableUploadCsvUrl",
         "parameters" : [
           {
@@ -1991,9 +3435,39 @@
                 }
               }
             },
-            "description" : "Invalid value for: query parameter mode"
+            "description" : ""
           },
-          "default" : {
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -2009,8 +3483,45 @@
             "oauth2Auth" : [
             ]
           }
+        ],
+        "summary" : "Upload a CSV file into a table",
+        "tags" : [
+          "Import API"
         ]
       }
     }
-  }
+  },
+  "tags" : [
+    {
+      "description" : "\nUsers can manage their workspaces and create new ones.",
+      "name" : "Workspace API"
+    },
+    {
+      "description" : "\nUsers can read and write tables in their workspace.",
+      "name" : "Table API"
+    },
+    {
+      "description" : "\nUsers can read and write columns/formulas/data inside of tables in their workspace.",
+      "name" : "Column API"
+    },
+    {
+      "description" : "\nUsers can import data into their workspace.",
+      "name" : "Import API"
+    },
+    {
+      "description" : "\nUsers can deploy their own external functions.",
+      "name" : "External Function API"
+    },
+    {
+      "description" : "\nPlugin developers can read and write settings of plugin installations inside a workspace.",
+      "name" : "Plugin API"
+    },
+    {
+      "description" : "\nPlugin developers can register lifetime events for their plugin.",
+      "name" : "Plugin Webhooks"
+    },
+    {
+      "name" : "Other"
+    }
+  ]
 }

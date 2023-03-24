@@ -1,6 +1,8 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 import attr
+
+from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.ape_data_typeform import ApeDataTypeform
@@ -13,22 +15,22 @@ T = TypeVar("T", bound="ApeData")
 class ApeData:
     """
     Attributes:
-        typeform (ApeDataTypeform):
+        typeform (Union[Unset, ApeDataTypeform]):
     """
 
-    typeform: "ApeDataTypeform"
+    typeform: Union[Unset, "ApeDataTypeform"] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        typeform = self.typeform.to_dict()
+        typeform: Union[Unset, Dict[str, Any]] = UNSET
+        if not isinstance(self.typeform, Unset):
+            typeform = self.typeform.to_dict()
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "typeform": typeform,
-            }
-        )
+        field_dict.update({})
+        if typeform is not UNSET:
+            field_dict["typeform"] = typeform
 
         return field_dict
 
@@ -37,7 +39,12 @@ class ApeData:
         from ..models.ape_data_typeform import ApeDataTypeform
 
         d = src_dict.copy()
-        typeform = ApeDataTypeform.from_dict(d.pop("typeform"))
+        _typeform = d.pop("typeform", UNSET)
+        typeform: Union[Unset, ApeDataTypeform]
+        if isinstance(_typeform, Unset):
+            typeform = UNSET
+        else:
+            typeform = ApeDataTypeform.from_dict(_typeform)
 
         ape_data = cls(
             typeform=typeform,

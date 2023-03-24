@@ -1,21 +1,21 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, Optional
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.set_plugin_status_plugin import SetPluginStatusPlugin
-from ...models.set_plugin_status_status import SetPluginStatusStatus
-from ...types import UNSET, Response, Unset
+from ...models.create_plugin_plugin import CreatePluginPlugin
+from ...models.plugin_data_type_0 import PluginDataType0
+from ...types import Response
 
 
 def _get_kwargs(
     workspace: str,
-    plugin: SetPluginStatusPlugin,
+    plugin: CreatePluginPlugin,
     *,
     client: AuthenticatedClient,
-    status: Union[Unset, None, SetPluginStatusStatus] = UNSET,
+    json_body: "PluginDataType0",
 ) -> Dict[str, Any]:
     url = "{}/api/v1.0/workspaces/{workspace}/plugin/{plugin}".format(
         client.base_url, workspace=workspace, plugin=plugin
@@ -24,22 +24,18 @@ def _get_kwargs(
     headers: Dict[str, str] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
 
-    params: Dict[str, Any] = {}
-    json_status: Union[Unset, None, str] = UNSET
-    if not isinstance(status, Unset):
-        json_status = status.value if status else None
+    json_json_body: Dict[str, Any]
 
-    params["status"] = json_status
-
-    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+    if isinstance(json_body, PluginDataType0):
+        json_json_body = json_body.to_dict()
 
     return {
-        "method": "put",
+        "method": "post",
         "url": url,
         "headers": headers,
         "cookies": cookies,
         "timeout": client.get_timeout(),
-        "params": params,
+        "json": json_json_body,
     }
 
 
@@ -63,17 +59,17 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Any
 
 def sync_detailed(
     workspace: str,
-    plugin: SetPluginStatusPlugin,
+    plugin: CreatePluginPlugin,
     *,
     client: AuthenticatedClient,
-    status: Union[Unset, None, SetPluginStatusStatus] = UNSET,
+    json_body: "PluginDataType0",
 ) -> Response[Any]:
-    """Set status of a plugin installation
+    """Create or update data of a plugin installation
 
     Args:
         workspace (str):
-        plugin (SetPluginStatusPlugin):
-        status (Union[Unset, None, SetPluginStatusStatus]):
+        plugin (CreatePluginPlugin):
+        json_body ('PluginDataType0'):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -87,7 +83,7 @@ def sync_detailed(
         workspace=workspace,
         plugin=plugin,
         client=client,
-        status=status,
+        json_body=json_body,
     )
 
     response = httpx.request(
@@ -100,17 +96,17 @@ def sync_detailed(
 
 async def asyncio_detailed(
     workspace: str,
-    plugin: SetPluginStatusPlugin,
+    plugin: CreatePluginPlugin,
     *,
     client: AuthenticatedClient,
-    status: Union[Unset, None, SetPluginStatusStatus] = UNSET,
+    json_body: "PluginDataType0",
 ) -> Response[Any]:
-    """Set status of a plugin installation
+    """Create or update data of a plugin installation
 
     Args:
         workspace (str):
-        plugin (SetPluginStatusPlugin):
-        status (Union[Unset, None, SetPluginStatusStatus]):
+        plugin (CreatePluginPlugin):
+        json_body ('PluginDataType0'):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -124,7 +120,7 @@ async def asyncio_detailed(
         workspace=workspace,
         plugin=plugin,
         client=client,
-        status=status,
+        json_body=json_body,
     )
 
     async with httpx.AsyncClient(verify=client.verify_ssl) as _client:

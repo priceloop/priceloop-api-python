@@ -16,6 +16,7 @@ from .column_schema import ColumnSchema
 from .create_csv_import_job_mode import CreateCsvImportJobMode
 from .create_external_function_return_type import CreateExternalFunctionReturnType
 from .create_external_function_runtime import CreateExternalFunctionRuntime
+from .create_plugin_plugin import CreatePluginPlugin
 from .csv_separator import CsvSeparator
 from .delete_plugin_webhook_plugin_name import DeletePluginWebhookPluginName
 from .get_plugin_plugin import GetPluginPlugin
@@ -59,6 +60,7 @@ __all__ = (
     "CreateCsvImportJobMode",
     "CreateExternalFunctionReturnType",
     "CreateExternalFunctionRuntime",
+    "CreatePluginPlugin",
     "CsvSeparator",
     "DeletePluginWebhookPluginName",
     "GetPluginPlugin",

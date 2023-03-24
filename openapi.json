@@ -21,9 +21,6 @@
             "$ref" : "#/components/schemas/ApeDataTypeform"
           }
         },
-        "required" : [
-          "typeform"
-        ],
         "type" : "object"
       },
       "ApeDataTypeform" : {
@@ -451,7 +448,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.84.0"
+    "version" : "v0.87.1"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -1843,6 +1840,114 @@
           "Plugin API"
         ]
       },
+      "post" : {
+        "operationId" : "createPlugin",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "enum" : [
+                "ape"
+              ],
+              "type" : "string"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "examples" : {
+                "ape" : {
+                  "value" : {
+                    "ApeData" : {
+                      
+                    }
+                  }
+                }
+              },
+              "schema" : {
+                "$ref" : "#/components/schemas/PluginData"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Create or update data of a plugin installation",
+        "tags" : [
+          "Plugin API"
+        ]
+      },
       "put" : {
         "operationId" : "setPluginStatus",
         "parameters" : [
@@ -1939,7 +2044,7 @@
             ]
           }
         ],
-        "summary" : "Set external data of a plugin installation",
+        "summary" : "Set status of a plugin installation",
         "tags" : [
           "Plugin API"
         ]

@@ -33,7 +33,7 @@ new_df = read_nocode("table_name", client, limit=limit, offset=offset)
 call your endpoint, example:
 
 ```python
-from priceloop_api.api.default import list_workspaces, get_workspace
+from priceloop_api.api.workspace_api import list_workspaces, get_workspace
 
 workspaces = list_workspaces.sync(client=client)
 workspace = get_workspace.sync(workspaces[0], client=client)
@@ -41,7 +41,7 @@ workspace = get_workspace.sync(workspaces[0], client=client)
 add columns to existing table:
 
 ```python
-from priceloop_api.api.default import add_data_column, add_formula_column
+from priceloop_api.api.column_api import add_data_column, add_formula_column
 from priceloop_api.models import AddDataColumnType
 
 add_data_column.sync(workspace.name, "table_name", "column_name", type=AddDataColumnType.STRING, client=client)

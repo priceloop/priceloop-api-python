@@ -4,11 +4,15 @@ from io import StringIO
 
 from priceloop_api.models.create_csv_import_job_mode import CreateCsvImportJobMode
 from priceloop_api.client import AuthenticatedClient
-from priceloop_api.api.default import (
+from priceloop_api.api.workspace_api import (
     list_workspaces,
     get_workspace,
+)
+from priceloop_api.api.table_api import (
     get_table,
     get_table_data,
+)
+from priceloop_api.api.import_api import (
     create_csv_import_job,
 )
 

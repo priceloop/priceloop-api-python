@@ -314,12 +314,55 @@
           }
         ]
       },
+      "PluginLiveStatus" : {
+        "properties" : {
+          "errors" : {
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          },
+          "ok" : {
+            "type" : "boolean"
+          }
+        },
+        "required" : [
+          "ok"
+        ],
+        "type" : "object"
+      },
       "PluginTokens" : {
         "properties" : {
           "amazon" : {
             "$ref" : "#/components/schemas/Amazon"
           }
         },
+        "type" : "object"
+      },
+      "PluginWorkspaceList" : {
+        "properties" : {
+          "enabledWorkspaces" : {
+            "items" : {
+              "$ref" : "#/components/schemas/PluginWorkspaceState"
+            },
+            "type" : "array"
+          }
+        },
+        "type" : "object"
+      },
+      "PluginWorkspaceState" : {
+        "properties" : {
+          "plugin" : {
+            "$ref" : "#/components/schemas/Plugin"
+          },
+          "workspaceName" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "workspaceName",
+          "plugin"
+        ],
         "type" : "object"
       },
       "PresignedUrl" : {
@@ -448,7 +491,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.87.3"
+    "version" : "v0.90.0"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -888,6 +931,97 @@
         "tags" : [
           "Plugin Webhooks",
           "Plugin Webhooks"
+        ]
+      }
+    },
+    "/api/v1.0/plugin/{plugin}/enabled-workspaces" : {
+      "get" : {
+        "operationId" : "listEnabledWorkspaces",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "enum" : [
+                "ape"
+              ],
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PluginWorkspaceList"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Lists all workspaces that have this plugin installed",
+        "tags" : [
+          "Plugin API",
+          "Plugin API"
         ]
       }
     },
@@ -2146,6 +2280,104 @@
           }
         ],
         "summary" : "Set external data of a plugin installation",
+        "tags" : [
+          "Plugin API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/live-status" : {
+      "get" : {
+        "operationId" : "getPluginLiveStatus",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "enum" : [
+                "ape"
+              ],
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PluginLiveStatus"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Gets the live status a plugin",
         "tags" : [
           "Plugin API"
         ]

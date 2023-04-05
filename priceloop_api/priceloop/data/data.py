@@ -64,3 +64,17 @@ def read_nocode(
     csv_buffer.seek(0)
     table_data_type_inferred = pd.read_csv(csv_buffer)
     return table_data_type_inferred
+
+
+def create_table_from_schema(schema: list, client: AuthenticatedClient, workspace_name: str = None):
+
+    if workspace_name is None:
+        workspaces = list_workspaces.sync(client=client)
+        workspace = get_workspace.sync(workspaces[0], client=client)
+        workspace_name = workspace.name
+
+    url = "{}/api/v1.0/workspaces/{workspace}/create-tables".format(client.base_url, workspace=workspace_name)
+
+    headers = client.get_headers()
+    headers["Content-Type"] = "application/json"
+    requests.post(url, headers=client.get_headers(), data=schema)

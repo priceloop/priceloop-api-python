@@ -19,17 +19,22 @@ from .create_external_function_runtime import CreateExternalFunctionRuntime
 from .create_plugin_plugin import CreatePluginPlugin
 from .csv_separator import CsvSeparator
 from .delete_plugin_webhook_plugin_name import DeletePluginWebhookPluginName
+from .get_plugin_live_status_plugin import GetPluginLiveStatusPlugin
 from .get_plugin_plugin import GetPluginPlugin
 from .get_plugin_tokens_plugin import GetPluginTokensPlugin
 from .get_table_upload_csv_url_mode import GetTableUploadCsvUrlMode
 from .import_job import ImportJob
 from .import_job_response import ImportJobResponse
+from .list_enabled_workspaces_plugin import ListEnabledWorkspacesPlugin
 from .list_plugin_webhooks_plugin_name import ListPluginWebhooksPluginName
 from .plugin import Plugin
 from .plugin_1 import Plugin1
 from .plugin_data_type_0 import PluginDataType0
 from .plugin_external_data import PluginExternalData
+from .plugin_live_status import PluginLiveStatus
 from .plugin_tokens import PluginTokens
+from .plugin_workspace_list import PluginWorkspaceList
+from .plugin_workspace_state import PluginWorkspaceState
 from .prepare_ape_tables_plugin import PrepareApeTablesPlugin
 from .presigned_url import PresignedUrl
 from .s3_key import S3Key
@@ -63,17 +68,22 @@ __all__ = (
     "CreatePluginPlugin",
     "CsvSeparator",
     "DeletePluginWebhookPluginName",
+    "GetPluginLiveStatusPlugin",
     "GetPluginPlugin",
     "GetPluginTokensPlugin",
     "GetTableUploadCsvUrlMode",
     "ImportJob",
     "ImportJobResponse",
+    "ListEnabledWorkspacesPlugin",
     "ListPluginWebhooksPluginName",
     "Plugin",
     "Plugin1",
     "PluginDataType0",
     "PluginExternalData",
+    "PluginLiveStatus",
     "PluginTokens",
+    "PluginWorkspaceList",
+    "PluginWorkspaceState",
     "PrepareApeTablesPlugin",
     "PresignedUrl",
     "S3Key",

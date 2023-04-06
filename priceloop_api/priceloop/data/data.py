@@ -25,7 +25,7 @@ def to_nocode(
     client: AuthenticatedClient,
     mode: CreateCsvImportJobMode = CreateCsvImportJobMode.DELETE_AND_RECREATE,
     workspace_name: str = None,
-) -> None:
+) -> int:
     csv_buffer = StringIO()
     df.to_csv(csv_buffer, index=None)
 
@@ -38,6 +38,7 @@ def to_nocode(
 
     requests.put(import_job.put_url, data=csv_buffer.getvalue().encode("utf-8"))
     print("Upload Successful, please wait a moment for the changes to appear")
+    return import_job.import_job_id
 
 
 def read_nocode(

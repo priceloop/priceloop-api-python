@@ -15,13 +15,16 @@ T = TypeVar("T", bound="ApiTableData")
 class ApiTableData:
     """
     Attributes:
+        scheduled_jobs (int):
         rows (Union[Unset, List['TableRow']]):
     """
 
+    scheduled_jobs: int
     rows: Union[Unset, List["TableRow"]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        scheduled_jobs = self.scheduled_jobs
         rows: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.rows, Unset):
             rows = []
@@ -32,7 +35,11 @@ class ApiTableData:
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update(
+            {
+                "scheduledJobs": scheduled_jobs,
+            }
+        )
         if rows is not UNSET:
             field_dict["rows"] = rows
 
@@ -43,6 +50,8 @@ class ApiTableData:
         from ..models.table_row import TableRow
 
         d = src_dict.copy()
+        scheduled_jobs = d.pop("scheduledJobs")
+
         rows = []
         _rows = d.pop("rows", UNSET)
         for rows_item_data in _rows or []:
@@ -51,6 +60,7 @@ class ApiTableData:
             rows.append(rows_item)
 
         api_table_data = cls(
+            scheduled_jobs=scheduled_jobs,
             rows=rows,
         )
 

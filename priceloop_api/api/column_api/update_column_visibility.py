@@ -64,7 +64,9 @@ def sync_detailed(
     client: AuthenticatedClient,
     hide: bool,
 ) -> Response[Any]:
-    """Change column visibility in a table
+    """Change column visibility in a table.
+
+     Change column visibility in a table. Deprecated - please use [updateColumnAttributes] instead.
 
     Args:
         workspace (str):
@@ -104,7 +106,9 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     hide: bool,
 ) -> Response[Any]:
-    """Change column visibility in a table
+    """Change column visibility in a table.
+
+     Change column visibility in a table. Deprecated - please use [updateColumnAttributes] instead.
 
     Args:
         workspace (str):

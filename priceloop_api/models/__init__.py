@@ -7,6 +7,8 @@ from .amazon import Amazon
 from .ape_data import ApeData
 from .ape_data_typeform import ApeDataTypeform
 from .api_column import ApiColumn
+from .api_column_attributes import ApiColumnAttributes
+from .api_column_attributes_update import ApiColumnAttributesUpdate
 from .api_external_function import ApiExternalFunction
 from .api_table import ApiTable
 from .api_table_data import ApiTableData
@@ -56,6 +58,8 @@ __all__ = (
     "ApeData",
     "ApeDataTypeform",
     "ApiColumn",
+    "ApiColumnAttributes",
+    "ApiColumnAttributesUpdate",
     "ApiExternalFunction",
     "ApiTable",
     "ApiTableData",

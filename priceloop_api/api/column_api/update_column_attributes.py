@@ -5,7 +5,8 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...types import UNSET, Response
+from ...models.api_column_attributes_update import ApiColumnAttributesUpdate
+from ...types import Response
 
 
 def _get_kwargs(
@@ -14,27 +15,24 @@ def _get_kwargs(
     column: str,
     *,
     client: AuthenticatedClient,
-    is_gui_locked: bool,
+    json_body: ApiColumnAttributesUpdate,
 ) -> Dict[str, Any]:
-    url = "{}/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/is-gui-locked".format(
+    url = "{}/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/attributes".format(
         client.base_url, workspace=workspace, table=table, column=column
     )
 
     headers: Dict[str, str] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
 
-    params: Dict[str, Any] = {}
-    params["is-gui-locked"] = is_gui_locked
-
-    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+    json_json_body = json_body.to_dict()
 
     return {
-        "method": "put",
+        "method": "patch",
         "url": url,
         "headers": headers,
         "cookies": cookies,
         "timeout": client.get_timeout(),
-        "params": params,
+        "json": json_json_body,
     }
 
 
@@ -62,18 +60,33 @@ def sync_detailed(
     column: str,
     *,
     client: AuthenticatedClient,
-    is_gui_locked: bool,
+    json_body: ApiColumnAttributesUpdate,
 ) -> Response[Any]:
-    """Change whether a column is gui-locked.
+    """Change attributes of a column
 
-     Change whether a column is locked (non-editable) in the GUI (webapp). Deprecated - please use
-    [updateColumnAttributes] instead.
+
+    # Updating Column Attributes
+
+    This endpoint allows you to update some or all of the attributes of a column using a JSON merge-
+    patch.
+
+    ## JSON Merge-Patch
+    In a JSON merge-patch, all fields are optional.
+    Those that are present will set the value of their corresponding attribute.
+    A field that is explicitly set to `null` will reset the value of its corresponding attribute to its
+    default.
+    This means that `null`-values hold semantic relevance, so make sure to leave out fields you do not
+    want to change.
+
+    More information on JSON merge-patches can be found in [RFC
+    7396](https://datatracker.ietf.org/doc/html/rfc7396).
+
 
     Args:
         workspace (str):
         table (str):
         column (str):
-        is_gui_locked (bool):
+        json_body (ApiColumnAttributesUpdate):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -88,7 +101,7 @@ def sync_detailed(
         table=table,
         column=column,
         client=client,
-        is_gui_locked=is_gui_locked,
+        json_body=json_body,
     )
 
     response = httpx.request(
@@ -105,18 +118,33 @@ async def asyncio_detailed(
     column: str,
     *,
     client: AuthenticatedClient,
-    is_gui_locked: bool,
+    json_body: ApiColumnAttributesUpdate,
 ) -> Response[Any]:
-    """Change whether a column is gui-locked.
+    """Change attributes of a column
 
-     Change whether a column is locked (non-editable) in the GUI (webapp). Deprecated - please use
-    [updateColumnAttributes] instead.
+
+    # Updating Column Attributes
+
+    This endpoint allows you to update some or all of the attributes of a column using a JSON merge-
+    patch.
+
+    ## JSON Merge-Patch
+    In a JSON merge-patch, all fields are optional.
+    Those that are present will set the value of their corresponding attribute.
+    A field that is explicitly set to `null` will reset the value of its corresponding attribute to its
+    default.
+    This means that `null`-values hold semantic relevance, so make sure to leave out fields you do not
+    want to change.
+
+    More information on JSON merge-patches can be found in [RFC
+    7396](https://datatracker.ietf.org/doc/html/rfc7396).
+
 
     Args:
         workspace (str):
         table (str):
         column (str):
-        is_gui_locked (bool):
+        json_body (ApiColumnAttributesUpdate):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -131,7 +159,7 @@ async def asyncio_detailed(
         table=table,
         column=column,
         client=client,
-        is_gui_locked=is_gui_locked,
+        json_body=json_body,
     )
 
     async with httpx.AsyncClient(verify=client.verify_ssl) as _client:

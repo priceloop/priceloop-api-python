@@ -66,6 +66,32 @@
         ],
         "type" : "object"
       },
+      "ApiColumnAttributes" : {
+        "properties" : {
+          "isGuiLocked" : {
+            "type" : "boolean"
+          },
+          "isHidden" : {
+            "type" : "boolean"
+          }
+        },
+        "required" : [
+          "isHidden",
+          "isGuiLocked"
+        ],
+        "type" : "object"
+      },
+      "ApiColumnAttributesUpdate" : {
+        "properties" : {
+          "isGuiLocked" : {
+            "type" : "boolean"
+          },
+          "isHidden" : {
+            "type" : "boolean"
+          }
+        },
+        "type" : "object"
+      },
       "ApiExternalFunction" : {
         "properties" : {
           "functionName" : {
@@ -116,8 +142,15 @@
               "$ref" : "#/components/schemas/TableRow"
             },
             "type" : "array"
+          },
+          "scheduledJobs" : {
+            "format" : "int32",
+            "type" : "integer"
           }
         },
+        "required" : [
+          "scheduledJobs"
+        ],
         "type" : "object"
       },
       "ApiWorkspace" : {
@@ -491,7 +524,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.90.0"
+    "version" : "v0.94.0"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -2953,6 +2986,218 @@
         ]
       }
     },
+    "/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/attributes" : {
+      "get" : {
+        "operationId" : "getColumnAttributes",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "table",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "column",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ApiColumnAttributes"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Retrieve the attributes of a column",
+        "tags" : [
+          "Column API"
+        ]
+      },
+      "patch" : {
+        "description" : "\n# Updating Column Attributes\n\nThis endpoint allows you to update some or all of the attributes of a column using a JSON merge-patch.\n\n## JSON Merge-Patch\nIn a JSON merge-patch, all fields are optional.\nThose that are present will set the value of their corresponding attribute.\nA field that is explicitly set to `null` will reset the value of its corresponding attribute to its default.\nThis means that `null`-values hold semantic relevance, so make sure to leave out fields you do not want to change.\n\nMore information on JSON merge-patches can be found in [RFC 7396](https://datatracker.ietf.org/doc/html/rfc7396).\n      ",
+        "operationId" : "updateColumnAttributes",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "table",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "column",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/merge-patch+json" : {
+              "example" : {
+                "isGuiLocked" : false,
+                "isHidden" : false
+              },
+              "schema" : {
+                "$ref" : "#/components/schemas/ApiColumnAttributesUpdate"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Change attributes of a column",
+        "tags" : [
+          "Column API"
+        ]
+      }
+    },
     "/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/data" : {
       "post" : {
         "operationId" : "addDataColumn",
@@ -3185,7 +3430,8 @@
     },
     "/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/is-gui-locked" : {
       "put" : {
-        "description" : "Change whether a column is locked (non-editable) in the GUI (webapp).",
+        "deprecated" : true,
+        "description" : "Change whether a column is locked (non-editable) in the GUI (webapp). Deprecated - please use [updateColumnAttributes] instead.",
         "operationId" : "updateColumnIsGuiLocked",
         "parameters" : [
           {
@@ -3282,7 +3528,7 @@
             ]
           }
         ],
-        "summary" : "Change whether a column is gui-locked",
+        "summary" : "Change whether a column is gui-locked.",
         "tags" : [
           "Column API"
         ]
@@ -3290,6 +3536,8 @@
     },
     "/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/visibility" : {
       "put" : {
+        "deprecated" : true,
+        "description" : "Change column visibility in a table. Deprecated - please use [updateColumnAttributes] instead.",
         "operationId" : "updateColumnVisibility",
         "parameters" : [
           {
@@ -3386,7 +3634,7 @@
             ]
           }
         ],
-        "summary" : "Change column visibility in a table",
+        "summary" : "Change column visibility in a table.",
         "tags" : [
           "Column API"
         ]
@@ -3621,7 +3869,7 @@
             ]
           }
         ],
-        "summary" : "Get the data of a table",
+        "summary" : "Get the data of a table. In order to get the complete data with all calculated values, poll this endpoint until it has no more scheduled jobs (check response field `scheduledJobs == 0`).",
         "tags" : [
           "Table API"
         ]

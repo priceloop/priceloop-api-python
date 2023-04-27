@@ -5,13 +5,13 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.list_plugin_webhooks_plugin_name import ListPluginWebhooksPluginName
+from ...models.plugin_name import PluginName
 from ...models.webhook_info import WebhookInfo
 from ...types import Response
 
 
 def _get_kwargs(
-    plugin_name: ListPluginWebhooksPluginName,
+    plugin_name: PluginName,
     *,
     client: AuthenticatedClient,
 ) -> Dict[str, Any]:
@@ -55,14 +55,14 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Lis
 
 
 def sync_detailed(
-    plugin_name: ListPluginWebhooksPluginName,
+    plugin_name: PluginName,
     *,
     client: AuthenticatedClient,
 ) -> Response[List["WebhookInfo"]]:
     """List all plugin webhooks
 
     Args:
-        plugin_name (ListPluginWebhooksPluginName):
+        plugin_name (PluginName):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -86,14 +86,14 @@ def sync_detailed(
 
 
 def sync(
-    plugin_name: ListPluginWebhooksPluginName,
+    plugin_name: PluginName,
     *,
     client: AuthenticatedClient,
 ) -> Optional[List["WebhookInfo"]]:
     """List all plugin webhooks
 
     Args:
-        plugin_name (ListPluginWebhooksPluginName):
+        plugin_name (PluginName):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -110,14 +110,14 @@ def sync(
 
 
 async def asyncio_detailed(
-    plugin_name: ListPluginWebhooksPluginName,
+    plugin_name: PluginName,
     *,
     client: AuthenticatedClient,
 ) -> Response[List["WebhookInfo"]]:
     """List all plugin webhooks
 
     Args:
-        plugin_name (ListPluginWebhooksPluginName):
+        plugin_name (PluginName):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -139,14 +139,14 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    plugin_name: ListPluginWebhooksPluginName,
+    plugin_name: PluginName,
     *,
     client: AuthenticatedClient,
 ) -> Optional[List["WebhookInfo"]]:
     """List all plugin webhooks
 
     Args:
-        plugin_name (ListPluginWebhooksPluginName):
+        plugin_name (PluginName):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

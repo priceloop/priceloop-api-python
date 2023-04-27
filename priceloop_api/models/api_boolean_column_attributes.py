@@ -2,29 +2,45 @@ from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 
-T = TypeVar("T", bound="PluginExternalData")
+from ..models.boolean_display_style import BooleanDisplayStyle
+
+T = TypeVar("T", bound="ApiBooleanColumnAttributes")
 
 
 @attr.s(auto_attribs=True)
-class PluginExternalData:
-    """ """
+class ApiBooleanColumnAttributes:
+    """
+    Attributes:
+        display_style (BooleanDisplayStyle):
+    """
 
+    display_style: BooleanDisplayStyle
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        display_style = self.display_style.value
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update(
+            {
+                "displayStyle": display_style,
+            }
+        )
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        plugin_external_data = cls()
+        display_style = BooleanDisplayStyle(d.pop("displayStyle"))
 
-        plugin_external_data.additional_properties = d
-        return plugin_external_data
+        api_boolean_column_attributes = cls(
+            display_style=display_style,
+        )
+
+        api_boolean_column_attributes.additional_properties = d
+        return api_boolean_column_attributes
 
     @property
     def additional_keys(self) -> List[str]:

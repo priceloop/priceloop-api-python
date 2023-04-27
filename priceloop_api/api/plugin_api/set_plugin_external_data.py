@@ -5,17 +5,16 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.set_plugin_external_data_json_body import SetPluginExternalDataJsonBody
-from ...models.set_plugin_external_data_plugin import SetPluginExternalDataPlugin
+from ...models.plugin_name import PluginName
 from ...types import Response
 
 
 def _get_kwargs(
     workspace: str,
-    plugin: SetPluginExternalDataPlugin,
+    plugin: PluginName,
     *,
     client: AuthenticatedClient,
-    json_body: SetPluginExternalDataJsonBody,
+    json_body: Any,
 ) -> Dict[str, Any]:
     url = "{}/api/v1.0/workspaces/{workspace}/plugin/{plugin}/external-data".format(
         client.base_url, workspace=workspace, plugin=plugin
@@ -24,7 +23,7 @@ def _get_kwargs(
     headers: Dict[str, str] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
 
-    json_json_body = json_body.to_dict()
+    json_json_body = json_body
 
     return {
         "method": "post",
@@ -56,17 +55,17 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Any
 
 def sync_detailed(
     workspace: str,
-    plugin: SetPluginExternalDataPlugin,
+    plugin: PluginName,
     *,
     client: AuthenticatedClient,
-    json_body: SetPluginExternalDataJsonBody,
+    json_body: Any,
 ) -> Response[Any]:
     """Set external data of a plugin installation
 
     Args:
         workspace (str):
-        plugin (SetPluginExternalDataPlugin):
-        json_body (SetPluginExternalDataJsonBody):
+        plugin (PluginName):
+        json_body (Any):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -93,17 +92,17 @@ def sync_detailed(
 
 async def asyncio_detailed(
     workspace: str,
-    plugin: SetPluginExternalDataPlugin,
+    plugin: PluginName,
     *,
     client: AuthenticatedClient,
-    json_body: SetPluginExternalDataJsonBody,
+    json_body: Any,
 ) -> Response[Any]:
     """Set external data of a plugin installation
 
     Args:
         workspace (str):
-        plugin (SetPluginExternalDataPlugin):
-        json_body (SetPluginExternalDataJsonBody):
+        plugin (PluginName):
+        json_body (Any):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -6,7 +6,7 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.create_external_function_return_type import CreateExternalFunctionReturnType
-from ...models.create_external_function_runtime import CreateExternalFunctionRuntime
+from ...models.external_function_runtime import ExternalFunctionRuntime
 from ...models.presigned_url import PresignedUrl
 from ...types import UNSET, Response, Unset
 
@@ -16,7 +16,7 @@ def _get_kwargs(
     function: str,
     *,
     client: AuthenticatedClient,
-    runtime: CreateExternalFunctionRuntime,
+    runtime: ExternalFunctionRuntime,
     return_type: CreateExternalFunctionReturnType,
     param_type: Union[Unset, None, List[str]] = UNSET,
 ) -> Dict[str, Any]:
@@ -82,7 +82,7 @@ def sync_detailed(
     function: str,
     *,
     client: AuthenticatedClient,
-    runtime: CreateExternalFunctionRuntime,
+    runtime: ExternalFunctionRuntime,
     return_type: CreateExternalFunctionReturnType,
     param_type: Union[Unset, None, List[str]] = UNSET,
 ) -> Response[PresignedUrl]:
@@ -95,7 +95,7 @@ def sync_detailed(
     Args:
         workspace (str):
         function (str):
-        runtime (CreateExternalFunctionRuntime):
+        runtime (ExternalFunctionRuntime):
         return_type (CreateExternalFunctionReturnType):
         param_type (Union[Unset, None, List[str]]):
 
@@ -129,7 +129,7 @@ def sync(
     function: str,
     *,
     client: AuthenticatedClient,
-    runtime: CreateExternalFunctionRuntime,
+    runtime: ExternalFunctionRuntime,
     return_type: CreateExternalFunctionReturnType,
     param_type: Union[Unset, None, List[str]] = UNSET,
 ) -> Optional[PresignedUrl]:
@@ -142,7 +142,7 @@ def sync(
     Args:
         workspace (str):
         function (str):
-        runtime (CreateExternalFunctionRuntime):
+        runtime (ExternalFunctionRuntime):
         return_type (CreateExternalFunctionReturnType):
         param_type (Union[Unset, None, List[str]]):
 
@@ -169,7 +169,7 @@ async def asyncio_detailed(
     function: str,
     *,
     client: AuthenticatedClient,
-    runtime: CreateExternalFunctionRuntime,
+    runtime: ExternalFunctionRuntime,
     return_type: CreateExternalFunctionReturnType,
     param_type: Union[Unset, None, List[str]] = UNSET,
 ) -> Response[PresignedUrl]:
@@ -182,7 +182,7 @@ async def asyncio_detailed(
     Args:
         workspace (str):
         function (str):
-        runtime (CreateExternalFunctionRuntime):
+        runtime (ExternalFunctionRuntime):
         return_type (CreateExternalFunctionReturnType):
         param_type (Union[Unset, None, List[str]]):
 
@@ -214,7 +214,7 @@ async def asyncio(
     function: str,
     *,
     client: AuthenticatedClient,
-    runtime: CreateExternalFunctionRuntime,
+    runtime: ExternalFunctionRuntime,
     return_type: CreateExternalFunctionReturnType,
     param_type: Union[Unset, None, List[str]] = UNSET,
 ) -> Optional[PresignedUrl]:
@@ -227,7 +227,7 @@ async def asyncio(
     Args:
         workspace (str):
         function (str):
-        runtime (CreateExternalFunctionRuntime):
+        runtime (ExternalFunctionRuntime):
         return_type (CreateExternalFunctionReturnType):
         param_type (Union[Unset, None, List[str]]):
 

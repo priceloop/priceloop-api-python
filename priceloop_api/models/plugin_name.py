@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class AddPluginWebhookPluginName(str, Enum):
+class PluginName(str, Enum):
     APE = "ape"
 
     def __str__(self) -> str:

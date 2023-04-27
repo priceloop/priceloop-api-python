@@ -23,6 +23,14 @@
         },
         "type" : "object"
       },
+      "ApeData1" : {
+        "properties" : {
+          "typeform" : {
+            "$ref" : "#/components/schemas/ApeDataTypeform"
+          }
+        },
+        "type" : "object"
+      },
       "ApeDataTypeform" : {
         "properties" : {
           "embedId" : {
@@ -40,6 +48,25 @@
           "responseId",
           "formId"
         ],
+        "type" : "object"
+      },
+      "ApiBooleanColumnAttributes" : {
+        "properties" : {
+          "displayStyle" : {
+            "$ref" : "#/components/schemas/BooleanDisplayStyle"
+          }
+        },
+        "required" : [
+          "displayStyle"
+        ],
+        "type" : "object"
+      },
+      "ApiBooleanColumnAttributesUpdate" : {
+        "properties" : {
+          "displayStyle" : {
+            "$ref" : "#/components/schemas/BooleanDisplayStyle"
+          }
+        },
         "type" : "object"
       },
       "ApiColumn" : {
@@ -68,6 +95,9 @@
       },
       "ApiColumnAttributes" : {
         "properties" : {
+          "booleanColumnAttributes" : {
+            "$ref" : "#/components/schemas/ApiBooleanColumnAttributes"
+          },
           "description" : {
             "type" : "string"
           },
@@ -80,12 +110,16 @@
         },
         "required" : [
           "isHidden",
-          "isGuiLocked"
+          "isGuiLocked",
+          "booleanColumnAttributes"
         ],
         "type" : "object"
       },
       "ApiColumnAttributesUpdate" : {
         "properties" : {
+          "booleanColumnAttributes" : {
+            "$ref" : "#/components/schemas/ApiBooleanColumnAttributesUpdate"
+          },
           "description" : {
             "type" : "string"
           },
@@ -182,6 +216,13 @@
         ],
         "type" : "object"
       },
+      "BooleanDisplayStyle" : {
+        "enum" : [
+          "text",
+          "checkbox"
+        ],
+        "type" : "string"
+      },
       "ColumnAttributeSchema" : {
         "properties" : {
           "isGuiLocked" : {
@@ -213,7 +254,7 @@
             "type" : "string"
           },
           "tpe" : {
-            "type" : "string"
+            "$ref" : "#/components/schemas/ExplicitExprType"
           }
         },
         "required" : [
@@ -232,6 +273,26 @@
           "separator"
         ],
         "type" : "object"
+      },
+      "ExplicitExprType" : {
+        "enum" : [
+          "number",
+          "string",
+          "boolean",
+          "date",
+          "json"
+        ],
+        "type" : "string"
+      },
+      "ExternalFunctionRuntime" : {
+        "enum" : [
+          "python",
+          "python_numpy",
+          "python_pandas",
+          "nodejs",
+          "go"
+        ],
+        "type" : "string"
       },
       "ImportJob" : {
         "properties" : {
@@ -264,7 +325,7 @@
             "type" : "string"
           },
           "tableImportMode" : {
-            "type" : "string"
+            "$ref" : "#/components/schemas/TableImportMode"
           },
           "tableName" : {
             "type" : "string"
@@ -306,13 +367,13 @@
             "$ref" : "#/components/schemas/PluginData"
           },
           "externalData" : {
-            "type" : "object"
+            
           },
           "name" : {
-            "type" : "string"
+            "$ref" : "#/components/schemas/PluginName"
           },
           "status" : {
-            "type" : "string"
+            "$ref" : "#/components/schemas/PluginStatus"
           }
         },
         "required" : [
@@ -326,10 +387,10 @@
       "Plugin1" : {
         "properties" : {
           "event" : {
-            "type" : "string"
+            "$ref" : "#/components/schemas/WebhookPluginEvent"
           },
           "pluginName" : {
-            "type" : "string"
+            "$ref" : "#/components/schemas/PluginName"
           }
         },
         "required" : [
@@ -344,6 +405,21 @@
             "properties" : {
               "ApeData" : {
                 "$ref" : "#/components/schemas/ApeData"
+              }
+            },
+            "required" : [
+              "ApeData"
+            ],
+            "type" : "object"
+          }
+        ]
+      },
+      "PluginDataUpdate" : {
+        "oneOf" : [
+          {
+            "properties" : {
+              "ApeData" : {
+                "$ref" : "#/components/schemas/ApeData1"
               }
             },
             "required" : [
@@ -369,6 +445,19 @@
           "ok"
         ],
         "type" : "object"
+      },
+      "PluginName" : {
+        "enum" : [
+          "ape"
+        ],
+        "type" : "string"
+      },
+      "PluginStatus" : {
+        "enum" : [
+          "active",
+          "inactive"
+        ],
+        "type" : "string"
       },
       "PluginTokens" : {
         "properties" : {
@@ -429,6 +518,16 @@
           "value"
         ],
         "type" : "object"
+      },
+      "TableImportMode" : {
+        "default" : "new",
+        "enum" : [
+          "new",
+          "delete_and_recreate",
+          "replace_data",
+          "append_data"
+        ],
+        "type" : "string"
       },
       "TableRow" : {
         "properties" : {
@@ -510,6 +609,15 @@
           "config"
         ],
         "type" : "object"
+      },
+      "WebhookPluginEvent" : {
+        "enum" : [
+          "PluginInstalled",
+          "PluginUninstalled",
+          "PluginTokensUpdated",
+          "PluginCustom"
+        ],
+        "type" : "string"
       }
     },
     "securitySchemes" : {
@@ -530,7 +638,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.97.0"
+    "version" : "v0.101.1"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -689,10 +797,7 @@
             "name" : "pluginName",
             "required" : true,
             "schema" : {
-              "enum" : [
-                "ape"
-              ],
-              "type" : "string"
+              "$ref" : "#/components/schemas/PluginName"
             }
           }
         ],
@@ -774,7 +879,7 @@
         ]
       },
       "post" : {
-        "description" : "\n# Plugin Webhooks\n\nThis API allows you to register a webhook endpoint that receives plugin events from our platform.\nAll events will be sent as *POST* requests to the provided webhook url.\n\nIn case your webhook endpoint is down or responds with non-success status codes, we will retry to deliver the event up to 10 times over a time period of 1 hour.\n\n## Registration/Confirmation\n\nAfter registering, you will receive a first message on your webhook endpoint to confirm the registration.\nThe registration message looks like this:\n```json\n{\n  \"SubscribeURL\": \"https://...\"\n}\n```\n\nYou have to make a *GET* request to the `SubscribeURL` in order to receive further events.\n\n## Events\n\nAfter confirmation, you will start receiving the desired plugin events.\nThe event messages look like this:\n```json\n{\n  \"event\" : \"PluginInstalled\",\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginUninstalled\",\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginTokensUpdated\",\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```",
+        "description" : "\n# Plugin Webhooks\n\nThis API allows you to register a webhook endpoint that receives plugin events from our platform.\nAll events will be sent as *POST* requests to the provided webhook url.\n\nIn case your webhook endpoint is down or responds with non-success status codes, we will retry to deliver the event up to 10 times over a time period of 1 hour.\n\n## Registration/Confirmation\n\nAfter registering, you will receive a first message on your webhook endpoint to confirm the registration.\nThe registration message looks like this:\n```json\n{\n  \"SubscribeURL\": \"https://...\"\n}\n```\n\nYou have to make a *GET* request to the `SubscribeURL` in order to receive further events.\n\n## Events\n\nAfter confirmation, you will start receiving the desired plugin events.\nThe event messages look like this:\n```json\n{\n  \"event\" : \"PluginInstalled\",\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginUninstalled\",\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginTokensUpdated\",\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginCustom\",\n  \"payload\" : {\n    \n  },\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```",
         "operationId" : "addPluginWebhook",
         "parameters" : [
           {
@@ -782,10 +887,7 @@
             "name" : "pluginName",
             "required" : true,
             "schema" : {
-              "enum" : [
-                "ape"
-              ],
-              "type" : "string"
+              "$ref" : "#/components/schemas/PluginName"
             }
           },
           {
@@ -793,12 +895,7 @@
             "name" : "event",
             "required" : true,
             "schema" : {
-              "enum" : [
-                "PluginInstalled",
-                "PluginUninstalled",
-                "PluginTokensUpdated"
-              ],
-              "type" : "string"
+              "$ref" : "#/components/schemas/WebhookPluginEvent"
             }
           }
         ],
@@ -889,10 +986,7 @@
             "name" : "pluginName",
             "required" : true,
             "schema" : {
-              "enum" : [
-                "ape"
-              ],
-              "type" : "string"
+              "$ref" : "#/components/schemas/PluginName"
             }
           },
           {
@@ -982,10 +1076,7 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
-              "enum" : [
-                "ape"
-              ],
-              "type" : "string"
+              "$ref" : "#/components/schemas/PluginName"
             }
           }
         ],
@@ -1710,14 +1801,7 @@
             "name" : "runtime",
             "required" : true,
             "schema" : {
-              "enum" : [
-                "python",
-                "python_numpy",
-                "python_pandas",
-                "nodejs",
-                "go"
-              ],
-              "type" : "string"
+              "$ref" : "#/components/schemas/ExternalFunctionRuntime"
             }
           },
           {
@@ -1933,10 +2017,7 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
-              "enum" : [
-                "ape"
-              ],
-              "type" : "string"
+              "$ref" : "#/components/schemas/PluginName"
             }
           }
         ],
@@ -2029,10 +2110,7 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
-              "enum" : [
-                "ape"
-              ],
-              "type" : "string"
+              "$ref" : "#/components/schemas/PluginName"
             }
           }
         ],
@@ -2137,10 +2215,7 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
-              "enum" : [
-                "ape"
-              ],
-              "type" : "string"
+              "$ref" : "#/components/schemas/PluginName"
             }
           },
           {
@@ -2148,11 +2223,7 @@
             "name" : "status",
             "required" : false,
             "schema" : {
-              "enum" : [
-                "active",
-                "inactive"
-              ],
-              "type" : "string"
+              "$ref" : "#/components/schemas/PluginStatus"
             }
           }
         ],
@@ -2223,7 +2294,203 @@
         ]
       }
     },
+    "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/data" : {
+      "patch" : {
+        "description" : "\n# Patch data\n\nThis endpoint allows you to update some or all of the fields inside a plugin's data using a JSON merge-patch.\n\n\n## JSON Merge-Patch\n\nIn a JSON merge-patch, all fields are optional.\nThose fields that are present will set the value accordingly.\nA field that is explicitly set to `null` will reset the value to its default.\nThis means that `null`-values hold semantic relevance, so make sure to leave out fields you do not want to change.\n\nMore information on JSON merge-patches can be found in [RFC 7396](https://datatracker.ietf.org/doc/html/rfc7396).\n  \n      ",
+        "operationId" : "patchPluginData",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "$ref" : "#/components/schemas/PluginName"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/merge-patch+json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PluginDataUpdate"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Patch data of a plugin installation",
+        "tags" : [
+          "Plugin API"
+        ]
+      }
+    },
     "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/external-data" : {
+      "patch" : {
+        "description" : "\n# Patch external data\n\nThis endpoint allows you to update some or all of the fields inside a plugin's external data using a JSON merge-patch.\n\n\n## JSON Merge-Patch\n\nIn a JSON merge-patch, all fields are optional.\nThose fields that are present will set the value accordingly.\nA field that is explicitly set to `null` will reset the value to its default.\nThis means that `null`-values hold semantic relevance, so make sure to leave out fields you do not want to change.\n\nMore information on JSON merge-patches can be found in [RFC 7396](https://datatracker.ietf.org/doc/html/rfc7396).\n  \n      ",
+        "operationId" : "patchPluginExternalData",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "$ref" : "#/components/schemas/PluginName"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/merge-patch+json" : {
+              "schema" : {
+                
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Patch external data of a plugin installation",
+        "tags" : [
+          "Plugin API"
+        ]
+      },
       "post" : {
         "operationId" : "setPluginExternalData",
         "parameters" : [
@@ -2240,10 +2507,7 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
-              "enum" : [
-                "ape"
-              ],
-              "type" : "string"
+              "$ref" : "#/components/schemas/PluginName"
             }
           }
         ],
@@ -2251,7 +2515,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "type" : "object"
+                
               }
             }
           },
@@ -2341,10 +2605,7 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
-              "enum" : [
-                "ape"
-              ],
-              "type" : "string"
+              "$ref" : "#/components/schemas/PluginName"
             }
           }
         ],
@@ -2441,10 +2702,7 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
-              "enum" : [
-                "ape"
-              ],
-              "type" : "string"
+              "$ref" : "#/components/schemas/PluginName"
             }
           }
         ],
@@ -2531,10 +2789,7 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
-              "enum" : [
-                "ape"
-              ],
-              "type" : "string"
+              "$ref" : "#/components/schemas/PluginName"
             }
           }
         ],
@@ -3095,7 +3350,7 @@
         ]
       },
       "patch" : {
-        "description" : "\n# Updating Column Attributes\n\nThis endpoint allows you to update some or all of the attributes of a column using a JSON merge-patch.\n\n## JSON Merge-Patch\nIn a JSON merge-patch, all fields are optional.\nThose that are present will set the value of their corresponding attribute.\nA field that is explicitly set to `null` will reset the value of its corresponding attribute to its default.\nThis means that `null`-values hold semantic relevance, so make sure to leave out fields you do not want to change.\n\nMore information on JSON merge-patches can be found in [RFC 7396](https://datatracker.ietf.org/doc/html/rfc7396).\n      ",
+        "description" : "\n# Updating Column Attributes\n\nThis endpoint allows you to update some or all of the attributes of a column using a JSON merge-patch.\n\n\n## JSON Merge-Patch\n\nIn a JSON merge-patch, all fields are optional.\nThose fields that are present will set the value accordingly.\nA field that is explicitly set to `null` will reset the value to its default.\nThis means that `null`-values hold semantic relevance, so make sure to leave out fields you do not want to change.\n\nMore information on JSON merge-patches can be found in [RFC 7396](https://datatracker.ietf.org/doc/html/rfc7396).\n  \n      ",
         "operationId" : "updateColumnAttributes",
         "parameters" : [
           {
@@ -3672,13 +3927,7 @@
             "name" : "mode",
             "required" : true,
             "schema" : {
-              "enum" : [
-                "new",
-                "delete_and_recreate",
-                "replace_data",
-                "append_data"
-              ],
-              "type" : "string"
+              "$ref" : "#/components/schemas/TableImportMode"
             }
           },
           {
@@ -3996,14 +4245,7 @@
             "name" : "mode",
             "required" : false,
             "schema" : {
-              "default" : "new",
-              "enum" : [
-                "new",
-                "delete_and_recreate",
-                "replace_data",
-                "append_data"
-              ],
-              "type" : "string"
+              "$ref" : "#/components/schemas/TableImportMode"
             }
           }
         ],

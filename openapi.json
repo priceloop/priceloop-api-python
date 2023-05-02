@@ -17,6 +17,12 @@
       },
       "ApeData" : {
         "properties" : {
+          "initialMarketplace" : {
+            "$ref" : "#/components/schemas/ApeMarketplace"
+          },
+          "registeredMarketplaces" : {
+            "$ref" : "#/components/schemas/Map_ApeMarketplaceRegistration"
+          },
           "typeform" : {
             "$ref" : "#/components/schemas/ApeDataTypeform"
           }
@@ -25,6 +31,12 @@
       },
       "ApeData1" : {
         "properties" : {
+          "initialMarketplace" : {
+            "$ref" : "#/components/schemas/ApeMarketplace"
+          },
+          "registeredMarketplaces" : {
+            "$ref" : "#/components/schemas/Map_ApeMarketplaceRegistration"
+          },
           "typeform" : {
             "$ref" : "#/components/schemas/ApeDataTypeform"
           }
@@ -47,6 +59,33 @@
           "embedId",
           "responseId",
           "formId"
+        ],
+        "type" : "object"
+      },
+      "ApeMarketplace" : {
+        "properties" : {
+          "countryCode" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "countryCode"
+        ],
+        "type" : "object"
+      },
+      "ApeMarketplaceRegistration" : {
+        "properties" : {
+          "date" : {
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "marketplace" : {
+            "$ref" : "#/components/schemas/ApeMarketplace"
+          }
+        },
+        "required" : [
+          "date",
+          "marketplace"
         ],
         "type" : "object"
       },
@@ -361,6 +400,12 @@
         ],
         "type" : "object"
       },
+      "Map_ApeMarketplaceRegistration" : {
+        "additionalProperties" : {
+          "$ref" : "#/components/schemas/ApeMarketplaceRegistration"
+        },
+        "type" : "object"
+      },
       "Plugin" : {
         "properties" : {
           "data" : {
@@ -615,7 +660,7 @@
           "PluginInstalled",
           "PluginUninstalled",
           "PluginTokensUpdated",
-          "PluginCustom"
+          "PluginDataUpdated"
         ],
         "type" : "string"
       }
@@ -638,7 +683,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.101.1"
+    "version" : "v0.103.3"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -879,7 +924,7 @@
         ]
       },
       "post" : {
-        "description" : "\n# Plugin Webhooks\n\nThis API allows you to register a webhook endpoint that receives plugin events from our platform.\nAll events will be sent as *POST* requests to the provided webhook url.\n\nIn case your webhook endpoint is down or responds with non-success status codes, we will retry to deliver the event up to 10 times over a time period of 1 hour.\n\n## Registration/Confirmation\n\nAfter registering, you will receive a first message on your webhook endpoint to confirm the registration.\nThe registration message looks like this:\n```json\n{\n  \"SubscribeURL\": \"https://...\"\n}\n```\n\nYou have to make a *GET* request to the `SubscribeURL` in order to receive further events.\n\n## Events\n\nAfter confirmation, you will start receiving the desired plugin events.\nThe event messages look like this:\n```json\n{\n  \"event\" : \"PluginInstalled\",\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginUninstalled\",\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginTokensUpdated\",\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginCustom\",\n  \"payload\" : {\n    \n  },\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```",
+        "description" : "\n# Plugin Webhooks\n\nThis API allows you to register a webhook endpoint that receives plugin events from our platform.\nAll events will be sent as *POST* requests to the provided webhook url.\n\nIn case your webhook endpoint is down or responds with non-success status codes, we will retry to deliver the event up to 10 times over a time period of 1 hour.\n\n## Registration/Confirmation\n\nAfter registering, you will receive a first message on your webhook endpoint to confirm the registration.\nThe registration message looks like this:\n```json\n{\n  \"SubscribeURL\": \"https://...\"\n}\n```\n\nYou have to make a *GET* request to the `SubscribeURL` in order to receive further events.\n\n## Events\n\nAfter confirmation, you will start receiving the desired plugin events.\nThe event messages look like this:\n```json\n{\n  \"event\" : \"PluginInstalled\",\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginUninstalled\",\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginTokensUpdated\",\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginDataUpdated\",\n  \"newData\" : {\n    \"ApeData\" : {\n      \"initialMarketplace\" : null,\n      \"registeredMarketplaces\" : null,\n      \"typeform\" : null\n    }\n  },\n  \"oldData\" : {\n    \"ApeData\" : {\n      \"initialMarketplace\" : null,\n      \"registeredMarketplaces\" : null,\n      \"typeform\" : null\n    }\n  },\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```",
         "operationId" : "addPluginWebhook",
         "parameters" : [
           {

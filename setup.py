@@ -17,7 +17,7 @@ REQUIRES = [
 
 setup(
     name="priceloop-api",
-    version="0.101.1",
+    version="0.103.3",
     description="A client library for accessing Priceloop API",
     author="Priceloop",
     author_email="hello@priceloop.ai",

@@ -119,9 +119,20 @@ def sync_detailed(
     ```
     ```json
     {
-      \"event\" : \"PluginCustom\",
-      \"payload\" : {
-
+      \"event\" : \"PluginDataUpdated\",
+      \"newData\" : {
+        \"ApeData\" : {
+          \"initialMarketplace\" : null,
+          \"registeredMarketplaces\" : null,
+          \"typeform\" : null
+        }
+      },
+      \"oldData\" : {
+        \"ApeData\" : {
+          \"initialMarketplace\" : null,
+          \"registeredMarketplaces\" : null,
+          \"typeform\" : null
+        }
       },
       \"pluginName\" : \"ape\",
       \"workspaceName\" : \"some-workspace-name\"
@@ -214,9 +225,20 @@ async def asyncio_detailed(
     ```
     ```json
     {
-      \"event\" : \"PluginCustom\",
-      \"payload\" : {
-
+      \"event\" : \"PluginDataUpdated\",
+      \"newData\" : {
+        \"ApeData\" : {
+          \"initialMarketplace\" : null,
+          \"registeredMarketplaces\" : null,
+          \"typeform\" : null
+        }
+      },
+      \"oldData\" : {
+        \"ApeData\" : {
+          \"initialMarketplace\" : null,
+          \"registeredMarketplaces\" : null,
+          \"typeform\" : null
+        }
       },
       \"pluginName\" : \"ape\",
       \"workspaceName\" : \"some-workspace-name\"

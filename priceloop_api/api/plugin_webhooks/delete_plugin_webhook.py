@@ -5,12 +5,12 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.delete_plugin_webhook_plugin_name import DeletePluginWebhookPluginName
+from ...models.plugin_name import PluginName
 from ...types import Response
 
 
 def _get_kwargs(
-    plugin_name: DeletePluginWebhookPluginName,
+    plugin_name: PluginName,
     webhook: str,
     *,
     client: AuthenticatedClient,
@@ -50,7 +50,7 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Any
 
 
 def sync_detailed(
-    plugin_name: DeletePluginWebhookPluginName,
+    plugin_name: PluginName,
     webhook: str,
     *,
     client: AuthenticatedClient,
@@ -58,7 +58,7 @@ def sync_detailed(
     """Delete a plugin webhook
 
     Args:
-        plugin_name (DeletePluginWebhookPluginName):
+        plugin_name (PluginName):
         webhook (str):
 
     Raises:
@@ -84,7 +84,7 @@ def sync_detailed(
 
 
 async def asyncio_detailed(
-    plugin_name: DeletePluginWebhookPluginName,
+    plugin_name: PluginName,
     webhook: str,
     *,
     client: AuthenticatedClient,
@@ -92,7 +92,7 @@ async def asyncio_detailed(
     """Delete a plugin webhook
 
     Args:
-        plugin_name (DeletePluginWebhookPluginName):
+        plugin_name (PluginName):
         webhook (str):
 
     Raises:

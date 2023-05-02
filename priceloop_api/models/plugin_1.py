@@ -2,6 +2,9 @@ from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 
+from ..models.plugin_name import PluginName
+from ..models.webhook_plugin_event import WebhookPluginEvent
+
 T = TypeVar("T", bound="Plugin1")
 
 
@@ -9,17 +12,18 @@ T = TypeVar("T", bound="Plugin1")
 class Plugin1:
     """
     Attributes:
-        event (str):
-        plugin_name (str):
+        event (WebhookPluginEvent):
+        plugin_name (PluginName):
     """
 
-    event: str
-    plugin_name: str
+    event: WebhookPluginEvent
+    plugin_name: PluginName
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        event = self.event
-        plugin_name = self.plugin_name
+        event = self.event.value
+
+        plugin_name = self.plugin_name.value
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -35,9 +39,9 @@ class Plugin1:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        event = d.pop("event")
+        event = WebhookPluginEvent(d.pop("event"))
 
-        plugin_name = d.pop("pluginName")
+        plugin_name = PluginName(d.pop("pluginName"))
 
         plugin_1 = cls(
             event=event,

@@ -2,9 +2,11 @@ from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
 
 import attr
 
+from ..models.plugin_name import PluginName
+from ..models.plugin_status import PluginStatus
+
 if TYPE_CHECKING:
     from ..models.plugin_data_type_0 import PluginDataType0
-    from ..models.plugin_external_data import PluginExternalData
 
 
 T = TypeVar("T", bound="Plugin")
@@ -15,15 +17,15 @@ class Plugin:
     """
     Attributes:
         data ('PluginDataType0'):
-        external_data (PluginExternalData):
-        name (str):
-        status (str):
+        external_data (Any):
+        name (PluginName):
+        status (PluginStatus):
     """
 
     data: "PluginDataType0"
-    external_data: "PluginExternalData"
-    name: str
-    status: str
+    external_data: Any
+    name: PluginName
+    status: PluginStatus
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -34,10 +36,10 @@ class Plugin:
         if isinstance(self.data, PluginDataType0):
             data = self.data.to_dict()
 
-        external_data = self.external_data.to_dict()
+        external_data = self.external_data
+        name = self.name.value
 
-        name = self.name
-        status = self.status
+        status = self.status.value
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -55,7 +57,6 @@ class Plugin:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.plugin_data_type_0 import PluginDataType0
-        from ..models.plugin_external_data import PluginExternalData
 
         d = src_dict.copy()
 
@@ -68,11 +69,11 @@ class Plugin:
 
         data = _parse_data(d.pop("data"))
 
-        external_data = PluginExternalData.from_dict(d.pop("externalData"))
+        external_data = d.pop("externalData")
 
-        name = d.pop("name")
+        name = PluginName(d.pop("name"))
 
-        status = d.pop("status")
+        status = PluginStatus(d.pop("status"))
 
         plugin = cls(
             data=data,

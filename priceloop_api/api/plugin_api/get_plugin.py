@@ -5,14 +5,14 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.get_plugin_plugin import GetPluginPlugin
 from ...models.plugin import Plugin
+from ...models.plugin_name import PluginName
 from ...types import Response
 
 
 def _get_kwargs(
     workspace: str,
-    plugin: GetPluginPlugin,
+    plugin: PluginName,
     *,
     client: AuthenticatedClient,
 ) -> Dict[str, Any]:
@@ -54,7 +54,7 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Plu
 
 def sync_detailed(
     workspace: str,
-    plugin: GetPluginPlugin,
+    plugin: PluginName,
     *,
     client: AuthenticatedClient,
 ) -> Response[Plugin]:
@@ -62,7 +62,7 @@ def sync_detailed(
 
     Args:
         workspace (str):
-        plugin (GetPluginPlugin):
+        plugin (PluginName):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -88,7 +88,7 @@ def sync_detailed(
 
 def sync(
     workspace: str,
-    plugin: GetPluginPlugin,
+    plugin: PluginName,
     *,
     client: AuthenticatedClient,
 ) -> Optional[Plugin]:
@@ -96,7 +96,7 @@ def sync(
 
     Args:
         workspace (str):
-        plugin (GetPluginPlugin):
+        plugin (PluginName):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -115,7 +115,7 @@ def sync(
 
 async def asyncio_detailed(
     workspace: str,
-    plugin: GetPluginPlugin,
+    plugin: PluginName,
     *,
     client: AuthenticatedClient,
 ) -> Response[Plugin]:
@@ -123,7 +123,7 @@ async def asyncio_detailed(
 
     Args:
         workspace (str):
-        plugin (GetPluginPlugin):
+        plugin (PluginName):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -147,7 +147,7 @@ async def asyncio_detailed(
 
 async def asyncio(
     workspace: str,
-    plugin: GetPluginPlugin,
+    plugin: PluginName,
     *,
     client: AuthenticatedClient,
 ) -> Optional[Plugin]:
@@ -155,7 +155,7 @@ async def asyncio(
 
     Args:
         workspace (str):
-        plugin (GetPluginPlugin):
+        plugin (PluginName):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

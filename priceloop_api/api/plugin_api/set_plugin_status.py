@@ -5,17 +5,17 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.set_plugin_status_plugin import SetPluginStatusPlugin
-from ...models.set_plugin_status_status import SetPluginStatusStatus
+from ...models.plugin_name import PluginName
+from ...models.plugin_status import PluginStatus
 from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     workspace: str,
-    plugin: SetPluginStatusPlugin,
+    plugin: PluginName,
     *,
     client: AuthenticatedClient,
-    status: Union[Unset, None, SetPluginStatusStatus] = UNSET,
+    status: Union[Unset, None, PluginStatus] = UNSET,
 ) -> Dict[str, Any]:
     url = "{}/api/v1.0/workspaces/{workspace}/plugin/{plugin}".format(
         client.base_url, workspace=workspace, plugin=plugin
@@ -63,17 +63,17 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Any
 
 def sync_detailed(
     workspace: str,
-    plugin: SetPluginStatusPlugin,
+    plugin: PluginName,
     *,
     client: AuthenticatedClient,
-    status: Union[Unset, None, SetPluginStatusStatus] = UNSET,
+    status: Union[Unset, None, PluginStatus] = UNSET,
 ) -> Response[Any]:
     """Set status of a plugin installation
 
     Args:
         workspace (str):
-        plugin (SetPluginStatusPlugin):
-        status (Union[Unset, None, SetPluginStatusStatus]):
+        plugin (PluginName):
+        status (Union[Unset, None, PluginStatus]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -100,17 +100,17 @@ def sync_detailed(
 
 async def asyncio_detailed(
     workspace: str,
-    plugin: SetPluginStatusPlugin,
+    plugin: PluginName,
     *,
     client: AuthenticatedClient,
-    status: Union[Unset, None, SetPluginStatusStatus] = UNSET,
+    status: Union[Unset, None, PluginStatus] = UNSET,
 ) -> Response[Any]:
     """Set status of a plugin installation
 
     Args:
         workspace (str):
-        plugin (SetPluginStatusPlugin):
-        status (Union[Unset, None, SetPluginStatusStatus]):
+        plugin (PluginName):
+        status (Union[Unset, None, PluginStatus]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

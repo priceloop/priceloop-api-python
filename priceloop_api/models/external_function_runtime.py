@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class CreateExternalFunctionRuntime(str, Enum):
+class ExternalFunctionRuntime(str, Enum):
     PYTHON = "python"
     PYTHON_NUMPY = "python_numpy"
     PYTHON_PANDAS = "python_pandas"

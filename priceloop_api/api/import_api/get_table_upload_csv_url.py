@@ -5,8 +5,8 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.get_table_upload_csv_url_mode import GetTableUploadCsvUrlMode
 from ...models.presigned_url import PresignedUrl
+from ...models.table_import_mode import TableImportMode
 from ...types import UNSET, Response, Unset
 
 
@@ -15,7 +15,7 @@ def _get_kwargs(
     table: str,
     *,
     client: AuthenticatedClient,
-    mode: Union[Unset, None, GetTableUploadCsvUrlMode] = GetTableUploadCsvUrlMode.NEW,
+    mode: Union[Unset, None, TableImportMode] = TableImportMode.NEW,
 ) -> Dict[str, Any]:
     url = "{}/api/v1.0/workspaces/{workspace}/tables/{table}/upload-csv-url".format(
         client.base_url, workspace=workspace, table=table
@@ -68,7 +68,7 @@ def sync_detailed(
     table: str,
     *,
     client: AuthenticatedClient,
-    mode: Union[Unset, None, GetTableUploadCsvUrlMode] = GetTableUploadCsvUrlMode.NEW,
+    mode: Union[Unset, None, TableImportMode] = TableImportMode.NEW,
 ) -> Response[PresignedUrl]:
     """Upload a CSV file into a table
 
@@ -78,8 +78,7 @@ def sync_detailed(
     Args:
         workspace (str):
         table (str):
-        mode (Union[Unset, None, GetTableUploadCsvUrlMode]):  Default:
-            GetTableUploadCsvUrlMode.NEW.
+        mode (Union[Unset, None, TableImportMode]):  Default: TableImportMode.NEW.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -109,7 +108,7 @@ def sync(
     table: str,
     *,
     client: AuthenticatedClient,
-    mode: Union[Unset, None, GetTableUploadCsvUrlMode] = GetTableUploadCsvUrlMode.NEW,
+    mode: Union[Unset, None, TableImportMode] = TableImportMode.NEW,
 ) -> Optional[PresignedUrl]:
     """Upload a CSV file into a table
 
@@ -119,8 +118,7 @@ def sync(
     Args:
         workspace (str):
         table (str):
-        mode (Union[Unset, None, GetTableUploadCsvUrlMode]):  Default:
-            GetTableUploadCsvUrlMode.NEW.
+        mode (Union[Unset, None, TableImportMode]):  Default: TableImportMode.NEW.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -143,7 +141,7 @@ async def asyncio_detailed(
     table: str,
     *,
     client: AuthenticatedClient,
-    mode: Union[Unset, None, GetTableUploadCsvUrlMode] = GetTableUploadCsvUrlMode.NEW,
+    mode: Union[Unset, None, TableImportMode] = TableImportMode.NEW,
 ) -> Response[PresignedUrl]:
     """Upload a CSV file into a table
 
@@ -153,8 +151,7 @@ async def asyncio_detailed(
     Args:
         workspace (str):
         table (str):
-        mode (Union[Unset, None, GetTableUploadCsvUrlMode]):  Default:
-            GetTableUploadCsvUrlMode.NEW.
+        mode (Union[Unset, None, TableImportMode]):  Default: TableImportMode.NEW.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -182,7 +179,7 @@ async def asyncio(
     table: str,
     *,
     client: AuthenticatedClient,
-    mode: Union[Unset, None, GetTableUploadCsvUrlMode] = GetTableUploadCsvUrlMode.NEW,
+    mode: Union[Unset, None, TableImportMode] = TableImportMode.NEW,
 ) -> Optional[PresignedUrl]:
     """Upload a CSV file into a table
 
@@ -192,8 +189,7 @@ async def asyncio(
     Args:
         workspace (str):
         table (str):
-        mode (Union[Unset, None, GetTableUploadCsvUrlMode]):  Default:
-            GetTableUploadCsvUrlMode.NEW.
+        mode (Union[Unset, None, TableImportMode]):  Default: TableImportMode.NEW.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

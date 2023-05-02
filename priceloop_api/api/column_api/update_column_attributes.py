@@ -70,16 +70,18 @@ def sync_detailed(
     This endpoint allows you to update some or all of the attributes of a column using a JSON merge-
     patch.
 
+
     ## JSON Merge-Patch
+
     In a JSON merge-patch, all fields are optional.
-    Those that are present will set the value of their corresponding attribute.
-    A field that is explicitly set to `null` will reset the value of its corresponding attribute to its
-    default.
+    Those fields that are present will set the value accordingly.
+    A field that is explicitly set to `null` will reset the value to its default.
     This means that `null`-values hold semantic relevance, so make sure to leave out fields you do not
     want to change.
 
     More information on JSON merge-patches can be found in [RFC
     7396](https://datatracker.ietf.org/doc/html/rfc7396).
+
 
 
     Args:
@@ -128,16 +130,18 @@ async def asyncio_detailed(
     This endpoint allows you to update some or all of the attributes of a column using a JSON merge-
     patch.
 
+
     ## JSON Merge-Patch
+
     In a JSON merge-patch, all fields are optional.
-    Those that are present will set the value of their corresponding attribute.
-    A field that is explicitly set to `null` will reset the value of its corresponding attribute to its
-    default.
+    Those fields that are present will set the value accordingly.
+    A field that is explicitly set to `null` will reset the value to its default.
     This means that `null`-values hold semantic relevance, so make sure to leave out fields you do not
     want to change.
 
     More information on JSON merge-patches can be found in [RFC
     7396](https://datatracker.ietf.org/doc/html/rfc7396).
+
 
 
     Args:

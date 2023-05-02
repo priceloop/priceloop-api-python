@@ -5,8 +5,8 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.create_csv_import_job_mode import CreateCsvImportJobMode
 from ...models.import_job_response import ImportJobResponse
+from ...models.table_import_mode import TableImportMode
 from ...types import UNSET, Response, Unset
 
 
@@ -15,7 +15,7 @@ def _get_kwargs(
     table: str,
     *,
     client: AuthenticatedClient,
-    mode: CreateCsvImportJobMode,
+    mode: TableImportMode = TableImportMode.NEW,
     separator: Union[Unset, None, str] = ",",
 ) -> Dict[str, Any]:
     url = "{}/api/v1.0/workspaces/{workspace}/tables/{table}/csv-import-jobs".format(
@@ -69,7 +69,7 @@ def sync_detailed(
     table: str,
     *,
     client: AuthenticatedClient,
-    mode: CreateCsvImportJobMode,
+    mode: TableImportMode = TableImportMode.NEW,
     separator: Union[Unset, None, str] = ",",
 ) -> Response[ImportJobResponse]:
     """Upload a CSV file into a table
@@ -80,7 +80,7 @@ def sync_detailed(
     Args:
         workspace (str):
         table (str):
-        mode (CreateCsvImportJobMode):
+        mode (TableImportMode):  Default: TableImportMode.NEW.
         separator (Union[Unset, None, str]):  Default: ','.
 
     Raises:
@@ -112,7 +112,7 @@ def sync(
     table: str,
     *,
     client: AuthenticatedClient,
-    mode: CreateCsvImportJobMode,
+    mode: TableImportMode = TableImportMode.NEW,
     separator: Union[Unset, None, str] = ",",
 ) -> Optional[ImportJobResponse]:
     """Upload a CSV file into a table
@@ -123,7 +123,7 @@ def sync(
     Args:
         workspace (str):
         table (str):
-        mode (CreateCsvImportJobMode):
+        mode (TableImportMode):  Default: TableImportMode.NEW.
         separator (Union[Unset, None, str]):  Default: ','.
 
     Raises:
@@ -148,7 +148,7 @@ async def asyncio_detailed(
     table: str,
     *,
     client: AuthenticatedClient,
-    mode: CreateCsvImportJobMode,
+    mode: TableImportMode = TableImportMode.NEW,
     separator: Union[Unset, None, str] = ",",
 ) -> Response[ImportJobResponse]:
     """Upload a CSV file into a table
@@ -159,7 +159,7 @@ async def asyncio_detailed(
     Args:
         workspace (str):
         table (str):
-        mode (CreateCsvImportJobMode):
+        mode (TableImportMode):  Default: TableImportMode.NEW.
         separator (Union[Unset, None, str]):  Default: ','.
 
     Raises:
@@ -189,7 +189,7 @@ async def asyncio(
     table: str,
     *,
     client: AuthenticatedClient,
-    mode: CreateCsvImportJobMode,
+    mode: TableImportMode = TableImportMode.NEW,
     separator: Union[Unset, None, str] = ",",
 ) -> Optional[ImportJobResponse]:
     """Upload a CSV file into a table
@@ -200,7 +200,7 @@ async def asyncio(
     Args:
         workspace (str):
         table (str):
-        mode (CreateCsvImportJobMode):
+        mode (TableImportMode):  Default: TableImportMode.NEW.
         separator (Union[Unset, None, str]):  Default: ','.
 
     Raises:

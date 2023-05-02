@@ -5,6 +5,8 @@ from .amazon import Amazon
 from .ape_data import ApeData
 from .ape_data_1 import ApeData1
 from .ape_data_typeform import ApeDataTypeform
+from .ape_marketplace import ApeMarketplace
+from .ape_marketplace_registration import ApeMarketplaceRegistration
 from .api_boolean_column_attributes import ApiBooleanColumnAttributes
 from .api_boolean_column_attributes_update import ApiBooleanColumnAttributesUpdate
 from .api_column import ApiColumn
@@ -23,6 +25,7 @@ from .explicit_expr_type import ExplicitExprType
 from .external_function_runtime import ExternalFunctionRuntime
 from .import_job import ImportJob
 from .import_job_response import ImportJobResponse
+from .map_ape_marketplace_registration import MapApeMarketplaceRegistration
 from .plugin import Plugin
 from .plugin_1 import Plugin1
 from .plugin_data_type_0 import PluginDataType0
@@ -49,6 +52,8 @@ __all__ = (
     "ApeData",
     "ApeData1",
     "ApeDataTypeform",
+    "ApeMarketplace",
+    "ApeMarketplaceRegistration",
     "ApiBooleanColumnAttributes",
     "ApiBooleanColumnAttributesUpdate",
     "ApiColumn",
@@ -67,6 +72,7 @@ __all__ = (
     "ExternalFunctionRuntime",
     "ImportJob",
     "ImportJobResponse",
+    "MapApeMarketplaceRegistration",
     "Plugin",
     "Plugin1",
     "PluginDataType0",

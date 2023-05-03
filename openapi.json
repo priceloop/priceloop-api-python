@@ -171,6 +171,27 @@
         },
         "type" : "object"
       },
+      "ApiColumnSchema" : {
+        "properties" : {
+          "attributes" : {
+            "$ref" : "#/components/schemas/ApiColumnAttributesUpdate"
+          },
+          "formula" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "tpe" : {
+            "$ref" : "#/components/schemas/ExplicitExprType"
+          }
+        },
+        "required" : [
+          "name",
+          "tpe"
+        ],
+        "type" : "object"
+      },
       "ApiExternalFunction" : {
         "properties" : {
           "functionName" : {
@@ -232,6 +253,23 @@
         ],
         "type" : "object"
       },
+      "ApiTableSchema" : {
+        "properties" : {
+          "columns" : {
+            "items" : {
+              "$ref" : "#/components/schemas/ApiColumnSchema"
+            },
+            "type" : "array"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "name"
+        ],
+        "type" : "object"
+      },
       "ApiWorkspace" : {
         "properties" : {
           "externalFunctions" : {
@@ -261,46 +299,6 @@
           "checkbox"
         ],
         "type" : "string"
-      },
-      "ColumnAttributeSchema" : {
-        "properties" : {
-          "isGuiLocked" : {
-            "type" : "boolean"
-          },
-          "isHidden" : {
-            "type" : "boolean"
-          },
-          "position" : {
-            "format" : "int32",
-            "type" : "integer"
-          },
-          "widthPx" : {
-            "format" : "int32",
-            "type" : "integer"
-          }
-        },
-        "type" : "object"
-      },
-      "ColumnSchema" : {
-        "properties" : {
-          "attributes" : {
-            "$ref" : "#/components/schemas/ColumnAttributeSchema"
-          },
-          "formula" : {
-            "type" : "string"
-          },
-          "name" : {
-            "type" : "string"
-          },
-          "tpe" : {
-            "$ref" : "#/components/schemas/ExplicitExprType"
-          }
-        },
-        "required" : [
-          "name",
-          "tpe"
-        ],
-        "type" : "object"
       },
       "CsvSeparator" : {
         "properties" : {
@@ -592,23 +590,6 @@
         ],
         "type" : "object"
       },
-      "TableSchema" : {
-        "properties" : {
-          "columns" : {
-            "items" : {
-              "$ref" : "#/components/schemas/ColumnSchema"
-            },
-            "type" : "array"
-          },
-          "name" : {
-            "type" : "string"
-          }
-        },
-        "required" : [
-          "name"
-        ],
-        "type" : "object"
-      },
       "WebhookConfig" : {
         "properties" : {
           "webhookUrl" : {
@@ -683,7 +664,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.103.3"
+    "version" : "v0.104.1"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -1470,7 +1451,7 @@
             "application/json" : {
               "schema" : {
                 "items" : {
-                  "$ref" : "#/components/schemas/TableSchema"
+                  "$ref" : "#/components/schemas/ApiTableSchema"
                 },
                 "type" : "array"
               }

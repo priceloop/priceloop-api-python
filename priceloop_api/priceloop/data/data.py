@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 from io import StringIO
 
-from priceloop_api.models.create_csv_import_job_mode import CreateCsvImportJobMode
+from priceloop_api.models import TableImportMode
 from priceloop_api.client import AuthenticatedClient
 from priceloop_api.api.workspace_api import (
     list_workspaces,
@@ -23,7 +23,7 @@ def to_nocode(
     df: pd.DataFrame,
     table_name: str,
     client: AuthenticatedClient,
-    mode: CreateCsvImportJobMode = CreateCsvImportJobMode.DELETE_AND_RECREATE,
+    mode: TableImportMode = TableImportMode.DELETE_AND_RECREATE,
     workspace_name: str = None,
 ) -> int:
     csv_buffer = StringIO()
@@ -68,7 +68,6 @@ def read_nocode(
 
 
 def create_table_from_schema(schema: list, client: AuthenticatedClient, workspace_name: str = None):
-
     if workspace_name is None:
         workspaces = list_workspaces.sync(client=client)
         workspace = get_workspace.sync(workspaces[0], client=client)

@@ -6,25 +6,25 @@ from ..models.explicit_expr_type import ExplicitExprType
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.column_attribute_schema import ColumnAttributeSchema
+    from ..models.api_column_attributes_update import ApiColumnAttributesUpdate
 
 
-T = TypeVar("T", bound="ColumnSchema")
+T = TypeVar("T", bound="ApiColumnSchema")
 
 
 @attr.s(auto_attribs=True)
-class ColumnSchema:
+class ApiColumnSchema:
     """
     Attributes:
         name (str):
         tpe (ExplicitExprType):
-        attributes (Union[Unset, ColumnAttributeSchema]):
+        attributes (Union[Unset, ApiColumnAttributesUpdate]):
         formula (Union[Unset, str]):
     """
 
     name: str
     tpe: ExplicitExprType
-    attributes: Union[Unset, "ColumnAttributeSchema"] = UNSET
+    attributes: Union[Unset, "ApiColumnAttributesUpdate"] = UNSET
     formula: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
@@ -55,7 +55,7 @@ class ColumnSchema:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.column_attribute_schema import ColumnAttributeSchema
+        from ..models.api_column_attributes_update import ApiColumnAttributesUpdate
 
         d = src_dict.copy()
         name = d.pop("name")
@@ -63,23 +63,23 @@ class ColumnSchema:
         tpe = ExplicitExprType(d.pop("tpe"))
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[Unset, ColumnAttributeSchema]
+        attributes: Union[Unset, ApiColumnAttributesUpdate]
         if isinstance(_attributes, Unset):
             attributes = UNSET
         else:
-            attributes = ColumnAttributeSchema.from_dict(_attributes)
+            attributes = ApiColumnAttributesUpdate.from_dict(_attributes)
 
         formula = d.pop("formula", UNSET)
 
-        column_schema = cls(
+        api_column_schema = cls(
             name=name,
             tpe=tpe,
             attributes=attributes,
             formula=formula,
         )
 
-        column_schema.additional_properties = d
-        return column_schema
+        api_column_schema.additional_properties = d
+        return api_column_schema
 
     @property
     def additional_keys(self) -> List[str]:

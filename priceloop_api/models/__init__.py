@@ -12,13 +12,13 @@ from .api_boolean_column_attributes_update import ApiBooleanColumnAttributesUpda
 from .api_column import ApiColumn
 from .api_column_attributes import ApiColumnAttributes
 from .api_column_attributes_update import ApiColumnAttributesUpdate
+from .api_column_schema import ApiColumnSchema
 from .api_external_function import ApiExternalFunction
 from .api_table import ApiTable
 from .api_table_data import ApiTableData
+from .api_table_schema import ApiTableSchema
 from .api_workspace import ApiWorkspace
 from .boolean_display_style import BooleanDisplayStyle
-from .column_attribute_schema import ColumnAttributeSchema
-from .column_schema import ColumnSchema
 from .create_external_function_return_type import CreateExternalFunctionReturnType
 from .csv_separator import CsvSeparator
 from .explicit_expr_type import ExplicitExprType
@@ -40,7 +40,6 @@ from .presigned_url import PresignedUrl
 from .s3_key import S3Key
 from .table_import_mode import TableImportMode
 from .table_row import TableRow
-from .table_schema import TableSchema
 from .webhook_config import WebhookConfig
 from .webhook_event_selector_type_0 import WebhookEventSelectorType0
 from .webhook_info import WebhookInfo
@@ -59,13 +58,13 @@ __all__ = (
     "ApiColumn",
     "ApiColumnAttributes",
     "ApiColumnAttributesUpdate",
+    "ApiColumnSchema",
     "ApiExternalFunction",
     "ApiTable",
     "ApiTableData",
+    "ApiTableSchema",
     "ApiWorkspace",
     "BooleanDisplayStyle",
-    "ColumnAttributeSchema",
-    "ColumnSchema",
     "CreateExternalFunctionReturnType",
     "CsvSeparator",
     "ExplicitExprType",
@@ -87,7 +86,6 @@ __all__ = (
     "S3Key",
     "TableImportMode",
     "TableRow",
-    "TableSchema",
     "WebhookConfig",
     "WebhookEventSelectorType0",
     "WebhookInfo",

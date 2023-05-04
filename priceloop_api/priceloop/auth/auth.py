@@ -1,8 +1,9 @@
 from dataclasses import dataclass
 from datetime import datetime, timedelta
+from typing import Optional
 
 import boto3  # type: ignore
-import requests  # type: ignore
+import requests
 
 
 @dataclass(frozen=True)
@@ -25,8 +26,8 @@ class AuthTokens:
 
 
 class AuthState:
-    nocode_config: ApiConfig | None = None
-    auth_tokens: AuthTokens | None = None
+    nocode_config: Optional[ApiConfig] = None
+    auth_tokens: Optional[AuthTokens] = None
     username: str
     password: str
     host: str

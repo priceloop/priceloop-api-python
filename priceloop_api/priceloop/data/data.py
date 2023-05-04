@@ -1,5 +1,5 @@
 import requests
-import pandas as pd  # type: ignore
+import pandas as pd
 from io import StringIO
 from typing import List
 
@@ -29,7 +29,7 @@ def to_nocode(
     workspace_name: str | None = None,
 ) -> int | None:
     csv_buffer = StringIO()
-    df.to_csv(csv_buffer, index=None)
+    df.to_csv(csv_buffer, index=False)
 
     if workspace_name is None:
         workspaces = list_workspaces.sync(client=client)
@@ -51,7 +51,7 @@ def to_nocode(
 
 def read_nocode(
     table_name: str, client: AuthenticatedClient, limit: int, offset: int, workspace_name: str | None = None
-) -> pd.DataFrame:
+) -> pd.DataFrame | None:
     csv_buffer = StringIO()
 
     if workspace_name is None:
@@ -67,14 +67,14 @@ def read_nocode(
     raw_table_data = get_table_data.sync(workspace_name, table_name, client=client, limit=limit, offset=offset)
 
     if raw_header is None:
-        return
+        return None
     if raw_table_data is None:
-        return
+        return None
     # columns = raw_header.columns
     if isinstance(raw_header.columns, Unset):
-        return
+        return None
     if isinstance(raw_table_data.rows, Unset):
-        return
+        return None
 
     header = [i.name for i in raw_header.columns]
     boolean_cols = [i.name for i in raw_header.columns if i.tpe == "boolean"]
@@ -82,7 +82,7 @@ def read_nocode(
     for col in boolean_cols:
         table_data[col] = table_data[col].map(d)
     # To-do: infer type from nocode
-    table_data.to_csv(csv_buffer, index=None)
+    table_data.to_csv(csv_buffer, index=False)
     csv_buffer.seek(0)
     table_data_type_inferred = pd.read_csv(csv_buffer)
     return table_data_type_inferred

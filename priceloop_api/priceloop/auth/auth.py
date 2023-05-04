@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 from datetime import datetime, timedelta
+from typing import Optional
 
-import boto3
+import boto3  # type: ignore
 import requests
 
 
@@ -24,11 +25,14 @@ class AuthTokens:
     token_type: str
 
 
-class AuthState(object):
-    nocode_config: ApiConfig = None
-    auth_tokens: AuthTokens = None
+class AuthState:
+    nocode_config: Optional[ApiConfig] = None
+    auth_tokens: Optional[AuthTokens] = None
+    username: str
+    password: str
+    host: str
 
-    def config(self):
+    def config(self) -> ApiConfig:
         if self.nocode_config is None:
             endpoint = f"https://{self.host}/app_config.json"
 
@@ -36,14 +40,13 @@ class AuthState(object):
 
         return self.nocode_config
 
-
-    def access_token(self):
+    def access_token(self) -> str:
         if self.auth_tokens is None or is_expired(datetime.now(), self.auth_tokens):
             self.auth_tokens = get_oauth_tokens(self.config(), self.username, self.password)
 
         return self.auth_tokens.access_token
 
-    def __init__(self, username, password, host):
+    def __init__(self, username: str, password: str, host: str):
         self.username = username
         self.password = password
         self.host = host
@@ -53,7 +56,7 @@ def is_expired(now: datetime, tokens: AuthTokens) -> bool:
     return tokens.expiry_date - timedelta(minutes=1) > now
 
 
-def get_config(app_config_url: str, auth_endpoint=None) -> ApiConfig:
+def get_config(app_config_url: str, auth_endpoint: Optional[str] = None) -> ApiConfig:
     response = requests.get(app_config_url)
     cfg = response.json()
     endpoint = None

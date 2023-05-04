@@ -1,1 +1,6 @@
 openapi-python-client==0.13.0
+mypy
+types-PyYAML
+types-python-dateutil
+types-requests
+pandas-stubs

@@ -30,7 +30,6 @@ jobs:
           set -e
           pip install -r requirements.txt
           pip install -r requirements_dev.txt
-          yes | mypy --install-types
           mypy priceloop_api/
 
   publish:

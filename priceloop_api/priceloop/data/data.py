@@ -1,7 +1,9 @@
 import requests
-import pandas as pd
+import pandas as pd # type: ignore
 from io import StringIO
+from typing import List
 
+from priceloop_api.types import Unset
 from priceloop_api.models.create_csv_import_job_mode import CreateCsvImportJobMode
 from priceloop_api.client import AuthenticatedClient
 from priceloop_api.api.workspace_api import (
@@ -24,17 +26,23 @@ def to_nocode(
     table_name: str,
     client: AuthenticatedClient,
     mode: CreateCsvImportJobMode = CreateCsvImportJobMode.DELETE_AND_RECREATE,
-    workspace_name: str = None,
-) -> int:
+    workspace_name: str|None = None,
+) -> int|None:
     csv_buffer = StringIO()
     df.to_csv(csv_buffer, index=None)
 
     if workspace_name is None:
         workspaces = list_workspaces.sync(client=client)
+        if workspaces is None:
+            return None
         workspace = get_workspace.sync(workspaces[0], client=client)
+        if workspace is None:
+            return None
         workspace_name = workspace.name
 
     import_job = create_csv_import_job.sync(workspace_name, table_name, mode=mode, client=client)
+    if import_job is None:
+        return None
 
     requests.put(import_job.put_url, data=csv_buffer.getvalue().encode("utf-8"))
     print("Upload Successful, please wait a moment for the changes to appear")
@@ -42,21 +50,34 @@ def to_nocode(
 
 
 def read_nocode(
-    table_name: str, client: AuthenticatedClient, limit: int, offset: int, workspace_name: str = None
+    table_name: str, client: AuthenticatedClient, limit: int, offset: int, workspace_name: str|None = None
 ) -> pd.DataFrame:
     csv_buffer = StringIO()
 
     if workspace_name is None:
         workspaces = list_workspaces.sync(client=client)
+        if workspaces is None:
+            return None
         workspace = get_workspace.sync(workspaces[0], client=client)
-
+        if workspace is None:
+            return None
         workspace_name = workspace.name
 
     raw_header = get_table.sync(workspace_name, table_name, client=client)
+    raw_table_data = get_table_data.sync(workspace_name, table_name, client=client, limit=limit, offset=offset)
+
+    if raw_header is None:
+        return
+    if raw_table_data is None:
+        return
+    # columns = raw_header.columns
+    if isinstance(raw_header.columns, Unset):
+        return
+    if isinstance(raw_table_data.rows, Unset):
+        return
 
     header = [i.name for i in raw_header.columns]
     boolean_cols = [i.name for i in raw_header.columns if i.tpe == "boolean"]
-    raw_table_data = get_table_data.sync(workspace_name, table_name, client=client, limit=limit, offset=offset)
     table_data = pd.DataFrame([v.values for v in raw_table_data.rows], columns=header)
     for col in boolean_cols:
         table_data[col] = table_data[col].map(d)
@@ -67,11 +88,15 @@ def read_nocode(
     return table_data_type_inferred
 
 
-def create_table_from_schema(schema: list, client: AuthenticatedClient, workspace_name: str = None):
+def create_table_from_schema(schema: list, client: AuthenticatedClient, workspace_name: str|None = None):
 
     if workspace_name is None:
         workspaces = list_workspaces.sync(client=client)
+        if workspaces is None:
+            return
         workspace = get_workspace.sync(workspaces[0], client=client)
+        if workspace is None:
+            return
         workspace_name = workspace.name
 
     url = "{}/api/v1.0/workspaces/{workspace}/create-tables".format(client.base_url, workspace=workspace_name)

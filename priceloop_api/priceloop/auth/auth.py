@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 
-import boto3
-import requests
+import boto3 # type: ignore
+import requests # type: ignore
 
 
 @dataclass(frozen=True)
@@ -25,10 +25,10 @@ class AuthTokens:
 
 
 class AuthState(object):
-    nocode_config: ApiConfig = None
-    auth_tokens: AuthTokens = None
+    nocode_config: ApiConfig|None = None
+    auth_tokens: AuthTokens|None = None
 
-    def config(self):
+    def config(self) -> ApiConfig:
         if self.nocode_config is None:
             endpoint = f"https://{self.host}/app_config.json"
 

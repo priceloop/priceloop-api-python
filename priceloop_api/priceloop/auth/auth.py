@@ -56,7 +56,7 @@ def is_expired(now: datetime, tokens: AuthTokens) -> bool:
     return tokens.expiry_date - timedelta(minutes=1) > now
 
 
-def get_config(app_config_url: str, auth_endpoint: str | None = None) -> ApiConfig:
+def get_config(app_config_url: str, auth_endpoint: Optional[str] = None) -> ApiConfig:
     response = requests.get(app_config_url)
     cfg = response.json()
     endpoint = None

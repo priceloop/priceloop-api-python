@@ -24,9 +24,12 @@ class AuthTokens:
     token_type: str
 
 
-class AuthState(object):
+class AuthState:
     nocode_config: ApiConfig | None = None
     auth_tokens: AuthTokens | None = None
+    username: str
+    password: str
+    host: str
 
     def config(self) -> ApiConfig:
         if self.nocode_config is None:
@@ -42,7 +45,7 @@ class AuthState(object):
 
         return self.auth_tokens.access_token
 
-    def __init__(self, username, password, host):
+    def __init__(self, username: str, password: str, host: str):
         self.username = username
         self.password = password
         self.host = host
@@ -52,7 +55,7 @@ def is_expired(now: datetime, tokens: AuthTokens) -> bool:
     return tokens.expiry_date - timedelta(minutes=1) > now
 
 
-def get_config(app_config_url: str, auth_endpoint=None) -> ApiConfig:
+def get_config(app_config_url: str, auth_endpoint: str | None = None) -> ApiConfig:
     response = requests.get(app_config_url)
     cfg = response.json()
     endpoint = None

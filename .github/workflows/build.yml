@@ -27,7 +27,10 @@ jobs:
 
       - name: build package
         run: |
+          set -e
           pip install -r requirements.txt
+          pip install -r requirements_dev.txt
+          mypy priceloop_api/
 
   publish:
     if: github.ref_type == 'tag'

@@ -2,35 +2,27 @@ from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 
-from ..models.plugin_name import PluginName
-from ..models.webhook_plugin_event import WebhookPluginEvent
-
-T = TypeVar("T", bound="Plugin1")
+T = TypeVar("T", bound="ApeMarketplace")
 
 
 @attr.s(auto_attribs=True)
-class Plugin1:
+class ApeMarketplace:
     """
     Attributes:
-        event (WebhookPluginEvent):
-        plugin_name (PluginName):
+        country_code (str):
     """
 
-    event: WebhookPluginEvent
-    plugin_name: PluginName
+    country_code: str
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        event = self.event.value
-
-        plugin_name = self.plugin_name.value
+        country_code = self.country_code
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "event": event,
-                "pluginName": plugin_name,
+                "countryCode": country_code,
             }
         )
 
@@ -39,17 +31,14 @@ class Plugin1:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        event = WebhookPluginEvent(d.pop("event"))
+        country_code = d.pop("countryCode")
 
-        plugin_name = PluginName(d.pop("pluginName"))
-
-        plugin_1 = cls(
-            event=event,
-            plugin_name=plugin_name,
+        ape_marketplace = cls(
+            country_code=country_code,
         )
 
-        plugin_1.additional_properties = d
-        return plugin_1
+        ape_marketplace.additional_properties = d
+        return ape_marketplace
 
     @property
     def additional_keys(self) -> List[str]:

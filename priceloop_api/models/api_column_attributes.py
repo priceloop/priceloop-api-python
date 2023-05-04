@@ -1,8 +1,12 @@
-from typing import Any, Dict, List, Type, TypeVar, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 import attr
 
 from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.api_boolean_column_attributes import ApiBooleanColumnAttributes
+
 
 T = TypeVar("T", bound="ApiColumnAttributes")
 
@@ -11,17 +15,21 @@ T = TypeVar("T", bound="ApiColumnAttributes")
 class ApiColumnAttributes:
     """
     Attributes:
+        boolean_column_attributes (ApiBooleanColumnAttributes):
         is_gui_locked (bool):
         is_hidden (bool):
         description (Union[Unset, str]):
     """
 
+    boolean_column_attributes: "ApiBooleanColumnAttributes"
     is_gui_locked: bool
     is_hidden: bool
     description: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        boolean_column_attributes = self.boolean_column_attributes.to_dict()
+
         is_gui_locked = self.is_gui_locked
         is_hidden = self.is_hidden
         description = self.description
@@ -30,6 +38,7 @@ class ApiColumnAttributes:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
+                "booleanColumnAttributes": boolean_column_attributes,
                 "isGuiLocked": is_gui_locked,
                 "isHidden": is_hidden,
             }
@@ -41,7 +50,11 @@ class ApiColumnAttributes:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+        from ..models.api_boolean_column_attributes import ApiBooleanColumnAttributes
+
         d = src_dict.copy()
+        boolean_column_attributes = ApiBooleanColumnAttributes.from_dict(d.pop("booleanColumnAttributes"))
+
         is_gui_locked = d.pop("isGuiLocked")
 
         is_hidden = d.pop("isHidden")
@@ -49,6 +62,7 @@ class ApiColumnAttributes:
         description = d.pop("description", UNSET)
 
         api_column_attributes = cls(
+            boolean_column_attributes=boolean_column_attributes,
             is_gui_locked=is_gui_locked,
             is_hidden=is_hidden,
             description=description,

@@ -1,36 +1,39 @@
-from typing import Any, Dict, List, Type, TypeVar
+import datetime
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
 
 import attr
+from dateutil.parser import isoparse
 
-from ..models.plugin_name import PluginName
-from ..models.webhook_plugin_event import WebhookPluginEvent
+if TYPE_CHECKING:
+    from ..models.ape_marketplace import ApeMarketplace
 
-T = TypeVar("T", bound="Plugin1")
+
+T = TypeVar("T", bound="ApeMarketplaceRegistration")
 
 
 @attr.s(auto_attribs=True)
-class Plugin1:
+class ApeMarketplaceRegistration:
     """
     Attributes:
-        event (WebhookPluginEvent):
-        plugin_name (PluginName):
+        date (datetime.datetime):
+        marketplace (ApeMarketplace):
     """
 
-    event: WebhookPluginEvent
-    plugin_name: PluginName
+    date: datetime.datetime
+    marketplace: "ApeMarketplace"
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        event = self.event.value
+        date = self.date.isoformat()
 
-        plugin_name = self.plugin_name.value
+        marketplace = self.marketplace.to_dict()
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "event": event,
-                "pluginName": plugin_name,
+                "date": date,
+                "marketplace": marketplace,
             }
         )
 
@@ -38,18 +41,20 @@ class Plugin1:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+        from ..models.ape_marketplace import ApeMarketplace
+
         d = src_dict.copy()
-        event = WebhookPluginEvent(d.pop("event"))
+        date = isoparse(d.pop("date"))
 
-        plugin_name = PluginName(d.pop("pluginName"))
+        marketplace = ApeMarketplace.from_dict(d.pop("marketplace"))
 
-        plugin_1 = cls(
-            event=event,
-            plugin_name=plugin_name,
+        ape_marketplace_registration = cls(
+            date=date,
+            marketplace=marketplace,
         )
 
-        plugin_1.additional_properties = d
-        return plugin_1
+        ape_marketplace_registration.additional_properties = d
+        return ape_marketplace_registration
 
     @property
     def additional_keys(self) -> List[str]:

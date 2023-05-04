@@ -5,18 +5,18 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.add_plugin_webhook_event import AddPluginWebhookEvent
-from ...models.add_plugin_webhook_plugin_name import AddPluginWebhookPluginName
+from ...models.plugin_name import PluginName
 from ...models.webhook_config import WebhookConfig
+from ...models.webhook_plugin_event import WebhookPluginEvent
 from ...types import UNSET, Response
 
 
 def _get_kwargs(
-    plugin_name: AddPluginWebhookPluginName,
+    plugin_name: PluginName,
     *,
     client: AuthenticatedClient,
     json_body: WebhookConfig,
-    event: AddPluginWebhookEvent,
+    event: WebhookPluginEvent,
 ) -> Dict[str, Any]:
     url = "{}/api/v1.0/plugin/{pluginName}/webhooks".format(client.base_url, pluginName=plugin_name)
 
@@ -62,11 +62,11 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Any
 
 
 def sync_detailed(
-    plugin_name: AddPluginWebhookPluginName,
+    plugin_name: PluginName,
     *,
     client: AuthenticatedClient,
     json_body: WebhookConfig,
-    event: AddPluginWebhookEvent,
+    event: WebhookPluginEvent,
 ) -> Response[Any]:
     """Register a plugin webhook
 
@@ -117,10 +117,31 @@ def sync_detailed(
       \"workspaceName\" : \"some-workspace-name\"
     }
     ```
+    ```json
+    {
+      \"event\" : \"PluginDataUpdated\",
+      \"newData\" : {
+        \"ApeData\" : {
+          \"initialMarketplace\" : null,
+          \"registeredMarketplaces\" : null,
+          \"typeform\" : null
+        }
+      },
+      \"oldData\" : {
+        \"ApeData\" : {
+          \"initialMarketplace\" : null,
+          \"registeredMarketplaces\" : null,
+          \"typeform\" : null
+        }
+      },
+      \"pluginName\" : \"ape\",
+      \"workspaceName\" : \"some-workspace-name\"
+    }
+    ```
 
     Args:
-        plugin_name (AddPluginWebhookPluginName):
-        event (AddPluginWebhookEvent):
+        plugin_name (PluginName):
+        event (WebhookPluginEvent):
         json_body (WebhookConfig):
 
     Raises:
@@ -147,11 +168,11 @@ def sync_detailed(
 
 
 async def asyncio_detailed(
-    plugin_name: AddPluginWebhookPluginName,
+    plugin_name: PluginName,
     *,
     client: AuthenticatedClient,
     json_body: WebhookConfig,
-    event: AddPluginWebhookEvent,
+    event: WebhookPluginEvent,
 ) -> Response[Any]:
     """Register a plugin webhook
 
@@ -202,10 +223,31 @@ async def asyncio_detailed(
       \"workspaceName\" : \"some-workspace-name\"
     }
     ```
+    ```json
+    {
+      \"event\" : \"PluginDataUpdated\",
+      \"newData\" : {
+        \"ApeData\" : {
+          \"initialMarketplace\" : null,
+          \"registeredMarketplaces\" : null,
+          \"typeform\" : null
+        }
+      },
+      \"oldData\" : {
+        \"ApeData\" : {
+          \"initialMarketplace\" : null,
+          \"registeredMarketplaces\" : null,
+          \"typeform\" : null
+        }
+      },
+      \"pluginName\" : \"ape\",
+      \"workspaceName\" : \"some-workspace-name\"
+    }
+    ```
 
     Args:
-        plugin_name (AddPluginWebhookPluginName):
-        event (AddPluginWebhookEvent):
+        plugin_name (PluginName):
+        event (WebhookPluginEvent):
         json_body (WebhookConfig):
 
     Raises:

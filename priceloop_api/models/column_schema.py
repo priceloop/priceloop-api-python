@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 import attr
 
+from ..models.explicit_expr_type import ExplicitExprType
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -16,20 +17,21 @@ class ColumnSchema:
     """
     Attributes:
         name (str):
-        tpe (str):
+        tpe (ExplicitExprType):
         attributes (Union[Unset, ColumnAttributeSchema]):
         formula (Union[Unset, str]):
     """
 
     name: str
-    tpe: str
+    tpe: ExplicitExprType
     attributes: Union[Unset, "ColumnAttributeSchema"] = UNSET
     formula: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         name = self.name
-        tpe = self.tpe
+        tpe = self.tpe.value
+
         attributes: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.attributes, Unset):
             attributes = self.attributes.to_dict()
@@ -58,7 +60,7 @@ class ColumnSchema:
         d = src_dict.copy()
         name = d.pop("name")
 
-        tpe = d.pop("tpe")
+        tpe = ExplicitExprType(d.pop("tpe"))
 
         _attributes = d.pop("attributes", UNSET)
         attributes: Union[Unset, ColumnAttributeSchema]

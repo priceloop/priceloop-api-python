@@ -1,8 +1,9 @@
 from enum import Enum
 
 
-class GetPluginLiveStatusPlugin(str, Enum):
-    APE = "ape"
+class BooleanDisplayStyle(str, Enum):
+    TEXT = "text"
+    CHECKBOX = "checkbox"
 
     def __str__(self) -> str:
         return str(self.value)

@@ -5,14 +5,14 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.create_plugin_plugin import CreatePluginPlugin
 from ...models.plugin_data_type_0 import PluginDataType0
+from ...models.plugin_name import PluginName
 from ...types import Response
 
 
 def _get_kwargs(
     workspace: str,
-    plugin: CreatePluginPlugin,
+    plugin: PluginName,
     *,
     client: AuthenticatedClient,
     json_body: "PluginDataType0",
@@ -59,7 +59,7 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Any
 
 def sync_detailed(
     workspace: str,
-    plugin: CreatePluginPlugin,
+    plugin: PluginName,
     *,
     client: AuthenticatedClient,
     json_body: "PluginDataType0",
@@ -68,7 +68,7 @@ def sync_detailed(
 
     Args:
         workspace (str):
-        plugin (CreatePluginPlugin):
+        plugin (PluginName):
         json_body ('PluginDataType0'):
 
     Raises:
@@ -96,7 +96,7 @@ def sync_detailed(
 
 async def asyncio_detailed(
     workspace: str,
-    plugin: CreatePluginPlugin,
+    plugin: PluginName,
     *,
     client: AuthenticatedClient,
     json_body: "PluginDataType0",
@@ -105,7 +105,7 @@ async def asyncio_detailed(
 
     Args:
         workspace (str):
-        plugin (CreatePluginPlugin):
+        plugin (PluginName):
         json_body ('PluginDataType0'):
 
     Raises:

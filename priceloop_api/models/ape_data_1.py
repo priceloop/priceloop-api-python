@@ -10,11 +10,11 @@ if TYPE_CHECKING:
     from ..models.map_ape_marketplace_registration import MapApeMarketplaceRegistration
 
 
-T = TypeVar("T", bound="ApeData")
+T = TypeVar("T", bound="ApeData1")
 
 
 @attr.s(auto_attribs=True)
-class ApeData:
+class ApeData1:
     """
     Attributes:
         initial_marketplace (Union[Unset, ApeMarketplace]):
@@ -80,14 +80,14 @@ class ApeData:
         else:
             typeform = ApeDataTypeform.from_dict(_typeform)
 
-        ape_data = cls(
+        ape_data_1 = cls(
             initial_marketplace=initial_marketplace,
             registered_marketplaces=registered_marketplaces,
             typeform=typeform,
         )
 
-        ape_data.additional_properties = d
-        return ape_data
+        ape_data_1.additional_properties = d
+        return ape_data_1
 
     @property
     def additional_keys(self) -> List[str]:

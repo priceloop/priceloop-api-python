@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 import attr
 from dateutil.parser import isoparse
 
+from ..models.table_import_mode import TableImportMode
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -22,7 +23,7 @@ class ImportJob:
         csv_separator (CsvSeparator):
         id (int):
         s_3_key (S3Key):
-        table_import_mode (str):
+        table_import_mode (TableImportMode):  Default: TableImportMode.NEW.
         table_name (str):
         finished_at (Union[Unset, datetime.datetime]):
         is_successful (Union[Unset, bool]):
@@ -34,8 +35,8 @@ class ImportJob:
     csv_separator: "CsvSeparator"
     id: int
     s_3_key: "S3Key"
-    table_import_mode: str
     table_name: str
+    table_import_mode: TableImportMode = TableImportMode.NEW
     finished_at: Union[Unset, datetime.datetime] = UNSET
     is_successful: Union[Unset, bool] = UNSET
     message: Union[Unset, str] = UNSET
@@ -50,7 +51,8 @@ class ImportJob:
         id = self.id
         s_3_key = self.s_3_key.to_dict()
 
-        table_import_mode = self.table_import_mode
+        table_import_mode = self.table_import_mode.value
+
         table_name = self.table_name
         finished_at: Union[Unset, str] = UNSET
         if not isinstance(self.finished_at, Unset):
@@ -99,7 +101,7 @@ class ImportJob:
 
         s_3_key = S3Key.from_dict(d.pop("s3Key"))
 
-        table_import_mode = d.pop("tableImportMode")
+        table_import_mode = TableImportMode(d.pop("tableImportMode"))
 
         table_name = d.pop("tableName")
 

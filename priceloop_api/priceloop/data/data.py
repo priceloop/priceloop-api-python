@@ -1,10 +1,10 @@
 import requests
-import pandas as pd # type: ignore
+import pandas as pd  # type: ignore
 from io import StringIO
 from typing import List
 
 from priceloop_api.types import Unset
-from priceloop_api.models.create_csv_import_job_mode import CreateCsvImportJobMode
+from priceloop_api.models import TableImportMode
 from priceloop_api.client import AuthenticatedClient
 from priceloop_api.api.workspace_api import (
     list_workspaces,
@@ -25,9 +25,9 @@ def to_nocode(
     df: pd.DataFrame,
     table_name: str,
     client: AuthenticatedClient,
-    mode: CreateCsvImportJobMode = CreateCsvImportJobMode.DELETE_AND_RECREATE,
-    workspace_name: str|None = None,
-) -> int|None:
+    mode: TableImportMode = TableImportMode.DELETE_AND_RECREATE,
+    workspace_name: str | None = None,
+) -> int | None:
     csv_buffer = StringIO()
     df.to_csv(csv_buffer, index=None)
 
@@ -50,7 +50,7 @@ def to_nocode(
 
 
 def read_nocode(
-    table_name: str, client: AuthenticatedClient, limit: int, offset: int, workspace_name: str|None = None
+    table_name: str, client: AuthenticatedClient, limit: int, offset: int, workspace_name: str | None = None
 ) -> pd.DataFrame:
     csv_buffer = StringIO()
 
@@ -88,8 +88,7 @@ def read_nocode(
     return table_data_type_inferred
 
 
-def create_table_from_schema(schema: list, client: AuthenticatedClient, workspace_name: str|None = None):
-
+def create_table_from_schema(schema: list, client: AuthenticatedClient, workspace_name: str | None = None):
     if workspace_name is None:
         workspaces = list_workspaces.sync(client=client)
         if workspaces is None:

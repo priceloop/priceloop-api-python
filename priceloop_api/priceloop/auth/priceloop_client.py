@@ -26,6 +26,6 @@ class PriceloopClient(Client):
         return {"Authorization": auth_header_value, **self.headers}
 
     @staticmethod
-    def with_credentials(username: str, password: str, host: str = default_host):
+    def with_credentials(username: str, password: str, host: str = default_host) -> PriceloopClient:
         auth_state = AuthState(username, password, host)
         return PriceloopClient(auth_state)

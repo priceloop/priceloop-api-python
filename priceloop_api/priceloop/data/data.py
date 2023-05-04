@@ -88,7 +88,7 @@ def read_nocode(
     return table_data_type_inferred
 
 
-def create_table_from_schema(schema: list, client: AuthenticatedClient, workspace_name: str | None = None):
+def create_table_from_schema(schema: list, client: AuthenticatedClient, workspace_name: str | None = None) -> None:
     if workspace_name is None:
         workspaces = list_workspaces.sync(client=client)
         if workspaces is None:

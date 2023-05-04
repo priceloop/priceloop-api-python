@@ -39,7 +39,7 @@ class AuthState:
 
         return self.nocode_config
 
-    def access_token(self):
+    def access_token(self) -> str:
         if self.auth_tokens is None or is_expired(datetime.now(), self.auth_tokens):
             self.auth_tokens = get_oauth_tokens(self.config(), self.username, self.password)
 

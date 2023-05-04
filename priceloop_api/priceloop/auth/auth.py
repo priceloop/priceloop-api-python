@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 
-import boto3 # type: ignore
-import requests # type: ignore
+import boto3  # type: ignore
+import requests  # type: ignore
 
 
 @dataclass(frozen=True)
@@ -25,8 +25,8 @@ class AuthTokens:
 
 
 class AuthState(object):
-    nocode_config: ApiConfig|None = None
-    auth_tokens: AuthTokens|None = None
+    nocode_config: ApiConfig | None = None
+    auth_tokens: AuthTokens | None = None
 
     def config(self) -> ApiConfig:
         if self.nocode_config is None:
@@ -35,7 +35,6 @@ class AuthState(object):
             self.nocode_config = get_config(endpoint)
 
         return self.nocode_config
-
 
     def access_token(self):
         if self.auth_tokens is None or is_expired(datetime.now(), self.auth_tokens):

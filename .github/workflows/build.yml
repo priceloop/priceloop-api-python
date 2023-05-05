@@ -22,12 +22,15 @@ jobs:
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
         with:
-          python-version: 3.8
+          python-version: "3.8"
           cache: "pip"
 
       - name: build package
         run: |
-          pip install -r requirements.txt
+          set -e
+          pip install --disable-pip-version-check -r requirements.txt
+          pip install --disable-pip-version-check -r requirements_dev.txt
+          mypy priceloop_api/
 
   publish:
     if: github.ref_type == 'tag'

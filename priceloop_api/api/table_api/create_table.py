@@ -5,7 +5,7 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.table_schema import TableSchema
+from ...models.api_table_schema import ApiTableSchema
 from ...types import Response
 
 
@@ -13,7 +13,7 @@ def _get_kwargs(
     workspace: str,
     *,
     client: AuthenticatedClient,
-    json_body: List["TableSchema"],
+    json_body: List["ApiTableSchema"],
 ) -> Dict[str, Any]:
     url = "{}/api/v1.0/workspaces/{workspace}/create-tables".format(client.base_url, workspace=workspace)
 
@@ -58,13 +58,13 @@ def sync_detailed(
     workspace: str,
     *,
     client: AuthenticatedClient,
-    json_body: List["TableSchema"],
+    json_body: List["ApiTableSchema"],
 ) -> Response[Any]:
     """Create tables from a schema
 
     Args:
         workspace (str):
-        json_body (List['TableSchema']):
+        json_body (List['ApiTableSchema']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -92,13 +92,13 @@ async def asyncio_detailed(
     workspace: str,
     *,
     client: AuthenticatedClient,
-    json_body: List["TableSchema"],
+    json_body: List["ApiTableSchema"],
 ) -> Response[Any]:
     """Create tables from a schema
 
     Args:
         workspace (str):
-        json_body (List['TableSchema']):
+        json_body (List['ApiTableSchema']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -5,22 +5,22 @@ import attr
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.column_schema import ColumnSchema
+    from ..models.api_column_schema import ApiColumnSchema
 
 
-T = TypeVar("T", bound="TableSchema")
+T = TypeVar("T", bound="ApiTableSchema")
 
 
 @attr.s(auto_attribs=True)
-class TableSchema:
+class ApiTableSchema:
     """
     Attributes:
         name (str):
-        columns (Union[Unset, List['ColumnSchema']]):
+        columns (Union[Unset, List['ApiColumnSchema']]):
     """
 
     name: str
-    columns: Union[Unset, List["ColumnSchema"]] = UNSET
+    columns: Union[Unset, List["ApiColumnSchema"]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -47,7 +47,7 @@ class TableSchema:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.column_schema import ColumnSchema
+        from ..models.api_column_schema import ApiColumnSchema
 
         d = src_dict.copy()
         name = d.pop("name")
@@ -55,17 +55,17 @@ class TableSchema:
         columns = []
         _columns = d.pop("columns", UNSET)
         for columns_item_data in _columns or []:
-            columns_item = ColumnSchema.from_dict(columns_item_data)
+            columns_item = ApiColumnSchema.from_dict(columns_item_data)
 
             columns.append(columns_item)
 
-        table_schema = cls(
+        api_table_schema = cls(
             name=name,
             columns=columns,
         )
 
-        table_schema.additional_properties = d
-        return table_schema
+        api_table_schema.additional_properties = d
+        return api_table_schema
 
     @property
     def additional_keys(self) -> List[str]:

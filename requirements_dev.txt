@@ -1,4 +1,4 @@
-openapi-python-client==0.13.0
+openapi-python-client==0.14.0
 mypy
 types-PyYAML
 types-python-dateutil

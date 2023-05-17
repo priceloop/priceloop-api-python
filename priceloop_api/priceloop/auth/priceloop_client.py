@@ -19,6 +19,7 @@ class PriceloopClient(Client):
         self.verify_ssl = True
         self.raise_on_unexpected_status = False
         self.auth_state = auth_state
+        self.follow_redirects = False
 
     def get_headers(self) -> Dict[str, str]:
         """Get headers to be used in authenticated endpoints"""

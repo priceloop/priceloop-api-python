@@ -36,7 +36,7 @@ class ApiBooleanColumnAttributesUpdate:
         d = src_dict.copy()
         _display_style = d.pop("displayStyle", UNSET)
         display_style: Union[Unset, BooleanDisplayStyle]
-        if isinstance(_display_style, Unset):
+        if isinstance(_display_style, Unset) or _display_style is None:
             display_style = UNSET
         else:
             display_style = BooleanDisplayStyle(_display_style)

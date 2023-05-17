@@ -61,21 +61,21 @@ class ApeData1:
         d = src_dict.copy()
         _initial_marketplace = d.pop("initialMarketplace", UNSET)
         initial_marketplace: Union[Unset, ApeMarketplace]
-        if isinstance(_initial_marketplace, Unset):
+        if isinstance(_initial_marketplace, Unset) or _initial_marketplace is None:
             initial_marketplace = UNSET
         else:
             initial_marketplace = ApeMarketplace.from_dict(_initial_marketplace)
 
         _registered_marketplaces = d.pop("registeredMarketplaces", UNSET)
         registered_marketplaces: Union[Unset, MapApeMarketplaceRegistration]
-        if isinstance(_registered_marketplaces, Unset):
+        if isinstance(_registered_marketplaces, Unset) or _registered_marketplaces is None:
             registered_marketplaces = UNSET
         else:
             registered_marketplaces = MapApeMarketplaceRegistration.from_dict(_registered_marketplaces)
 
         _typeform = d.pop("typeform", UNSET)
         typeform: Union[Unset, ApeDataTypeform]
-        if isinstance(_typeform, Unset):
+        if isinstance(_typeform, Unset) or _typeform is None:
             typeform = UNSET
         else:
             typeform = ApeDataTypeform.from_dict(_typeform)

@@ -1,12 +1,11 @@
 from .auth import AuthState
-from priceloop_api import Client
+from priceloop_api import AuthenticatedClient
 from typing import Dict
 import attr
 
 default_host = "alpha.priceloop.ai"
 
-
-class PriceloopClient(Client):
+class PriceloopClient(AuthenticatedClient):
     """A Client which has been authenticated for use on secured endpoints"""
 
     auth_state: AuthState

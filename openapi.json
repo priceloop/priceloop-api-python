@@ -192,6 +192,23 @@
         ],
         "type" : "object"
       },
+      "ApiColumnWithValues" : {
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "values" : {
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [
+          "name"
+        ],
+        "type" : "object"
+      },
       "ApiExternalFunction" : {
         "properties" : {
           "functionName" : {
@@ -212,6 +229,19 @@
           "returnType"
         ],
         "type" : "object"
+      },
+      "ApiPatchTableDataOp" : {
+        "discriminator" : {
+          "mapping" : {
+            "Update" : "#/components/schemas/Update"
+          },
+          "propertyName" : "op"
+        },
+        "oneOf" : [
+          {
+            "$ref" : "#/components/schemas/Update"
+          }
+        ]
       },
       "ApiTable" : {
         "properties" : {
@@ -429,16 +459,18 @@
       },
       "Plugin1" : {
         "properties" : {
-          "event" : {
-            "$ref" : "#/components/schemas/WebhookPluginEvent"
+          "events" : {
+            "items" : {
+              "$ref" : "#/components/schemas/WebhookPluginEvent"
+            },
+            "type" : "array"
           },
           "pluginName" : {
             "$ref" : "#/components/schemas/PluginName"
           }
         },
         "required" : [
-          "pluginName",
-          "event"
+          "pluginName"
         ],
         "type" : "object"
       },
@@ -590,6 +622,29 @@
         ],
         "type" : "object"
       },
+      "Update" : {
+        "properties" : {
+          "dataColumns" : {
+            "items" : {
+              "$ref" : "#/components/schemas/ApiColumnWithValues"
+            },
+            "type" : "array"
+          },
+          "matchColumns" : {
+            "items" : {
+              "$ref" : "#/components/schemas/ApiColumnWithValues"
+            },
+            "type" : "array"
+          },
+          "op" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "op"
+        ],
+        "type" : "object"
+      },
       "WebhookConfig" : {
         "properties" : {
           "webhookUrl" : {
@@ -664,7 +719,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.107.3"
+    "version" : "v0.113.6"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -815,6 +870,85 @@
       }
     },
     "/api/v1.0/plugin/{pluginName}/webhooks" : {
+      "delete" : {
+        "operationId" : "deleteAllPluginWebhooks",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "pluginName",
+            "required" : true,
+            "schema" : {
+              "$ref" : "#/components/schemas/PluginName"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Delete all plugin webhooks",
+        "tags" : [
+          "Plugin Webhooks",
+          "Plugin Webhooks"
+        ]
+      },
       "get" : {
         "operationId" : "listPluginWebhooks",
         "parameters" : [
@@ -917,11 +1051,15 @@
             }
           },
           {
+            "explode" : false,
             "in" : "query",
             "name" : "event",
-            "required" : true,
+            "required" : false,
             "schema" : {
-              "$ref" : "#/components/schemas/WebhookPluginEvent"
+              "items" : {
+                "$ref" : "#/components/schemas/WebhookPluginEvent"
+              },
+              "type" : "array"
             }
           }
         ],
@@ -2023,6 +2161,284 @@
         "summary" : "Update the code of an existing external function",
         "tags" : [
           "External Function API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/members" : {
+      "get" : {
+        "operationId" : "listWorkspaceMemberships",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "type" : "string"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "List existing workspace membership",
+        "tags" : [
+          "Workspace API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/members/{userId}" : {
+      "delete" : {
+        "operationId" : "deleteWorkspaceMembership",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "userId",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Delete a workspace membership",
+        "tags" : [
+          "Workspace API"
+        ]
+      },
+      "put" : {
+        "operationId" : "createWorkspaceMembership",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "userId",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Create a workspace membership",
+        "tags" : [
+          "Workspace API"
         ]
       }
     },
@@ -4042,6 +4458,7 @@
     },
     "/api/v1.0/workspaces/{workspace}/tables/{table}/data" : {
       "get" : {
+        "description" : "Get the data of a table. In order to get the complete data with all calculated values, poll this endpoint until it has no more scheduled jobs (check response field `scheduledJobs == 0`).",
         "operationId" : "getTableData",
         "parameters" : [
           {
@@ -4150,7 +4567,132 @@
             ]
           }
         ],
-        "summary" : "Get the data of a table. In order to get the complete data with all calculated values, poll this endpoint until it has no more scheduled jobs (check response field `scheduledJobs == 0`).",
+        "summary" : "Get the data of a table",
+        "tags" : [
+          "Table API"
+        ]
+      },
+      "patch" : {
+        "description" : "Specify columns and values to match on, and specify which columns should be set to which value for matched columns",
+        "operationId" : "patchTableData",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "table",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "example" : [
+                {
+                  "dataColumns" : [
+                    {
+                      "name" : "TextColumn",
+                      "values" : [
+                        "foo",
+                        "bar",
+                        "baz"
+                      ]
+                    }
+                  ],
+                  "matchColumns" : [
+                    {
+                      "name" : "IdColumn",
+                      "values" : [
+                        "1",
+                        "2",
+                        "3"
+                      ]
+                    }
+                  ],
+                  "op" : "Update"
+                }
+              ],
+              "schema" : {
+                "items" : {
+                  "$ref" : "#/components/schemas/ApiPatchTableDataOp"
+                },
+                "type" : "array"
+              }
+            }
+          },
+          "required" : false
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Patch the data of a table.",
         "tags" : [
           "Table API"
         ]

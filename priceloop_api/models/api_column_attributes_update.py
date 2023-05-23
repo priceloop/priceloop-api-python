@@ -57,7 +57,7 @@ class ApiColumnAttributesUpdate:
         d = src_dict.copy()
         _boolean_column_attributes = d.pop("booleanColumnAttributes", UNSET)
         boolean_column_attributes: Union[Unset, ApiBooleanColumnAttributesUpdate]
-        if isinstance(_boolean_column_attributes, Unset):
+        if isinstance(_boolean_column_attributes, Unset) or _boolean_column_attributes is None:
             boolean_column_attributes = UNSET
         else:
             boolean_column_attributes = ApiBooleanColumnAttributesUpdate.from_dict(_boolean_column_attributes)

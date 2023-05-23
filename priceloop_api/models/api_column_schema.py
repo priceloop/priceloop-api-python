@@ -64,7 +64,7 @@ class ApiColumnSchema:
 
         _attributes = d.pop("attributes", UNSET)
         attributes: Union[Unset, ApiColumnAttributesUpdate]
-        if isinstance(_attributes, Unset):
+        if isinstance(_attributes, Unset) or _attributes is None:
             attributes = UNSET
         else:
             attributes = ApiColumnAttributesUpdate.from_dict(_attributes)

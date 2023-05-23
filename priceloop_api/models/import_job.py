@@ -107,7 +107,7 @@ class ImportJob:
 
         _finished_at = d.pop("finishedAt", UNSET)
         finished_at: Union[Unset, datetime.datetime]
-        if isinstance(_finished_at, Unset):
+        if isinstance(_finished_at, Unset) or _finished_at is None:
             finished_at = UNSET
         else:
             finished_at = isoparse(_finished_at)
@@ -118,7 +118,7 @@ class ImportJob:
 
         _started_at = d.pop("startedAt", UNSET)
         started_at: Union[Unset, datetime.datetime]
-        if isinstance(_started_at, Unset):
+        if isinstance(_started_at, Unset) or _started_at is None:
             started_at = UNSET
         else:
             started_at = isoparse(_started_at)

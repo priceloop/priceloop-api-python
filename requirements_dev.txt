@@ -1,4 +1,4 @@
-openapi-python-client==0.14.0
+openapi-python-client@git+https://github.com/cornerman/openapi-python-client@98be70f
 mypy
 types-PyYAML
 types-python-dateutil

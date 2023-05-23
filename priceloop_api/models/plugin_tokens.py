@@ -41,7 +41,7 @@ class PluginTokens:
         d = src_dict.copy()
         _amazon = d.pop("amazon", UNSET)
         amazon: Union[Unset, Amazon]
-        if isinstance(_amazon, Unset):
+        if isinstance(_amazon, Unset) or _amazon is None:
             amazon = UNSET
         else:
             amazon = Amazon.from_dict(_amazon)

@@ -25,10 +25,10 @@ class ImportJob:
         s_3_key (S3Key):
         table_import_mode (TableImportMode):  Default: TableImportMode.NEW.
         table_name (str):
-        finished_at (Union[Unset, datetime.datetime]):
-        is_successful (Union[Unset, bool]):
-        message (Union[Unset, str]):
-        started_at (Union[Unset, datetime.datetime]):
+        finished_at (Union[Unset, None, datetime.datetime]):
+        is_successful (Union[Unset, None, bool]):
+        message (Union[Unset, None, str]):
+        started_at (Union[Unset, None, datetime.datetime]):
     """
 
     created_at: datetime.datetime
@@ -37,10 +37,10 @@ class ImportJob:
     s_3_key: "S3Key"
     table_name: str
     table_import_mode: TableImportMode = TableImportMode.NEW
-    finished_at: Union[Unset, datetime.datetime] = UNSET
-    is_successful: Union[Unset, bool] = UNSET
-    message: Union[Unset, str] = UNSET
-    started_at: Union[Unset, datetime.datetime] = UNSET
+    finished_at: Union[Unset, None, datetime.datetime] = UNSET
+    is_successful: Union[Unset, None, bool] = UNSET
+    message: Union[Unset, None, str] = UNSET
+    started_at: Union[Unset, None, datetime.datetime] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -54,15 +54,15 @@ class ImportJob:
         table_import_mode = self.table_import_mode.value
 
         table_name = self.table_name
-        finished_at: Union[Unset, str] = UNSET
+        finished_at: Union[Unset, None, str] = UNSET
         if not isinstance(self.finished_at, Unset):
-            finished_at = self.finished_at.isoformat()
+            finished_at = self.finished_at.isoformat() if self.finished_at else None
 
         is_successful = self.is_successful
         message = self.message
-        started_at: Union[Unset, str] = UNSET
+        started_at: Union[Unset, None, str] = UNSET
         if not isinstance(self.started_at, Unset):
-            started_at = self.started_at.isoformat()
+            started_at = self.started_at.isoformat() if self.started_at else None
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -106,8 +106,10 @@ class ImportJob:
         table_name = d.pop("tableName")
 
         _finished_at = d.pop("finishedAt", UNSET)
-        finished_at: Union[Unset, datetime.datetime]
-        if isinstance(_finished_at, Unset) or _finished_at is None:
+        finished_at: Union[Unset, None, datetime.datetime]
+        if _finished_at is None:
+            finished_at = None
+        elif isinstance(_finished_at, Unset) or _finished_at is None:
             finished_at = UNSET
         else:
             finished_at = isoparse(_finished_at)
@@ -117,8 +119,10 @@ class ImportJob:
         message = d.pop("message", UNSET)
 
         _started_at = d.pop("startedAt", UNSET)
-        started_at: Union[Unset, datetime.datetime]
-        if isinstance(_started_at, Unset) or _started_at is None:
+        started_at: Union[Unset, None, datetime.datetime]
+        if _started_at is None:
+            started_at = None
+        elif isinstance(_started_at, Unset) or _started_at is None:
             started_at = UNSET
         else:
             started_at = isoparse(_started_at)

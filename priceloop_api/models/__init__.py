@@ -13,6 +13,7 @@ from .api_column import ApiColumn
 from .api_column_attributes import ApiColumnAttributes
 from .api_column_attributes_update import ApiColumnAttributesUpdate
 from .api_column_schema import ApiColumnSchema
+from .api_column_with_values import ApiColumnWithValues
 from .api_external_function import ApiExternalFunction
 from .api_table import ApiTable
 from .api_table_data import ApiTableData
@@ -20,7 +21,9 @@ from .api_table_schema import ApiTableSchema
 from .api_workspace import ApiWorkspace
 from .boolean_display_style import BooleanDisplayStyle
 from .create_external_function_return_type import CreateExternalFunctionReturnType
+from .create_workspace_membership_response_200 import CreateWorkspaceMembershipResponse200
 from .csv_separator import CsvSeparator
+from .delete_workspace_membership_response_200 import DeleteWorkspaceMembershipResponse200
 from .explicit_expr_type import ExplicitExprType
 from .external_function_runtime import ExternalFunctionRuntime
 from .import_job import ImportJob
@@ -40,6 +43,7 @@ from .presigned_url import PresignedUrl
 from .s3_key import S3Key
 from .table_import_mode import TableImportMode
 from .table_row import TableRow
+from .update import Update
 from .webhook_config import WebhookConfig
 from .webhook_event_selector_type_0 import WebhookEventSelectorType0
 from .webhook_info import WebhookInfo
@@ -59,6 +63,7 @@ __all__ = (
     "ApiColumnAttributes",
     "ApiColumnAttributesUpdate",
     "ApiColumnSchema",
+    "ApiColumnWithValues",
     "ApiExternalFunction",
     "ApiTable",
     "ApiTableData",
@@ -66,7 +71,9 @@ __all__ = (
     "ApiWorkspace",
     "BooleanDisplayStyle",
     "CreateExternalFunctionReturnType",
+    "CreateWorkspaceMembershipResponse200",
     "CsvSeparator",
+    "DeleteWorkspaceMembershipResponse200",
     "ExplicitExprType",
     "ExternalFunctionRuntime",
     "ImportJob",
@@ -86,6 +93,7 @@ __all__ = (
     "S3Key",
     "TableImportMode",
     "TableRow",
+    "Update",
     "WebhookConfig",
     "WebhookEventSelectorType0",
     "WebhookInfo",

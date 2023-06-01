@@ -13,15 +13,21 @@ from .api_column import ApiColumn
 from .api_column_attributes import ApiColumnAttributes
 from .api_column_attributes_update import ApiColumnAttributesUpdate
 from .api_column_schema import ApiColumnSchema
+from .api_column_with_values import ApiColumnWithValues
 from .api_external_function import ApiExternalFunction
+from .api_new_plugin_notification import ApiNewPluginNotification
 from .api_table import ApiTable
 from .api_table_data import ApiTableData
 from .api_table_schema import ApiTableSchema
 from .api_workspace import ApiWorkspace
 from .boolean_display_style import BooleanDisplayStyle
 from .create_external_function_return_type import CreateExternalFunctionReturnType
-from .csv_separator import CsvSeparator
+from .create_workspace_membership_response_200 import CreateWorkspaceMembershipResponse200
+from .csv import CSV
+from .delete_workspace_membership_response_200 import DeleteWorkspaceMembershipResponse200
 from .explicit_expr_type import ExplicitExprType
+from .export_info import ExportInfo
+from .export_job import ExportJob
 from .external_function_runtime import ExternalFunctionRuntime
 from .import_job import ImportJob
 from .import_job_response import ImportJobResponse
@@ -40,6 +46,7 @@ from .presigned_url import PresignedUrl
 from .s3_key import S3Key
 from .table_import_mode import TableImportMode
 from .table_row import TableRow
+from .update import Update
 from .webhook_config import WebhookConfig
 from .webhook_event_selector_type_0 import WebhookEventSelectorType0
 from .webhook_info import WebhookInfo
@@ -59,15 +66,21 @@ __all__ = (
     "ApiColumnAttributes",
     "ApiColumnAttributesUpdate",
     "ApiColumnSchema",
+    "ApiColumnWithValues",
     "ApiExternalFunction",
+    "ApiNewPluginNotification",
     "ApiTable",
     "ApiTableData",
     "ApiTableSchema",
     "ApiWorkspace",
     "BooleanDisplayStyle",
     "CreateExternalFunctionReturnType",
-    "CsvSeparator",
+    "CreateWorkspaceMembershipResponse200",
+    "CSV",
+    "DeleteWorkspaceMembershipResponse200",
     "ExplicitExprType",
+    "ExportInfo",
+    "ExportJob",
     "ExternalFunctionRuntime",
     "ImportJob",
     "ImportJobResponse",
@@ -86,6 +99,7 @@ __all__ = (
     "S3Key",
     "TableImportMode",
     "TableRow",
+    "Update",
     "WebhookConfig",
     "WebhookEventSelectorType0",
     "WebhookInfo",

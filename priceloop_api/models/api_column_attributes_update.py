@@ -16,15 +16,15 @@ class ApiColumnAttributesUpdate:
     """
     Attributes:
         boolean_column_attributes (Union[Unset, ApiBooleanColumnAttributesUpdate]):
-        description (Union[Unset, str]):
-        is_gui_locked (Union[Unset, bool]):
-        is_hidden (Union[Unset, bool]):
+        description (Union[Unset, None, str]):
+        is_gui_locked (Union[Unset, None, bool]):
+        is_hidden (Union[Unset, None, bool]):
     """
 
     boolean_column_attributes: Union[Unset, "ApiBooleanColumnAttributesUpdate"] = UNSET
-    description: Union[Unset, str] = UNSET
-    is_gui_locked: Union[Unset, bool] = UNSET
-    is_hidden: Union[Unset, bool] = UNSET
+    description: Union[Unset, None, str] = UNSET
+    is_gui_locked: Union[Unset, None, bool] = UNSET
+    is_hidden: Union[Unset, None, bool] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:

@@ -1,54 +1,56 @@
-from typing import Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 import attr
 
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="Amazon")
+T = TypeVar("T", bound="ApiColumnWithValues")
 
 
 @attr.s(auto_attribs=True)
-class Amazon:
+class ApiColumnWithValues:
     """
     Attributes:
-        refresh_token (str):
-        selling_partner_id (Union[Unset, None, str]):
+        name (str):
+        values (Union[Unset, List[str]]):
     """
 
-    refresh_token: str
-    selling_partner_id: Union[Unset, None, str] = UNSET
+    name: str
+    values: Union[Unset, List[str]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        refresh_token = self.refresh_token
-        selling_partner_id = self.selling_partner_id
+        name = self.name
+        values: Union[Unset, List[str]] = UNSET
+        if not isinstance(self.values, Unset):
+            values = self.values
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "refreshToken": refresh_token,
+                "name": name,
             }
         )
-        if selling_partner_id is not UNSET:
-            field_dict["sellingPartnerId"] = selling_partner_id
+        if values is not UNSET:
+            field_dict["values"] = values
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        refresh_token = d.pop("refreshToken")
+        name = d.pop("name")
 
-        selling_partner_id = d.pop("sellingPartnerId", UNSET)
+        values = cast(List[str], d.pop("values", UNSET))
 
-        amazon = cls(
-            refresh_token=refresh_token,
-            selling_partner_id=selling_partner_id,
+        api_column_with_values = cls(
+            name=name,
+            values=values,
         )
 
-        amazon.additional_properties = d
-        return amazon
+        api_column_with_values.additional_properties = d
+        return api_column_with_values
 
     @property
     def additional_keys(self) -> List[str]:

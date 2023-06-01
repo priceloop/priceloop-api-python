@@ -19,13 +19,13 @@ class ApiColumnSchema:
         name (str):
         tpe (ExplicitExprType):
         attributes (Union[Unset, ApiColumnAttributesUpdate]):
-        formula (Union[Unset, str]):
+        formula (Union[Unset, None, str]):
     """
 
     name: str
     tpe: ExplicitExprType
     attributes: Union[Unset, "ApiColumnAttributesUpdate"] = UNSET
-    formula: Union[Unset, str] = UNSET
+    formula: Union[Unset, None, str] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:

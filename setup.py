@@ -10,9 +10,9 @@ REQUIRES = [
     "attrs >= 21.3.0",
     "python-dateutil >= 2.8.0, < 3",
     "boto3~=1.24.78",
-    "requests==2.25",
-    "frozendict==2.3.4",
-    "pandas==1.5.2",
+    "requests~=2.25",
+    "frozendict~=2.3.4",
+    "pandas~=1.5.2",
 ]
 
 setup(

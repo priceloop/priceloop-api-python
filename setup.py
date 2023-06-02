@@ -12,7 +12,7 @@ REQUIRES = [
     "boto3~=1.24.78",
     "requests~=2.25",
     "frozendict~=2.3.4",
-    "pandas~=1.5.0",
+    "pandas~=1.5.2",
 ]
 
 setup(

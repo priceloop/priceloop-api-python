@@ -16,7 +16,7 @@ class PriceloopClient(AuthenticatedClient):
         self.cookies = {}
         self.headers = {}
         self.verify_ssl = True
-        self.raise_on_unexpected_status = False
+        self.raise_on_unexpected_status = True
         self.auth_state = auth_state
         self.follow_redirects = False
 

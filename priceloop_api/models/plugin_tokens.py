@@ -5,7 +5,7 @@ import attr
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.amazon import Amazon
+    from ..models.amazon_1 import Amazon1
 
 
 T = TypeVar("T", bound="PluginTokens")
@@ -15,10 +15,10 @@ T = TypeVar("T", bound="PluginTokens")
 class PluginTokens:
     """
     Attributes:
-        amazon (Union[Unset, Amazon]):
+        amazon (Union[Unset, Amazon1]):
     """
 
-    amazon: Union[Unset, "Amazon"] = UNSET
+    amazon: Union[Unset, "Amazon1"] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -36,15 +36,15 @@ class PluginTokens:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.amazon import Amazon
+        from ..models.amazon_1 import Amazon1
 
         d = src_dict.copy()
         _amazon = d.pop("amazon", UNSET)
-        amazon: Union[Unset, Amazon]
+        amazon: Union[Unset, Amazon1]
         if isinstance(_amazon, Unset) or _amazon is None:
             amazon = UNSET
         else:
-            amazon = Amazon.from_dict(_amazon)
+            amazon = Amazon1.from_dict(_amazon)
 
         plugin_tokens = cls(
             amazon=amazon,

@@ -17,7 +17,7 @@ def _get_kwargs(
     client: AuthenticatedClient,
     json_body: "PluginDataType0",
 ) -> Dict[str, Any]:
-    url = "{}/api/v1.0/workspaces/{workspace}/plugin/{plugin}".format(
+    url = "{}/api/v1.0/workspaces/{workspace}/plugin/{plugin}/data".format(
         client.base_url, workspace=workspace, plugin=plugin
     )
 
@@ -65,7 +65,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     json_body: "PluginDataType0",
 ) -> Response[Any]:
-    """Create/install a plugin into a workspace
+    """Set data of a plugin installation
 
     Args:
         workspace (str):
@@ -102,7 +102,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     json_body: "PluginDataType0",
 ) -> Response[Any]:
-    """Create/install a plugin into a workspace
+    """Set data of a plugin installation
 
     Args:
         workspace (str):

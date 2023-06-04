@@ -1,44 +1,57 @@
-from typing import Any, Dict, List, Type, TypeVar, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 import attr
 
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="Amazon")
+if TYPE_CHECKING:
+    from ..models.amazon import Amazon
+
+
+T = TypeVar("T", bound="WorkspaceIntegrations")
 
 
 @attr.s(auto_attribs=True)
-class Amazon:
+class WorkspaceIntegrations:
     """
     Attributes:
-        selling_partner_id (Union[Unset, None, str]):
+        amazon (Union[Unset, Amazon]):
     """
 
-    selling_partner_id: Union[Unset, None, str] = UNSET
+    amazon: Union[Unset, "Amazon"] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        selling_partner_id = self.selling_partner_id
+        amazon: Union[Unset, Dict[str, Any]] = UNSET
+        if not isinstance(self.amazon, Unset):
+            amazon = self.amazon.to_dict()
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
-        if selling_partner_id is not UNSET:
-            field_dict["sellingPartnerId"] = selling_partner_id
+        if amazon is not UNSET:
+            field_dict["amazon"] = amazon
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        d = src_dict.copy()
-        selling_partner_id = d.pop("sellingPartnerId", UNSET)
+        from ..models.amazon import Amazon
 
-        amazon = cls(
-            selling_partner_id=selling_partner_id,
+        d = src_dict.copy()
+        _amazon = d.pop("amazon", UNSET)
+        amazon: Union[Unset, Amazon]
+        if isinstance(_amazon, Unset) or _amazon is None:
+            amazon = UNSET
+        else:
+            amazon = Amazon.from_dict(_amazon)
+
+        workspace_integrations = cls(
+            amazon=amazon,
         )
 
-        amazon.additional_properties = d
-        return amazon
+        workspace_integrations.additional_properties = d
+        return workspace_integrations
 
     @property
     def additional_keys(self) -> List[str]:

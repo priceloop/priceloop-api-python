@@ -5,7 +5,6 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.plugin_data_type_0 import PluginDataType0
 from ...models.plugin_name import PluginName
 from ...types import Response
 
@@ -15,7 +14,6 @@ def _get_kwargs(
     plugin: PluginName,
     *,
     client: AuthenticatedClient,
-    json_body: "PluginDataType0",
 ) -> Dict[str, Any]:
     url = "{}/api/v1.0/workspaces/{workspace}/plugin/{plugin}".format(
         client.base_url, workspace=workspace, plugin=plugin
@@ -24,19 +22,13 @@ def _get_kwargs(
     headers: Dict[str, str] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
 
-    json_json_body: Dict[str, Any]
-
-    if isinstance(json_body, PluginDataType0):
-        json_json_body = json_body.to_dict()
-
     return {
-        "method": "post",
+        "method": "delete",
         "url": url,
         "headers": headers,
         "cookies": cookies,
         "timeout": client.get_timeout(),
         "follow_redirects": client.follow_redirects,
-        "json": json_json_body,
     }
 
 
@@ -63,14 +55,12 @@ def sync_detailed(
     plugin: PluginName,
     *,
     client: AuthenticatedClient,
-    json_body: "PluginDataType0",
 ) -> Response[Any]:
-    """Create/install a plugin into a workspace
+    """Delete/uninstall a plugin from a workspace
 
     Args:
         workspace (str):
         plugin (PluginName):
-        json_body ('PluginDataType0'):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -84,7 +74,6 @@ def sync_detailed(
         workspace=workspace,
         plugin=plugin,
         client=client,
-        json_body=json_body,
     )
 
     response = httpx.request(
@@ -100,14 +89,12 @@ async def asyncio_detailed(
     plugin: PluginName,
     *,
     client: AuthenticatedClient,
-    json_body: "PluginDataType0",
 ) -> Response[Any]:
-    """Create/install a plugin into a workspace
+    """Delete/uninstall a plugin from a workspace
 
     Args:
         workspace (str):
         plugin (PluginName):
-        json_body ('PluginDataType0'):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -121,7 +108,6 @@ async def asyncio_detailed(
         workspace=workspace,
         plugin=plugin,
         client=client,
-        json_body=json_body,
     )
 
     async with httpx.AsyncClient(verify=client.verify_ssl) as _client:

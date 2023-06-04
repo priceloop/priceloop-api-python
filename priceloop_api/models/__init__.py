@@ -2,6 +2,7 @@
 
 from .add_data_column_type import AddDataColumnType
 from .amazon import Amazon
+from .amazon_1 import Amazon1
 from .ape_data import ApeData
 from .ape_data_1 import ApeData1
 from .ape_data_typeform import ApeDataTypeform
@@ -51,10 +52,12 @@ from .webhook_config import WebhookConfig
 from .webhook_event_selector_type_0 import WebhookEventSelectorType0
 from .webhook_info import WebhookInfo
 from .webhook_plugin_event import WebhookPluginEvent
+from .workspace_integrations import WorkspaceIntegrations
 
 __all__ = (
     "AddDataColumnType",
     "Amazon",
+    "Amazon1",
     "ApeData",
     "ApeData1",
     "ApeDataTypeform",
@@ -104,4 +107,5 @@ __all__ = (
     "WebhookEventSelectorType0",
     "WebhookInfo",
     "WebhookPluginEvent",
+    "WorkspaceIntegrations",
 )

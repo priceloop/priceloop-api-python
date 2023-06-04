@@ -4,25 +4,32 @@ import attr
 
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="Amazon")
+T = TypeVar("T", bound="Amazon1")
 
 
 @attr.s(auto_attribs=True)
-class Amazon:
+class Amazon1:
     """
     Attributes:
+        refresh_token (str):
         selling_partner_id (Union[Unset, None, str]):
     """
 
+    refresh_token: str
     selling_partner_id: Union[Unset, None, str] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        refresh_token = self.refresh_token
         selling_partner_id = self.selling_partner_id
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update(
+            {
+                "refreshToken": refresh_token,
+            }
+        )
         if selling_partner_id is not UNSET:
             field_dict["sellingPartnerId"] = selling_partner_id
 
@@ -31,14 +38,17 @@ class Amazon:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
+        refresh_token = d.pop("refreshToken")
+
         selling_partner_id = d.pop("sellingPartnerId", UNSET)
 
-        amazon = cls(
+        amazon_1 = cls(
+            refresh_token=refresh_token,
             selling_partner_id=selling_partner_id,
         )
 
-        amazon.additional_properties = d
-        return amazon
+        amazon_1.additional_properties = d
+        return amazon_1
 
     @property
     def additional_keys(self) -> List[str]:

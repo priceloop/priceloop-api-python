@@ -4,6 +4,7 @@ import attr
 
 if TYPE_CHECKING:
     from ..models.plugin import Plugin
+    from ..models.workspace_integrations import WorkspaceIntegrations
 
 
 T = TypeVar("T", bound="PluginWorkspaceState")
@@ -14,15 +15,19 @@ class PluginWorkspaceState:
     """
     Attributes:
         plugin (Plugin):
+        workspace_integrations (WorkspaceIntegrations):
         workspace_name (str):
     """
 
     plugin: "Plugin"
+    workspace_integrations: "WorkspaceIntegrations"
     workspace_name: str
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         plugin = self.plugin.to_dict()
+
+        workspace_integrations = self.workspace_integrations.to_dict()
 
         workspace_name = self.workspace_name
 
@@ -31,6 +36,7 @@ class PluginWorkspaceState:
         field_dict.update(
             {
                 "plugin": plugin,
+                "workspaceIntegrations": workspace_integrations,
                 "workspaceName": workspace_name,
             }
         )
@@ -40,14 +46,18 @@ class PluginWorkspaceState:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.plugin import Plugin
+        from ..models.workspace_integrations import WorkspaceIntegrations
 
         d = src_dict.copy()
         plugin = Plugin.from_dict(d.pop("plugin"))
+
+        workspace_integrations = WorkspaceIntegrations.from_dict(d.pop("workspaceIntegrations"))
 
         workspace_name = d.pop("workspaceName")
 
         plugin_workspace_state = cls(
             plugin=plugin,
+            workspace_integrations=workspace_integrations,
             workspace_name=workspace_name,
         )
 

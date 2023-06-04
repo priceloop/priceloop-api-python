@@ -4,51 +4,58 @@ import attr
 
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="Amazon")
+T = TypeVar("T", bound="ApiNewPluginNotification")
 
 
 @attr.s(auto_attribs=True)
-class Amazon:
+class ApiNewPluginNotification:
     """
     Attributes:
-        refresh_token (str):
-        selling_partner_id (Union[Unset, None, str]):
+        body (str):
+        title (str):
+        icon (Union[Unset, None, str]):
     """
 
-    refresh_token: str
-    selling_partner_id: Union[Unset, None, str] = UNSET
+    body: str
+    title: str
+    icon: Union[Unset, None, str] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        refresh_token = self.refresh_token
-        selling_partner_id = self.selling_partner_id
+        body = self.body
+        title = self.title
+        icon = self.icon
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "refreshToken": refresh_token,
+                "body": body,
+                "title": title,
             }
         )
-        if selling_partner_id is not UNSET:
-            field_dict["sellingPartnerId"] = selling_partner_id
+        if icon is not UNSET:
+            field_dict["icon"] = icon
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        refresh_token = d.pop("refreshToken")
+        body = d.pop("body")
 
-        selling_partner_id = d.pop("sellingPartnerId", UNSET)
+        title = d.pop("title")
 
-        amazon = cls(
-            refresh_token=refresh_token,
-            selling_partner_id=selling_partner_id,
+        icon = d.pop("icon", UNSET)
+
+        api_new_plugin_notification = cls(
+            body=body,
+            title=title,
+            icon=icon,
         )
 
-        amazon.additional_properties = d
-        return amazon
+        api_new_plugin_notification.additional_properties = d
+        return api_new_plugin_notification
 
     @property
     def additional_keys(self) -> List[str]:

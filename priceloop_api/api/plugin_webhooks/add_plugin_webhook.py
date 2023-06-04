@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional, Union
 
 import httpx
 
@@ -8,7 +8,7 @@ from ...client import AuthenticatedClient, Client
 from ...models.plugin_name import PluginName
 from ...models.webhook_config import WebhookConfig
 from ...models.webhook_plugin_event import WebhookPluginEvent
-from ...types import UNSET, Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -16,7 +16,7 @@ def _get_kwargs(
     *,
     client: AuthenticatedClient,
     json_body: WebhookConfig,
-    event: WebhookPluginEvent,
+    event: Union[Unset, None, List[WebhookPluginEvent]] = UNSET,
 ) -> Dict[str, Any]:
     url = "{}/api/v1.0/plugin/{pluginName}/webhooks".format(client.base_url, pluginName=plugin_name)
 
@@ -24,7 +24,16 @@ def _get_kwargs(
     cookies: Dict[str, Any] = client.get_cookies()
 
     params: Dict[str, Any] = {}
-    json_event = event.value
+    json_event: Union[Unset, None, List[str]] = UNSET
+    if not isinstance(event, Unset):
+        if event is None:
+            json_event = None
+        else:
+            json_event = []
+            for event_item_data in event:
+                event_item = event_item_data.value
+
+                json_event.append(event_item)
 
     params["event"] = json_event
 
@@ -67,7 +76,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     json_body: WebhookConfig,
-    event: WebhookPluginEvent,
+    event: Union[Unset, None, List[WebhookPluginEvent]] = UNSET,
 ) -> Response[Any]:
     r"""Register a plugin webhook
 
@@ -142,7 +151,7 @@ def sync_detailed(
 
     Args:
         plugin_name (PluginName):
-        event (WebhookPluginEvent):
+        event (Union[Unset, None, List[WebhookPluginEvent]]):
         json_body (WebhookConfig):
 
     Raises:
@@ -173,7 +182,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     json_body: WebhookConfig,
-    event: WebhookPluginEvent,
+    event: Union[Unset, None, List[WebhookPluginEvent]] = UNSET,
 ) -> Response[Any]:
     r"""Register a plugin webhook
 
@@ -248,7 +257,7 @@ async def asyncio_detailed(
 
     Args:
         plugin_name (PluginName):
-        event (WebhookPluginEvent):
+        event (Union[Unset, None, List[WebhookPluginEvent]]):
         json_body (WebhookConfig):
 
     Raises:

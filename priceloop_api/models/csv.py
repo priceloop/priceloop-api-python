@@ -2,27 +2,27 @@ from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 
-T = TypeVar("T", bound="CsvSeparator")
+T = TypeVar("T", bound="CSV")
 
 
 @attr.s(auto_attribs=True)
-class CsvSeparator:
+class CSV:
     """
     Attributes:
-        separator (str):
+        delimiter (str):
     """
 
-    separator: str
+    delimiter: str
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        separator = self.separator
+        delimiter = self.delimiter
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "separator": separator,
+                "delimiter": delimiter,
             }
         )
 
@@ -31,14 +31,14 @@ class CsvSeparator:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        separator = d.pop("separator")
+        delimiter = d.pop("delimiter")
 
-        csv_separator = cls(
-            separator=separator,
+        csv = cls(
+            delimiter=delimiter,
         )
 
-        csv_separator.additional_properties = d
-        return csv_separator
+        csv.additional_properties = d
+        return csv
 
     @property
     def additional_keys(self) -> List[str]:

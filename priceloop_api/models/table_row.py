@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Type, TypeVar, Union, cast
+from typing import Any, Dict, List, Optional, Type, TypeVar, Union, cast
 
 import attr
 
@@ -12,16 +12,16 @@ class TableRow:
     """
     Attributes:
         id (int):
-        values (Union[Unset, List[str]]):
+        values (Union[Unset, List[Optional[str]]]):
     """
 
     id: int
-    values: Union[Unset, List[str]] = UNSET
+    values: Union[Unset, List[Optional[str]]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         id = self.id
-        values: Union[Unset, List[str]] = UNSET
+        values: Union[Unset, List[Optional[str]]] = UNSET
         if not isinstance(self.values, Unset):
             values = self.values
 
@@ -42,7 +42,7 @@ class TableRow:
         d = src_dict.copy()
         id = d.pop("id")
 
-        values = cast(List[str], d.pop("values", UNSET))
+        values = cast(List[Optional[str]], d.pop("values", UNSET))
 
         table_row = cls(
             id=id,

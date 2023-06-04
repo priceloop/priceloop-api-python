@@ -1,9 +1,10 @@
-from typing import Any, Dict, List, Type, TypeVar
+from typing import Any, Dict, List, Type, TypeVar, Union
 
 import attr
 
 from ..models.plugin_name import PluginName
 from ..models.webhook_plugin_event import WebhookPluginEvent
+from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="Plugin1")
 
@@ -12,40 +13,52 @@ T = TypeVar("T", bound="Plugin1")
 class Plugin1:
     """
     Attributes:
-        event (WebhookPluginEvent):
         plugin_name (PluginName):
+        events (Union[Unset, List[WebhookPluginEvent]]):
     """
 
-    event: WebhookPluginEvent
     plugin_name: PluginName
+    events: Union[Unset, List[WebhookPluginEvent]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        event = self.event.value
-
         plugin_name = self.plugin_name.value
+
+        events: Union[Unset, List[str]] = UNSET
+        if not isinstance(self.events, Unset):
+            events = []
+            for events_item_data in self.events:
+                events_item = events_item_data.value
+
+                events.append(events_item)
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "event": event,
                 "pluginName": plugin_name,
             }
         )
+        if events is not UNSET:
+            field_dict["events"] = events
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        event = WebhookPluginEvent(d.pop("event"))
-
         plugin_name = PluginName(d.pop("pluginName"))
 
+        events = []
+        _events = d.pop("events", UNSET)
+        for events_item_data in _events or []:
+            events_item = WebhookPluginEvent(events_item_data)
+
+            events.append(events_item)
+
         plugin_1 = cls(
-            event=event,
             plugin_name=plugin_name,
+            events=events,
         )
 
         plugin_1.additional_properties = d

@@ -7,6 +7,7 @@
             "type" : "string"
           },
           "sellingPartnerId" : {
+            "nullable" : true,
             "type" : "string"
           }
         },
@@ -138,6 +139,7 @@
             "$ref" : "#/components/schemas/ApiBooleanColumnAttributes"
           },
           "description" : {
+            "nullable" : true,
             "type" : "string"
           },
           "isGuiLocked" : {
@@ -160,12 +162,15 @@
             "$ref" : "#/components/schemas/ApiBooleanColumnAttributesUpdate"
           },
           "description" : {
+            "nullable" : true,
             "type" : "string"
           },
           "isGuiLocked" : {
+            "nullable" : true,
             "type" : "boolean"
           },
           "isHidden" : {
+            "nullable" : true,
             "type" : "boolean"
           }
         },
@@ -177,6 +182,7 @@
             "$ref" : "#/components/schemas/ApiColumnAttributesUpdate"
           },
           "formula" : {
+            "nullable" : true,
             "type" : "string"
           },
           "name" : {
@@ -189,6 +195,23 @@
         "required" : [
           "name",
           "tpe"
+        ],
+        "type" : "object"
+      },
+      "ApiColumnWithValues" : {
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "values" : {
+            "items" : {
+              "type" : "string"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [
+          "name"
         ],
         "type" : "object"
       },
@@ -212,6 +235,38 @@
           "returnType"
         ],
         "type" : "object"
+      },
+      "ApiNewPluginNotification" : {
+        "properties" : {
+          "body" : {
+            "type" : "string"
+          },
+          "icon" : {
+            "nullable" : true,
+            "type" : "string"
+          },
+          "title" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "title",
+          "body"
+        ],
+        "type" : "object"
+      },
+      "ApiPatchTableDataOp" : {
+        "discriminator" : {
+          "mapping" : {
+            "Update" : "#/components/schemas/Update"
+          },
+          "propertyName" : "op"
+        },
+        "oneOf" : [
+          {
+            "$ref" : "#/components/schemas/Update"
+          }
+        ]
       },
       "ApiTable" : {
         "properties" : {
@@ -300,14 +355,14 @@
         ],
         "type" : "string"
       },
-      "CsvSeparator" : {
+      "CSV" : {
         "properties" : {
-          "separator" : {
+          "delimiter" : {
             "type" : "string"
           }
         },
         "required" : [
-          "separator"
+          "delimiter"
         ],
         "type" : "object"
       },
@@ -320,6 +375,76 @@
           "json"
         ],
         "type" : "string"
+      },
+      "ExportFormat" : {
+        "default" : {
+          "CSV" : {
+            "delimiter" : ","
+          }
+        },
+        "oneOf" : [
+          {
+            "properties" : {
+              "CSV" : {
+                "$ref" : "#/components/schemas/CSV"
+              }
+            },
+            "required" : [
+              "CSV"
+            ],
+            "type" : "object"
+          }
+        ]
+      },
+      "ExportInfo" : {
+        "properties" : {
+          "downloadUrl" : {
+            "type" : "string"
+          },
+          "expiresInSeconds" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "exportJob" : {
+            "$ref" : "#/components/schemas/ExportJob"
+          }
+        },
+        "required" : [
+          "downloadUrl",
+          "expiresInSeconds",
+          "exportJob"
+        ],
+        "type" : "object"
+      },
+      "ExportJob" : {
+        "properties" : {
+          "availableUntil" : {
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "createdAt" : {
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "id" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "s3Key" : {
+            "$ref" : "#/components/schemas/S3Key"
+          },
+          "tableName" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "id",
+          "createdAt",
+          "s3Key",
+          "tableName",
+          "availableUntil"
+        ],
+        "type" : "object"
       },
       "ExternalFunctionRuntime" : {
         "enum" : [
@@ -338,10 +463,11 @@
             "type" : "string"
           },
           "csvSeparator" : {
-            "$ref" : "#/components/schemas/CsvSeparator"
+            "type" : "string"
           },
           "finishedAt" : {
             "format" : "date-time",
+            "nullable" : true,
             "type" : "string"
           },
           "id" : {
@@ -349,9 +475,11 @@
             "type" : "integer"
           },
           "isSuccessful" : {
+            "nullable" : true,
             "type" : "boolean"
           },
           "message" : {
+            "nullable" : true,
             "type" : "string"
           },
           "s3Key" : {
@@ -359,6 +487,7 @@
           },
           "startedAt" : {
             "format" : "date-time",
+            "nullable" : true,
             "type" : "string"
           },
           "tableImportMode" : {
@@ -429,16 +558,18 @@
       },
       "Plugin1" : {
         "properties" : {
-          "event" : {
-            "$ref" : "#/components/schemas/WebhookPluginEvent"
+          "events" : {
+            "items" : {
+              "$ref" : "#/components/schemas/WebhookPluginEvent"
+            },
+            "type" : "array"
           },
           "pluginName" : {
             "$ref" : "#/components/schemas/PluginName"
           }
         },
         "required" : [
-          "pluginName",
-          "event"
+          "pluginName"
         ],
         "type" : "object"
       },
@@ -580,6 +711,7 @@
           },
           "values" : {
             "items" : {
+              "nullable" : true,
               "type" : "string"
             },
             "type" : "array"
@@ -587,6 +719,29 @@
         },
         "required" : [
           "id"
+        ],
+        "type" : "object"
+      },
+      "Update" : {
+        "properties" : {
+          "dataColumns" : {
+            "items" : {
+              "$ref" : "#/components/schemas/ApiColumnWithValues"
+            },
+            "type" : "array"
+          },
+          "matchColumns" : {
+            "items" : {
+              "$ref" : "#/components/schemas/ApiColumnWithValues"
+            },
+            "type" : "array"
+          },
+          "op" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "op"
         ],
         "type" : "object"
       },
@@ -664,7 +819,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.107.3"
+    "version" : "v0.115.0"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -815,6 +970,85 @@
       }
     },
     "/api/v1.0/plugin/{pluginName}/webhooks" : {
+      "delete" : {
+        "operationId" : "deleteAllPluginWebhooks",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "pluginName",
+            "required" : true,
+            "schema" : {
+              "$ref" : "#/components/schemas/PluginName"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Delete all plugin webhooks",
+        "tags" : [
+          "Plugin Webhooks",
+          "Plugin Webhooks"
+        ]
+      },
       "get" : {
         "operationId" : "listPluginWebhooks",
         "parameters" : [
@@ -917,11 +1151,15 @@
             }
           },
           {
+            "explode" : false,
             "in" : "query",
             "name" : "event",
-            "required" : true,
+            "required" : false,
             "schema" : {
-              "$ref" : "#/components/schemas/WebhookPluginEvent"
+              "items" : {
+                "$ref" : "#/components/schemas/WebhookPluginEvent"
+              },
+              "type" : "array"
             }
           }
         ],
@@ -1622,6 +1860,103 @@
         ]
       }
     },
+    "/api/v1.0/workspaces/{workspace}/exports/{import-job-id}" : {
+      "get" : {
+        "description" : "This API endpoint returns information about an export and a url, from which you can download the exported csv file. This download url will be valid for up to `.expiresInSeconds` seconds. You can always request a new download if the old one expires.",
+        "operationId" : "getTableExport",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "import-job-id",
+            "required" : true,
+            "schema" : {
+              "format" : "int32",
+              "type" : "integer"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ExportInfo"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Get a table export with download url",
+        "tags" : [
+          "Export API"
+        ]
+      }
+    },
     "/api/v1.0/workspaces/{workspace}/external-functions/{function}" : {
       "delete" : {
         "operationId" : "deleteExternalFunction",
@@ -2023,6 +2358,284 @@
         "summary" : "Update the code of an existing external function",
         "tags" : [
           "External Function API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/members" : {
+      "get" : {
+        "operationId" : "listWorkspaceMemberships",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "type" : "string"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "List existing workspace membership",
+        "tags" : [
+          "Workspace API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/members/{userId}" : {
+      "delete" : {
+        "operationId" : "deleteWorkspaceMembership",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "userId",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Delete a workspace membership",
+        "tags" : [
+          "Workspace API"
+        ]
+      },
+      "put" : {
+        "operationId" : "createWorkspaceMembership",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "userId",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Create a workspace membership",
+        "tags" : [
+          "Workspace API"
         ]
       }
     },
@@ -2704,6 +3317,108 @@
           }
         ],
         "summary" : "Gets the live status a plugin",
+        "tags" : [
+          "Plugin API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/notifications" : {
+      "post" : {
+        "description" : "The body of the notification is formatted using markdown (note: JSON does not support multiline-strings, so use `\\n` instead). If present, `icon` MUST be a single UTF8-grapheme, for example an emoji ✅.",
+        "operationId" : "postNewPluginNotifications",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "$ref" : "#/components/schemas/PluginName"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "items" : {
+                  "$ref" : "#/components/schemas/ApiNewPluginNotification"
+                },
+                "type" : "array"
+              }
+            }
+          },
+          "required" : false
+        },
+        "responses" : {
+          "201" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Post new plugin notifications",
         "tags" : [
           "Plugin API"
         ]
@@ -4042,6 +4757,7 @@
     },
     "/api/v1.0/workspaces/{workspace}/tables/{table}/data" : {
       "get" : {
+        "description" : "Get the data of a table. In order to get the complete data with all calculated values, poll this endpoint until it has no more scheduled jobs (check response field `scheduledJobs == 0`).",
         "operationId" : "getTableData",
         "parameters" : [
           {
@@ -4150,9 +4866,337 @@
             ]
           }
         ],
-        "summary" : "Get the data of a table. In order to get the complete data with all calculated values, poll this endpoint until it has no more scheduled jobs (check response field `scheduledJobs == 0`).",
+        "summary" : "Get the data of a table",
         "tags" : [
           "Table API"
+        ]
+      },
+      "patch" : {
+        "description" : "Specify columns and values to match on, and specify which columns should be set to which value for matched columns",
+        "operationId" : "patchTableData",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "table",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "example" : [
+                {
+                  "dataColumns" : [
+                    {
+                      "name" : "TextColumn",
+                      "values" : [
+                        "foo",
+                        "bar",
+                        "baz"
+                      ]
+                    }
+                  ],
+                  "matchColumns" : [
+                    {
+                      "name" : "IdColumn",
+                      "values" : [
+                        "1",
+                        "2",
+                        "3"
+                      ]
+                    }
+                  ],
+                  "op" : "Update"
+                }
+              ],
+              "schema" : {
+                "items" : {
+                  "$ref" : "#/components/schemas/ApiPatchTableDataOp"
+                },
+                "type" : "array"
+              }
+            }
+          },
+          "required" : false
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Patch the data of a table.",
+        "tags" : [
+          "Table API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/tables/{table}/exports" : {
+      "get" : {
+        "description" : "This API endpoint returns a list of all available exports for a table. Exported files are kept available until `.availableUntil`.",
+        "operationId" : "listTableExport",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "table",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/ExportJob"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "List all table exports",
+        "tags" : [
+          "Export API"
+        ]
+      },
+      "post" : {
+        "description" : "This API endpoint returns a url, from which you can download the exported csv file. This download url will be valid for up to `.expiresInSeconds` seconds. Exported files are kept available until `.exportJob.availableUntil`.",
+        "operationId" : "exportTable",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "table",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ExportFormat"
+              }
+            }
+          },
+          "required" : false
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ExportInfo"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Export a table to a file",
+        "tags" : [
+          "Export API"
         ]
       }
     },
@@ -4366,6 +5410,10 @@
     {
       "description" : "\nUsers can import data into their workspace.",
       "name" : "Import API"
+    },
+    {
+      "description" : "\nUsers can export table data to a file.",
+      "name" : "Export API"
     },
     {
       "description" : "\nUsers can deploy their own external functions.",

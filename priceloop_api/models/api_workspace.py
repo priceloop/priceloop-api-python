@@ -17,17 +17,20 @@ class ApiWorkspace:
     """
     Attributes:
         name (str):
+        display_name (Union[Unset, None, str]):
         external_functions (Union[Unset, List['ApiExternalFunction']]):
         tables (Union[Unset, List['ApiTable']]):
     """
 
     name: str
+    display_name: Union[Unset, None, str] = UNSET
     external_functions: Union[Unset, List["ApiExternalFunction"]] = UNSET
     tables: Union[Unset, List["ApiTable"]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         name = self.name
+        display_name = self.display_name
         external_functions: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.external_functions, Unset):
             external_functions = []
@@ -51,6 +54,8 @@ class ApiWorkspace:
                 "name": name,
             }
         )
+        if display_name is not UNSET:
+            field_dict["displayName"] = display_name
         if external_functions is not UNSET:
             field_dict["externalFunctions"] = external_functions
         if tables is not UNSET:
@@ -65,6 +70,8 @@ class ApiWorkspace:
 
         d = src_dict.copy()
         name = d.pop("name")
+
+        display_name = d.pop("displayName", UNSET)
 
         external_functions = []
         _external_functions = d.pop("externalFunctions", UNSET)
@@ -82,6 +89,7 @@ class ApiWorkspace:
 
         api_workspace = cls(
             name=name,
+            display_name=display_name,
             external_functions=external_functions,
             tables=tables,
         )

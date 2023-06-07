@@ -844,7 +844,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.118.1"
+    "version" : "v0.120.2"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -1885,7 +1885,7 @@
         ]
       }
     },
-    "/api/v1.0/workspaces/{workspace}/exports/{import-job-id}" : {
+    "/api/v1.0/workspaces/{workspace}/exports/{export-job-id}" : {
       "get" : {
         "description" : "This API endpoint returns information about an export and a url, from which you can download the exported csv file. This download url will be valid for up to `.expiresInSeconds` seconds. You can always request a new download if the old one expires.",
         "operationId" : "getTableExport",
@@ -1900,7 +1900,7 @@
           },
           {
             "in" : "path",
-            "name" : "import-job-id",
+            "name" : "export-job-id",
             "required" : true,
             "schema" : {
               "format" : "int32",

@@ -19,6 +19,7 @@ def _get_kwargs(
     runtime: ExternalFunctionRuntime,
     return_type: CreateExternalFunctionReturnType,
     param_type: Union[Unset, None, List[str]] = UNSET,
+    batch_size: Union[Unset, None, int] = 300,
 ) -> Dict[str, Any]:
     url = "{}/api/v1.0/workspaces/{workspace}/external-functions/{function}".format(
         client.base_url, workspace=workspace, function=function
@@ -44,6 +45,8 @@ def _get_kwargs(
             json_param_type = param_type
 
     params["paramType"] = json_param_type
+
+    params["batchSize"] = batch_size
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -86,6 +89,7 @@ def sync_detailed(
     runtime: ExternalFunctionRuntime,
     return_type: CreateExternalFunctionReturnType,
     param_type: Union[Unset, None, List[str]] = UNSET,
+    batch_size: Union[Unset, None, int] = 300,
 ) -> Response[PresignedUrl]:
     """Create a new external function
 
@@ -99,6 +103,7 @@ def sync_detailed(
         runtime (ExternalFunctionRuntime):
         return_type (CreateExternalFunctionReturnType):
         param_type (Union[Unset, None, List[str]]):
+        batch_size (Union[Unset, None, int]):  Default: 300.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -115,6 +120,7 @@ def sync_detailed(
         runtime=runtime,
         return_type=return_type,
         param_type=param_type,
+        batch_size=batch_size,
     )
 
     response = httpx.request(
@@ -133,6 +139,7 @@ def sync(
     runtime: ExternalFunctionRuntime,
     return_type: CreateExternalFunctionReturnType,
     param_type: Union[Unset, None, List[str]] = UNSET,
+    batch_size: Union[Unset, None, int] = 300,
 ) -> Optional[PresignedUrl]:
     """Create a new external function
 
@@ -146,6 +153,7 @@ def sync(
         runtime (ExternalFunctionRuntime):
         return_type (CreateExternalFunctionReturnType):
         param_type (Union[Unset, None, List[str]]):
+        batch_size (Union[Unset, None, int]):  Default: 300.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -162,6 +170,7 @@ def sync(
         runtime=runtime,
         return_type=return_type,
         param_type=param_type,
+        batch_size=batch_size,
     ).parsed
 
 
@@ -173,6 +182,7 @@ async def asyncio_detailed(
     runtime: ExternalFunctionRuntime,
     return_type: CreateExternalFunctionReturnType,
     param_type: Union[Unset, None, List[str]] = UNSET,
+    batch_size: Union[Unset, None, int] = 300,
 ) -> Response[PresignedUrl]:
     """Create a new external function
 
@@ -186,6 +196,7 @@ async def asyncio_detailed(
         runtime (ExternalFunctionRuntime):
         return_type (CreateExternalFunctionReturnType):
         param_type (Union[Unset, None, List[str]]):
+        batch_size (Union[Unset, None, int]):  Default: 300.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -202,6 +213,7 @@ async def asyncio_detailed(
         runtime=runtime,
         return_type=return_type,
         param_type=param_type,
+        batch_size=batch_size,
     )
 
     async with httpx.AsyncClient(verify=client.verify_ssl) as _client:
@@ -218,6 +230,7 @@ async def asyncio(
     runtime: ExternalFunctionRuntime,
     return_type: CreateExternalFunctionReturnType,
     param_type: Union[Unset, None, List[str]] = UNSET,
+    batch_size: Union[Unset, None, int] = 300,
 ) -> Optional[PresignedUrl]:
     """Create a new external function
 
@@ -231,6 +244,7 @@ async def asyncio(
         runtime (ExternalFunctionRuntime):
         return_type (CreateExternalFunctionReturnType):
         param_type (Union[Unset, None, List[str]]):
+        batch_size (Union[Unset, None, int]):  Default: 300.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -248,5 +262,6 @@ async def asyncio(
             runtime=runtime,
             return_type=return_type,
             param_type=param_type,
+            batch_size=batch_size,
         )
     ).parsed

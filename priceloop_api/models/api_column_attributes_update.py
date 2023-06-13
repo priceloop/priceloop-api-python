@@ -19,12 +19,14 @@ class ApiColumnAttributesUpdate:
         description (Union[Unset, None, str]):
         is_gui_locked (Union[Unset, None, bool]):
         is_hidden (Union[Unset, None, bool]):
+        background_color (Union[Unset, None, str]):
     """
 
     boolean_column_attributes: Union[Unset, "ApiBooleanColumnAttributesUpdate"] = UNSET
     description: Union[Unset, None, str] = UNSET
     is_gui_locked: Union[Unset, None, bool] = UNSET
     is_hidden: Union[Unset, None, bool] = UNSET
+    background_color: Union[Unset, None, str] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -35,6 +37,7 @@ class ApiColumnAttributesUpdate:
         description = self.description
         is_gui_locked = self.is_gui_locked
         is_hidden = self.is_hidden
+        background_color = self.background_color
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -47,6 +50,8 @@ class ApiColumnAttributesUpdate:
             field_dict["isGuiLocked"] = is_gui_locked
         if is_hidden is not UNSET:
             field_dict["isHidden"] = is_hidden
+        if background_color is not UNSET:
+            field_dict["backgroundColor"] = background_color
 
         return field_dict
 
@@ -63,16 +68,16 @@ class ApiColumnAttributesUpdate:
             boolean_column_attributes = ApiBooleanColumnAttributesUpdate.from_dict(_boolean_column_attributes)
 
         description = d.pop("description", UNSET)
-
         is_gui_locked = d.pop("isGuiLocked", UNSET)
-
         is_hidden = d.pop("isHidden", UNSET)
+        background_color = d.pop("backgroundColor", UNSET)
 
         api_column_attributes_update = cls(
             boolean_column_attributes=boolean_column_attributes,
             description=description,
             is_gui_locked=is_gui_locked,
             is_hidden=is_hidden,
+            background_color=background_color,
         )
 
         api_column_attributes_update.additional_properties = d

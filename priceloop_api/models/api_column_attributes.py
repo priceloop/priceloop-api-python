@@ -19,12 +19,14 @@ class ApiColumnAttributes:
         is_gui_locked (bool):
         is_hidden (bool):
         description (Union[Unset, None, str]):
+        background_color (Union[Unset, None, str]):
     """
 
     boolean_column_attributes: "ApiBooleanColumnAttributes"
     is_gui_locked: bool
     is_hidden: bool
     description: Union[Unset, None, str] = UNSET
+    background_color: Union[Unset, None, str] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -33,6 +35,7 @@ class ApiColumnAttributes:
         is_gui_locked = self.is_gui_locked
         is_hidden = self.is_hidden
         description = self.description
+        background_color = self.background_color
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -45,6 +48,8 @@ class ApiColumnAttributes:
         )
         if description is not UNSET:
             field_dict["description"] = description
+        if background_color is not UNSET:
+            field_dict["backgroundColor"] = background_color
 
         return field_dict
 
@@ -56,16 +61,16 @@ class ApiColumnAttributes:
         boolean_column_attributes = ApiBooleanColumnAttributes.from_dict(d.pop("booleanColumnAttributes"))
 
         is_gui_locked = d.pop("isGuiLocked")
-
         is_hidden = d.pop("isHidden")
-
         description = d.pop("description", UNSET)
+        background_color = d.pop("backgroundColor", UNSET)
 
         api_column_attributes = cls(
             boolean_column_attributes=boolean_column_attributes,
             is_gui_locked=is_gui_locked,
             is_hidden=is_hidden,
             description=description,
+            background_color=d.pop("backgroundColor", UNSET),
         )
 
         api_column_attributes.additional_properties = d

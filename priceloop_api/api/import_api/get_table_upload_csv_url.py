@@ -77,8 +77,8 @@ def sync_detailed(
     the returned url, e.g.: curl -XPUT -T <csv-file> '<url>'.
 
     Args:
-        workspace (str):
-        table (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
         mode (Union[Unset, None, TableImportMode]):  Default: TableImportMode.NEW.
 
     Raises:
@@ -117,8 +117,8 @@ def sync(
     the returned url, e.g.: curl -XPUT -T <csv-file> '<url>'.
 
     Args:
-        workspace (str):
-        table (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
         mode (Union[Unset, None, TableImportMode]):  Default: TableImportMode.NEW.
 
     Raises:
@@ -150,8 +150,8 @@ async def asyncio_detailed(
     the returned url, e.g.: curl -XPUT -T <csv-file> '<url>'.
 
     Args:
-        workspace (str):
-        table (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
         mode (Union[Unset, None, TableImportMode]):  Default: TableImportMode.NEW.
 
     Raises:
@@ -188,8 +188,8 @@ async def asyncio(
     the returned url, e.g.: curl -XPUT -T <csv-file> '<url>'.
 
     Args:
-        workspace (str):
-        table (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
         mode (Union[Unset, None, TableImportMode]):  Default: TableImportMode.NEW.
 
     Raises:

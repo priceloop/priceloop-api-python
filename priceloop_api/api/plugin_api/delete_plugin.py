@@ -59,7 +59,7 @@ def sync_detailed(
     """Delete/uninstall a plugin from a workspace
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
 
     Raises:
@@ -93,7 +93,7 @@ async def asyncio_detailed(
     """Delete/uninstall a plugin from a workspace
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
 
     Raises:

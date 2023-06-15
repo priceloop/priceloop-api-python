@@ -62,7 +62,7 @@ def sync_detailed(
     """Rename a workspace
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         new_name (str):
 
     Raises:
@@ -96,7 +96,7 @@ async def asyncio_detailed(
     """Rename a workspace
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         new_name (str):
 
     Raises:

@@ -86,9 +86,9 @@ def sync_detailed(
 
 
     Args:
-        workspace (str):
-        table (str):
-        column (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
         json_body (ApiColumnAttributesUpdate):
 
     Raises:
@@ -146,9 +146,9 @@ async def asyncio_detailed(
 
 
     Args:
-        workspace (str):
-        table (str):
-        column (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
         json_body (ApiColumnAttributesUpdate):
 
     Raises:

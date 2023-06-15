@@ -79,8 +79,8 @@ def sync_detailed(
     the returned url, e.g.: curl -XPUT -T <csv-file> '<url>'.
 
     Args:
-        workspace (str):
-        table (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
         mode (TableImportMode):  Default: TableImportMode.NEW.
         separator (Union[Unset, None, str]):  Default: ','.
 
@@ -122,8 +122,8 @@ def sync(
     the returned url, e.g.: curl -XPUT -T <csv-file> '<url>'.
 
     Args:
-        workspace (str):
-        table (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
         mode (TableImportMode):  Default: TableImportMode.NEW.
         separator (Union[Unset, None, str]):  Default: ','.
 
@@ -158,8 +158,8 @@ async def asyncio_detailed(
     the returned url, e.g.: curl -XPUT -T <csv-file> '<url>'.
 
     Args:
-        workspace (str):
-        table (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
         mode (TableImportMode):  Default: TableImportMode.NEW.
         separator (Union[Unset, None, str]):  Default: ','.
 
@@ -199,8 +199,8 @@ async def asyncio(
     the returned url, e.g.: curl -XPUT -T <csv-file> '<url>'.
 
     Args:
-        workspace (str):
-        table (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
         mode (TableImportMode):  Default: TableImportMode.NEW.
         separator (Union[Unset, None, str]):  Default: ','.
 

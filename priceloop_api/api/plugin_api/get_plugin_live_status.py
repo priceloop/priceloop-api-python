@@ -62,7 +62,7 @@ def sync_detailed(
     """Gets the live status a plugin
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
 
     Raises:
@@ -96,7 +96,7 @@ def sync(
     """Gets the live status a plugin
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
 
     Raises:
@@ -123,7 +123,7 @@ async def asyncio_detailed(
     """Gets the live status a plugin
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
 
     Raises:
@@ -155,7 +155,7 @@ async def asyncio(
     """Gets the live status a plugin
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
 
     Raises:

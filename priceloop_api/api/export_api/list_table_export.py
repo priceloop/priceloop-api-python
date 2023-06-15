@@ -69,8 +69,8 @@ def sync_detailed(
     available until `.availableUntil`.
 
     Args:
-        workspace (str):
-        table (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -106,8 +106,8 @@ def sync(
     available until `.availableUntil`.
 
     Args:
-        workspace (str):
-        table (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -136,8 +136,8 @@ async def asyncio_detailed(
     available until `.availableUntil`.
 
     Args:
-        workspace (str):
-        table (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -171,8 +171,8 @@ async def asyncio(
     available until `.availableUntil`.
 
     Args:
-        workspace (str):
-        table (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -64,7 +64,7 @@ def sync_detailed(
     """Create tables from a schema
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         json_body (List['ApiTableSchema']):
 
     Raises:
@@ -98,7 +98,7 @@ async def asyncio_detailed(
     """Create tables from a schema
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         json_body (List['ApiTableSchema']):
 
     Raises:

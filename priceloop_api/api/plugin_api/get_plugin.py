@@ -62,7 +62,7 @@ def sync_detailed(
     """Get details about a plugin installation
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
 
     Raises:
@@ -96,7 +96,7 @@ def sync(
     """Get details about a plugin installation
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
 
     Raises:
@@ -123,7 +123,7 @@ async def asyncio_detailed(
     """Get details about a plugin installation
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
 
     Raises:
@@ -155,7 +155,7 @@ async def asyncio(
     """Get details about a plugin installation
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
 
     Raises:

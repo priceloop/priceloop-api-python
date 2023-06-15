@@ -16,10 +16,10 @@ T = TypeVar("T", bound="ApiColumnSchema")
 class ApiColumnSchema:
     """
     Attributes:
-        name (str):
+        name (str):  Example: column-name.
         tpe (ExplicitExprType):
         attributes (Union[Unset, ApiColumnAttributesUpdate]):
-        formula (Union[Unset, None, str]):
+        formula (Union[Unset, None, str]):  Example: 1 + 2.
     """
 
     name: str

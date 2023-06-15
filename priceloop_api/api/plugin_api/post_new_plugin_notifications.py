@@ -73,7 +73,7 @@ def sync_detailed(
     emoji ✅.
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
         json_body (List['ApiNewPluginNotification']):
 
@@ -114,7 +114,7 @@ async def asyncio_detailed(
     emoji ✅.
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
         json_body (List['ApiNewPluginNotification']):
 

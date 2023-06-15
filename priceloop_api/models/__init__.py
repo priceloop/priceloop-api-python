@@ -22,6 +22,8 @@ from .api_table_data import ApiTableData
 from .api_table_schema import ApiTableSchema
 from .api_workspace import ApiWorkspace
 from .boolean_display_style import BooleanDisplayStyle
+from .column_background_color import ColumnBackgroundColor
+from .create_external_function_param_type_item import CreateExternalFunctionParamTypeItem
 from .create_external_function_return_type import CreateExternalFunctionReturnType
 from .create_workspace_membership_response_200 import CreateWorkspaceMembershipResponse200
 from .csv import CSV
@@ -77,6 +79,8 @@ __all__ = (
     "ApiTableSchema",
     "ApiWorkspace",
     "BooleanDisplayStyle",
+    "ColumnBackgroundColor",
+    "CreateExternalFunctionParamTypeItem",
     "CreateExternalFunctionReturnType",
     "CreateWorkspaceMembershipResponse200",
     "CSV",

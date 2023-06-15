@@ -61,7 +61,7 @@ def sync_detailed(
     """Delete a workspace membership
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         user_id (str):
 
     Raises:
@@ -95,7 +95,7 @@ def sync(
     """Delete a workspace membership
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         user_id (str):
 
     Raises:
@@ -122,7 +122,7 @@ async def asyncio_detailed(
     """Delete a workspace membership
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         user_id (str):
 
     Raises:
@@ -154,7 +154,7 @@ async def asyncio(
     """Delete a workspace membership
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         user_id (str):
 
     Raises:

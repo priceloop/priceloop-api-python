@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 import attr
 
+from ..models.column_background_color import ColumnBackgroundColor
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -15,12 +16,14 @@ T = TypeVar("T", bound="ApiColumnAttributesUpdate")
 class ApiColumnAttributesUpdate:
     """
     Attributes:
+        background_color (Union[Unset, ColumnBackgroundColor]):
         boolean_column_attributes (Union[Unset, ApiBooleanColumnAttributesUpdate]):
         description (Union[Unset, None, str]):
         is_gui_locked (Union[Unset, None, bool]):
         is_hidden (Union[Unset, None, bool]):
     """
 
+    background_color: Union[Unset, ColumnBackgroundColor] = UNSET
     boolean_column_attributes: Union[Unset, "ApiBooleanColumnAttributesUpdate"] = UNSET
     description: Union[Unset, None, str] = UNSET
     is_gui_locked: Union[Unset, None, bool] = UNSET
@@ -28,6 +31,10 @@ class ApiColumnAttributesUpdate:
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        background_color: Union[Unset, str] = UNSET
+        if not isinstance(self.background_color, Unset):
+            background_color = self.background_color.value
+
         boolean_column_attributes: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.boolean_column_attributes, Unset):
             boolean_column_attributes = self.boolean_column_attributes.to_dict()
@@ -39,6 +46,8 @@ class ApiColumnAttributesUpdate:
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
+        if background_color is not UNSET:
+            field_dict["backgroundColor"] = background_color
         if boolean_column_attributes is not UNSET:
             field_dict["booleanColumnAttributes"] = boolean_column_attributes
         if description is not UNSET:
@@ -55,6 +64,13 @@ class ApiColumnAttributesUpdate:
         from ..models.api_boolean_column_attributes_update import ApiBooleanColumnAttributesUpdate
 
         d = src_dict.copy()
+        _background_color = d.pop("backgroundColor", UNSET)
+        background_color: Union[Unset, ColumnBackgroundColor]
+        if isinstance(_background_color, Unset) or _background_color is None:
+            background_color = UNSET
+        else:
+            background_color = ColumnBackgroundColor(_background_color)
+
         _boolean_column_attributes = d.pop("booleanColumnAttributes", UNSET)
         boolean_column_attributes: Union[Unset, ApiBooleanColumnAttributesUpdate]
         if isinstance(_boolean_column_attributes, Unset) or _boolean_column_attributes is None:
@@ -69,6 +85,7 @@ class ApiColumnAttributesUpdate:
         is_hidden = d.pop("isHidden", UNSET)
 
         api_column_attributes_update = cls(
+            background_color=background_color,
             boolean_column_attributes=boolean_column_attributes,
             description=description,
             is_gui_locked=is_gui_locked,

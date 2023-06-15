@@ -11,7 +11,7 @@ T = TypeVar("T", bound="ApiExternalFunction")
 class ApiExternalFunction:
     """
     Attributes:
-        function_name (str):
+        function_name (str):  Example: function-name.
         return_type (str):
         parameter_types (Union[Unset, List[str]]):
     """

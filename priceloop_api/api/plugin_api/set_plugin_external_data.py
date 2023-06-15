@@ -64,7 +64,7 @@ def sync_detailed(
     """Set external data of a plugin installation
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
         json_body (Any):
 
@@ -101,7 +101,7 @@ async def asyncio_detailed(
     """Set external data of a plugin installation
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
         json_body (Any):
 

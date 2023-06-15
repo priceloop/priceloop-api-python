@@ -9,9 +9,9 @@ T = TypeVar("T", bound="ApiColumn")
 class ApiColumn:
     """
     Attributes:
-        name (str):
+        name (str):  Example: column-name.
         position (int):
-        table_name (str):
+        table_name (str):  Example: table-name.
         tpe (str):
     """
 

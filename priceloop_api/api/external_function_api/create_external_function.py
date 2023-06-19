@@ -5,6 +5,7 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.create_external_function_param_type_item import CreateExternalFunctionParamTypeItem
 from ...models.create_external_function_return_type import CreateExternalFunctionReturnType
 from ...models.external_function_runtime import ExternalFunctionRuntime
 from ...models.presigned_url import PresignedUrl
@@ -18,7 +19,7 @@ def _get_kwargs(
     client: AuthenticatedClient,
     runtime: ExternalFunctionRuntime,
     return_type: CreateExternalFunctionReturnType,
-    param_type: Union[Unset, None, List[str]] = UNSET,
+    param_type: Union[Unset, None, List[CreateExternalFunctionParamTypeItem]] = UNSET,
     batch_size: Union[Unset, None, int] = 300,
 ) -> Dict[str, Any]:
     url = "{}/api/v1.0/workspaces/{workspace}/external-functions/{function}".format(
@@ -42,7 +43,11 @@ def _get_kwargs(
         if param_type is None:
             json_param_type = None
         else:
-            json_param_type = param_type
+            json_param_type = []
+            for param_type_item_data in param_type:
+                param_type_item = param_type_item_data.value
+
+                json_param_type.append(param_type_item)
 
     params["paramType"] = json_param_type
 
@@ -88,7 +93,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     runtime: ExternalFunctionRuntime,
     return_type: CreateExternalFunctionReturnType,
-    param_type: Union[Unset, None, List[str]] = UNSET,
+    param_type: Union[Unset, None, List[CreateExternalFunctionParamTypeItem]] = UNSET,
     batch_size: Union[Unset, None, int] = 300,
 ) -> Response[PresignedUrl]:
     """Create a new external function
@@ -99,10 +104,10 @@ def sync_detailed(
 
     Args:
         workspace (str):
-        function (str):
+        function (str):  Example: function-name.
         runtime (ExternalFunctionRuntime):
         return_type (CreateExternalFunctionReturnType):
-        param_type (Union[Unset, None, List[str]]):
+        param_type (Union[Unset, None, List[CreateExternalFunctionParamTypeItem]]):
         batch_size (Union[Unset, None, int]):  Default: 300.
 
     Raises:
@@ -138,7 +143,7 @@ def sync(
     client: AuthenticatedClient,
     runtime: ExternalFunctionRuntime,
     return_type: CreateExternalFunctionReturnType,
-    param_type: Union[Unset, None, List[str]] = UNSET,
+    param_type: Union[Unset, None, List[CreateExternalFunctionParamTypeItem]] = UNSET,
     batch_size: Union[Unset, None, int] = 300,
 ) -> Optional[PresignedUrl]:
     """Create a new external function
@@ -149,10 +154,10 @@ def sync(
 
     Args:
         workspace (str):
-        function (str):
+        function (str):  Example: function-name.
         runtime (ExternalFunctionRuntime):
         return_type (CreateExternalFunctionReturnType):
-        param_type (Union[Unset, None, List[str]]):
+        param_type (Union[Unset, None, List[CreateExternalFunctionParamTypeItem]]):
         batch_size (Union[Unset, None, int]):  Default: 300.
 
     Raises:
@@ -181,7 +186,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     runtime: ExternalFunctionRuntime,
     return_type: CreateExternalFunctionReturnType,
-    param_type: Union[Unset, None, List[str]] = UNSET,
+    param_type: Union[Unset, None, List[CreateExternalFunctionParamTypeItem]] = UNSET,
     batch_size: Union[Unset, None, int] = 300,
 ) -> Response[PresignedUrl]:
     """Create a new external function
@@ -192,10 +197,10 @@ async def asyncio_detailed(
 
     Args:
         workspace (str):
-        function (str):
+        function (str):  Example: function-name.
         runtime (ExternalFunctionRuntime):
         return_type (CreateExternalFunctionReturnType):
-        param_type (Union[Unset, None, List[str]]):
+        param_type (Union[Unset, None, List[CreateExternalFunctionParamTypeItem]]):
         batch_size (Union[Unset, None, int]):  Default: 300.
 
     Raises:
@@ -229,7 +234,7 @@ async def asyncio(
     client: AuthenticatedClient,
     runtime: ExternalFunctionRuntime,
     return_type: CreateExternalFunctionReturnType,
-    param_type: Union[Unset, None, List[str]] = UNSET,
+    param_type: Union[Unset, None, List[CreateExternalFunctionParamTypeItem]] = UNSET,
     batch_size: Union[Unset, None, int] = 300,
 ) -> Optional[PresignedUrl]:
     """Create a new external function
@@ -240,10 +245,10 @@ async def asyncio(
 
     Args:
         workspace (str):
-        function (str):
+        function (str):  Example: function-name.
         runtime (ExternalFunctionRuntime):
         return_type (CreateExternalFunctionReturnType):
-        param_type (Union[Unset, None, List[str]]):
+        param_type (Union[Unset, None, List[CreateExternalFunctionParamTypeItem]]):
         batch_size (Union[Unset, None, int]):  Default: 300.
 
     Raises:

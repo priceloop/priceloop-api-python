@@ -19,7 +19,7 @@ class ExportJob:
         created_at (datetime.datetime):
         id (int):
         s_3_key (S3Key):
-        table_name (str):
+        table_name (str):  Example: table-name.
     """
 
     available_until: datetime.datetime

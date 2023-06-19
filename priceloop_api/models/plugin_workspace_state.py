@@ -16,7 +16,7 @@ class PluginWorkspaceState:
     Attributes:
         plugin (Plugin):
         workspace_integrations (WorkspaceIntegrations):
-        workspace_name (str):
+        workspace_name (str):  Example: workspace-name.
     """
 
     plugin: "Plugin"

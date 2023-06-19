@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 import attr
 
+from ..models.column_background_color import ColumnBackgroundColor
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -18,12 +19,14 @@ class ApiColumnAttributes:
         boolean_column_attributes (ApiBooleanColumnAttributes):
         is_gui_locked (bool):
         is_hidden (bool):
+        background_color (Union[Unset, ColumnBackgroundColor]):
         description (Union[Unset, None, str]):
     """
 
     boolean_column_attributes: "ApiBooleanColumnAttributes"
     is_gui_locked: bool
     is_hidden: bool
+    background_color: Union[Unset, ColumnBackgroundColor] = UNSET
     description: Union[Unset, None, str] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
@@ -32,6 +35,10 @@ class ApiColumnAttributes:
 
         is_gui_locked = self.is_gui_locked
         is_hidden = self.is_hidden
+        background_color: Union[Unset, str] = UNSET
+        if not isinstance(self.background_color, Unset):
+            background_color = self.background_color.value
+
         description = self.description
 
         field_dict: Dict[str, Any] = {}
@@ -43,6 +50,8 @@ class ApiColumnAttributes:
                 "isHidden": is_hidden,
             }
         )
+        if background_color is not UNSET:
+            field_dict["backgroundColor"] = background_color
         if description is not UNSET:
             field_dict["description"] = description
 
@@ -59,12 +68,20 @@ class ApiColumnAttributes:
 
         is_hidden = d.pop("isHidden")
 
+        _background_color = d.pop("backgroundColor", UNSET)
+        background_color: Union[Unset, ColumnBackgroundColor]
+        if isinstance(_background_color, Unset) or _background_color is None:
+            background_color = UNSET
+        else:
+            background_color = ColumnBackgroundColor(_background_color)
+
         description = d.pop("description", UNSET)
 
         api_column_attributes = cls(
             boolean_column_attributes=boolean_column_attributes,
             is_gui_locked=is_gui_locked,
             is_hidden=is_hidden,
+            background_color=background_color,
             description=description,
         )
 

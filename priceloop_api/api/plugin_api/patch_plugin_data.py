@@ -88,7 +88,7 @@ def sync_detailed(
 
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
         json_body ('PluginDataUpdateType0'):
 
@@ -145,7 +145,7 @@ async def asyncio_detailed(
 
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
         json_body ('PluginDataUpdateType0'):
 

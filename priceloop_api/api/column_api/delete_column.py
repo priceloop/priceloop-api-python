@@ -60,9 +60,9 @@ def sync_detailed(
     """Delete column by column name
 
     Args:
-        workspace (str):
-        table (str):
-        column (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -97,9 +97,9 @@ async def asyncio_detailed(
     """Delete column by column name
 
     Args:
-        workspace (str):
-        table (str):
-        column (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

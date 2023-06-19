@@ -15,7 +15,7 @@ T = TypeVar("T", bound="ApiTableSchema")
 class ApiTableSchema:
     """
     Attributes:
-        name (str):
+        name (str):  Example: table-name.
         columns (Union[Unset, List['ApiColumnSchema']]):
     """
 

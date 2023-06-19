@@ -71,10 +71,10 @@ def sync_detailed(
     """Add an expression column to a table
 
     Args:
-        workspace (str):
-        table (str):
-        column (str):
-        expression (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
+        expression (str):  Example: 1 + 2.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -111,10 +111,10 @@ def sync(
     """Add an expression column to a table
 
     Args:
-        workspace (str):
-        table (str):
-        column (str):
-        expression (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
+        expression (str):  Example: 1 + 2.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -144,10 +144,10 @@ async def asyncio_detailed(
     """Add an expression column to a table
 
     Args:
-        workspace (str):
-        table (str):
-        column (str):
-        expression (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
+        expression (str):  Example: 1 + 2.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -182,10 +182,10 @@ async def asyncio(
     """Add an expression column to a table
 
     Args:
-        workspace (str):
-        table (str):
-        column (str):
-        expression (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
+        expression (str):  Example: 1 + 2.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -23,7 +23,7 @@ class ImportJob:
         id (int):
         s_3_key (S3Key):
         table_import_mode (TableImportMode):  Default: TableImportMode.NEW.
-        table_name (str):
+        table_name (str):  Example: table-name.
         finished_at (Union[Unset, None, datetime.datetime]):
         is_successful (Union[Unset, None, bool]):
         message (Union[Unset, None, str]):

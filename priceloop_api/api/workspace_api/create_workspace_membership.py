@@ -61,7 +61,7 @@ def sync_detailed(
     """Create a workspace membership
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         user_id (str):
 
     Raises:
@@ -95,7 +95,7 @@ def sync(
     """Create a workspace membership
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         user_id (str):
 
     Raises:
@@ -122,7 +122,7 @@ async def asyncio_detailed(
     """Create a workspace membership
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         user_id (str):
 
     Raises:
@@ -154,7 +154,7 @@ async def asyncio(
     """Create a workspace membership
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         user_id (str):
 
     Raises:

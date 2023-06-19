@@ -62,7 +62,7 @@ def sync_detailed(
     """Get plugin tokens for a workspace
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
 
     Raises:
@@ -96,7 +96,7 @@ def sync(
     """Get plugin tokens for a workspace
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
 
     Raises:
@@ -123,7 +123,7 @@ async def asyncio_detailed(
     """Get plugin tokens for a workspace
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
 
     Raises:
@@ -155,7 +155,7 @@ async def asyncio(
     """Get plugin tokens for a workspace
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
 
     Raises:

@@ -71,8 +71,8 @@ def sync_detailed(
     matched columns
 
     Args:
-        workspace (str):
-        table (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
         json_body (List['Update']):
 
     Raises:
@@ -111,8 +111,8 @@ async def asyncio_detailed(
     matched columns
 
     Args:
-        workspace (str):
-        table (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
         json_body (List['Update']):
 
     Raises:

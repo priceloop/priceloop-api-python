@@ -76,9 +76,9 @@ def sync_detailed(
     """Add a data column to a table
 
     Args:
-        workspace (str):
-        table (str):
-        column (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
         type (Union[Unset, None, AddDataColumnType]):  Default: AddDataColumnType.STRING.
 
     Raises:
@@ -116,9 +116,9 @@ def sync(
     """Add a data column to a table
 
     Args:
-        workspace (str):
-        table (str):
-        column (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
         type (Union[Unset, None, AddDataColumnType]):  Default: AddDataColumnType.STRING.
 
     Raises:
@@ -149,9 +149,9 @@ async def asyncio_detailed(
     """Add a data column to a table
 
     Args:
-        workspace (str):
-        table (str):
-        column (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
         type (Union[Unset, None, AddDataColumnType]):  Default: AddDataColumnType.STRING.
 
     Raises:
@@ -187,9 +187,9 @@ async def asyncio(
     """Add a data column to a table
 
     Args:
-        workspace (str):
-        table (str):
-        column (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
         type (Union[Unset, None, AddDataColumnType]):  Default: AddDataColumnType.STRING.
 
     Raises:

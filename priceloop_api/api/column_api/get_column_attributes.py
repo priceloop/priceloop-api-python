@@ -63,9 +63,9 @@ def sync_detailed(
     """Retrieve the attributes of a column
 
     Args:
-        workspace (str):
-        table (str):
-        column (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -100,9 +100,9 @@ def sync(
     """Retrieve the attributes of a column
 
     Args:
-        workspace (str):
-        table (str):
-        column (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -130,9 +130,9 @@ async def asyncio_detailed(
     """Retrieve the attributes of a column
 
     Args:
-        workspace (str):
-        table (str):
-        column (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -165,9 +165,9 @@ async def asyncio(
     """Retrieve the attributes of a column
 
     Args:
-        workspace (str):
-        table (str):
-        column (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -60,7 +60,7 @@ def sync_detailed(
     (and provide a schema) instead.
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
 
     Raises:
@@ -95,7 +95,7 @@ async def asyncio_detailed(
     (and provide a schema) instead.
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
 
     Raises:

@@ -16,7 +16,7 @@ T = TypeVar("T", bound="ApiWorkspace")
 class ApiWorkspace:
     """
     Attributes:
-        name (str):
+        name (str):  Example: workspace-name.
         display_name (Union[Unset, None, str]):
         external_functions (Union[Unset, List['ApiExternalFunction']]):
         tables (Union[Unset, List['ApiTable']]):

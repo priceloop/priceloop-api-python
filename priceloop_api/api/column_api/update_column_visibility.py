@@ -70,9 +70,9 @@ def sync_detailed(
      Change column visibility in a table. Deprecated - please use [updateColumnAttributes] instead.
 
     Args:
-        workspace (str):
-        table (str):
-        column (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
         hide (bool):
 
     Raises:
@@ -112,9 +112,9 @@ async def asyncio_detailed(
      Change column visibility in a table. Deprecated - please use [updateColumnAttributes] instead.
 
     Args:
-        workspace (str):
-        table (str):
-        column (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
         hide (bool):
 
     Raises:

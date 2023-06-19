@@ -72,7 +72,7 @@ def sync_detailed(
     """Set status of a plugin installation
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
         status (Union[Unset, None, PluginStatus]):
 
@@ -109,7 +109,7 @@ async def asyncio_detailed(
     """Set status of a plugin installation
 
     Args:
-        workspace (str):
+        workspace (str):  Example: workspace-name.
         plugin (PluginName):
         status (Union[Unset, None, PluginStatus]):
 

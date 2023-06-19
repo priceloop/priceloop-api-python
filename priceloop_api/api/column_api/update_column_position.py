@@ -68,9 +68,9 @@ def sync_detailed(
     """Change column position in a table
 
     Args:
-        workspace (str):
-        table (str):
-        column (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
         position (int):
 
     Raises:
@@ -108,9 +108,9 @@ async def asyncio_detailed(
     """Change column position in a table
 
     Args:
-        workspace (str):
-        table (str):
-        column (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
         position (int):
 
     Raises:

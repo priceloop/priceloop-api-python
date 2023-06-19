@@ -76,8 +76,8 @@ def sync_detailed(
     endpoint until it has no more scheduled jobs (check response field `scheduledJobs == 0`).
 
     Args:
-        workspace (str):
-        table (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
         limit (int):
         offset (int):
 
@@ -119,8 +119,8 @@ def sync(
     endpoint until it has no more scheduled jobs (check response field `scheduledJobs == 0`).
 
     Args:
-        workspace (str):
-        table (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
         limit (int):
         offset (int):
 
@@ -155,8 +155,8 @@ async def asyncio_detailed(
     endpoint until it has no more scheduled jobs (check response field `scheduledJobs == 0`).
 
     Args:
-        workspace (str):
-        table (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
         limit (int):
         offset (int):
 
@@ -196,8 +196,8 @@ async def asyncio(
     endpoint until it has no more scheduled jobs (check response field `scheduledJobs == 0`).
 
     Args:
-        workspace (str):
-        table (str):
+        workspace (str):  Example: workspace-name.
+        table (str):  Example: table-name.
         limit (int):
         offset (int):
 

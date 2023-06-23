@@ -38,7 +38,8 @@ jobs:
     name: "Publish python package on PyPI"
     strategy:
       matrix:
-        python-version: ["3.8"]
+        python-version: ["3.8", "3.11"]
+        pandas-version: [1, 2]
     needs:
       - build
     steps:
@@ -49,7 +50,7 @@ jobs:
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
         with:
-          python-version: 3.8
+          python-version: matrix.python-version
           cache: "pip"
 
       - name: Install dependencies
@@ -57,10 +58,20 @@ jobs:
           python -m pip install --upgrade pip
           pip install setuptools wheel twine
 
-      - name: Build and publish
+      - name: Build and publish pandas ${{ matrix.pandas-version }}
+        if: ${{ matrix.pandas-version == 1.5.2 }}
         env:
           TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
           python setup.py sdist bdist_wheel
+          twine upload dist/*
+
+      - name: Build and publish pandas ${{ matrix.pandas-version }}
+        if: ${{ matrix.pandas-version == 2 }}
+        env:
+          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: |
+          python setup-pandas2.py sdist bdist_wheel
           twine upload dist/*

@@ -12,12 +12,12 @@ REQUIRES = [
     "boto3 ~= 1.24.78",
     "requests == 2.25",
     "frozendict == 2.3.4",
-    "pandas == 1.5.2",
+    "pandas ~= 2.0",
 ]
 
 setup(
     name="priceloop-api",
-    version="0.127.0",
+    version="0.127.0-pandas2",
     description="A client library for accessing Priceloop API",
     author="Priceloop",
     author_email="hello@priceloop.ai",

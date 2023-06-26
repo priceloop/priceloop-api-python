@@ -120,6 +120,9 @@
       },
       "ApiColumn" : {
         "properties" : {
+          "attributes" : {
+            "$ref" : "#/components/schemas/ApiColumnAttributes"
+          },
           "name" : {
             "example" : "column-name",
             "type" : "string"
@@ -140,7 +143,8 @@
           "tableName",
           "name",
           "tpe",
-          "position"
+          "position",
+          "attributes"
         ],
         "type" : "object"
       },
@@ -288,8 +292,38 @@
           }
         ]
       },
+      "ApiPluginTableRoleAssignmentBody" : {
+        "properties" : {
+          "tableName" : {
+            "example" : "table-name",
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "tableName"
+        ],
+        "type" : "object"
+      },
+      "ApiPluginTableRoleBody" : {
+        "properties" : {
+          "description" : {
+            "nullable" : true,
+            "type" : "string"
+          },
+          "semantic" : {
+            "$ref" : "#/components/schemas/PluginTableRoleSemantic"
+          }
+        },
+        "required" : [
+          "semantic"
+        ],
+        "type" : "object"
+      },
       "ApiTable" : {
         "properties" : {
+          "attributes" : {
+            "$ref" : "#/components/schemas/ApiTableAttributes"
+          },
           "columns" : {
             "items" : {
               "$ref" : "#/components/schemas/ApiColumn"
@@ -307,7 +341,27 @@
         },
         "required" : [
           "name",
-          "position"
+          "position",
+          "attributes"
+        ],
+        "type" : "object"
+      },
+      "ApiTableAttributes" : {
+        "properties" : {
+          "hidden" : {
+            "type" : "boolean"
+          },
+          "prominentImportYourDataButton" : {
+            "type" : "boolean"
+          },
+          "writable" : {
+            "type" : "boolean"
+          }
+        },
+        "required" : [
+          "writable",
+          "hidden",
+          "prominentImportYourDataButton"
         ],
         "type" : "object"
       },
@@ -331,6 +385,9 @@
       },
       "ApiTableSchema" : {
         "properties" : {
+          "attributes" : {
+            "$ref" : "#/components/schemas/ApiTableAttributes"
+          },
           "columns" : {
             "items" : {
               "$ref" : "#/components/schemas/ApiColumnSchema"
@@ -399,6 +456,9 @@
           "purple"
         ],
         "type" : "string"
+      },
+      "Empty" : {
+        "type" : "object"
       },
       "ExplicitExprType" : {
         "enum" : [
@@ -578,7 +638,7 @@
             
           },
           "name" : {
-            "$ref" : "#/components/schemas/PluginName"
+            "type" : "string"
           },
           "status" : {
             "$ref" : "#/components/schemas/PluginStatus"
@@ -601,7 +661,7 @@
             "type" : "array"
           },
           "pluginName" : {
-            "$ref" : "#/components/schemas/PluginName"
+            "type" : "string"
           }
         },
         "required" : [
@@ -619,6 +679,17 @@
             },
             "required" : [
               "ApeData"
+            ],
+            "type" : "object"
+          },
+          {
+            "properties" : {
+              "Empty" : {
+                "$ref" : "#/components/schemas/Empty"
+              }
+            },
+            "required" : [
+              "Empty"
             ],
             "type" : "object"
           }
@@ -639,6 +710,39 @@
           }
         ]
       },
+      "PluginDefinition" : {
+        "properties" : {
+          "description" : {
+            "type" : "string"
+          },
+          "displayName" : {
+            "type" : "string"
+          },
+          "iconUrl" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "requirements" : {
+            "items" : {
+              "$ref" : "#/components/schemas/PluginRequirement"
+            },
+            "type" : "array"
+          },
+          "showInCatalog" : {
+            "type" : "boolean"
+          }
+        },
+        "required" : [
+          "name",
+          "displayName",
+          "description",
+          "iconUrl",
+          "showInCatalog"
+        ],
+        "type" : "object"
+      },
       "PluginLiveStatus" : {
         "properties" : {
           "errors" : {
@@ -656,9 +760,9 @@
         ],
         "type" : "object"
       },
-      "PluginName" : {
+      "PluginRequirement" : {
         "enum" : [
-          "ape"
+          "AmazonAuthentication"
         ],
         "type" : "string"
       },
@@ -666,6 +770,55 @@
         "enum" : [
           "active",
           "inactive"
+        ],
+        "type" : "string"
+      },
+      "PluginTableRole" : {
+        "properties" : {
+          "description" : {
+            "nullable" : true,
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "pluginName" : {
+            "type" : "string"
+          },
+          "semantic" : {
+            "$ref" : "#/components/schemas/PluginTableRoleSemantic"
+          }
+        },
+        "required" : [
+          "pluginName",
+          "name",
+          "semantic"
+        ],
+        "type" : "object"
+      },
+      "PluginTableRoleAssignment" : {
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "pluginName" : {
+            "type" : "string"
+          },
+          "tableName" : {
+            "example" : "table-name",
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "pluginName",
+          "name",
+          "tableName"
+        ],
+        "type" : "object"
+      },
+      "PluginTableRoleSemantic" : {
+        "enum" : [
+          "PublishInput"
         ],
         "type" : "string"
       },
@@ -743,6 +896,28 @@
           "append_data"
         ],
         "type" : "string"
+      },
+      "TablePublication" : {
+        "properties" : {
+          "createdAt" : {
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "exportJobId" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "id" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        },
+        "required" : [
+          "id",
+          "createdAt",
+          "exportJobId"
+        ],
+        "type" : "object"
       },
       "TableRow" : {
         "properties" : {
@@ -837,7 +1012,8 @@
           "PluginInstalled",
           "PluginUninstalled",
           "PluginTokensUpdated",
-          "PluginDataUpdated"
+          "PluginDataUpdated",
+          "PluginTableRoleTrigger"
         ],
         "type" : "string"
       },
@@ -868,7 +1044,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.126.2"
+    "version" : "v0.132.0"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -1018,16 +1194,615 @@
         ]
       }
     },
-    "/api/v1.0/plugin/{pluginName}/webhooks" : {
+    "/api/v1.0/plugin-definition" : {
+      "get" : {
+        "operationId" : "listPluginDefinitions",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/PluginDefinition"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "List available plugins with their configuration",
+        "tags" : [
+          "Plugin Definition API"
+        ]
+      },
+      "put" : {
+        "operationId" : "putPluginDefinition",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/PluginDefinition"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Create an installable Plugin with a configuration",
+        "tags" : [
+          "Plugin Definition API"
+        ]
+      }
+    },
+    "/api/v1.0/plugin-definition/{plugin}" : {
+      "delete" : {
+        "operationId" : "deletePluginDefinition",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Delete a Plugin with its configuration",
+        "tags" : [
+          "Plugin Definition API"
+        ]
+      }
+    },
+    "/api/v1.0/plugin/{plugin}/enabled-workspaces" : {
+      "get" : {
+        "operationId" : "listEnabledWorkspaces",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PluginWorkspaceList"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Lists all workspaces that have this plugin installed",
+        "tags" : [
+          "Plugin API"
+        ]
+      }
+    },
+    "/api/v1.0/plugin/{plugin}/table-roles" : {
+      "get" : {
+        "operationId" : "listPluginTableRoles",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/PluginTableRole"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "List existing PluginTableRoles for this plugin",
+        "tags" : [
+          "Plugin Schema API"
+        ]
+      }
+    },
+    "/api/v1.0/plugin/{plugin}/table-roles/{name}" : {
+      "delete" : {
+        "operationId" : "deletePluginTableRole",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "name",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Delete a PluginTableRole",
+        "tags" : [
+          "Plugin Schema API"
+        ]
+      },
+      "put" : {
+        "operationId" : "createPluginTableRole",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "name",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ApiPluginTableRoleBody"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Create or update a new PluginTableRole that can be assigned to tables",
+        "tags" : [
+          "Plugin Schema API"
+        ]
+      }
+    },
+    "/api/v1.0/plugin/{plugin}/webhooks" : {
       "delete" : {
         "operationId" : "deleteAllPluginWebhooks",
         "parameters" : [
           {
             "in" : "path",
-            "name" : "pluginName",
+            "name" : "plugin",
             "required" : true,
             "schema" : {
-              "$ref" : "#/components/schemas/PluginName"
+              "type" : "string"
             }
           }
         ],
@@ -1094,7 +1869,6 @@
         ],
         "summary" : "Delete all plugin webhooks",
         "tags" : [
-          "Plugin Webhooks",
           "Plugin Webhooks"
         ]
       },
@@ -1103,10 +1877,10 @@
         "parameters" : [
           {
             "in" : "path",
-            "name" : "pluginName",
+            "name" : "plugin",
             "required" : true,
             "schema" : {
-              "$ref" : "#/components/schemas/PluginName"
+              "type" : "string"
             }
           }
         ],
@@ -1183,20 +1957,19 @@
         ],
         "summary" : "List all plugin webhooks",
         "tags" : [
-          "Plugin Webhooks",
           "Plugin Webhooks"
         ]
       },
       "post" : {
-        "description" : "\n# Plugin Webhooks\n\nThis API allows you to register a webhook endpoint that receives plugin events from our platform.\nAll events will be sent as *POST* requests to the provided webhook url.\n\nIn case your webhook endpoint is down or responds with non-success status codes, we will retry to deliver the event up to 10 times over a time period of 1 hour.\n\n## Registration/Confirmation\n\nAfter registering, you will receive a first message on your webhook endpoint to confirm the registration.\nThe registration message looks like this:\n```json\n{\n  \"SubscribeURL\": \"https://...\"\n}\n```\n\nYou have to make a *GET* request to the `SubscribeURL` in order to receive further events.\n\n## Events\n\nAfter confirmation, you will start receiving the desired plugin events.\nThe event messages look like this:\n```json\n{\n  \"event\" : \"PluginInstalled\",\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginUninstalled\",\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginTokensUpdated\",\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginDataUpdated\",\n  \"newData\" : {\n    \"ApeData\" : {\n      \"initialMarketplace\" : null,\n      \"registeredMarketplaces\" : null,\n      \"typeform\" : null\n    }\n  },\n  \"oldData\" : {\n    \"ApeData\" : {\n      \"initialMarketplace\" : null,\n      \"registeredMarketplaces\" : null,\n      \"typeform\" : null\n    }\n  },\n  \"pluginName\" : \"ape\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```",
+        "description" : "\n# Plugin Webhooks\n\nThis API allows you to register a webhook endpoint that receives plugin events from our platform.\nAll events will be sent as *POST* requests to the provided webhook url.\n\nIn case your webhook endpoint is down or responds with non-success status codes, we will retry to deliver the event up to 10 times over a time period of 1 hour.\n\n## Registration/Confirmation\n\nAfter registering, you will receive a first message on your webhook endpoint to confirm the registration.\nThe registration message looks like this:\n```json\n{\n  \"SubscribeURL\": \"https://...\"\n}\n```\n\nYou have to make a *GET* request to the `SubscribeURL` in order to receive further events.\n\n## Events\n\nAfter confirmation, you will start receiving the desired plugin events.\nThe event messages look like this:\n```json\n{\n  \"event\" : \"PluginInstalled\",\n  \"pluginName\" : \"some-plugin\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginUninstalled\",\n  \"pluginName\" : \"some-plugin\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginTokensUpdated\",\n  \"pluginName\" : \"some-plugin\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginDataUpdated\",\n  \"newData\" : {\n    \"Empty\" : {\n      \n    }\n  },\n  \"oldData\" : {\n    \"Empty\" : {\n      \n    }\n  },\n  \"pluginName\" : \"some-plugin\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginTableRoleTrigger\",\n  \"pluginName\" : \"some-plugin\",\n  \"roleName\" : \"some-role\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```",
         "operationId" : "addPluginWebhook",
         "parameters" : [
           {
             "in" : "path",
-            "name" : "pluginName",
+            "name" : "plugin",
             "required" : true,
             "schema" : {
-              "$ref" : "#/components/schemas/PluginName"
+              "type" : "string"
             }
           },
           {
@@ -1285,21 +2058,20 @@
         ],
         "summary" : "Register a plugin webhook",
         "tags" : [
-          "Plugin Webhooks",
           "Plugin Webhooks"
         ]
       }
     },
-    "/api/v1.0/plugin/{pluginName}/webhooks/{webhook}" : {
+    "/api/v1.0/plugin/{plugin}/webhooks/{webhook}" : {
       "delete" : {
         "operationId" : "deletePluginWebhook",
         "parameters" : [
           {
             "in" : "path",
-            "name" : "pluginName",
+            "name" : "plugin",
             "required" : true,
             "schema" : {
-              "$ref" : "#/components/schemas/PluginName"
+              "type" : "string"
             }
           },
           {
@@ -1375,96 +2147,7 @@
         ],
         "summary" : "Delete a plugin webhook",
         "tags" : [
-          "Plugin Webhooks",
           "Plugin Webhooks"
-        ]
-      }
-    },
-    "/api/v1.0/plugin/{plugin}/enabled-workspaces" : {
-      "get" : {
-        "operationId" : "listEnabledWorkspaces",
-        "parameters" : [
-          {
-            "in" : "path",
-            "name" : "plugin",
-            "required" : true,
-            "schema" : {
-              "$ref" : "#/components/schemas/PluginName"
-            }
-          }
-        ],
-        "responses" : {
-          "200" : {
-            "content" : {
-              "application/json" : {
-                "schema" : {
-                  "$ref" : "#/components/schemas/PluginWorkspaceList"
-                }
-              }
-            },
-            "description" : ""
-          },
-          "400" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            },
-            "description" : ""
-          },
-          "401" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            },
-            "description" : ""
-          },
-          "403" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            },
-            "description" : ""
-          },
-          "404" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            },
-            "description" : ""
-          },
-          "500" : {
-            "content" : {
-              "text/plain" : {
-                "schema" : {
-                  "type" : "string"
-                }
-              }
-            },
-            "description" : ""
-          }
-        },
-        "security" : [
-          {
-            "oauth2Auth" : [
-            ]
-          }
-        ],
-        "summary" : "Lists all workspaces that have this plugin installed",
-        "tags" : [
-          "Plugin API",
-          "Plugin API"
         ]
       }
     },
@@ -2740,7 +3423,7 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
-              "$ref" : "#/components/schemas/PluginName"
+              "type" : "string"
             }
           }
         ],
@@ -2827,7 +3510,7 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
-              "$ref" : "#/components/schemas/PluginName"
+              "type" : "string"
             }
           }
         ],
@@ -2921,7 +3604,7 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
-              "$ref" : "#/components/schemas/PluginName"
+              "type" : "string"
             }
           }
         ],
@@ -2935,6 +3618,13 @@
                       "initialMarketplace" : {
                         "countryCode" : "??"
                       }
+                    }
+                  }
+                },
+                "empty" : {
+                  "value" : {
+                    "Empty" : {
+                      
                     }
                   }
                 }
@@ -3029,7 +3719,7 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
-              "$ref" : "#/components/schemas/PluginName"
+              "type" : "string"
             }
           },
           {
@@ -3127,7 +3817,7 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
-              "$ref" : "#/components/schemas/PluginName"
+              "type" : "string"
             }
           }
         ],
@@ -3224,7 +3914,7 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
-              "$ref" : "#/components/schemas/PluginName"
+              "type" : "string"
             }
           }
         ],
@@ -3324,7 +4014,7 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
-              "$ref" : "#/components/schemas/PluginName"
+              "type" : "string"
             }
           }
         ],
@@ -3421,7 +4111,7 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
-              "$ref" : "#/components/schemas/PluginName"
+              "type" : "string"
             }
           }
         ],
@@ -3520,7 +4210,7 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
-              "$ref" : "#/components/schemas/PluginName"
+              "type" : "string"
             }
           }
         ],
@@ -3617,7 +4307,7 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
-              "$ref" : "#/components/schemas/PluginName"
+              "type" : "string"
             }
           }
         ],
@@ -3721,7 +4411,7 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
-              "$ref" : "#/components/schemas/PluginName"
+              "type" : "string"
             }
           }
         ],
@@ -3791,6 +4481,733 @@
         ]
       }
     },
+    "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/table-roles" : {
+      "get" : {
+        "operationId" : "listPluginTableRoleAssignments",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "example" : "workspace-name",
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/PluginTableRoleAssignment"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "List all existing PluginTableRole assignments",
+        "tags" : [
+          "Plugin Schema API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/table-roles/{name}" : {
+      "delete" : {
+        "operationId" : "deletePluginTableRoleAssignment",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "example" : "workspace-name",
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "name",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Unassign a PluginTableRole",
+        "tags" : [
+          "Plugin Schema API"
+        ]
+      },
+      "get" : {
+        "operationId" : "getPluginTableRoleAssignment",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "example" : "workspace-name",
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "name",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/PluginTableRoleAssignment"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Get an existing PluginTableRole assignment",
+        "tags" : [
+          "Plugin Schema API"
+        ]
+      },
+      "put" : {
+        "operationId" : "createPluginTableRoleAssignment",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "example" : "workspace-name",
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "name",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ApiPluginTableRoleAssignmentBody"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Assign a PluginTableRole to a table in a workspace",
+        "tags" : [
+          "Plugin Schema API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/table-roles/{name}/publications" : {
+      "get" : {
+        "operationId" : "getPluginTableRolePublications",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "example" : "workspace-name",
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "name",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/TablePublication"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Get all existing publications for a PluginTableRole",
+        "tags" : [
+          "Plugin Schema API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/table-roles/{name}/publications/latest" : {
+      "get" : {
+        "operationId" : "getLatestPluginTableRolePublication",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "example" : "workspace-name",
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "name",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TablePublication"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Get the latest publication for a PluginTableRole",
+        "tags" : [
+          "Plugin Schema API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/table-roles/{name}/publications/{publication-id}" : {
+      "get" : {
+        "operationId" : "getPluginTableRolePublication",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "example" : "workspace-name",
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "name",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "publication-id",
+            "required" : true,
+            "schema" : {
+              "format" : "int32",
+              "type" : "integer"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/TablePublication"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Get a publication for a PluginTableRole",
+        "tags" : [
+          "Plugin Schema API"
+        ]
+      }
+    },
     "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/tokens" : {
       "get" : {
         "operationId" : "getPluginTokens",
@@ -3809,7 +5226,7 @@
             "name" : "plugin",
             "required" : true,
             "schema" : {
-              "$ref" : "#/components/schemas/PluginName"
+              "type" : "string"
             }
           }
         ],
@@ -4156,6 +5573,106 @@
           }
         ],
         "summary" : "Get the metadata of a table",
+        "tags" : [
+          "Table API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/tables/{table}/attributes" : {
+      "put" : {
+        "operationId" : "setTableAttributes",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "example" : "workspace-name",
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "table",
+            "required" : true,
+            "schema" : {
+              "example" : "table-name",
+              "type" : "string"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ApiTableAttributes"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Set the attributes of a table",
         "tags" : [
           "Table API"
         ]
@@ -5833,6 +7350,14 @@
     {
       "description" : "\nPlugin developers can read and write settings of plugin installations inside a workspace.",
       "name" : "Plugin API"
+    },
+    {
+      "description" : "\nPlugin developers can create and assign table-roles inside a workspace to define a plugin schema.",
+      "name" : "Plugin Schema API"
+    },
+    {
+      "description" : "\nPlugin developers can create new plugins, configure existing ones and delete plugins.",
+      "name" : "Plugin Definition API"
     },
     {
       "description" : "\nPlugin developers can register lifetime events for their plugin.",

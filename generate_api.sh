@@ -12,8 +12,9 @@ fi
 version=$(cat ./openapi.json | jq -r '.info.version')
 version_numbers=$(echo $version | sed s/^v//)
 
-# replace version in setup.py
+# replace version in setup.py and setup-pandas2.py
 sed "s/version=.*,$/version=\"$version_numbers\",/" -i setup.py
+sed "s/version=.*,$/version=\"${version_numbers}-dev\",/" -i setup-pandas2.py
 
 # regenerate the whole python project
 rm -rf priceloop-api-python

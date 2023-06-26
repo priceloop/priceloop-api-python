@@ -59,7 +59,7 @@ jobs:
           pip install setuptools wheel twine
 
       - name: Build and publish pandas ${{ matrix.pandas-version }}
-        if: ${{ matrix.pandas-version == 1.5.2 }}
+        if: ${{ matrix.pandas-version == 1 }}
         env:
           TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}

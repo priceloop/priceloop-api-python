@@ -5,13 +5,12 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.plugin_name import PluginName
 from ...models.plugin_workspace_list import PluginWorkspaceList
 from ...types import Response
 
 
 def _get_kwargs(
-    plugin: PluginName,
+    plugin: str,
     *,
     client: AuthenticatedClient,
 ) -> Dict[str, Any]:
@@ -51,14 +50,14 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Plu
 
 
 def sync_detailed(
-    plugin: PluginName,
+    plugin: str,
     *,
     client: AuthenticatedClient,
 ) -> Response[PluginWorkspaceList]:
     """Lists all workspaces that have this plugin installed
 
     Args:
-        plugin (PluginName):
+        plugin (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -82,14 +81,14 @@ def sync_detailed(
 
 
 def sync(
-    plugin: PluginName,
+    plugin: str,
     *,
     client: AuthenticatedClient,
 ) -> Optional[PluginWorkspaceList]:
     """Lists all workspaces that have this plugin installed
 
     Args:
-        plugin (PluginName):
+        plugin (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -106,14 +105,14 @@ def sync(
 
 
 async def asyncio_detailed(
-    plugin: PluginName,
+    plugin: str,
     *,
     client: AuthenticatedClient,
 ) -> Response[PluginWorkspaceList]:
     """Lists all workspaces that have this plugin installed
 
     Args:
-        plugin (PluginName):
+        plugin (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -135,14 +134,14 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    plugin: PluginName,
+    plugin: str,
     *,
     client: AuthenticatedClient,
 ) -> Optional[PluginWorkspaceList]:
     """Lists all workspaces that have this plugin installed
 
     Args:
-        plugin (PluginName):
+        plugin (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

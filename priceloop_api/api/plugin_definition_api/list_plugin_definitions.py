@@ -5,16 +5,15 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.webhook_info import WebhookInfo
+from ...models.plugin_definition import PluginDefinition
 from ...types import Response
 
 
 def _get_kwargs(
-    plugin: str,
     *,
     client: AuthenticatedClient,
 ) -> Dict[str, Any]:
-    url = "{}/api/v1.0/plugin/{plugin}/webhooks".format(client.base_url, plugin=plugin)
+    url = "{}/api/v1.0/plugin-definition".format(client.base_url)
 
     headers: Dict[str, str] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
@@ -29,12 +28,12 @@ def _get_kwargs(
     }
 
 
-def _parse_response(*, client: Client, response: httpx.Response) -> Optional[List["WebhookInfo"]]:
+def _parse_response(*, client: Client, response: httpx.Response) -> Optional[List["PluginDefinition"]]:
     if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
-            response_200_item = WebhookInfo.from_dict(response_200_item_data)
+            response_200_item = PluginDefinition.from_dict(response_200_item_data)
 
             response_200.append(response_200_item)
 
@@ -45,7 +44,7 @@ def _parse_response(*, client: Client, response: httpx.Response) -> Optional[Lis
         return None
 
 
-def _build_response(*, client: Client, response: httpx.Response) -> Response[List["WebhookInfo"]]:
+def _build_response(*, client: Client, response: httpx.Response) -> Response[List["PluginDefinition"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -55,25 +54,20 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Lis
 
 
 def sync_detailed(
-    plugin: str,
     *,
     client: AuthenticatedClient,
-) -> Response[List["WebhookInfo"]]:
-    """List all plugin webhooks
-
-    Args:
-        plugin (str):
+) -> Response[List["PluginDefinition"]]:
+    """List available plugins with their configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['WebhookInfo']]
+        Response[List['PluginDefinition']]
     """
 
     kwargs = _get_kwargs(
-        plugin=plugin,
         client=client,
     )
 
@@ -86,49 +80,39 @@ def sync_detailed(
 
 
 def sync(
-    plugin: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[List["WebhookInfo"]]:
-    """List all plugin webhooks
-
-    Args:
-        plugin (str):
+) -> Optional[List["PluginDefinition"]]:
+    """List available plugins with their configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['WebhookInfo']
+        List['PluginDefinition']
     """
 
     return sync_detailed(
-        plugin=plugin,
         client=client,
     ).parsed
 
 
 async def asyncio_detailed(
-    plugin: str,
     *,
     client: AuthenticatedClient,
-) -> Response[List["WebhookInfo"]]:
-    """List all plugin webhooks
-
-    Args:
-        plugin (str):
+) -> Response[List["PluginDefinition"]]:
+    """List available plugins with their configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['WebhookInfo']]
+        Response[List['PluginDefinition']]
     """
 
     kwargs = _get_kwargs(
-        plugin=plugin,
         client=client,
     )
 
@@ -139,26 +123,21 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    plugin: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[List["WebhookInfo"]]:
-    """List all plugin webhooks
-
-    Args:
-        plugin (str):
+) -> Optional[List["PluginDefinition"]]:
+    """List available plugins with their configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['WebhookInfo']
+        List['PluginDefinition']
     """
 
     return (
         await asyncio_detailed(
-            plugin=plugin,
             client=client,
         )
     ).parsed

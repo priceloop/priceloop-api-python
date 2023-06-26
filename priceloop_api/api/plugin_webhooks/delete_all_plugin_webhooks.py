@@ -5,16 +5,15 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.plugin_name import PluginName
 from ...types import Response
 
 
 def _get_kwargs(
-    plugin_name: PluginName,
+    plugin: str,
     *,
     client: AuthenticatedClient,
 ) -> Dict[str, Any]:
-    url = "{}/api/v1.0/plugin/{pluginName}/webhooks".format(client.base_url, pluginName=plugin_name)
+    url = "{}/api/v1.0/plugin/{plugin}/webhooks".format(client.base_url, plugin=plugin)
 
     headers: Dict[str, str] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
@@ -48,14 +47,14 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Any
 
 
 def sync_detailed(
-    plugin_name: PluginName,
+    plugin: str,
     *,
     client: AuthenticatedClient,
 ) -> Response[Any]:
     """Delete all plugin webhooks
 
     Args:
-        plugin_name (PluginName):
+        plugin (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -66,7 +65,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        plugin_name=plugin_name,
+        plugin=plugin,
         client=client,
     )
 
@@ -79,14 +78,14 @@ def sync_detailed(
 
 
 async def asyncio_detailed(
-    plugin_name: PluginName,
+    plugin: str,
     *,
     client: AuthenticatedClient,
 ) -> Response[Any]:
     """Delete all plugin webhooks
 
     Args:
-        plugin_name (PluginName):
+        plugin (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -97,7 +96,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        plugin_name=plugin_name,
+        plugin=plugin,
         client=client,
     )
 

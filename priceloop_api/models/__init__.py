@@ -17,7 +17,10 @@ from .api_column_schema import ApiColumnSchema
 from .api_column_with_values import ApiColumnWithValues
 from .api_external_function import ApiExternalFunction
 from .api_new_plugin_notification import ApiNewPluginNotification
+from .api_plugin_table_role_assignment_body import ApiPluginTableRoleAssignmentBody
+from .api_plugin_table_role_body import ApiPluginTableRoleBody
 from .api_table import ApiTable
+from .api_table_attributes import ApiTableAttributes
 from .api_table_data import ApiTableData
 from .api_table_schema import ApiTableSchema
 from .api_workspace import ApiWorkspace
@@ -28,6 +31,7 @@ from .create_external_function_return_type import CreateExternalFunctionReturnTy
 from .create_workspace_membership_response_200 import CreateWorkspaceMembershipResponse200
 from .csv import CSV
 from .delete_workspace_membership_response_200 import DeleteWorkspaceMembershipResponse200
+from .empty import Empty
 from .explicit_expr_type import ExplicitExprType
 from .export_info import ExportInfo
 from .export_job import ExportJob
@@ -38,16 +42,22 @@ from .map_ape_marketplace_registration import MapApeMarketplaceRegistration
 from .plugin import Plugin
 from .plugin_1 import Plugin1
 from .plugin_data_type_0 import PluginDataType0
+from .plugin_data_type_1 import PluginDataType1
 from .plugin_data_update_type_0 import PluginDataUpdateType0
+from .plugin_definition import PluginDefinition
 from .plugin_live_status import PluginLiveStatus
-from .plugin_name import PluginName
+from .plugin_requirement import PluginRequirement
 from .plugin_status import PluginStatus
+from .plugin_table_role import PluginTableRole
+from .plugin_table_role_assignment import PluginTableRoleAssignment
+from .plugin_table_role_semantic import PluginTableRoleSemantic
 from .plugin_tokens import PluginTokens
 from .plugin_workspace_list import PluginWorkspaceList
 from .plugin_workspace_state import PluginWorkspaceState
 from .presigned_url import PresignedUrl
 from .s3_key import S3Key
 from .table_import_mode import TableImportMode
+from .table_publication import TablePublication
 from .table_row import TableRow
 from .update import Update
 from .webhook_config import WebhookConfig
@@ -74,7 +84,10 @@ __all__ = (
     "ApiColumnWithValues",
     "ApiExternalFunction",
     "ApiNewPluginNotification",
+    "ApiPluginTableRoleAssignmentBody",
+    "ApiPluginTableRoleBody",
     "ApiTable",
+    "ApiTableAttributes",
     "ApiTableData",
     "ApiTableSchema",
     "ApiWorkspace",
@@ -85,6 +98,7 @@ __all__ = (
     "CreateWorkspaceMembershipResponse200",
     "CSV",
     "DeleteWorkspaceMembershipResponse200",
+    "Empty",
     "ExplicitExprType",
     "ExportInfo",
     "ExportJob",
@@ -95,16 +109,22 @@ __all__ = (
     "Plugin",
     "Plugin1",
     "PluginDataType0",
+    "PluginDataType1",
     "PluginDataUpdateType0",
+    "PluginDefinition",
     "PluginLiveStatus",
-    "PluginName",
+    "PluginRequirement",
     "PluginStatus",
+    "PluginTableRole",
+    "PluginTableRoleAssignment",
+    "PluginTableRoleSemantic",
     "PluginTokens",
     "PluginWorkspaceList",
     "PluginWorkspaceState",
     "PresignedUrl",
     "S3Key",
     "TableImportMode",
+    "TablePublication",
     "TableRow",
     "Update",
     "WebhookConfig",

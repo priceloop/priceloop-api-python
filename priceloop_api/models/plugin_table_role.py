@@ -2,65 +2,69 @@ from typing import Any, Dict, List, Type, TypeVar, Union
 
 import attr
 
-from ..models.webhook_plugin_event import WebhookPluginEvent
+from ..models.plugin_table_role_semantic import PluginTableRoleSemantic
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="Plugin1")
+T = TypeVar("T", bound="PluginTableRole")
 
 
 @attr.s(auto_attribs=True)
-class Plugin1:
+class PluginTableRole:
     """
     Attributes:
+        name (str):
         plugin_name (str):
-        events (Union[Unset, List[WebhookPluginEvent]]):
+        semantic (PluginTableRoleSemantic):
+        description (Union[Unset, None, str]):
     """
 
+    name: str
     plugin_name: str
-    events: Union[Unset, List[WebhookPluginEvent]] = UNSET
+    semantic: PluginTableRoleSemantic
+    description: Union[Unset, None, str] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        name = self.name
         plugin_name = self.plugin_name
-        events: Union[Unset, List[str]] = UNSET
-        if not isinstance(self.events, Unset):
-            events = []
-            for events_item_data in self.events:
-                events_item = events_item_data.value
+        semantic = self.semantic.value
 
-                events.append(events_item)
+        description = self.description
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
+                "name": name,
                 "pluginName": plugin_name,
+                "semantic": semantic,
             }
         )
-        if events is not UNSET:
-            field_dict["events"] = events
+        if description is not UNSET:
+            field_dict["description"] = description
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
+        name = d.pop("name")
+
         plugin_name = d.pop("pluginName")
 
-        events = []
-        _events = d.pop("events", UNSET)
-        for events_item_data in _events or []:
-            events_item = WebhookPluginEvent(events_item_data)
+        semantic = PluginTableRoleSemantic(d.pop("semantic"))
 
-            events.append(events_item)
+        description = d.pop("description", UNSET)
 
-        plugin_1 = cls(
+        plugin_table_role = cls(
+            name=name,
             plugin_name=plugin_name,
-            events=events,
+            semantic=semantic,
+            description=description,
         )
 
-        plugin_1.additional_properties = d
-        return plugin_1
+        plugin_table_role.additional_properties = d
+        return plugin_table_role
 
     @property
     def additional_keys(self) -> List[str]:

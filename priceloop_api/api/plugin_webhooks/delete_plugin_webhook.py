@@ -5,19 +5,16 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.plugin_name import PluginName
 from ...types import Response
 
 
 def _get_kwargs(
-    plugin_name: PluginName,
+    plugin: str,
     webhook: str,
     *,
     client: AuthenticatedClient,
 ) -> Dict[str, Any]:
-    url = "{}/api/v1.0/plugin/{pluginName}/webhooks/{webhook}".format(
-        client.base_url, pluginName=plugin_name, webhook=webhook
-    )
+    url = "{}/api/v1.0/plugin/{plugin}/webhooks/{webhook}".format(client.base_url, plugin=plugin, webhook=webhook)
 
     headers: Dict[str, str] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
@@ -51,7 +48,7 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Any
 
 
 def sync_detailed(
-    plugin_name: PluginName,
+    plugin: str,
     webhook: str,
     *,
     client: AuthenticatedClient,
@@ -59,7 +56,7 @@ def sync_detailed(
     """Delete a plugin webhook
 
     Args:
-        plugin_name (PluginName):
+        plugin (str):
         webhook (str):
 
     Raises:
@@ -71,7 +68,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        plugin_name=plugin_name,
+        plugin=plugin,
         webhook=webhook,
         client=client,
     )
@@ -85,7 +82,7 @@ def sync_detailed(
 
 
 async def asyncio_detailed(
-    plugin_name: PluginName,
+    plugin: str,
     webhook: str,
     *,
     client: AuthenticatedClient,
@@ -93,7 +90,7 @@ async def asyncio_detailed(
     """Delete a plugin webhook
 
     Args:
-        plugin_name (PluginName):
+        plugin (str):
         webhook (str):
 
     Raises:
@@ -105,7 +102,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        plugin_name=plugin_name,
+        plugin=plugin,
         webhook=webhook,
         client=client,
     )

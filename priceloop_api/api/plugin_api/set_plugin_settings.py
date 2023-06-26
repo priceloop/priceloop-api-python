@@ -5,14 +5,13 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.plugin_name import PluginName
 from ...models.plugin_status import PluginStatus
 from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     workspace: str,
-    plugin: PluginName,
+    plugin: str,
     *,
     client: AuthenticatedClient,
     status: Union[Unset, None, PluginStatus] = UNSET,
@@ -64,7 +63,7 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Any
 
 def sync_detailed(
     workspace: str,
-    plugin: PluginName,
+    plugin: str,
     *,
     client: AuthenticatedClient,
     status: Union[Unset, None, PluginStatus] = UNSET,
@@ -73,7 +72,7 @@ def sync_detailed(
 
     Args:
         workspace (str):  Example: workspace-name.
-        plugin (PluginName):
+        plugin (str):
         status (Union[Unset, None, PluginStatus]):
 
     Raises:
@@ -101,7 +100,7 @@ def sync_detailed(
 
 async def asyncio_detailed(
     workspace: str,
-    plugin: PluginName,
+    plugin: str,
     *,
     client: AuthenticatedClient,
     status: Union[Unset, None, PluginStatus] = UNSET,
@@ -110,7 +109,7 @@ async def asyncio_detailed(
 
     Args:
         workspace (str):  Example: workspace-name.
-        plugin (PluginName):
+        plugin (str):
         status (Union[Unset, None, PluginStatus]):
 
     Raises:

@@ -1,49 +1,28 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
+from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 
-if TYPE_CHECKING:
-    from ..models.api_column_attributes import ApiColumnAttributes
-
-
-T = TypeVar("T", bound="ApiColumn")
+T = TypeVar("T", bound="ApiPluginTableRoleAssignmentBody")
 
 
 @attr.s(auto_attribs=True)
-class ApiColumn:
+class ApiPluginTableRoleAssignmentBody:
     """
     Attributes:
-        attributes (ApiColumnAttributes):
-        name (str):  Example: column-name.
-        position (int):
         table_name (str):  Example: table-name.
-        tpe (str):
     """
 
-    attributes: "ApiColumnAttributes"
-    name: str
-    position: int
     table_name: str
-    tpe: str
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        attributes = self.attributes.to_dict()
-
-        name = self.name
-        position = self.position
         table_name = self.table_name
-        tpe = self.tpe
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "attributes": attributes,
-                "name": name,
-                "position": position,
                 "tableName": table_name,
-                "tpe": tpe,
             }
         )
 
@@ -51,29 +30,15 @@ class ApiColumn:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.api_column_attributes import ApiColumnAttributes
-
         d = src_dict.copy()
-        attributes = ApiColumnAttributes.from_dict(d.pop("attributes"))
-
-        name = d.pop("name")
-
-        position = d.pop("position")
-
         table_name = d.pop("tableName")
 
-        tpe = d.pop("tpe")
-
-        api_column = cls(
-            attributes=attributes,
-            name=name,
-            position=position,
+        api_plugin_table_role_assignment_body = cls(
             table_name=table_name,
-            tpe=tpe,
         )
 
-        api_column.additional_properties = d
-        return api_column
+        api_plugin_table_role_assignment_body.additional_properties = d
+        return api_plugin_table_role_assignment_body
 
     @property
     def additional_keys(self) -> List[str]:

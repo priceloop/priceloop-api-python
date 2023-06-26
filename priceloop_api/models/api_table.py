@@ -6,6 +6,7 @@ from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.api_column import ApiColumn
+    from ..models.api_table_attributes import ApiTableAttributes
 
 
 T = TypeVar("T", bound="ApiTable")
@@ -15,17 +16,21 @@ T = TypeVar("T", bound="ApiTable")
 class ApiTable:
     """
     Attributes:
+        attributes (ApiTableAttributes):
         name (str):  Example: table-name.
         position (int):
         columns (Union[Unset, List['ApiColumn']]):
     """
 
+    attributes: "ApiTableAttributes"
     name: str
     position: int
     columns: Union[Unset, List["ApiColumn"]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        attributes = self.attributes.to_dict()
+
         name = self.name
         position = self.position
         columns: Union[Unset, List[Dict[str, Any]]] = UNSET
@@ -40,6 +45,7 @@ class ApiTable:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
+                "attributes": attributes,
                 "name": name,
                 "position": position,
             }
@@ -52,8 +58,11 @@ class ApiTable:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.api_column import ApiColumn
+        from ..models.api_table_attributes import ApiTableAttributes
 
         d = src_dict.copy()
+        attributes = ApiTableAttributes.from_dict(d.pop("attributes"))
+
         name = d.pop("name")
 
         position = d.pop("position")
@@ -66,6 +75,7 @@ class ApiTable:
             columns.append(columns_item)
 
         api_table = cls(
+            attributes=attributes,
             name=name,
             position=position,
             columns=columns,

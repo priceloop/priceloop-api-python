@@ -5,16 +5,19 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.webhook_info import WebhookInfo
+from ...models.plugin_table_role_assignment import PluginTableRoleAssignment
 from ...types import Response
 
 
 def _get_kwargs(
+    workspace: str,
     plugin: str,
     *,
     client: AuthenticatedClient,
 ) -> Dict[str, Any]:
-    url = "{}/api/v1.0/plugin/{plugin}/webhooks".format(client.base_url, plugin=plugin)
+    url = "{}/api/v1.0/workspaces/{workspace}/plugin/{plugin}/table-roles".format(
+        client.base_url, workspace=workspace, plugin=plugin
+    )
 
     headers: Dict[str, str] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
@@ -29,12 +32,12 @@ def _get_kwargs(
     }
 
 
-def _parse_response(*, client: Client, response: httpx.Response) -> Optional[List["WebhookInfo"]]:
+def _parse_response(*, client: Client, response: httpx.Response) -> Optional[List["PluginTableRoleAssignment"]]:
     if response.status_code == HTTPStatus.OK:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
-            response_200_item = WebhookInfo.from_dict(response_200_item_data)
+            response_200_item = PluginTableRoleAssignment.from_dict(response_200_item_data)
 
             response_200.append(response_200_item)
 
@@ -45,7 +48,7 @@ def _parse_response(*, client: Client, response: httpx.Response) -> Optional[Lis
         return None
 
 
-def _build_response(*, client: Client, response: httpx.Response) -> Response[List["WebhookInfo"]]:
+def _build_response(*, client: Client, response: httpx.Response) -> Response[List["PluginTableRoleAssignment"]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -55,13 +58,15 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Lis
 
 
 def sync_detailed(
+    workspace: str,
     plugin: str,
     *,
     client: AuthenticatedClient,
-) -> Response[List["WebhookInfo"]]:
-    """List all plugin webhooks
+) -> Response[List["PluginTableRoleAssignment"]]:
+    """List all existing PluginTableRole assignments
 
     Args:
+        workspace (str):  Example: workspace-name.
         plugin (str):
 
     Raises:
@@ -69,10 +74,11 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['WebhookInfo']]
+        Response[List['PluginTableRoleAssignment']]
     """
 
     kwargs = _get_kwargs(
+        workspace=workspace,
         plugin=plugin,
         client=client,
     )
@@ -86,13 +92,15 @@ def sync_detailed(
 
 
 def sync(
+    workspace: str,
     plugin: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[List["WebhookInfo"]]:
-    """List all plugin webhooks
+) -> Optional[List["PluginTableRoleAssignment"]]:
+    """List all existing PluginTableRole assignments
 
     Args:
+        workspace (str):  Example: workspace-name.
         plugin (str):
 
     Raises:
@@ -100,23 +108,26 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['WebhookInfo']
+        List['PluginTableRoleAssignment']
     """
 
     return sync_detailed(
+        workspace=workspace,
         plugin=plugin,
         client=client,
     ).parsed
 
 
 async def asyncio_detailed(
+    workspace: str,
     plugin: str,
     *,
     client: AuthenticatedClient,
-) -> Response[List["WebhookInfo"]]:
-    """List all plugin webhooks
+) -> Response[List["PluginTableRoleAssignment"]]:
+    """List all existing PluginTableRole assignments
 
     Args:
+        workspace (str):  Example: workspace-name.
         plugin (str):
 
     Raises:
@@ -124,10 +135,11 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['WebhookInfo']]
+        Response[List['PluginTableRoleAssignment']]
     """
 
     kwargs = _get_kwargs(
+        workspace=workspace,
         plugin=plugin,
         client=client,
     )
@@ -139,13 +151,15 @@ async def asyncio_detailed(
 
 
 async def asyncio(
+    workspace: str,
     plugin: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[List["WebhookInfo"]]:
-    """List all plugin webhooks
+) -> Optional[List["PluginTableRoleAssignment"]]:
+    """List all existing PluginTableRole assignments
 
     Args:
+        workspace (str):  Example: workspace-name.
         plugin (str):
 
     Raises:
@@ -153,11 +167,12 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['WebhookInfo']
+        List['PluginTableRoleAssignment']
     """
 
     return (
         await asyncio_detailed(
+            workspace=workspace,
             plugin=plugin,
             client=client,
         )

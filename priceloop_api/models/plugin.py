@@ -1,12 +1,12 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 import attr
 
-from ..models.plugin_name import PluginName
 from ..models.plugin_status import PluginStatus
 
 if TYPE_CHECKING:
     from ..models.plugin_data_type_0 import PluginDataType0
+    from ..models.plugin_data_type_1 import PluginDataType1
 
 
 T = TypeVar("T", bound="Plugin")
@@ -16,15 +16,15 @@ T = TypeVar("T", bound="Plugin")
 class Plugin:
     """
     Attributes:
-        data ('PluginDataType0'):
+        data (Union['PluginDataType0', 'PluginDataType1']):
         external_data (Any):
-        name (PluginName):
+        name (str):
         status (PluginStatus):
     """
 
-    data: "PluginDataType0"
+    data: Union["PluginDataType0", "PluginDataType1"]
     external_data: Any
-    name: PluginName
+    name: str
     status: PluginStatus
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
@@ -36,9 +36,11 @@ class Plugin:
         if isinstance(self.data, PluginDataType0):
             data = self.data.to_dict()
 
-        external_data = self.external_data
-        name = self.name.value
+        else:
+            data = self.data.to_dict()
 
+        external_data = self.external_data
+        name = self.name
         status = self.status.value
 
         field_dict: Dict[str, Any] = {}
@@ -57,21 +59,30 @@ class Plugin:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.plugin_data_type_0 import PluginDataType0
+        from ..models.plugin_data_type_1 import PluginDataType1
 
         d = src_dict.copy()
 
-        def _parse_data(data: object) -> "PluginDataType0":
+        def _parse_data(data: object) -> Union["PluginDataType0", "PluginDataType1"]:
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                componentsschemas_plugin_data_type_0 = PluginDataType0.from_dict(data)
+
+                return componentsschemas_plugin_data_type_0
+            except:  # noqa: E722
+                pass
             if not isinstance(data, dict):
                 raise TypeError()
-            componentsschemas_plugin_data_type_0 = PluginDataType0.from_dict(data)
+            componentsschemas_plugin_data_type_1 = PluginDataType1.from_dict(data)
 
-            return componentsschemas_plugin_data_type_0
+            return componentsschemas_plugin_data_type_1
 
         data = _parse_data(d.pop("data"))
 
         external_data = d.pop("externalData")
 
-        name = PluginName(d.pop("name"))
+        name = d.pop("name")
 
         status = PluginStatus(d.pop("status"))
 

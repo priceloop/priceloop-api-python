@@ -4,6 +4,7 @@ from enum import Enum
 class WebhookPluginEvent(str, Enum):
     PLUGINDATAUPDATED = "PluginDataUpdated"
     PLUGININSTALLED = "PluginInstalled"
+    PLUGINTABLEROLETRIGGER = "PluginTableRoleTrigger"
     PLUGINTOKENSUPDATED = "PluginTokensUpdated"
     PLUGINUNINSTALLED = "PluginUninstalled"
 

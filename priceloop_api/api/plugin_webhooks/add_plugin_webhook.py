@@ -5,20 +5,19 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.plugin_name import PluginName
 from ...models.webhook_config import WebhookConfig
 from ...models.webhook_plugin_event import WebhookPluginEvent
 from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
-    plugin_name: PluginName,
+    plugin: str,
     *,
     client: AuthenticatedClient,
     json_body: WebhookConfig,
     event: Union[Unset, None, List[WebhookPluginEvent]] = UNSET,
 ) -> Dict[str, Any]:
-    url = "{}/api/v1.0/plugin/{pluginName}/webhooks".format(client.base_url, pluginName=plugin_name)
+    url = "{}/api/v1.0/plugin/{plugin}/webhooks".format(client.base_url, plugin=plugin)
 
     headers: Dict[str, str] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
@@ -72,7 +71,7 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Any
 
 
 def sync_detailed(
-    plugin_name: PluginName,
+    plugin: str,
     *,
     client: AuthenticatedClient,
     json_body: WebhookConfig,
@@ -109,21 +108,21 @@ def sync_detailed(
     ```json
     {
       \"event\" : \"PluginInstalled\",
-      \"pluginName\" : \"ape\",
+      \"pluginName\" : \"some-plugin\",
       \"workspaceName\" : \"some-workspace-name\"
     }
     ```
     ```json
     {
       \"event\" : \"PluginUninstalled\",
-      \"pluginName\" : \"ape\",
+      \"pluginName\" : \"some-plugin\",
       \"workspaceName\" : \"some-workspace-name\"
     }
     ```
     ```json
     {
       \"event\" : \"PluginTokensUpdated\",
-      \"pluginName\" : \"ape\",
+      \"pluginName\" : \"some-plugin\",
       \"workspaceName\" : \"some-workspace-name\"
     }
     ```
@@ -131,26 +130,30 @@ def sync_detailed(
     {
       \"event\" : \"PluginDataUpdated\",
       \"newData\" : {
-        \"ApeData\" : {
-          \"initialMarketplace\" : null,
-          \"registeredMarketplaces\" : null,
-          \"typeform\" : null
+        \"Empty\" : {
+
         }
       },
       \"oldData\" : {
-        \"ApeData\" : {
-          \"initialMarketplace\" : null,
-          \"registeredMarketplaces\" : null,
-          \"typeform\" : null
+        \"Empty\" : {
+
         }
       },
-      \"pluginName\" : \"ape\",
+      \"pluginName\" : \"some-plugin\",
+      \"workspaceName\" : \"some-workspace-name\"
+    }
+    ```
+    ```json
+    {
+      \"event\" : \"PluginTableRoleTrigger\",
+      \"pluginName\" : \"some-plugin\",
+      \"roleName\" : \"some-role\",
       \"workspaceName\" : \"some-workspace-name\"
     }
     ```
 
     Args:
-        plugin_name (PluginName):
+        plugin (str):
         event (Union[Unset, None, List[WebhookPluginEvent]]):
         json_body (WebhookConfig):
 
@@ -163,7 +166,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        plugin_name=plugin_name,
+        plugin=plugin,
         client=client,
         json_body=json_body,
         event=event,
@@ -178,7 +181,7 @@ def sync_detailed(
 
 
 async def asyncio_detailed(
-    plugin_name: PluginName,
+    plugin: str,
     *,
     client: AuthenticatedClient,
     json_body: WebhookConfig,
@@ -215,21 +218,21 @@ async def asyncio_detailed(
     ```json
     {
       \"event\" : \"PluginInstalled\",
-      \"pluginName\" : \"ape\",
+      \"pluginName\" : \"some-plugin\",
       \"workspaceName\" : \"some-workspace-name\"
     }
     ```
     ```json
     {
       \"event\" : \"PluginUninstalled\",
-      \"pluginName\" : \"ape\",
+      \"pluginName\" : \"some-plugin\",
       \"workspaceName\" : \"some-workspace-name\"
     }
     ```
     ```json
     {
       \"event\" : \"PluginTokensUpdated\",
-      \"pluginName\" : \"ape\",
+      \"pluginName\" : \"some-plugin\",
       \"workspaceName\" : \"some-workspace-name\"
     }
     ```
@@ -237,26 +240,30 @@ async def asyncio_detailed(
     {
       \"event\" : \"PluginDataUpdated\",
       \"newData\" : {
-        \"ApeData\" : {
-          \"initialMarketplace\" : null,
-          \"registeredMarketplaces\" : null,
-          \"typeform\" : null
+        \"Empty\" : {
+
         }
       },
       \"oldData\" : {
-        \"ApeData\" : {
-          \"initialMarketplace\" : null,
-          \"registeredMarketplaces\" : null,
-          \"typeform\" : null
+        \"Empty\" : {
+
         }
       },
-      \"pluginName\" : \"ape\",
+      \"pluginName\" : \"some-plugin\",
+      \"workspaceName\" : \"some-workspace-name\"
+    }
+    ```
+    ```json
+    {
+      \"event\" : \"PluginTableRoleTrigger\",
+      \"pluginName\" : \"some-plugin\",
+      \"roleName\" : \"some-role\",
       \"workspaceName\" : \"some-workspace-name\"
     }
     ```
 
     Args:
-        plugin_name (PluginName):
+        plugin (str):
         event (Union[Unset, None, List[WebhookPluginEvent]]):
         json_body (WebhookConfig):
 
@@ -269,7 +276,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        plugin_name=plugin_name,
+        plugin=plugin,
         client=client,
         json_body=json_body,
         event=event,

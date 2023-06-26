@@ -6,6 +6,7 @@ from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.api_column_schema import ApiColumnSchema
+    from ..models.api_table_attributes import ApiTableAttributes
 
 
 T = TypeVar("T", bound="ApiTableSchema")
@@ -16,15 +17,21 @@ class ApiTableSchema:
     """
     Attributes:
         name (str):  Example: table-name.
+        attributes (Union[Unset, ApiTableAttributes]):
         columns (Union[Unset, List['ApiColumnSchema']]):
     """
 
     name: str
+    attributes: Union[Unset, "ApiTableAttributes"] = UNSET
     columns: Union[Unset, List["ApiColumnSchema"]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         name = self.name
+        attributes: Union[Unset, Dict[str, Any]] = UNSET
+        if not isinstance(self.attributes, Unset):
+            attributes = self.attributes.to_dict()
+
         columns: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.columns, Unset):
             columns = []
@@ -40,6 +47,8 @@ class ApiTableSchema:
                 "name": name,
             }
         )
+        if attributes is not UNSET:
+            field_dict["attributes"] = attributes
         if columns is not UNSET:
             field_dict["columns"] = columns
 
@@ -48,9 +57,17 @@ class ApiTableSchema:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.api_column_schema import ApiColumnSchema
+        from ..models.api_table_attributes import ApiTableAttributes
 
         d = src_dict.copy()
         name = d.pop("name")
+
+        _attributes = d.pop("attributes", UNSET)
+        attributes: Union[Unset, ApiTableAttributes]
+        if isinstance(_attributes, Unset) or _attributes is None:
+            attributes = UNSET
+        else:
+            attributes = ApiTableAttributes.from_dict(_attributes)
 
         columns = []
         _columns = d.pop("columns", UNSET)
@@ -61,6 +78,7 @@ class ApiTableSchema:
 
         api_table_schema = cls(
             name=name,
+            attributes=attributes,
             columns=columns,
         )
 

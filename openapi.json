@@ -123,6 +123,11 @@
           "attributes" : {
             "$ref" : "#/components/schemas/ApiColumnAttributes"
           },
+          "formula" : {
+            "example" : "1 + 2",
+            "nullable" : true,
+            "type" : "string"
+          },
           "name" : {
             "example" : "column-name",
             "type" : "string"
@@ -1044,7 +1049,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.132.0"
+    "version" : "v0.132.4"
   },
   "openapi" : "3.0.3",
   "paths" : {

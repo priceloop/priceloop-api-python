@@ -123,6 +123,11 @@
           "attributes" : {
             "$ref" : "#/components/schemas/ApiColumnAttributes"
           },
+          "formula" : {
+            "example" : "1 + 2",
+            "nullable" : true,
+            "type" : "string"
+          },
           "name" : {
             "example" : "column-name",
             "type" : "string"
@@ -156,6 +161,9 @@
           "booleanColumnAttributes" : {
             "$ref" : "#/components/schemas/ApiBooleanColumnAttributes"
           },
+          "computationMode" : {
+            "$ref" : "#/components/schemas/ColumnComputationMode"
+          },
           "description" : {
             "nullable" : true,
             "type" : "string"
@@ -165,12 +173,17 @@
           },
           "isHidden" : {
             "type" : "boolean"
+          },
+          "stringColumnAttributes" : {
+            "$ref" : "#/components/schemas/ApiStringColumnAttributes"
           }
         },
         "required" : [
           "isHidden",
           "isGuiLocked",
-          "booleanColumnAttributes"
+          "computationMode",
+          "booleanColumnAttributes",
+          "stringColumnAttributes"
         ],
         "type" : "object"
       },
@@ -182,6 +195,9 @@
           "booleanColumnAttributes" : {
             "$ref" : "#/components/schemas/ApiBooleanColumnAttributesUpdate"
           },
+          "computationMode" : {
+            "$ref" : "#/components/schemas/ColumnComputationMode"
+          },
           "description" : {
             "nullable" : true,
             "type" : "string"
@@ -193,6 +209,9 @@
           "isHidden" : {
             "nullable" : true,
             "type" : "boolean"
+          },
+          "stringColumnAttributes" : {
+            "$ref" : "#/components/schemas/ApiStringColumnAttributesUpdate"
           }
         },
         "type" : "object"
@@ -317,6 +336,25 @@
         "required" : [
           "semantic"
         ],
+        "type" : "object"
+      },
+      "ApiStringColumnAttributes" : {
+        "properties" : {
+          "displayStyle" : {
+            "$ref" : "#/components/schemas/StringDisplayStyle"
+          }
+        },
+        "required" : [
+          "displayStyle"
+        ],
+        "type" : "object"
+      },
+      "ApiStringColumnAttributesUpdate" : {
+        "properties" : {
+          "displayStyle" : {
+            "$ref" : "#/components/schemas/StringDisplayStyle"
+          }
+        },
         "type" : "object"
       },
       "ApiTable" : {
@@ -454,6 +492,13 @@
         "enum" : [
           "lime",
           "purple"
+        ],
+        "type" : "string"
+      },
+      "ColumnComputationMode" : {
+        "enum" : [
+          "lazy",
+          "eager"
         ],
         "type" : "string"
       },
@@ -887,6 +932,13 @@
         ],
         "type" : "object"
       },
+      "StringDisplayStyle" : {
+        "enum" : [
+          "markdown",
+          "raw"
+        ],
+        "type" : "string"
+      },
       "TableImportMode" : {
         "default" : "new",
         "enum" : [
@@ -1044,7 +1096,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.132.0"
+    "version" : "v0.133.0"
   },
   "openapi" : "3.0.3",
   "paths" : {

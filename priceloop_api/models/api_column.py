@@ -1,6 +1,8 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 import attr
+
+from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.api_column_attributes import ApiColumnAttributes
@@ -18,6 +20,7 @@ class ApiColumn:
         position (int):
         table_name (str):  Example: table-name.
         tpe (str):
+        formula (Union[Unset, None, str]):  Example: 1 + 2.
     """
 
     attributes: "ApiColumnAttributes"
@@ -25,6 +28,7 @@ class ApiColumn:
     position: int
     table_name: str
     tpe: str
+    formula: Union[Unset, None, str] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -34,6 +38,7 @@ class ApiColumn:
         position = self.position
         table_name = self.table_name
         tpe = self.tpe
+        formula = self.formula
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -46,6 +51,8 @@ class ApiColumn:
                 "tpe": tpe,
             }
         )
+        if formula is not UNSET:
+            field_dict["formula"] = formula
 
         return field_dict
 
@@ -64,12 +71,15 @@ class ApiColumn:
 
         tpe = d.pop("tpe")
 
+        formula = d.pop("formula", UNSET)
+
         api_column = cls(
             attributes=attributes,
             name=name,
             position=position,
             table_name=table_name,
             tpe=tpe,
+            formula=formula,
         )
 
         api_column.additional_properties = d

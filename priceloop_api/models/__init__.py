@@ -19,6 +19,8 @@ from .api_external_function import ApiExternalFunction
 from .api_new_plugin_notification import ApiNewPluginNotification
 from .api_plugin_table_role_assignment_body import ApiPluginTableRoleAssignmentBody
 from .api_plugin_table_role_body import ApiPluginTableRoleBody
+from .api_string_column_attributes import ApiStringColumnAttributes
+from .api_string_column_attributes_update import ApiStringColumnAttributesUpdate
 from .api_table import ApiTable
 from .api_table_attributes import ApiTableAttributes
 from .api_table_data import ApiTableData
@@ -26,6 +28,7 @@ from .api_table_schema import ApiTableSchema
 from .api_workspace import ApiWorkspace
 from .boolean_display_style import BooleanDisplayStyle
 from .column_background_color import ColumnBackgroundColor
+from .column_computation_mode import ColumnComputationMode
 from .create_external_function_param_type_item import CreateExternalFunctionParamTypeItem
 from .create_external_function_return_type import CreateExternalFunctionReturnType
 from .create_workspace_membership_response_200 import CreateWorkspaceMembershipResponse200
@@ -56,6 +59,7 @@ from .plugin_workspace_list import PluginWorkspaceList
 from .plugin_workspace_state import PluginWorkspaceState
 from .presigned_url import PresignedUrl
 from .s3_key import S3Key
+from .string_display_style import StringDisplayStyle
 from .table_import_mode import TableImportMode
 from .table_publication import TablePublication
 from .table_row import TableRow
@@ -86,6 +90,8 @@ __all__ = (
     "ApiNewPluginNotification",
     "ApiPluginTableRoleAssignmentBody",
     "ApiPluginTableRoleBody",
+    "ApiStringColumnAttributes",
+    "ApiStringColumnAttributesUpdate",
     "ApiTable",
     "ApiTableAttributes",
     "ApiTableData",
@@ -93,6 +99,7 @@ __all__ = (
     "ApiWorkspace",
     "BooleanDisplayStyle",
     "ColumnBackgroundColor",
+    "ColumnComputationMode",
     "CreateExternalFunctionParamTypeItem",
     "CreateExternalFunctionReturnType",
     "CreateWorkspaceMembershipResponse200",
@@ -123,6 +130,7 @@ __all__ = (
     "PluginWorkspaceState",
     "PresignedUrl",
     "S3Key",
+    "StringDisplayStyle",
     "TableImportMode",
     "TablePublication",
     "TableRow",

@@ -1,4 +1,4 @@
-name: Build
+name: Build and Deploy
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
     name: "Build"
     strategy:
       matrix:
-        python-version: ["3.8", "3.11"]
+        python-version: ["3.8", "3.10"]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -38,7 +38,7 @@ jobs:
     name: "Publish python package on PyPI"
     strategy:
       matrix:
-        versions: ['3.8-pandas1', '3.11-pandas2']
+        versions: ['3.8-pandas1', '3.10-pandas2']
     needs:
       - build
     steps:
@@ -49,7 +49,7 @@ jobs:
       - name: Set up Python ${{ matrix.versions }}
         uses: actions/setup-python@v3
         with:
-          python-version: ${{ matrix.versions == '3.8-pandas1' && '3.8' || '3.11' }}
+          python-version: ${{ matrix.versions == '3.8-pandas1' && '3.8' || '3.10' }}
           cache: "pip"
 
       - name: Install dependencies
@@ -67,7 +67,7 @@ jobs:
           twine upload dist/*
 
       - name: Build and publish pandas 2
-        if: ${{ matrix.versions == '3.11-pandas2' }}
+        if: ${{ matrix.versions == '3.10-pandas2' }}
         env:
           TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}

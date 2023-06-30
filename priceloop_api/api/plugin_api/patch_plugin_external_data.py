@@ -68,7 +68,6 @@ def sync_detailed(
     This endpoint allows you to update some or all of the fields inside a plugin's external data using a
     JSON merge-patch.
 
-
     ## JSON Merge-Patch
 
     In a JSON merge-patch, all fields are optional.
@@ -79,7 +78,6 @@ def sync_detailed(
 
     More information on JSON merge-patches can be found in [RFC
     7396](https://datatracker.ietf.org/doc/html/rfc7396).
-
 
 
     Args:
@@ -125,7 +123,6 @@ async def asyncio_detailed(
     This endpoint allows you to update some or all of the fields inside a plugin's external data using a
     JSON merge-patch.
 
-
     ## JSON Merge-Patch
 
     In a JSON merge-patch, all fields are optional.
@@ -136,7 +133,6 @@ async def asyncio_detailed(
 
     More information on JSON merge-patches can be found in [RFC
     7396](https://datatracker.ietf.org/doc/html/rfc7396).
-
 
 
     Args:

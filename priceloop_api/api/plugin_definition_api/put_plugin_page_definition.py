@@ -5,31 +5,25 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.plugin_data_update_type_0 import PluginDataUpdateType0
+from ...models.view_page_config import ViewPageConfig
 from ...types import Response
 
 
 def _get_kwargs(
-    workspace: str,
     plugin: str,
     *,
     client: AuthenticatedClient,
-    json_body: "PluginDataUpdateType0",
+    json_body: ViewPageConfig,
 ) -> Dict[str, Any]:
-    url = "{}/api/v1.0/workspaces/{workspace}/plugin/{plugin}/data".format(
-        client.base_url, workspace=workspace, plugin=plugin
-    )
+    url = "{}/api/v1.0/plugin-definition/{plugin}/pages".format(client.base_url, plugin=plugin)
 
     headers: Dict[str, str] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
 
-    json_json_body: Dict[str, Any]
-
-    if isinstance(json_body, PluginDataUpdateType0):
-        json_json_body = json_body.to_dict()
+    json_json_body = json_body.to_dict()
 
     return {
-        "method": "patch",
+        "method": "put",
         "url": url,
         "headers": headers,
         "cookies": cookies,
@@ -58,36 +52,25 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Any
 
 
 def sync_detailed(
-    workspace: str,
     plugin: str,
     *,
     client: AuthenticatedClient,
-    json_body: "PluginDataUpdateType0",
+    json_body: ViewPageConfig,
 ) -> Response[Any]:
-    """Patch data of a plugin installation
+    """Create or update a plugin page
 
+     # Create custom plugin pages
 
-    # Patch data
+    Plugins can define their own pages consisting of a template.
+    This is an html template where you can layout customizable priceloop-blocks.
 
-    This endpoint allows you to update some or all of the fields inside a plugin's data using a JSON
-    merge-patch.
+    ## Template
 
-    ## JSON Merge-Patch
-
-    In a JSON merge-patch, all fields are optional.
-    Those fields that are present will set the value accordingly.
-    A field that is explicitly set to `null` will reset the value to its default.
-    This means that `null`-values hold semantic relevance, so make sure to leave out fields you do not
-    want to change.
-
-    More information on JSON merge-patches can be found in [RFC
-    7396](https://datatracker.ietf.org/doc/html/rfc7396).
-
+    Create your own page with a template,
 
     Args:
-        workspace (str):  Example: workspace-name.
         plugin (str):
-        json_body ('PluginDataUpdateType0'):
+        json_body (ViewPageConfig):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -98,7 +81,6 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        workspace=workspace,
         plugin=plugin,
         client=client,
         json_body=json_body,
@@ -113,36 +95,25 @@ def sync_detailed(
 
 
 async def asyncio_detailed(
-    workspace: str,
     plugin: str,
     *,
     client: AuthenticatedClient,
-    json_body: "PluginDataUpdateType0",
+    json_body: ViewPageConfig,
 ) -> Response[Any]:
-    """Patch data of a plugin installation
+    """Create or update a plugin page
 
+     # Create custom plugin pages
 
-    # Patch data
+    Plugins can define their own pages consisting of a template.
+    This is an html template where you can layout customizable priceloop-blocks.
 
-    This endpoint allows you to update some or all of the fields inside a plugin's data using a JSON
-    merge-patch.
+    ## Template
 
-    ## JSON Merge-Patch
-
-    In a JSON merge-patch, all fields are optional.
-    Those fields that are present will set the value accordingly.
-    A field that is explicitly set to `null` will reset the value to its default.
-    This means that `null`-values hold semantic relevance, so make sure to leave out fields you do not
-    want to change.
-
-    More information on JSON merge-patches can be found in [RFC
-    7396](https://datatracker.ietf.org/doc/html/rfc7396).
-
+    Create your own page with a template,
 
     Args:
-        workspace (str):  Example: workspace-name.
         plugin (str):
-        json_body ('PluginDataUpdateType0'):
+        json_body (ViewPageConfig):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -153,7 +124,6 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        workspace=workspace,
         plugin=plugin,
         client=client,
         json_body=json_body,

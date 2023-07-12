@@ -1013,6 +1013,29 @@
         ],
         "type" : "object"
       },
+      "ViewPageConfig" : {
+        "properties" : {
+          "displayName" : {
+            "type" : "string"
+          },
+          "iconUrl" : {
+            "type" : "string"
+          },
+          "path" : {
+            "type" : "string"
+          },
+          "viewTemplate" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "path",
+          "displayName",
+          "iconUrl",
+          "viewTemplate"
+        ],
+        "type" : "object"
+      },
       "WebhookConfig" : {
         "properties" : {
           "webhookUrl" : {
@@ -1096,7 +1119,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.133.0"
+    "version" : "v0.138.4"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -1145,6 +1168,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1215,6 +1248,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1303,6 +1346,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -1372,6 +1425,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1461,6 +1524,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -1479,6 +1552,309 @@
           }
         ],
         "summary" : "Delete a Plugin with its configuration",
+        "tags" : [
+          "Plugin Definition API"
+        ]
+      }
+    },
+    "/api/v1.0/plugin-definition/{plugin}/pages" : {
+      "get" : {
+        "operationId" : "listPluginPageDefinitions",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/ViewPageConfig"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "List plugin pages for a plugin",
+        "tags" : [
+          "Plugin Definition API"
+        ]
+      },
+      "put" : {
+        "description" : "# Create custom plugin pages\n\nPlugins can define their own pages consisting of a template.\nThis is an html template where you can layout customizable priceloop-blocks.\n\n## Template\n\nCreate your own page with a template,",
+        "operationId" : "putPluginPageDefinition",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "example" : {
+                "displayName" : "My Page",
+                "iconUrl" : "https://example.com/example.icon",
+                "path" : "my-view-page-path",
+                "viewTemplate" : "Hello World"
+              },
+              "schema" : {
+                "$ref" : "#/components/schemas/ViewPageConfig"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Create or update a plugin page",
+        "tags" : [
+          "Plugin Definition API"
+        ]
+      }
+    },
+    "/api/v1.0/plugin-definition/{plugin}/pages/{path}" : {
+      "delete" : {
+        "operationId" : "deletePluginPageDefinition",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "path",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Delete a plugin page",
         "tags" : [
           "Plugin Definition API"
         ]
@@ -1539,6 +1915,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1638,6 +2024,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -1717,6 +2113,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1822,6 +2228,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -1893,6 +2309,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1981,6 +2407,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -2091,6 +2527,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -2180,6 +2626,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -2252,6 +2708,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -2349,6 +2815,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -2426,6 +2902,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -2529,6 +3015,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -2617,6 +3113,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -2724,6 +3230,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -2804,6 +3320,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -2898,6 +3424,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -3058,6 +3594,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -3153,6 +3699,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -3235,6 +3791,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -3340,6 +3906,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -3425,6 +4001,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -3523,6 +4109,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -3608,6 +4204,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -3732,6 +4338,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -3827,6 +4443,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -3852,7 +4478,7 @@
     },
     "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/data" : {
       "patch" : {
-        "description" : "\n# Patch data\n\nThis endpoint allows you to update some or all of the fields inside a plugin's data using a JSON merge-patch.\n\n\n## JSON Merge-Patch\n\nIn a JSON merge-patch, all fields are optional.\nThose fields that are present will set the value accordingly.\nA field that is explicitly set to `null` will reset the value to its default.\nThis means that `null`-values hold semantic relevance, so make sure to leave out fields you do not want to change.\n\nMore information on JSON merge-patches can be found in [RFC 7396](https://datatracker.ietf.org/doc/html/rfc7396).\n  \n      ",
+        "description" : "\n# Patch data\n\nThis endpoint allows you to update some or all of the fields inside a plugin's data using a JSON merge-patch.\n\n## JSON Merge-Patch\n\nIn a JSON merge-patch, all fields are optional.\nThose fields that are present will set the value accordingly.\nA field that is explicitly set to `null` will reset the value to its default.\nThis means that `null`-values hold semantic relevance, so make sure to leave out fields you do not want to change.\n\nMore information on JSON merge-patches can be found in [RFC 7396](https://datatracker.ietf.org/doc/html/rfc7396).\n      ",
         "operationId" : "patchPluginData",
         "parameters" : [
           {
@@ -3918,6 +4544,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -4024,6 +4660,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -4049,7 +4695,7 @@
     },
     "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/external-data" : {
       "patch" : {
-        "description" : "\n# Patch external data\n\nThis endpoint allows you to update some or all of the fields inside a plugin's external data using a JSON merge-patch.\n\n\n## JSON Merge-Patch\n\nIn a JSON merge-patch, all fields are optional.\nThose fields that are present will set the value accordingly.\nA field that is explicitly set to `null` will reset the value to its default.\nThis means that `null`-values hold semantic relevance, so make sure to leave out fields you do not want to change.\n\nMore information on JSON merge-patches can be found in [RFC 7396](https://datatracker.ietf.org/doc/html/rfc7396).\n  \n      ",
+        "description" : "\n# Patch external data\n\nThis endpoint allows you to update some or all of the fields inside a plugin's external data using a JSON merge-patch.\n\n## JSON Merge-Patch\n\nIn a JSON merge-patch, all fields are optional.\nThose fields that are present will set the value accordingly.\nA field that is explicitly set to `null` will reset the value to its default.\nThis means that `null`-values hold semantic relevance, so make sure to leave out fields you do not want to change.\n\nMore information on JSON merge-patches can be found in [RFC 7396](https://datatracker.ietf.org/doc/html/rfc7396).\n      ",
         "operationId" : "patchPluginExternalData",
         "parameters" : [
           {
@@ -4115,6 +4761,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -4221,6 +4877,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -4308,6 +4974,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -4420,6 +5096,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -4502,6 +5188,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -4609,6 +5305,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -4697,6 +5403,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -4808,6 +5524,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -4904,6 +5630,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -5020,6 +5756,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -5115,6 +5861,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -5237,6 +5993,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -5324,6 +6090,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -5422,6 +6198,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -5440,6 +6226,112 @@
           }
         ],
         "summary" : "Rename a workspace",
+        "tags" : [
+          "Workspace API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/table-order" : {
+      "patch" : {
+        "description" : "\n Specify the order of tables, e.g., when viewing a workspace on the website, or when requesting the table list via API.\n\n A total order for all tables can be given, but table names can be left out.\n Given tables will be moved to the front, and all not explicitly listed tables will appear afterwards.\n        ",
+        "operationId" : "updateWorkspaceTableOrder",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "example" : "workspace-name",
+              "type" : "string"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "items" : {
+                  "example" : "table-name",
+                  "type" : "string"
+                },
+                "type" : "array"
+              }
+            }
+          },
+          "required" : false
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Change the order of tables in a workspace",
         "tags" : [
           "Workspace API"
         ]
@@ -5503,6 +6395,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -5598,6 +6500,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -5707,6 +6619,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -5797,6 +6719,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -5912,6 +6844,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -6018,6 +6960,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -6041,7 +6993,7 @@
         ]
       },
       "patch" : {
-        "description" : "\n# Updating Column Attributes\n\nThis endpoint allows you to update some or all of the attributes of a column using a JSON merge-patch.\n\n\n## JSON Merge-Patch\n\nIn a JSON merge-patch, all fields are optional.\nThose fields that are present will set the value accordingly.\nA field that is explicitly set to `null` will reset the value to its default.\nThis means that `null`-values hold semantic relevance, so make sure to leave out fields you do not want to change.\n\nMore information on JSON merge-patches can be found in [RFC 7396](https://datatracker.ietf.org/doc/html/rfc7396).\n  \n      ",
+        "description" : "\n# Updating Column Attributes\n\nThis endpoint allows you to update some or all of the attributes of a column using a JSON merge-patch.\n\n## JSON Merge-Patch\n\nIn a JSON merge-patch, all fields are optional.\nThose fields that are present will set the value accordingly.\nA field that is explicitly set to `null` will reset the value to its default.\nThis means that `null`-values hold semantic relevance, so make sure to leave out fields you do not want to change.\n\nMore information on JSON merge-patches can be found in [RFC 7396](https://datatracker.ietf.org/doc/html/rfc7396).\n      ",
         "operationId" : "updateColumnAttributes",
         "parameters" : [
           {
@@ -6121,6 +7073,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -6252,6 +7214,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -6358,6 +7330,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -6476,6 +7458,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -6576,6 +7568,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -6700,6 +7702,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -6810,6 +7822,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -6946,6 +7968,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -7038,6 +8070,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -7153,6 +8195,16 @@
             },
             "description" : ""
           },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
           "500" : {
             "content" : {
               "text/plain" : {
@@ -7234,6 +8286,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -7341,6 +8403,16 @@
             "description" : ""
           },
           "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
             "content" : {
               "text/plain" : {
                 "schema" : {

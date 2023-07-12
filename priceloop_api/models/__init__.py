@@ -64,6 +64,7 @@ from .table_import_mode import TableImportMode
 from .table_publication import TablePublication
 from .table_row import TableRow
 from .update import Update
+from .view_page_config import ViewPageConfig
 from .webhook_config import WebhookConfig
 from .webhook_event_selector_type_0 import WebhookEventSelectorType0
 from .webhook_info import WebhookInfo
@@ -135,6 +136,7 @@ __all__ = (
     "TablePublication",
     "TableRow",
     "Update",
+    "ViewPageConfig",
     "WebhookConfig",
     "WebhookEventSelectorType0",
     "WebhookInfo",

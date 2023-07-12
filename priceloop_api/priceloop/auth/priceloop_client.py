@@ -11,7 +11,7 @@ class PriceloopClient(AuthenticatedClient):
 
     auth_state: AuthState
 
-    def __init__(self, auth_state: AuthState, raise_on_unexpected_status):
+    def __init__(self, auth_state: AuthState, raise_on_unexpected_status: bool) -> None:
         self.base_url = auth_state.config().base_url
         self.timeout = 30.0
         self.cookies = {}
@@ -28,7 +28,7 @@ class PriceloopClient(AuthenticatedClient):
 
     @staticmethod
     def with_credentials(
-        username: str, password: str, host: str = default_host, raise_on_unexpected_status=True
+        username: str, password: str, host: str = default_host, raise_on_unexpected_status: bool = True
     ) -> "PriceloopClient":
         auth_state = AuthState(username, password, host)
         return PriceloopClient(auth_state, raise_on_unexpected_status)

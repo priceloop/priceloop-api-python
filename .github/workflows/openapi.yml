@@ -68,7 +68,13 @@ jobs:
 
       - name: Regenerate API Project
         run: |
-          ./generate_api.sh
+          output=$(./generate_api.sh)
+          echo "$output"
+
+          if [[ "$output" ~= "Endpoint will not be generated." ]]; then
+            echo "An endpoint cannot be generated!"
+            exit 1
+          fi
 
       - name: Commit changes
         run: |

@@ -67,7 +67,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[List['ExportJob']]
+        Response['ExportInfo']
     """
 
     kwargs = _get_kwargs(
@@ -90,21 +90,18 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Optional["ExportInfo"]:
-    """List all table exports
-
-     This API endpoint returns a list of all available exports for a table. Exported files are kept
-    available until `.availableUntil`.
+    """This API endpoint returns a url from which the published table can be donwloaded.
 
     Args:
         workspace (str):  Example: workspace-name.
-        table (str):  Example: table-name.
+        export_job_id (int):  Example: 5.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        List['ExportJob']
+        Response['ExportInfo']
     """
 
     return sync_detailed(

@@ -502,6 +502,27 @@
         ],
         "type" : "string"
       },
+      "ConfirmationModalDescription" : {
+        "properties" : {
+          "cancelLabel" : {
+            "nullable" : true,
+            "type" : "string"
+          },
+          "confirmationLabel" : {
+            "nullable" : true,
+            "type" : "string"
+          },
+          "subtitle" : {
+            "nullable" : true,
+            "type" : "string"
+          },
+          "title" : {
+            "nullable" : true,
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
       "Empty" : {
         "type" : "object"
       },
@@ -516,11 +537,6 @@
         "type" : "string"
       },
       "ExportFormat" : {
-        "default" : {
-          "CSV" : {
-            "delimiter" : ","
-          }
-        },
         "oneOf" : [
           {
             "properties" : {
@@ -862,10 +878,19 @@
         "type" : "object"
       },
       "PluginTableRoleSemantic" : {
-        "enum" : [
-          "PublishInput"
-        ],
-        "type" : "string"
+        "oneOf" : [
+          {
+            "properties" : {
+              "PublishInput" : {
+                "$ref" : "#/components/schemas/PublishInput"
+              }
+            },
+            "required" : [
+              "PublishInput"
+            ],
+            "type" : "object"
+          }
+        ]
       },
       "PluginTokens" : {
         "properties" : {
@@ -919,6 +944,14 @@
           "putUrl",
           "description"
         ],
+        "type" : "object"
+      },
+      "PublishInput" : {
+        "properties" : {
+          "confirmationModal" : {
+            "$ref" : "#/components/schemas/ConfirmationModalDescription"
+          }
+        },
         "type" : "object"
       },
       "S3Key" : {
@@ -1119,7 +1152,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.138.4"
+    "version" : "v0.139.2"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -3048,7 +3081,7 @@
         ]
       }
     },
-    "/api/v1.0/workspaces/{workspace}/csv-import-jobs/{import-job-id}" : {
+    "/api/v1.0/workspaces/{workspace}/csv-import-jobs/{importJobId}" : {
       "get" : {
         "operationId" : "getCsvImportJob",
         "parameters" : [
@@ -3063,7 +3096,7 @@
           },
           {
             "in" : "path",
-            "name" : "import-job-id",
+            "name" : "importJobId",
             "required" : true,
             "schema" : {
               "format" : "int32",
@@ -3155,7 +3188,7 @@
         ]
       }
     },
-    "/api/v1.0/workspaces/{workspace}/exports/{export-job-id}" : {
+    "/api/v1.0/workspaces/{workspace}/exports/{exportJobId}" : {
       "get" : {
         "description" : "This API endpoint returns information about an export and a url, from which you can download the exported csv file. This download url will be valid for up to `.expiresInSeconds` seconds. You can always request a new download if the old one expires.",
         "operationId" : "getTableExport",
@@ -3171,7 +3204,7 @@
           },
           {
             "in" : "path",
-            "name" : "export-job-id",
+            "name" : "exportJobId",
             "required" : true,
             "schema" : {
               "format" : "int32",
@@ -5903,7 +5936,7 @@
         ]
       }
     },
-    "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/table-roles/{name}/publications/{publication-id}" : {
+    "/api/v1.0/workspaces/{workspace}/plugin/{plugin}/table-roles/{name}/publications/{publicationId}" : {
       "get" : {
         "operationId" : "getPluginTableRolePublication",
         "parameters" : [
@@ -5934,7 +5967,7 @@
           },
           {
             "in" : "path",
-            "name" : "publication-id",
+            "name" : "publicationId",
             "required" : true,
             "schema" : {
               "format" : "int32",
@@ -8137,12 +8170,17 @@
         "requestBody" : {
           "content" : {
             "application/json" : {
+              "example" : {
+                "CSV" : {
+                  "delimiter" : ","
+                }
+              },
               "schema" : {
                 "$ref" : "#/components/schemas/ExportFormat"
               }
             }
           },
-          "required" : false
+          "required" : true
         },
         "responses" : {
           "200" : {

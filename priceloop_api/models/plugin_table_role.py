@@ -1,9 +1,12 @@
-from typing import Any, Dict, List, Type, TypeVar, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 import attr
 
-from ..models.plugin_table_role_semantic import PluginTableRoleSemantic
 from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.plugin_table_role_semantic_type_0 import PluginTableRoleSemanticType0
+
 
 T = TypeVar("T", bound="PluginTableRole")
 
@@ -14,20 +17,25 @@ class PluginTableRole:
     Attributes:
         name (str):
         plugin_name (str):
-        semantic (PluginTableRoleSemantic):
+        semantic ('PluginTableRoleSemanticType0'):
         description (Union[Unset, None, str]):
     """
 
     name: str
     plugin_name: str
-    semantic: PluginTableRoleSemantic
+    semantic: "PluginTableRoleSemanticType0"
     description: Union[Unset, None, str] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        from ..models.plugin_table_role_semantic_type_0 import PluginTableRoleSemanticType0
+
         name = self.name
         plugin_name = self.plugin_name
-        semantic = self.semantic.value
+        semantic: Dict[str, Any]
+
+        if isinstance(self.semantic, PluginTableRoleSemanticType0):
+            semantic = self.semantic.to_dict()
 
         description = self.description
 
@@ -47,12 +55,21 @@ class PluginTableRole:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+        from ..models.plugin_table_role_semantic_type_0 import PluginTableRoleSemanticType0
+
         d = src_dict.copy()
         name = d.pop("name")
 
         plugin_name = d.pop("pluginName")
 
-        semantic = PluginTableRoleSemantic(d.pop("semantic"))
+        def _parse_semantic(data: object) -> "PluginTableRoleSemanticType0":
+            if not isinstance(data, dict):
+                raise TypeError()
+            componentsschemas_plugin_table_role_semantic_type_0 = PluginTableRoleSemanticType0.from_dict(data)
+
+            return componentsschemas_plugin_table_role_semantic_type_0
+
+        semantic = _parse_semantic(d.pop("semantic"))
 
         description = d.pop("description", UNSET)
 

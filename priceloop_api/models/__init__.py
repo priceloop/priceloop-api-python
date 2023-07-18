@@ -29,6 +29,7 @@ from .api_workspace import ApiWorkspace
 from .boolean_display_style import BooleanDisplayStyle
 from .column_background_color import ColumnBackgroundColor
 from .column_computation_mode import ColumnComputationMode
+from .confirmation_modal_description import ConfirmationModalDescription
 from .create_external_function_param_type_item import CreateExternalFunctionParamTypeItem
 from .create_external_function_return_type import CreateExternalFunctionReturnType
 from .create_workspace_membership_response_200 import CreateWorkspaceMembershipResponse200
@@ -36,6 +37,7 @@ from .csv import CSV
 from .delete_workspace_membership_response_200 import DeleteWorkspaceMembershipResponse200
 from .empty import Empty
 from .explicit_expr_type import ExplicitExprType
+from .export_format_type_0 import ExportFormatType0
 from .export_info import ExportInfo
 from .export_job import ExportJob
 from .external_function_runtime import ExternalFunctionRuntime
@@ -53,11 +55,12 @@ from .plugin_requirement import PluginRequirement
 from .plugin_status import PluginStatus
 from .plugin_table_role import PluginTableRole
 from .plugin_table_role_assignment import PluginTableRoleAssignment
-from .plugin_table_role_semantic import PluginTableRoleSemantic
+from .plugin_table_role_semantic_type_0 import PluginTableRoleSemanticType0
 from .plugin_tokens import PluginTokens
 from .plugin_workspace_list import PluginWorkspaceList
 from .plugin_workspace_state import PluginWorkspaceState
 from .presigned_url import PresignedUrl
+from .publish_input import PublishInput
 from .s3_key import S3Key
 from .string_display_style import StringDisplayStyle
 from .table_import_mode import TableImportMode
@@ -101,6 +104,7 @@ __all__ = (
     "BooleanDisplayStyle",
     "ColumnBackgroundColor",
     "ColumnComputationMode",
+    "ConfirmationModalDescription",
     "CreateExternalFunctionParamTypeItem",
     "CreateExternalFunctionReturnType",
     "CreateWorkspaceMembershipResponse200",
@@ -108,6 +112,7 @@ __all__ = (
     "DeleteWorkspaceMembershipResponse200",
     "Empty",
     "ExplicitExprType",
+    "ExportFormatType0",
     "ExportInfo",
     "ExportJob",
     "ExternalFunctionRuntime",
@@ -125,11 +130,12 @@ __all__ = (
     "PluginStatus",
     "PluginTableRole",
     "PluginTableRoleAssignment",
-    "PluginTableRoleSemantic",
+    "PluginTableRoleSemanticType0",
     "PluginTokens",
     "PluginWorkspaceList",
     "PluginWorkspaceState",
     "PresignedUrl",
+    "PublishInput",
     "S3Key",
     "StringDisplayStyle",
     "TableImportMode",

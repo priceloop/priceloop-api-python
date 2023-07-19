@@ -70,6 +70,7 @@ def sync_detailed(
 
     This endpoint allows you to update some or all of the attributes of a column using a JSON merge-
     patch.
+    Column Descriptions allow for Markdown formatting.
 
     ## JSON Merge-Patch
 
@@ -128,6 +129,7 @@ async def asyncio_detailed(
 
     This endpoint allows you to update some or all of the attributes of a column using a JSON merge-
     patch.
+    Column Descriptions allow for Markdown formatting.
 
     ## JSON Merge-Patch
 

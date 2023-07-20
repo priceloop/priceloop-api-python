@@ -1152,7 +1152,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.139.2"
+    "version" : "v0.140.1"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -7026,7 +7026,7 @@
         ]
       },
       "patch" : {
-        "description" : "\n# Updating Column Attributes\n\nThis endpoint allows you to update some or all of the attributes of a column using a JSON merge-patch.\n\n## JSON Merge-Patch\n\nIn a JSON merge-patch, all fields are optional.\nThose fields that are present will set the value accordingly.\nA field that is explicitly set to `null` will reset the value to its default.\nThis means that `null`-values hold semantic relevance, so make sure to leave out fields you do not want to change.\n\nMore information on JSON merge-patches can be found in [RFC 7396](https://datatracker.ietf.org/doc/html/rfc7396).\n      ",
+        "description" : "\n# Updating Column Attributes\n\nThis endpoint allows you to update some or all of the attributes of a column using a JSON merge-patch.\nColumn Descriptions allow for Markdown formatting.\n\n## JSON Merge-Patch\n\nIn a JSON merge-patch, all fields are optional.\nThose fields that are present will set the value accordingly.\nA field that is explicitly set to `null` will reset the value to its default.\nThis means that `null`-values hold semantic relevance, so make sure to leave out fields you do not want to change.\n\nMore information on JSON merge-patches can be found in [RFC 7396](https://datatracker.ietf.org/doc/html/rfc7396).\n      ",
         "operationId" : "updateColumnAttributes",
         "parameters" : [
           {

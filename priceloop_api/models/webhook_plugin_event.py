@@ -7,6 +7,7 @@ class WebhookPluginEvent(str, Enum):
     PLUGINTABLEROLETRIGGER = "PluginTableRoleTrigger"
     PLUGINTOKENSUPDATED = "PluginTokensUpdated"
     PLUGINUNINSTALLED = "PluginUninstalled"
+    PLUGINVIEWTEMPLATETRIGGER = "PluginViewTemplateTrigger"
 
     def __str__(self) -> str:
         return str(self.value)

@@ -21,6 +21,7 @@ from .api_plugin_table_role_assignment_body import ApiPluginTableRoleAssignmentB
 from .api_plugin_table_role_body import ApiPluginTableRoleBody
 from .api_string_column_attributes import ApiStringColumnAttributes
 from .api_string_column_attributes_update import ApiStringColumnAttributesUpdate
+from .api_sync_table_schema import ApiSyncTableSchema
 from .api_table import ApiTable
 from .api_table_attributes import ApiTableAttributes
 from .api_table_data import ApiTableData
@@ -96,6 +97,7 @@ __all__ = (
     "ApiPluginTableRoleBody",
     "ApiStringColumnAttributes",
     "ApiStringColumnAttributesUpdate",
+    "ApiSyncTableSchema",
     "ApiTable",
     "ApiTableAttributes",
     "ApiTableData",

@@ -57,7 +57,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     json_body: ViewPageConfig,
 ) -> Response[Any]:
-    """Create or update a plugin page
+    r"""Create or update a plugin page
 
      # Create custom plugin pages
 
@@ -66,7 +66,125 @@ def sync_detailed(
 
     ## Template
 
-    Create your own page with a template,
+    Create your own page with a HTML-template (see template documentation: https://eta.js.org/).
+
+    We expose a global variable `app` in our templates to render reusable components and to access
+    necessary data.
+
+    ### API
+
+    ```
+    type WorkspaceName = String
+
+    type ViewPagePath = String
+
+    type Action = { storeInState: String?, sendEvent: Any?, gotoLink: String? }
+
+    type UIBlock = String(<html>...</html>)
+
+    type TableName = String
+
+    type ColumnName = String
+
+    type FilterOp = String(Eq | Ne | Lt | Lte | Gt | Gte | Is | IsNot | Contains | NotContains | IsEmpty
+    | IsNotEmpty)
+
+    type TableQueryCondition = { column: ColumnName, op: FilterOp, value: String? }
+
+    type SortingOrder = String(Ascending | Descending)
+
+    type TableQueryOrdering = { column: ColumnName, order: SortingOrder }
+
+    type ColumnAggregate = String(avg | max | min | sum | bool_and | bool_or | string_agg(,))
+
+    type TableQueryAggregate = { column: ColumnName, agg: ColumnAggregate }
+
+    type TableQuery = {
+        from: TableName,
+        limit: Int?,
+        offset: Int?,
+        select: ColumnName[]?,
+        where: TableQueryCondition[]?,
+        orderBy: TableQueryOrdering[]?,
+        groupBy: ColumnName[]?,
+        aggregates: TableQueryAggregate[]?
+    }
+
+    type TableOptions = { showDecoration: Boolean? }
+
+    type ChartType = String(Apex Chart Type: line | area | bar | pie | donut | radialBar | scatter |
+    bubble | heatmap | candlestick | boxPlot | radar | polarArea | rangeBar | rangeArea | treemap (see:
+    https://apexcharts.com/docs/chart-types/#))
+
+    type ChartXAxis = {
+        column: ColumnName,
+        labelColumn: ColumnName?,
+        colorColumn: ColumnName?,
+        unit: String?
+    }
+
+    type ChartYAxis = {
+        column: ColumnName,
+        partitionColumn: ColumnName?,
+        label: String?,
+        color: String?,
+        unit: String?
+    }
+
+    type ChartAnnotation = {
+        start: String,
+        end: String,
+        label: String,
+        color: String?
+    }
+
+    type ChartOptions = { xAnnotations: ChartAnnotation[]?, yAnnotations: ChartAnnotation[]?,
+    additionalApexOptions: Object? }
+
+    type TableRow = { values: String?[], byName: (column: ColumnName) => String? }
+
+    type TableData = { rows: TableRow[] }
+
+    type App = {
+        workspaceName: WorkspaceName,
+        state: Object,
+        workspaceLink: (pagePath: ViewPagePath) => String,
+        button: (text: String, action: Action) => UIBlock,
+        selectionBox: (placeholder: String, options: String[], action: Action) => UIBlock,
+        selectionTableBox: (placeholder: String, options: String[][], headers: String[], action: Action) =>
+    UIBlock,
+        tableSheet: (query: TableQuery, options: TableOptions?) => UIBlock,
+        chart: (query: TableQuery, chartType: ChartType, x: ChartXAxis, y: ChartYAxis[], options:
+    ChartOptions?) => UIBlock,
+        chartCustom: (apexOptions: Object) => UIBlock,
+        load: async (query: TableQuery) => TableData,
+        loadOnce: async (query: TableQuery) => TableData
+    }
+
+    app: App
+    ```
+
+    ### Usage
+
+    Inside a template, you can write javascript inside of `<%...%>`.
+    A `String` or any primitive value is rendered like this: `<%= app.workspaceName %>`.
+    A `UIBlock` contains html and has to be rendered like this: `<%~ app.tableSheet(query) %>`.
+    It is possible to use `await` for `async` functions.
+
+    ### Example
+
+    ```
+    <b>Hi <%= app.workspaceName %></b>
+
+    <% let myQuery = { select: [ \"my-category\", \"my-value\" ], from: \"my-table\" } %>
+
+    <div class=\"flex flex-row\">
+      <iframe class=\"h-full w-full\" src=\"https://example.com\"></iframe>
+      <%~ app.chart(myQuery, \"bar\", { column: \"my-category\" }, [ { column: \"my-value\" } ]) %>
+    </div>
+
+    <%~ app.tableSheet(myQuery) %>
+    ```
 
     Args:
         plugin (str):
@@ -100,7 +218,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     json_body: ViewPageConfig,
 ) -> Response[Any]:
-    """Create or update a plugin page
+    r"""Create or update a plugin page
 
      # Create custom plugin pages
 
@@ -109,7 +227,125 @@ async def asyncio_detailed(
 
     ## Template
 
-    Create your own page with a template,
+    Create your own page with a HTML-template (see template documentation: https://eta.js.org/).
+
+    We expose a global variable `app` in our templates to render reusable components and to access
+    necessary data.
+
+    ### API
+
+    ```
+    type WorkspaceName = String
+
+    type ViewPagePath = String
+
+    type Action = { storeInState: String?, sendEvent: Any?, gotoLink: String? }
+
+    type UIBlock = String(<html>...</html>)
+
+    type TableName = String
+
+    type ColumnName = String
+
+    type FilterOp = String(Eq | Ne | Lt | Lte | Gt | Gte | Is | IsNot | Contains | NotContains | IsEmpty
+    | IsNotEmpty)
+
+    type TableQueryCondition = { column: ColumnName, op: FilterOp, value: String? }
+
+    type SortingOrder = String(Ascending | Descending)
+
+    type TableQueryOrdering = { column: ColumnName, order: SortingOrder }
+
+    type ColumnAggregate = String(avg | max | min | sum | bool_and | bool_or | string_agg(,))
+
+    type TableQueryAggregate = { column: ColumnName, agg: ColumnAggregate }
+
+    type TableQuery = {
+        from: TableName,
+        limit: Int?,
+        offset: Int?,
+        select: ColumnName[]?,
+        where: TableQueryCondition[]?,
+        orderBy: TableQueryOrdering[]?,
+        groupBy: ColumnName[]?,
+        aggregates: TableQueryAggregate[]?
+    }
+
+    type TableOptions = { showDecoration: Boolean? }
+
+    type ChartType = String(Apex Chart Type: line | area | bar | pie | donut | radialBar | scatter |
+    bubble | heatmap | candlestick | boxPlot | radar | polarArea | rangeBar | rangeArea | treemap (see:
+    https://apexcharts.com/docs/chart-types/#))
+
+    type ChartXAxis = {
+        column: ColumnName,
+        labelColumn: ColumnName?,
+        colorColumn: ColumnName?,
+        unit: String?
+    }
+
+    type ChartYAxis = {
+        column: ColumnName,
+        partitionColumn: ColumnName?,
+        label: String?,
+        color: String?,
+        unit: String?
+    }
+
+    type ChartAnnotation = {
+        start: String,
+        end: String,
+        label: String,
+        color: String?
+    }
+
+    type ChartOptions = { xAnnotations: ChartAnnotation[]?, yAnnotations: ChartAnnotation[]?,
+    additionalApexOptions: Object? }
+
+    type TableRow = { values: String?[], byName: (column: ColumnName) => String? }
+
+    type TableData = { rows: TableRow[] }
+
+    type App = {
+        workspaceName: WorkspaceName,
+        state: Object,
+        workspaceLink: (pagePath: ViewPagePath) => String,
+        button: (text: String, action: Action) => UIBlock,
+        selectionBox: (placeholder: String, options: String[], action: Action) => UIBlock,
+        selectionTableBox: (placeholder: String, options: String[][], headers: String[], action: Action) =>
+    UIBlock,
+        tableSheet: (query: TableQuery, options: TableOptions?) => UIBlock,
+        chart: (query: TableQuery, chartType: ChartType, x: ChartXAxis, y: ChartYAxis[], options:
+    ChartOptions?) => UIBlock,
+        chartCustom: (apexOptions: Object) => UIBlock,
+        load: async (query: TableQuery) => TableData,
+        loadOnce: async (query: TableQuery) => TableData
+    }
+
+    app: App
+    ```
+
+    ### Usage
+
+    Inside a template, you can write javascript inside of `<%...%>`.
+    A `String` or any primitive value is rendered like this: `<%= app.workspaceName %>`.
+    A `UIBlock` contains html and has to be rendered like this: `<%~ app.tableSheet(query) %>`.
+    It is possible to use `await` for `async` functions.
+
+    ### Example
+
+    ```
+    <b>Hi <%= app.workspaceName %></b>
+
+    <% let myQuery = { select: [ \"my-category\", \"my-value\" ], from: \"my-table\" } %>
+
+    <div class=\"flex flex-row\">
+      <iframe class=\"h-full w-full\" src=\"https://example.com\"></iframe>
+      <%~ app.chart(myQuery, \"bar\", { column: \"my-category\" }, [ { column: \"my-value\" } ]) %>
+    </div>
+
+    <%~ app.tableSheet(myQuery) %>
+    ```
 
     Args:
         plugin (str):

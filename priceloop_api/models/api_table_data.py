@@ -5,6 +5,7 @@ import attr
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
+    from ..models.map_int import MapInt
     from ..models.table_row import TableRow
 
 
@@ -16,15 +17,19 @@ class ApiTableData:
     """
     Attributes:
         scheduled_jobs (int):
+        scheduled_jobs_per_function (MapInt):
         rows (Union[Unset, List['TableRow']]):
     """
 
     scheduled_jobs: int
+    scheduled_jobs_per_function: "MapInt"
     rows: Union[Unset, List["TableRow"]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         scheduled_jobs = self.scheduled_jobs
+        scheduled_jobs_per_function = self.scheduled_jobs_per_function.to_dict()
+
         rows: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.rows, Unset):
             rows = []
@@ -38,6 +43,7 @@ class ApiTableData:
         field_dict.update(
             {
                 "scheduledJobs": scheduled_jobs,
+                "scheduledJobsPerFunction": scheduled_jobs_per_function,
             }
         )
         if rows is not UNSET:
@@ -47,10 +53,13 @@ class ApiTableData:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+        from ..models.map_int import MapInt
         from ..models.table_row import TableRow
 
         d = src_dict.copy()
         scheduled_jobs = d.pop("scheduledJobs")
+
+        scheduled_jobs_per_function = MapInt.from_dict(d.pop("scheduledJobsPerFunction"))
 
         rows = []
         _rows = d.pop("rows", UNSET)
@@ -61,6 +70,7 @@ class ApiTableData:
 
         api_table_data = cls(
             scheduled_jobs=scheduled_jobs,
+            scheduled_jobs_per_function=scheduled_jobs_per_function,
             rows=rows,
         )
 

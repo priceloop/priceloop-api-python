@@ -5,21 +5,17 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.api_column_attributes_update import ApiColumnAttributesUpdate
+from ...models.api_sync_table_schema import ApiSyncTableSchema
 from ...types import Response
 
 
 def _get_kwargs(
     workspace: str,
-    table: str,
-    column: str,
     *,
     client: AuthenticatedClient,
-    json_body: ApiColumnAttributesUpdate,
+    json_body: ApiSyncTableSchema,
 ) -> Dict[str, Any]:
-    url = "{}/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/attributes".format(
-        client.base_url, workspace=workspace, table=table, column=column
-    )
+    url = "{}/api/v1.0/workspaces/{workspace}/create-sync-table".format(client.base_url, workspace=workspace)
 
     headers: Dict[str, str] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
@@ -27,7 +23,7 @@ def _get_kwargs(
     json_json_body = json_body.to_dict()
 
     return {
-        "method": "patch",
+        "method": "post",
         "url": url,
         "headers": headers,
         "cookies": cookies,
@@ -57,38 +53,15 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Any
 
 def sync_detailed(
     workspace: str,
-    table: str,
-    column: str,
     *,
     client: AuthenticatedClient,
-    json_body: ApiColumnAttributesUpdate,
+    json_body: ApiSyncTableSchema,
 ) -> Response[Any]:
-    """Change attributes of a column
-
-
-    # Updating Column Attributes
-
-    This endpoint allows you to update some or all of the attributes of a column using a JSON merge-
-    patch.
-    Column Descriptions allow for Markdown formatting.
-
-    ## JSON Merge-Patch
-
-    In a JSON merge-patch, all fields are optional.
-    Those fields that are present will set the value accordingly.
-    A field that is explicitly set to `null` will reset the value to its default.
-    This means that `null`-values hold semantic relevance, so make sure to leave out fields you do not
-    want to change.
-
-    More information on JSON merge-patches can be found in [RFC
-    7396](https://datatracker.ietf.org/doc/html/rfc7396).
-
+    """Create a sync table
 
     Args:
         workspace (str):  Example: workspace-name.
-        table (str):  Example: table-name.
-        column (str):  Example: column-name.
-        json_body (ApiColumnAttributesUpdate):
+        json_body (ApiSyncTableSchema):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -100,8 +73,6 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         workspace=workspace,
-        table=table,
-        column=column,
         client=client,
         json_body=json_body,
     )
@@ -116,38 +87,15 @@ def sync_detailed(
 
 async def asyncio_detailed(
     workspace: str,
-    table: str,
-    column: str,
     *,
     client: AuthenticatedClient,
-    json_body: ApiColumnAttributesUpdate,
+    json_body: ApiSyncTableSchema,
 ) -> Response[Any]:
-    """Change attributes of a column
-
-
-    # Updating Column Attributes
-
-    This endpoint allows you to update some or all of the attributes of a column using a JSON merge-
-    patch.
-    Column Descriptions allow for Markdown formatting.
-
-    ## JSON Merge-Patch
-
-    In a JSON merge-patch, all fields are optional.
-    Those fields that are present will set the value accordingly.
-    A field that is explicitly set to `null` will reset the value to its default.
-    This means that `null`-values hold semantic relevance, so make sure to leave out fields you do not
-    want to change.
-
-    More information on JSON merge-patches can be found in [RFC
-    7396](https://datatracker.ietf.org/doc/html/rfc7396).
-
+    """Create a sync table
 
     Args:
         workspace (str):  Example: workspace-name.
-        table (str):  Example: table-name.
-        column (str):  Example: column-name.
-        json_body (ApiColumnAttributesUpdate):
+        json_body (ApiSyncTableSchema):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -159,8 +107,6 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         workspace=workspace,
-        table=table,
-        column=column,
         client=client,
         json_body=json_body,
     )

@@ -78,9 +78,98 @@ def sync_detailed(
 
     type ViewPagePath = String
 
+    type Icon
+
+    type Icons = {
+        alert_triangle: Icon,
+        amazon_logo: Icon,
+        amazon_logo_bw: Icon,
+        arrow_down: Icon,
+        arrow_left: Icon,
+        arrow_right: Icon,
+        arrow_up: Icon,
+        bar_chart_2: Icon,
+        bell: Icon,
+        book_open: Icon,
+        boolean: Icon,
+        box: Icon,
+        calendar_1: Icon,
+        calendar_9: Icon,
+        check: Icon,
+        check_square: Icon,
+        chevron_down: Icon,
+        chevron_left: Icon,
+        chevron_right: Icon,
+        chevrons_down: Icon,
+        chevrons_left: Icon,
+        chevrons_right: Icon,
+        chevrons_up: Icon,
+        chevron_up: Icon,
+        columns: Icon,
+        date: Icon,
+        download: Icon,
+        edit: Icon,
+        external_link: Icon,
+        eye: Icon,
+        eye_off: Icon,
+        file: Icon,
+        filter: Icon,
+        formula: Icon,
+        handle: Icon,
+        help_circle: Icon,
+        home: Icon,
+        json: Icon,
+        lock: Icon,
+        log_out: Icon,
+        maximize: Icon,
+        minus_square: Icon,
+        monitor: Icon,
+        more_horizontal: Icon,
+        more_vertical: Icon,
+        number: Icon,
+        plus: Icon,
+        row: Icon,
+        settings: Icon,
+        sheet: Icon,
+        shuffle: Icon,
+        slack: Icon,
+        sliders: Icon,
+        sort: Icon,
+        spinner: Icon,
+        table: Icon,
+        tag: Icon,
+        text: Icon,
+        trash: Icon,
+        upload: Icon,
+        user: Icon,
+        x: Icon,
+        zap: Icon
+    }
+
+    type TemplateListGroupItem
+
     type Action = { storeInState: String?, sendEvent: Any?, gotoLink: String? }
 
+    type ListGroupButtonOptions = {
+        iconLeft: Icon,
+        title: String,
+        iconRight: Icon?,
+        active: Boolean?,
+        disabled: Boolean?,
+        onClick: Action?
+    }
+
+    type ListGroupItems = { heading: (title: String) => TemplateListGroupItem, spacer:
+    TemplateListGroupItem, button: (options: ListGroupButtonOptions) => TemplateListGroupItem }
+
     type UIBlock = String(<html>...</html>)
+
+    type UIComponents = {
+        icons: Icons,
+        listGroup: ListGroupItems,
+        button: (text: String, onClick: Action) => UIBlock,
+        navbar: (title: String, items: TemplateListGroupItem[]) => UIBlock
+    }
 
     type TableName = String
 
@@ -149,7 +238,7 @@ def sync_detailed(
         workspaceName: WorkspaceName,
         state: Object,
         workspaceLink: (pagePath: ViewPagePath) => String,
-        button: (text: String, action: Action) => UIBlock,
+        ui: UIComponents,
         selectionBox: (placeholder: String, options: String[], action: Action) => UIBlock,
         selectionTableBox: (placeholder: String, options: String[][], headers: String[], action: Action) =>
     UIBlock,
@@ -239,9 +328,98 @@ async def asyncio_detailed(
 
     type ViewPagePath = String
 
+    type Icon
+
+    type Icons = {
+        alert_triangle: Icon,
+        amazon_logo: Icon,
+        amazon_logo_bw: Icon,
+        arrow_down: Icon,
+        arrow_left: Icon,
+        arrow_right: Icon,
+        arrow_up: Icon,
+        bar_chart_2: Icon,
+        bell: Icon,
+        book_open: Icon,
+        boolean: Icon,
+        box: Icon,
+        calendar_1: Icon,
+        calendar_9: Icon,
+        check: Icon,
+        check_square: Icon,
+        chevron_down: Icon,
+        chevron_left: Icon,
+        chevron_right: Icon,
+        chevrons_down: Icon,
+        chevrons_left: Icon,
+        chevrons_right: Icon,
+        chevrons_up: Icon,
+        chevron_up: Icon,
+        columns: Icon,
+        date: Icon,
+        download: Icon,
+        edit: Icon,
+        external_link: Icon,
+        eye: Icon,
+        eye_off: Icon,
+        file: Icon,
+        filter: Icon,
+        formula: Icon,
+        handle: Icon,
+        help_circle: Icon,
+        home: Icon,
+        json: Icon,
+        lock: Icon,
+        log_out: Icon,
+        maximize: Icon,
+        minus_square: Icon,
+        monitor: Icon,
+        more_horizontal: Icon,
+        more_vertical: Icon,
+        number: Icon,
+        plus: Icon,
+        row: Icon,
+        settings: Icon,
+        sheet: Icon,
+        shuffle: Icon,
+        slack: Icon,
+        sliders: Icon,
+        sort: Icon,
+        spinner: Icon,
+        table: Icon,
+        tag: Icon,
+        text: Icon,
+        trash: Icon,
+        upload: Icon,
+        user: Icon,
+        x: Icon,
+        zap: Icon
+    }
+
+    type TemplateListGroupItem
+
     type Action = { storeInState: String?, sendEvent: Any?, gotoLink: String? }
 
+    type ListGroupButtonOptions = {
+        iconLeft: Icon,
+        title: String,
+        iconRight: Icon?,
+        active: Boolean?,
+        disabled: Boolean?,
+        onClick: Action?
+    }
+
+    type ListGroupItems = { heading: (title: String) => TemplateListGroupItem, spacer:
+    TemplateListGroupItem, button: (options: ListGroupButtonOptions) => TemplateListGroupItem }
+
     type UIBlock = String(<html>...</html>)
+
+    type UIComponents = {
+        icons: Icons,
+        listGroup: ListGroupItems,
+        button: (text: String, onClick: Action) => UIBlock,
+        navbar: (title: String, items: TemplateListGroupItem[]) => UIBlock
+    }
 
     type TableName = String
 
@@ -310,7 +488,7 @@ async def asyncio_detailed(
         workspaceName: WorkspaceName,
         state: Object,
         workspaceLink: (pagePath: ViewPagePath) => String,
-        button: (text: String, action: Action) => UIBlock,
+        ui: UIComponents,
         selectionBox: (placeholder: String, options: String[], action: Action) => UIBlock,
         selectionTableBox: (placeholder: String, options: String[][], headers: String[], action: Action) =>
     UIBlock,

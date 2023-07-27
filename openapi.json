@@ -357,6 +357,30 @@
         },
         "type" : "object"
       },
+      "ApiSyncTableSchema" : {
+        "properties" : {
+          "newTableName" : {
+            "example" : "table-name",
+            "type" : "string"
+          },
+          "originTableName" : {
+            "example" : "table-name",
+            "type" : "string"
+          },
+          "syncColumnNames" : {
+            "items" : {
+              "example" : "column-name",
+              "type" : "string"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [
+          "newTableName",
+          "originTableName"
+        ],
+        "type" : "object"
+      },
       "ApiTable" : {
         "properties" : {
           "attributes" : {
@@ -414,10 +438,14 @@
           "scheduledJobs" : {
             "format" : "int32",
             "type" : "integer"
+          },
+          "scheduledJobsPerFunction" : {
+            "$ref" : "#/components/schemas/Map_Int"
           }
         },
         "required" : [
-          "scheduledJobs"
+          "scheduledJobs",
+          "scheduledJobsPerFunction"
         ],
         "type" : "object"
       },
@@ -687,6 +715,13 @@
       "Map_ApeMarketplaceRegistration" : {
         "additionalProperties" : {
           "$ref" : "#/components/schemas/ApeMarketplaceRegistration"
+        },
+        "type" : "object"
+      },
+      "Map_Int" : {
+        "additionalProperties" : {
+          "format" : "int32",
+          "type" : "integer"
         },
         "type" : "object"
       },
@@ -1121,7 +1156,8 @@
           "PluginUninstalled",
           "PluginTokensUpdated",
           "PluginDataUpdated",
-          "PluginTableRoleTrigger"
+          "PluginTableRoleTrigger",
+          "PluginViewTemplateTrigger"
         ],
         "type" : "string"
       },
@@ -1152,7 +1188,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.139.2"
+    "version" : "v0.143.1"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -1221,6 +1257,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1301,6 +1347,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1398,6 +1454,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -1478,6 +1544,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1568,6 +1644,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1676,6 +1762,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -1690,7 +1786,7 @@
         ]
       },
       "put" : {
-        "description" : "# Create custom plugin pages\n\nPlugins can define their own pages consisting of a template.\nThis is an html template where you can layout customizable priceloop-blocks.\n\n## Template\n\nCreate your own page with a template,",
+        "description" : "# Create custom plugin pages\n\nPlugins can define their own pages consisting of a template.\nThis is an html template where you can layout customizable priceloop-blocks.\n\n## Template\n\nCreate your own page with a HTML-template (see template documentation: https://eta.js.org/).\n\nWe expose a global variable `app` in our templates to render reusable components and to access necessary data.\n\n### API\n\n```\ntype WorkspaceName = String\n\ntype ViewPagePath = String\n\ntype Action = { storeInState: String?, sendEvent: Any?, gotoLink: String? }\n\ntype UIBlock = String(<html>...</html>)\n\ntype TableName = String\n\ntype ColumnName = String\n\ntype FilterOp = String(Eq | Ne | Lt | Lte | Gt | Gte | Is | IsNot | Contains | NotContains | IsEmpty | IsNotEmpty)\n\ntype TableQueryCondition = { column: ColumnName, op: FilterOp, value: String? }\n\ntype SortingOrder = String(Ascending | Descending)\n\ntype TableQueryOrdering = { column: ColumnName, order: SortingOrder }\n\ntype ColumnAggregate = String(avg | max | min | sum | bool_and | bool_or | string_agg(,))\n\ntype TableQueryAggregate = { column: ColumnName, agg: ColumnAggregate }\n\ntype TableQuery = {\n\tfrom: TableName,\n\tlimit: Int?,\n\toffset: Int?,\n\tselect: ColumnName[]?,\n\twhere: TableQueryCondition[]?,\n\torderBy: TableQueryOrdering[]?,\n\tgroupBy: ColumnName[]?,\n\taggregates: TableQueryAggregate[]?\n}\n\ntype TableOptions = { showDecoration: Boolean? }\n\ntype ChartType = String(Apex Chart Type: line | area | bar | pie | donut | radialBar | scatter | bubble | heatmap | candlestick | boxPlot | radar | polarArea | rangeBar | rangeArea | treemap (see: https://apexcharts.com/docs/chart-types/#))\n\ntype ChartXAxis = {\n\tcolumn: ColumnName,\n\tlabelColumn: ColumnName?,\n\tcolorColumn: ColumnName?,\n\tunit: String?\n}\n\ntype ChartYAxis = {\n\tcolumn: ColumnName,\n\tpartitionColumn: ColumnName?,\n\tlabel: String?,\n\tcolor: String?,\n\tunit: String?\n}\n\ntype ChartAnnotation = {\n\tstart: String,\n\tend: String,\n\tlabel: String,\n\tcolor: String?\n}\n\ntype ChartOptions = { xAnnotations: ChartAnnotation[]?, yAnnotations: ChartAnnotation[]?, additionalApexOptions: Object? }\n\ntype TableRow = { values: String?[], byName: (column: ColumnName) => String? }\n\ntype TableData = { rows: TableRow[] }\n\ntype App = {\n\tworkspaceName: WorkspaceName,\n\tstate: Object,\n\tworkspaceLink: (pagePath: ViewPagePath) => String,\n\tbutton: (text: String, action: Action) => UIBlock,\n\tselectionBox: (placeholder: String, options: String[], action: Action) => UIBlock,\n\tselectionTableBox: (placeholder: String, options: String[][], headers: String[], action: Action) => UIBlock,\n\ttableSheet: (query: TableQuery, options: TableOptions?) => UIBlock,\n\tchart: (query: TableQuery, chartType: ChartType, x: ChartXAxis, y: ChartYAxis[], options: ChartOptions?) => UIBlock,\n\tchartCustom: (apexOptions: Object) => UIBlock,\n\tload: async (query: TableQuery) => TableData,\n\tloadOnce: async (query: TableQuery) => TableData\n}\n\napp: App\n```\n\n### Usage\n\nInside a template, you can write javascript inside of `<%...%>`.\nA `String` or any primitive value is rendered like this: `<%= app.workspaceName %>`.\nA `UIBlock` contains html and has to be rendered like this: `<%~ app.tableSheet(query) %>`.\nIt is possible to use `await` for `async` functions.\n\n### Example\n\n```\n<b>Hi <%= app.workspaceName %></b>\n\n<% let myQuery = { select: [ \"my-category\", \"my-value\" ], from: \"my-table\" } %>\n\n<div class=\"flex flex-row\">\n  <iframe class=\"h-full w-full\" src=\"https://example.com\"></iframe>\n  <%~ app.chart(myQuery, \"bar\", { column: \"my-category\" }, [ { column: \"my-value\" } ]) %>\n</div>\n\n<%~ app.tableSheet(myQuery) %>\n```",
         "operationId" : "putPluginPageDefinition",
         "parameters" : [
           {
@@ -1709,7 +1805,7 @@
                 "displayName" : "My Page",
                 "iconUrl" : "https://example.com/example.icon",
                 "path" : "my-view-page-path",
-                "viewTemplate" : "Hello World"
+                "viewTemplate" : "<b><%= app.workspaceName %></b>"
               },
               "schema" : {
                 "$ref" : "#/components/schemas/ViewPageConfig"
@@ -1773,6 +1869,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -1879,6 +1985,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -1968,6 +2084,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -2076,6 +2202,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -2166,6 +2302,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -2280,6 +2426,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -2362,6 +2518,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -2460,6 +2626,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -2579,6 +2755,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -2678,6 +2864,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -2761,6 +2957,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -2867,6 +3073,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -2963,6 +3179,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -2974,6 +3200,117 @@
         "summary" : "Create a new workspace",
         "tags" : [
           "Workspace API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/create-sync-table" : {
+      "post" : {
+        "operationId" : "createSyncTable",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "example" : "workspace-name",
+              "type" : "string"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ApiSyncTableSchema"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Create a sync table",
+        "tags" : [
+          "Table API"
         ]
       }
     },
@@ -3059,6 +3396,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -3166,6 +3513,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -3282,6 +3639,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -3373,6 +3740,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -3477,6 +3854,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -3646,6 +4033,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -3751,6 +4148,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -3844,6 +4251,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -3958,6 +4375,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -4054,6 +4481,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -4161,6 +4598,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -4257,6 +4704,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -4390,6 +4847,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -4487,6 +4954,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -4605,6 +5082,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -4704,6 +5191,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -4822,6 +5319,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -4929,6 +5436,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -5027,6 +5544,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -5148,6 +5675,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -5241,6 +5778,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -5357,6 +5904,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -5456,6 +6013,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -5576,6 +6143,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -5683,6 +6260,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -5808,6 +6395,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -5914,6 +6511,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -6045,6 +6652,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -6151,6 +6768,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -6242,6 +6869,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -6356,6 +6993,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -6448,6 +7095,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -6553,6 +7210,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -6671,6 +7338,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -6772,6 +7449,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -6896,6 +7583,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -7012,6 +7709,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -7026,7 +7733,7 @@
         ]
       },
       "patch" : {
-        "description" : "\n# Updating Column Attributes\n\nThis endpoint allows you to update some or all of the attributes of a column using a JSON merge-patch.\n\n## JSON Merge-Patch\n\nIn a JSON merge-patch, all fields are optional.\nThose fields that are present will set the value accordingly.\nA field that is explicitly set to `null` will reset the value to its default.\nThis means that `null`-values hold semantic relevance, so make sure to leave out fields you do not want to change.\n\nMore information on JSON merge-patches can be found in [RFC 7396](https://datatracker.ietf.org/doc/html/rfc7396).\n      ",
+        "description" : "\n# Updating Column Attributes\n\nThis endpoint allows you to update some or all of the attributes of a column using a JSON merge-patch.\nColumn Descriptions allow for Markdown formatting.\n\n## JSON Merge-Patch\n\nIn a JSON merge-patch, all fields are optional.\nThose fields that are present will set the value accordingly.\nA field that is explicitly set to `null` will reset the value to its default.\nThis means that `null`-values hold semantic relevance, so make sure to leave out fields you do not want to change.\n\nMore information on JSON merge-patches can be found in [RFC 7396](https://datatracker.ietf.org/doc/html/rfc7396).\n      ",
         "operationId" : "updateColumnAttributes",
         "parameters" : [
           {
@@ -7126,6 +7833,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -7266,6 +7983,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -7383,6 +8110,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -7510,6 +8247,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -7621,6 +8368,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -7754,6 +8511,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -7875,6 +8642,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -8020,6 +8797,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -8123,6 +8910,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -8252,6 +9049,16 @@
               }
             },
             "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
           }
         },
         "security" : [
@@ -8263,6 +9070,163 @@
         "summary" : "Export a table to a file",
         "tags" : [
           "Export API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/tables/{table}/incomplete-query-data" : {
+      "post" : {
+        "description" : "Get the specified data of a table without any guarantees of completed external function. In order to get the complete data with all calculated values, poll this endpoint until it has no more scheduled jobs (check response field `scheduledJobs == 0`).",
+        "operationId" : "getIncompleteTableQueryData",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "example" : "workspace-name",
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "table",
+            "required" : true,
+            "schema" : {
+              "example" : "table-name",
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "query",
+            "name" : "limit",
+            "required" : true,
+            "schema" : {
+              "exclusiveMinimum" : true,
+              "format" : "int32",
+              "minimum" : 0,
+              "type" : "integer"
+            }
+          },
+          {
+            "in" : "query",
+            "name" : "offset",
+            "required" : true,
+            "schema" : {
+              "format" : "int32",
+              "minimum" : 0,
+              "type" : "integer"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "example" : [
+                "foo",
+                "bar"
+              ],
+              "schema" : {
+                "items" : {
+                  "example" : "column-name",
+                  "type" : "string"
+                },
+                "type" : "array"
+              }
+            }
+          },
+          "required" : false
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/ApiTableData"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Get the specified data of a table",
+        "tags" : [
+          "Table API"
         ]
       }
     },
@@ -8344,6 +9308,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {
@@ -8461,6 +9435,16 @@
             "description" : ""
           },
           "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
             "content" : {
               "text/plain" : {
                 "schema" : {

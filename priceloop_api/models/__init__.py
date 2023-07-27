@@ -21,6 +21,7 @@ from .api_plugin_table_role_assignment_body import ApiPluginTableRoleAssignmentB
 from .api_plugin_table_role_body import ApiPluginTableRoleBody
 from .api_string_column_attributes import ApiStringColumnAttributes
 from .api_string_column_attributes_update import ApiStringColumnAttributesUpdate
+from .api_sync_table_schema import ApiSyncTableSchema
 from .api_table import ApiTable
 from .api_table_attributes import ApiTableAttributes
 from .api_table_data import ApiTableData
@@ -44,6 +45,7 @@ from .external_function_runtime import ExternalFunctionRuntime
 from .import_job import ImportJob
 from .import_job_response import ImportJobResponse
 from .map_ape_marketplace_registration import MapApeMarketplaceRegistration
+from .map_int import MapInt
 from .plugin import Plugin
 from .plugin_1 import Plugin1
 from .plugin_data_type_0 import PluginDataType0
@@ -96,6 +98,7 @@ __all__ = (
     "ApiPluginTableRoleBody",
     "ApiStringColumnAttributes",
     "ApiStringColumnAttributesUpdate",
+    "ApiSyncTableSchema",
     "ApiTable",
     "ApiTableAttributes",
     "ApiTableData",
@@ -119,6 +122,7 @@ __all__ = (
     "ImportJob",
     "ImportJobResponse",
     "MapApeMarketplaceRegistration",
+    "MapInt",
     "Plugin",
     "Plugin1",
     "PluginDataType0",

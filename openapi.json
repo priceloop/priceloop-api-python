@@ -311,6 +311,17 @@
           }
         ]
       },
+      "ApiPluginPageDefinitionId" : {
+        "properties" : {
+          "path" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "path"
+        ],
+        "type" : "object"
+      },
       "ApiPluginTableRoleAssignmentBody" : {
         "properties" : {
           "tableName" : {
@@ -1188,7 +1199,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.144.2"
+    "version" : "v0.148.4"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -1677,6 +1688,114 @@
       }
     },
     "/api/v1.0/plugin-definition/{plugin}/pages" : {
+      "delete" : {
+        "operationId" : "deletePluginPageDefinitionById",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ApiPluginPageDefinitionId"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Delete a plugin page",
+        "tags" : [
+          "Plugin Definition API"
+        ]
+      },
       "get" : {
         "operationId" : "listPluginPageDefinitions",
         "parameters" : [
@@ -1903,6 +2022,8 @@
     },
     "/api/v1.0/plugin-definition/{plugin}/pages/{path}" : {
       "delete" : {
+        "deprecated" : true,
+        "description" : "Deprecated - please use [deletePluginPageDefinitionById] instead.",
         "operationId" : "deletePluginPageDefinition",
         "parameters" : [
           {

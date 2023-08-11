@@ -17,6 +17,7 @@ from .api_column_schema import ApiColumnSchema
 from .api_column_with_values import ApiColumnWithValues
 from .api_external_function import ApiExternalFunction
 from .api_new_plugin_notification import ApiNewPluginNotification
+from .api_plugin_page_definition_id import ApiPluginPageDefinitionId
 from .api_plugin_table_role_assignment_body import ApiPluginTableRoleAssignmentBody
 from .api_plugin_table_role_body import ApiPluginTableRoleBody
 from .api_string_column_attributes import ApiStringColumnAttributes
@@ -94,6 +95,7 @@ __all__ = (
     "ApiColumnWithValues",
     "ApiExternalFunction",
     "ApiNewPluginNotification",
+    "ApiPluginPageDefinitionId",
     "ApiPluginTableRoleAssignmentBody",
     "ApiPluginTableRoleBody",
     "ApiStringColumnAttributes",

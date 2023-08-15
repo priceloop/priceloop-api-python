@@ -5,19 +5,22 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.api_plugin_page_definition_id import ApiPluginPageDefinitionId
 from ...types import Response
 
 
 def _get_kwargs(
     plugin: str,
-    path: str,
     *,
     client: AuthenticatedClient,
+    json_body: ApiPluginPageDefinitionId,
 ) -> Dict[str, Any]:
-    url = "{}/api/v1.0/plugin-definition/{plugin}/pages/{path}".format(client.base_url, plugin=plugin, path=path)
+    url = "{}/api/v1.0/plugin-definition/{plugin}/pages".format(client.base_url, plugin=plugin)
 
     headers: Dict[str, str] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
+
+    json_json_body = json_body.to_dict()
 
     return {
         "method": "delete",
@@ -26,6 +29,7 @@ def _get_kwargs(
         "cookies": cookies,
         "timeout": client.get_timeout(),
         "follow_redirects": client.follow_redirects,
+        "json": json_json_body,
     }
 
 
@@ -49,17 +53,15 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Any
 
 def sync_detailed(
     plugin: str,
-    path: str,
     *,
     client: AuthenticatedClient,
+    json_body: ApiPluginPageDefinitionId,
 ) -> Response[Any]:
     """Delete a plugin page
 
-     Deprecated - please use [deletePluginPageDefinitionById] instead.
-
     Args:
         plugin (str):
-        path (str):
+        json_body (ApiPluginPageDefinitionId):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -71,8 +73,8 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         plugin=plugin,
-        path=path,
         client=client,
+        json_body=json_body,
     )
 
     response = httpx.request(
@@ -85,17 +87,15 @@ def sync_detailed(
 
 async def asyncio_detailed(
     plugin: str,
-    path: str,
     *,
     client: AuthenticatedClient,
+    json_body: ApiPluginPageDefinitionId,
 ) -> Response[Any]:
     """Delete a plugin page
 
-     Deprecated - please use [deletePluginPageDefinitionById] instead.
-
     Args:
         plugin (str):
-        path (str):
+        json_body (ApiPluginPageDefinitionId):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -107,8 +107,8 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         plugin=plugin,
-        path=path,
         client=client,
+        json_body=json_body,
     )
 
     async with httpx.AsyncClient(verify=client.verify_ssl) as _client:

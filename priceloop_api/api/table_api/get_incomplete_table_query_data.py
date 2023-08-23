@@ -77,9 +77,14 @@ def sync_detailed(
 ) -> Response[ApiTableData]:
     """Get the specified data of a table
 
-     Get the specified data of a table without any guarantees of completed external function. In order to
+
+    Get the specified data of a table without any guarantees of completed external function. In order to
     get the complete data with all calculated values, poll this endpoint until it has no more scheduled
     jobs (check response field `scheduledJobs == 0`).
+
+    Please respect the polling interval given in `recommendedPollingIntervalSeconds`, in order to avoid
+    degrading the performance of the database.
+
 
     Args:
         workspace (str):  Example: workspace-name.
@@ -124,9 +129,14 @@ def sync(
 ) -> Optional[ApiTableData]:
     """Get the specified data of a table
 
-     Get the specified data of a table without any guarantees of completed external function. In order to
+
+    Get the specified data of a table without any guarantees of completed external function. In order to
     get the complete data with all calculated values, poll this endpoint until it has no more scheduled
     jobs (check response field `scheduledJobs == 0`).
+
+    Please respect the polling interval given in `recommendedPollingIntervalSeconds`, in order to avoid
+    degrading the performance of the database.
+
 
     Args:
         workspace (str):  Example: workspace-name.
@@ -164,9 +174,14 @@ async def asyncio_detailed(
 ) -> Response[ApiTableData]:
     """Get the specified data of a table
 
-     Get the specified data of a table without any guarantees of completed external function. In order to
+
+    Get the specified data of a table without any guarantees of completed external function. In order to
     get the complete data with all calculated values, poll this endpoint until it has no more scheduled
     jobs (check response field `scheduledJobs == 0`).
+
+    Please respect the polling interval given in `recommendedPollingIntervalSeconds`, in order to avoid
+    degrading the performance of the database.
+
 
     Args:
         workspace (str):  Example: workspace-name.
@@ -209,9 +224,14 @@ async def asyncio(
 ) -> Optional[ApiTableData]:
     """Get the specified data of a table
 
-     Get the specified data of a table without any guarantees of completed external function. In order to
+
+    Get the specified data of a table without any guarantees of completed external function. In order to
     get the complete data with all calculated values, poll this endpoint until it has no more scheduled
     jobs (check response field `scheduledJobs == 0`).
+
+    Please respect the polling interval given in `recommendedPollingIntervalSeconds`, in order to avoid
+    degrading the performance of the database.
+
 
     Args:
         workspace (str):  Example: workspace-name.

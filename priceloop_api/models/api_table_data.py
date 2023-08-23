@@ -16,17 +16,20 @@ T = TypeVar("T", bound="ApiTableData")
 class ApiTableData:
     """
     Attributes:
+        recommended_polling_interval_seconds (int):
         scheduled_jobs (int):
         scheduled_jobs_per_function (MapInt):
         rows (Union[Unset, List['TableRow']]):
     """
 
+    recommended_polling_interval_seconds: int
     scheduled_jobs: int
     scheduled_jobs_per_function: "MapInt"
     rows: Union[Unset, List["TableRow"]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        recommended_polling_interval_seconds = self.recommended_polling_interval_seconds
         scheduled_jobs = self.scheduled_jobs
         scheduled_jobs_per_function = self.scheduled_jobs_per_function.to_dict()
 
@@ -42,6 +45,7 @@ class ApiTableData:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
+                "recommendedPollingIntervalSeconds": recommended_polling_interval_seconds,
                 "scheduledJobs": scheduled_jobs,
                 "scheduledJobsPerFunction": scheduled_jobs_per_function,
             }
@@ -57,6 +61,8 @@ class ApiTableData:
         from ..models.table_row import TableRow
 
         d = src_dict.copy()
+        recommended_polling_interval_seconds = d.pop("recommendedPollingIntervalSeconds")
+
         scheduled_jobs = d.pop("scheduledJobs")
 
         scheduled_jobs_per_function = MapInt.from_dict(d.pop("scheduledJobsPerFunction"))
@@ -69,6 +75,7 @@ class ApiTableData:
             rows.append(rows_item)
 
         api_table_data = cls(
+            recommended_polling_interval_seconds=recommended_polling_interval_seconds,
             scheduled_jobs=scheduled_jobs,
             scheduled_jobs_per_function=scheduled_jobs_per_function,
             rows=rows,

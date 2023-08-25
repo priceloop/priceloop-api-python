@@ -311,6 +311,17 @@
           }
         ]
       },
+      "ApiPluginPageDefinitionId" : {
+        "properties" : {
+          "path" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "path"
+        ],
+        "type" : "object"
+      },
       "ApiPluginTableRoleAssignmentBody" : {
         "properties" : {
           "tableName" : {
@@ -410,6 +421,10 @@
       },
       "ApiTableAttributes" : {
         "properties" : {
+          "confirmEdits" : {
+            "nullable" : true,
+            "type" : "boolean"
+          },
           "hidden" : {
             "type" : "boolean"
           },
@@ -429,6 +444,10 @@
       },
       "ApiTableData" : {
         "properties" : {
+          "recommendedPollingIntervalSeconds" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
           "rows" : {
             "items" : {
               "$ref" : "#/components/schemas/TableRow"
@@ -445,7 +464,8 @@
         },
         "required" : [
           "scheduledJobs",
-          "scheduledJobsPerFunction"
+          "scheduledJobsPerFunction",
+          "recommendedPollingIntervalSeconds"
         ],
         "type" : "object"
       },
@@ -639,6 +659,21 @@
           "go"
         ],
         "type" : "string"
+      },
+      "HttpEndpoint" : {
+        "properties" : {
+          "secret" : {
+            "type" : "string"
+          },
+          "url" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "url",
+          "secret"
+        ],
+        "type" : "object"
       },
       "ImportJob" : {
         "properties" : {
@@ -1188,7 +1223,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.144.2"
+    "version" : "v0.157.0"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -1677,6 +1712,114 @@
       }
     },
     "/api/v1.0/plugin-definition/{plugin}/pages" : {
+      "delete" : {
+        "operationId" : "deletePluginPageDefinitionById",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "plugin",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/ApiPluginPageDefinitionId"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Delete a plugin page",
+        "tags" : [
+          "Plugin Definition API"
+        ]
+      },
       "get" : {
         "operationId" : "listPluginPageDefinitions",
         "parameters" : [
@@ -1786,7 +1929,7 @@
         ]
       },
       "put" : {
-        "description" : "# Create custom plugin pages\n\nPlugins can define their own pages consisting of a template.\nThis is an html template where you can layout customizable priceloop-blocks.\n\n## Template\n\nCreate your own page with a HTML-template (see template documentation: https://eta.js.org/).\n\nWe expose a global variable `app` in our templates to render reusable components and to access necessary data.\n\n### API\n\n```\ntype WorkspaceName = String\n\ntype ViewPagePath = String\n\ntype Icon\n\ntype Icons = {\n\talert_triangle: Icon,\n\tamazon_logo: Icon,\n\tamazon_logo_bw: Icon,\n\tarrow_down: Icon,\n\tarrow_left: Icon,\n\tarrow_right: Icon,\n\tarrow_up: Icon,\n\tbar_chart_2: Icon,\n\tbell: Icon,\n\tbook_open: Icon,\n\tboolean: Icon,\n\tbox: Icon,\n\tcalendar_1: Icon,\n\tcalendar_9: Icon,\n\tcheck: Icon,\n\tcheck_square: Icon,\n\tchevron_down: Icon,\n\tchevron_left: Icon,\n\tchevron_right: Icon,\n\tchevrons_down: Icon,\n\tchevrons_left: Icon,\n\tchevrons_right: Icon,\n\tchevrons_up: Icon,\n\tchevron_up: Icon,\n\tcolumns: Icon,\n\tdate: Icon,\n\tdownload: Icon,\n\tedit: Icon,\n\texternal_link: Icon,\n\teye: Icon,\n\teye_off: Icon,\n\tfile: Icon,\n\tfilter: Icon,\n\tformula: Icon,\n\thandle: Icon,\n\thelp_circle: Icon,\n\thome: Icon,\n\tjson: Icon,\n\tlock: Icon,\n\tlog_out: Icon,\n\tmaximize: Icon,\n\tminus_square: Icon,\n\tmonitor: Icon,\n\tmore_horizontal: Icon,\n\tmore_vertical: Icon,\n\tnumber: Icon,\n\tplus: Icon,\n\trow: Icon,\n\tsettings: Icon,\n\tsheet: Icon,\n\tshuffle: Icon,\n\tslack: Icon,\n\tsliders: Icon,\n\tsort: Icon,\n\tspinner: Icon,\n\ttable: Icon,\n\ttag: Icon,\n\ttext: Icon,\n\ttrash: Icon,\n\tupload: Icon,\n\tuser: Icon,\n\tx: Icon,\n\tzap: Icon\n}\n\ntype TemplateListGroupItem\n\ntype Action = { storeInState: String?, sendEvent: Any?, gotoLink: String? }\n\ntype ListGroupButtonOptions = {\n\ticonLeft: Icon,\n\ttitle: String,\n\ticonRight: Icon?,\n\tactive: Boolean?,\n\tdisabled: Boolean?,\n\tonClick: Action?\n}\n\ntype ListGroupItems = { heading: (title: String) => TemplateListGroupItem, spacer: TemplateListGroupItem, button: (options: ListGroupButtonOptions) => TemplateListGroupItem }\n\ntype UIBlock = String(<html>...</html>)\n\ntype UIComponents = {\n\ticons: Icons,\n\tlistGroup: ListGroupItems,\n\tbutton: (text: String, onClick: Action) => UIBlock,\n\tnavbar: (title: String, items: TemplateListGroupItem[]) => UIBlock\n}\n\ntype TableName = String\n\ntype ColumnName = String\n\ntype FilterOp = String(Eq | Ne | Lt | Lte | Gt | Gte | Is | IsNot | Contains | NotContains | IsEmpty | IsNotEmpty)\n\ntype TableQueryCondition = { column: ColumnName, op: FilterOp, value: String? }\n\ntype SortingOrder = String(Ascending | Descending)\n\ntype TableQueryOrdering = { column: ColumnName, order: SortingOrder }\n\ntype ColumnAggregate = String(avg | max | min | sum | bool_and | bool_or | string_agg(,))\n\ntype TableQueryAggregate = { column: ColumnName, agg: ColumnAggregate }\n\ntype TableQuery = {\n\tfrom: TableName,\n\tlimit: Int?,\n\toffset: Int?,\n\tselect: ColumnName[]?,\n\twhere: TableQueryCondition[]?,\n\torderBy: TableQueryOrdering[]?,\n\tgroupBy: ColumnName[]?,\n\taggregates: TableQueryAggregate[]?\n}\n\ntype TableOptions = { showDecoration: Boolean? }\n\ntype ChartType = String(Apex Chart Type: line | area | bar | pie | donut | radialBar | scatter | bubble | heatmap | candlestick | boxPlot | radar | polarArea | rangeBar | rangeArea | treemap (see: https://apexcharts.com/docs/chart-types/#))\n\ntype ChartXAxis = {\n\tcolumn: ColumnName,\n\tlabelColumn: ColumnName?,\n\tcolorColumn: ColumnName?,\n\tunit: String?\n}\n\ntype ChartYAxis = {\n\tcolumn: ColumnName,\n\tpartitionColumn: ColumnName?,\n\tlabel: String?,\n\tcolor: String?,\n\tunit: String?\n}\n\ntype ChartAnnotation = {\n\tstart: String,\n\tend: String,\n\tlabel: String,\n\tcolor: String?\n}\n\ntype ChartOptions = { xAnnotations: ChartAnnotation[]?, yAnnotations: ChartAnnotation[]?, additionalApexOptions: Object? }\n\ntype TableRow = { values: String?[], byName: (column: ColumnName) => String? }\n\ntype TableData = { rows: TableRow[] }\n\ntype App = {\n\tworkspaceName: WorkspaceName,\n\tstate: Object,\n\tworkspaceLink: (pagePath: ViewPagePath) => String,\n\tui: UIComponents,\n\tselectionBox: (placeholder: String, options: String[], action: Action) => UIBlock,\n\tselectionTableBox: (placeholder: String, options: String[][], headers: String[], action: Action) => UIBlock,\n\ttableSheet: (query: TableQuery, options: TableOptions?) => UIBlock,\n\tchart: (query: TableQuery, chartType: ChartType, x: ChartXAxis, y: ChartYAxis[], options: ChartOptions?) => UIBlock,\n\tchartCustom: (apexOptions: Object) => UIBlock,\n\tload: async (query: TableQuery) => TableData,\n\tloadOnce: async (query: TableQuery) => TableData\n}\n\napp: App\n```\n\n### Usage\n\nInside a template, you can write javascript inside of `<%...%>`.\nA `String` or any primitive value is rendered like this: `<%= app.workspaceName %>`.\nA `UIBlock` contains html and has to be rendered like this: `<%~ app.tableSheet(query) %>`.\nIt is possible to use `await` for `async` functions.\n\n### Example\n\n```\n<b>Hi <%= app.workspaceName %></b>\n\n<% let myQuery = { select: [ \"my-category\", \"my-value\" ], from: \"my-table\" } %>\n\n<div class=\"flex flex-row\">\n  <iframe class=\"h-full w-full\" src=\"https://example.com\"></iframe>\n  <%~ app.chart(myQuery, \"bar\", { column: \"my-category\" }, [ { column: \"my-value\" } ]) %>\n</div>\n\n<%~ app.tableSheet(myQuery) %>\n```",
+        "description" : "# Create custom plugin pages\n\nPlugins can define their own pages consisting of a template.\nThis is an html template where you can layout customizable priceloop-blocks.\n\n## Template\n\nCreate your own page with a HTML-template (see template documentation: https://eta.js.org/).\n\nWe expose a global variable `app` in our templates to render reusable components and to access necessary data.\n\n### API\n\n```\ntype WorkspaceName = String\n\ntype ViewPagePath = String\n\ntype Icon\n\ntype Icons = {\n\talert_triangle: Icon,\n\tamazon_logo: Icon,\n\tamazon_logo_bw: Icon,\n\tarrow_down: Icon,\n\tarrow_left: Icon,\n\tarrow_right: Icon,\n\tarrow_up: Icon,\n\tbar_chart_2: Icon,\n\tbell: Icon,\n\tbook_open: Icon,\n\tboolean: Icon,\n\tbox: Icon,\n\tcalendar_1: Icon,\n\tcalendar_9: Icon,\n\tcheck: Icon,\n\tcheck_square: Icon,\n\tchevron_down: Icon,\n\tchevron_left: Icon,\n\tchevron_right: Icon,\n\tchevrons_down: Icon,\n\tchevrons_left: Icon,\n\tchevrons_right: Icon,\n\tchevrons_up: Icon,\n\tchevron_up: Icon,\n\tcolumns: Icon,\n\tdate: Icon,\n\tdownload: Icon,\n\tedit: Icon,\n\texternal_link: Icon,\n\teye: Icon,\n\teye_off: Icon,\n\tfile: Icon,\n\tfilter: Icon,\n\tformula: Icon,\n\thandle: Icon,\n\thelp_circle: Icon,\n\thome: Icon,\n\tjson: Icon,\n\tlock: Icon,\n\tlog_out: Icon,\n\tmaximize: Icon,\n\tminus_square: Icon,\n\tmonitor: Icon,\n\tmore_horizontal: Icon,\n\tmore_vertical: Icon,\n\tnumber: Icon,\n\tplus: Icon,\n\trow: Icon,\n\tsave: Icon,\n\tsettings: Icon,\n\tsheet: Icon,\n\tshuffle: Icon,\n\tslack: Icon,\n\tsliders: Icon,\n\tsort: Icon,\n\tspinner: Icon,\n\ttable: Icon,\n\ttag: Icon,\n\ttext: Icon,\n\ttrash: Icon,\n\tupload: Icon,\n\tuser: Icon,\n\tx: Icon,\n\tzap: Icon\n}\n\ntype TemplateListGroupItem\n\ntype PluginName = String\n\ntype SendEventAction = { pluginName: PluginName?, payload: Any }\n\ntype Action = {\n\tstoreInState: String?,\n\tsendEvent: SendEventAction?,\n\tgotoLink: String?,\n\treloadPage: Boolean?\n}\n\ntype ListGroupButtonOptions = {\n\ticonLeft: Icon,\n\ttitle: String,\n\ticonRight: Icon?,\n\tactive: Boolean?,\n\tdisabled: Boolean?,\n\tonClick: Action?\n}\n\ntype ListGroupItems = { heading: (title: String) => TemplateListGroupItem, spacer: TemplateListGroupItem, button: (options: ListGroupButtonOptions) => TemplateListGroupItem }\n\ntype UIBlock = String(<html>...</html>)\n\ntype UIComponents = {\n\ticons: Icons,\n\tlistGroup: ListGroupItems,\n\tbutton: (text: String, onClick: Action) => UIBlock,\n\tnavbar: (title: String, items: TemplateListGroupItem[]) => UIBlock\n}\n\ntype TableName = String\n\ntype ColumnName = String\n\ntype FilterOp = String(Eq | Ne | Lt | Lte | Gt | Gte | Is | IsNot | Contains | NotContains | IsEmpty | IsNotEmpty)\n\ntype TableQueryCondition = { column: ColumnName, op: FilterOp, value: String? }\n\ntype SortingOrder = String(Ascending | Descending)\n\ntype TableQueryOrdering = { column: ColumnName, order: SortingOrder }\n\ntype ColumnAggregate = String(avg | max | min | sum | bool_and | bool_or | string_agg(,))\n\ntype TableQueryAggregate = { column: ColumnName, agg: ColumnAggregate }\n\ntype TableQuery = {\n\tfrom: TableName,\n\tlimit: Int?,\n\toffset: Int?,\n\tselect: ColumnName[]?,\n\twhere: TableQueryCondition[]?,\n\torderBy: TableQueryOrdering[]?,\n\tgroupBy: ColumnName[]?,\n\taggregates: TableQueryAggregate[]?\n}\n\ntype TableOptions = { showDecoration: Boolean? }\n\ntype ChartType = String(Apex Chart Type: line | area | bar | pie | donut | radialBar | scatter | bubble | heatmap | candlestick | boxPlot | radar | polarArea | rangeBar | rangeArea | treemap (see: https://apexcharts.com/docs/chart-types/#))\n\ntype ChartXAxis = {\n\tcolumn: ColumnName,\n\tlabelColumn: ColumnName?,\n\tcolorColumn: ColumnName?,\n\tunit: String?\n}\n\ntype ChartYAxis = {\n\tcolumn: ColumnName,\n\tpartitionColumn: ColumnName?,\n\tlabel: String?,\n\tcolor: String?,\n\tunit: String?\n}\n\ntype ChartAnnotation = {\n\tstart: String,\n\tend: String,\n\tlabel: String,\n\tcolor: String?\n}\n\ntype ChartOptions = { xAnnotations: ChartAnnotation[]?, yAnnotations: ChartAnnotation[]?, additionalApexOptions: Object? }\n\ntype PageId = String(PageId for usage with eta-functions like include, includeAsync or layout: https://eta.js.org/docs/intro/template-syntax#partials-and-layouts)\n\ntype TableRow = { values: String?[], byName: (column: ColumnName) => String? }\n\ntype TableData = { rows: TableRow[] }\n\ntype App = {\n\tworkspaceName: WorkspaceName,\n\tstate: Object,\n\tworkspaceLink: (pagePath: ViewPagePath, queryParameters: { [key]: String }?) => String,\n\tui: UIComponents,\n\tselectionBox: (placeholder: String, options: String[], action: Action) => UIBlock,\n\tselectionTableBox: (placeholder: String, options: String[][], headers: String[], action: Action) => UIBlock,\n\ttableSheet: (query: TableQuery, options: TableOptions?) => UIBlock,\n\tchart: (query: TableQuery, chartType: ChartType, x: ChartXAxis, y: ChartYAxis[], options: ChartOptions?) => UIBlock,\n\tchartCustom: (apexOptions: Object) => UIBlock,\n\tpageId: (path: ViewPagePath, pluginName: PluginName?) => PageId,\n\tload: async (query: TableQuery) => TableData,\n\tloadOnce: async (query: TableQuery) => TableData,\n\trowCount: async (query: TableQuery) => Long,\n\trowCountOnce: async (query: TableQuery) => Long\n}\n\napp: App\n```\n\n### Usage\n\nInside a template, you can write javascript inside of `<%...%>`.\nA `String` or any primitive value is rendered like this: `<%= app.workspaceName %>`.\nA `UIBlock` contains html and has to be rendered like this: `<%~ app.tableSheet(query) %>`.\nIt is possible to use `await` for `async` functions.\n\n### Example\n\n```\n<b>Hi <%= app.workspaceName %></b>\n\n<% let myQuery = { select: [ \"my-category\", \"my-value\" ], from: \"my-table\" } %>\n\n<div class=\"flex flex-row\">\n  <iframe class=\"h-full w-full\" src=\"https://example.com\"></iframe>\n  <%~ app.chart(myQuery, \"bar\", { column: \"my-category\" }, [ { column: \"my-value\" } ]) %>\n</div>\n\n<%~ app.tableSheet(myQuery) %>\n```",
         "operationId" : "putPluginPageDefinition",
         "parameters" : [
           {
@@ -1903,6 +2046,8 @@
     },
     "/api/v1.0/plugin-definition/{plugin}/pages/{path}" : {
       "delete" : {
+        "deprecated" : true,
+        "description" : "Deprecated - please use [deletePluginPageDefinitionById] instead.",
         "operationId" : "deletePluginPageDefinition",
         "parameters" : [
           {
@@ -2658,7 +2803,7 @@
         ]
       },
       "post" : {
-        "description" : "\n# Plugin Webhooks\n\nThis API allows you to register a webhook endpoint that receives plugin events from our platform.\nAll events will be sent as *POST* requests to the provided webhook url.\n\nIn case your webhook endpoint is down or responds with non-success status codes, we will retry to deliver the event up to 10 times over a time period of 1 hour.\n\n## Registration/Confirmation\n\nAfter registering, you will receive a first message on your webhook endpoint to confirm the registration.\nThe registration message looks like this:\n```json\n{\n  \"SubscribeURL\": \"https://...\"\n}\n```\n\nYou have to make a *GET* request to the `SubscribeURL` in order to receive further events.\n\n## Events\n\nAfter confirmation, you will start receiving the desired plugin events.\nThe event messages look like this:\n```json\n{\n  \"event\" : \"PluginInstalled\",\n  \"pluginName\" : \"some-plugin\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginUninstalled\",\n  \"pluginName\" : \"some-plugin\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginTokensUpdated\",\n  \"pluginName\" : \"some-plugin\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginDataUpdated\",\n  \"newData\" : {\n    \"Empty\" : {\n      \n    }\n  },\n  \"oldData\" : {\n    \"Empty\" : {\n      \n    }\n  },\n  \"pluginName\" : \"some-plugin\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginTableRoleTrigger\",\n  \"pluginName\" : \"some-plugin\",\n  \"roleName\" : \"some-role\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```",
+        "description" : "\n# Plugin Webhooks\n\nThis API allows you to register a webhook endpoint that receives plugin events from our platform.\nAll events will be sent as *POST* requests to the provided webhook url.\n\nIn case your webhook endpoint is down or responds with non-success status codes, we will retry to deliver the event up to 10 times over a time period of 1 hour.\n\n## Registration/Confirmation\n\nAfter registering, you will receive a first message on your webhook endpoint to confirm the registration.\nThe registration message looks like this:\n```json\n{\n  \"SubscribeURL\": \"https://...\"\n}\n```\n\nYou have to make a *GET* request to the `SubscribeURL` in order to receive further events.\n\n## Events\n\nAfter confirmation, you will start receiving the desired plugin events.\nThe event messages look like this:\n```json\n{\n  \"event\" : \"PluginInstalled\",\n  \"pluginName\" : \"some-plugin\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginUninstalled\",\n  \"pluginName\" : \"some-plugin\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginTokensUpdated\",\n  \"pluginName\" : \"some-plugin\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginDataUpdated\",\n  \"newData\" : {\n    \"Empty\" : {\n      \n    }\n  },\n  \"oldData\" : {\n    \"Empty\" : {\n      \n    }\n  },\n  \"pluginName\" : \"some-plugin\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginTableRoleTrigger\",\n  \"pluginName\" : \"some-plugin\",\n  \"roleName\" : \"some-role\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```\n```json\n{\n  \"event\" : \"PluginViewTemplateTrigger\",\n  \"payload\" : {\n    \n  },\n  \"pluginName\" : \"some-plugin\",\n  \"workspaceName\" : \"some-workspace-name\"\n}\n```",
         "operationId" : "addPluginWebhook",
         "parameters" : [
           {
@@ -2990,6 +3135,105 @@
       }
     },
     "/api/v1.0/workspaces/{workspace}" : {
+      "delete" : {
+        "operationId" : "deleteWorkspace",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "example" : "workspace-name",
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "204" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Delete a workspace - CANNOT BE UNDONE",
+        "tags" : [
+          "Workspace API"
+        ]
+      },
       "get" : {
         "operationId" : "getWorkspace",
         "parameters" : [
@@ -3886,7 +4130,7 @@
         ]
       },
       "post" : {
-        "description" : "Create external functions, specifying the function name, runtime, return type and the paremeter types. This API endpoint returns a url, to which you can upload your function code. You can do a PUT request on the returned url, e.g.: curl -XPUT -T <zip-file> '<url>'.",
+        "description" : "Create external functions, specifying the function name, runtime, return type and the parameter types. This API endpoint returns a url, to which you can upload your function code. You can do a PUT request on the returned url, e.g.: curl -XPUT -T <zip-file> '<url>'.",
         "operationId" : "createExternalFunction",
         "parameters" : [
           {
@@ -4051,7 +4295,7 @@
             ]
           }
         ],
-        "summary" : "Create a new external function",
+        "summary" : "Create a new external function (Lambda)",
         "tags" : [
           "External Function API"
         ]
@@ -4166,7 +4410,175 @@
             ]
           }
         ],
-        "summary" : "Update the code of an existing external function",
+        "summary" : "Update the code of an existing external function (Lambda)",
+        "tags" : [
+          "External Function API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/external-functions/{function}/http" : {
+      "post" : {
+        "description" : "Create external functions, specifying the function name, return type and the parameter types. You just need to provide an HTTP endpoint to which external function requests will be sent. You also need to provide a secret - it will be used to sign requests from our platform. This hash signature is included with the headers of each request as `x-nocode-signature-256`. You should calculate a hash using your secret, and ensure that the result matches the hash from our platform. We use an HMAC-SHA256 hex digest to compute the hash.",
+        "operationId" : "createExternalFunctionHttp",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "function",
+            "required" : true,
+            "schema" : {
+              "example" : "function-name",
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "query",
+            "name" : "returnType",
+            "required" : true,
+            "schema" : {
+              "enum" : [
+                "number",
+                "string",
+                "boolean",
+                "date",
+                "json"
+              ],
+              "type" : "string"
+            }
+          },
+          {
+            "description" : "Specify parameter types. Expected: number,string,boolean,date,json",
+            "explode" : false,
+            "in" : "query",
+            "name" : "paramType",
+            "required" : false,
+            "schema" : {
+              "items" : {
+                "enum" : [
+                  "number",
+                  "string",
+                  "boolean",
+                  "date",
+                  "json"
+                ],
+                "type" : "string"
+              },
+              "type" : "array"
+            }
+          },
+          {
+            "description" : "How many function calls are batched and passed to this function. Default: 300",
+            "in" : "query",
+            "name" : "batchSize",
+            "required" : false,
+            "schema" : {
+              "default" : 300,
+              "exclusiveMinimum" : true,
+              "format" : "int32",
+              "minimum" : 0,
+              "type" : "integer"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/HttpEndpoint"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Create a new external function (HTTP Endpoint)",
         "tags" : [
           "External Function API"
         ]
@@ -7268,6 +7680,12 @@
         "requestBody" : {
           "content" : {
             "application/json" : {
+              "example" : {
+                "confirmEdits" : false,
+                "hidden" : false,
+                "prominentImportYourDataButton" : false,
+                "writable" : true
+              },
               "schema" : {
                 "$ref" : "#/components/schemas/ApiTableAttributes"
               }
@@ -8537,7 +8955,7 @@
     },
     "/api/v1.0/workspaces/{workspace}/tables/{table}/data" : {
       "get" : {
-        "description" : "Get the data of a table. In order to get the complete data with all calculated values, poll this endpoint until it has no more scheduled jobs (check response field `scheduledJobs == 0`).",
+        "description" : "\nGet the data of a table. In order to get the complete data with all calculated values, poll this endpoint until it has no more scheduled jobs (check response field `scheduledJobs == 0`).\n\nPlease respect the polling interval given in `recommendedPollingIntervalSeconds`, in order to avoid degrading the performance of the database.\n        ",
         "operationId" : "getTableData",
         "parameters" : [
           {
@@ -9075,7 +9493,7 @@
     },
     "/api/v1.0/workspaces/{workspace}/tables/{table}/incomplete-query-data" : {
       "post" : {
-        "description" : "Get the specified data of a table without any guarantees of completed external function. In order to get the complete data with all calculated values, poll this endpoint until it has no more scheduled jobs (check response field `scheduledJobs == 0`).",
+        "description" : "\nGet the specified data of a table without any guarantees of completed external function. In order to get the complete data with all calculated values, poll this endpoint until it has no more scheduled jobs (check response field `scheduledJobs == 0`).\n\nPlease respect the polling interval given in `recommendedPollingIntervalSeconds`, in order to avoid degrading the performance of the database.\n        ",
         "operationId" : "getIncompleteTableQueryData",
         "parameters" : [
           {

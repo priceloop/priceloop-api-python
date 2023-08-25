@@ -58,7 +58,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[PresignedUrl]:
-    """Update the code of an existing external function
+    """Update the code of an existing external function (Lambda)
 
      This API endpoint returns a url, to which you can upload your function code. You can do a PUT
     request on the returned url, e.g.: curl -XPUT -T <zip-file> '<url>'.
@@ -95,7 +95,7 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Optional[PresignedUrl]:
-    """Update the code of an existing external function
+    """Update the code of an existing external function (Lambda)
 
      This API endpoint returns a url, to which you can upload your function code. You can do a PUT
     request on the returned url, e.g.: curl -XPUT -T <zip-file> '<url>'.
@@ -125,7 +125,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[PresignedUrl]:
-    """Update the code of an existing external function
+    """Update the code of an existing external function (Lambda)
 
      This API endpoint returns a url, to which you can upload your function code. You can do a PUT
     request on the returned url, e.g.: curl -XPUT -T <zip-file> '<url>'.
@@ -160,7 +160,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Optional[PresignedUrl]:
-    """Update the code of an existing external function
+    """Update the code of an existing external function (Lambda)
 
      This API endpoint returns a url, to which you can upload your function code. You can do a PUT
     request on the returned url, e.g.: curl -XPUT -T <zip-file> '<url>'.

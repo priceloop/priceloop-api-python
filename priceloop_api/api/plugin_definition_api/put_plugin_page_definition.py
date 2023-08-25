@@ -129,6 +129,7 @@ def sync_detailed(
         number: Icon,
         plus: Icon,
         row: Icon,
+        save: Icon,
         settings: Icon,
         sheet: Icon,
         shuffle: Icon,
@@ -148,7 +149,16 @@ def sync_detailed(
 
     type TemplateListGroupItem
 
-    type Action = { storeInState: String?, sendEvent: Any?, gotoLink: String? }
+    type PluginName = String
+
+    type SendEventAction = { pluginName: PluginName?, payload: Any }
+
+    type Action = {
+        storeInState: String?,
+        sendEvent: SendEventAction?,
+        gotoLink: String?,
+        reloadPage: Boolean?
+    }
 
     type ListGroupButtonOptions = {
         iconLeft: Icon,
@@ -230,6 +240,9 @@ def sync_detailed(
     type ChartOptions = { xAnnotations: ChartAnnotation[]?, yAnnotations: ChartAnnotation[]?,
     additionalApexOptions: Object? }
 
+    type PageId = String(PageId for usage with eta-functions like include, includeAsync or layout:
+    https://eta.js.org/docs/intro/template-syntax#partials-and-layouts)
+
     type TableRow = { values: String?[], byName: (column: ColumnName) => String? }
 
     type TableData = { rows: TableRow[] }
@@ -237,7 +250,7 @@ def sync_detailed(
     type App = {
         workspaceName: WorkspaceName,
         state: Object,
-        workspaceLink: (pagePath: ViewPagePath) => String,
+        workspaceLink: (pagePath: ViewPagePath, queryParameters: { [key]: String }?) => String,
         ui: UIComponents,
         selectionBox: (placeholder: String, options: String[], action: Action) => UIBlock,
         selectionTableBox: (placeholder: String, options: String[][], headers: String[], action: Action) =>
@@ -246,8 +259,11 @@ def sync_detailed(
         chart: (query: TableQuery, chartType: ChartType, x: ChartXAxis, y: ChartYAxis[], options:
     ChartOptions?) => UIBlock,
         chartCustom: (apexOptions: Object) => UIBlock,
+        pageId: (path: ViewPagePath, pluginName: PluginName?) => PageId,
         load: async (query: TableQuery) => TableData,
-        loadOnce: async (query: TableQuery) => TableData
+        loadOnce: async (query: TableQuery) => TableData,
+        rowCount: async (query: TableQuery) => Long,
+        rowCountOnce: async (query: TableQuery) => Long
     }
 
     app: App
@@ -379,6 +395,7 @@ async def asyncio_detailed(
         number: Icon,
         plus: Icon,
         row: Icon,
+        save: Icon,
         settings: Icon,
         sheet: Icon,
         shuffle: Icon,
@@ -398,7 +415,16 @@ async def asyncio_detailed(
 
     type TemplateListGroupItem
 
-    type Action = { storeInState: String?, sendEvent: Any?, gotoLink: String? }
+    type PluginName = String
+
+    type SendEventAction = { pluginName: PluginName?, payload: Any }
+
+    type Action = {
+        storeInState: String?,
+        sendEvent: SendEventAction?,
+        gotoLink: String?,
+        reloadPage: Boolean?
+    }
 
     type ListGroupButtonOptions = {
         iconLeft: Icon,
@@ -480,6 +506,9 @@ async def asyncio_detailed(
     type ChartOptions = { xAnnotations: ChartAnnotation[]?, yAnnotations: ChartAnnotation[]?,
     additionalApexOptions: Object? }
 
+    type PageId = String(PageId for usage with eta-functions like include, includeAsync or layout:
+    https://eta.js.org/docs/intro/template-syntax#partials-and-layouts)
+
     type TableRow = { values: String?[], byName: (column: ColumnName) => String? }
 
     type TableData = { rows: TableRow[] }
@@ -487,7 +516,7 @@ async def asyncio_detailed(
     type App = {
         workspaceName: WorkspaceName,
         state: Object,
-        workspaceLink: (pagePath: ViewPagePath) => String,
+        workspaceLink: (pagePath: ViewPagePath, queryParameters: { [key]: String }?) => String,
         ui: UIComponents,
         selectionBox: (placeholder: String, options: String[], action: Action) => UIBlock,
         selectionTableBox: (placeholder: String, options: String[][], headers: String[], action: Action) =>
@@ -496,8 +525,11 @@ async def asyncio_detailed(
         chart: (query: TableQuery, chartType: ChartType, x: ChartXAxis, y: ChartYAxis[], options:
     ChartOptions?) => UIBlock,
         chartCustom: (apexOptions: Object) => UIBlock,
+        pageId: (path: ViewPagePath, pluginName: PluginName?) => PageId,
         load: async (query: TableQuery) => TableData,
-        loadOnce: async (query: TableQuery) => TableData
+        loadOnce: async (query: TableQuery) => TableData,
+        rowCount: async (query: TableQuery) => Long,
+        rowCountOnce: async (query: TableQuery) => Long
     }
 
     app: App

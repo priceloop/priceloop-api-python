@@ -9,12 +9,11 @@ from ...types import Response
 
 
 def _get_kwargs(
-    plugin: str,
-    path: str,
+    workspace: str,
     *,
     client: AuthenticatedClient,
 ) -> Dict[str, Any]:
-    url = "{}/api/v1.0/plugin-definition/{plugin}/pages/{path}".format(client.base_url, plugin=plugin, path=path)
+    url = "{}/api/v1.0/workspaces/{workspace}".format(client.base_url, workspace=workspace)
 
     headers: Dict[str, str] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
@@ -30,7 +29,7 @@ def _get_kwargs(
 
 
 def _parse_response(*, client: Client, response: httpx.Response) -> Optional[Any]:
-    if response.status_code == HTTPStatus.OK:
+    if response.status_code == HTTPStatus.NO_CONTENT:
         return None
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -48,18 +47,14 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Any
 
 
 def sync_detailed(
-    plugin: str,
-    path: str,
+    workspace: str,
     *,
     client: AuthenticatedClient,
 ) -> Response[Any]:
-    """Delete a plugin page
-
-     Deprecated - please use [deletePluginPageDefinitionById] instead.
+    """Delete a workspace - CANNOT BE UNDONE
 
     Args:
-        plugin (str):
-        path (str):
+        workspace (str):  Example: workspace-name.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -70,8 +65,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        plugin=plugin,
-        path=path,
+        workspace=workspace,
         client=client,
     )
 
@@ -84,18 +78,14 @@ def sync_detailed(
 
 
 async def asyncio_detailed(
-    plugin: str,
-    path: str,
+    workspace: str,
     *,
     client: AuthenticatedClient,
 ) -> Response[Any]:
-    """Delete a plugin page
-
-     Deprecated - please use [deletePluginPageDefinitionById] instead.
+    """Delete a workspace - CANNOT BE UNDONE
 
     Args:
-        plugin (str):
-        path (str):
+        workspace (str):  Example: workspace-name.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -106,8 +96,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        plugin=plugin,
-        path=path,
+        workspace=workspace,
         client=client,
     )
 

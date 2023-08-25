@@ -151,6 +151,16 @@ def sync_detailed(
       \"workspaceName\" : \"some-workspace-name\"
     }
     ```
+    ```json
+    {
+      \"event\" : \"PluginViewTemplateTrigger\",
+      \"payload\" : {
+
+      },
+      \"pluginName\" : \"some-plugin\",
+      \"workspaceName\" : \"some-workspace-name\"
+    }
+    ```
 
     Args:
         plugin (str):
@@ -258,6 +268,16 @@ async def asyncio_detailed(
       \"event\" : \"PluginTableRoleTrigger\",
       \"pluginName\" : \"some-plugin\",
       \"roleName\" : \"some-role\",
+      \"workspaceName\" : \"some-workspace-name\"
+    }
+    ```
+    ```json
+    {
+      \"event\" : \"PluginViewTemplateTrigger\",
+      \"payload\" : {
+
+      },
+      \"pluginName\" : \"some-plugin\",
       \"workspaceName\" : \"some-workspace-name\"
     }
     ```

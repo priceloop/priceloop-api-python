@@ -96,9 +96,9 @@ def sync_detailed(
     param_type: Union[Unset, None, List[CreateExternalFunctionParamTypeItem]] = UNSET,
     batch_size: Union[Unset, None, int] = 300,
 ) -> Response[PresignedUrl]:
-    """Create a new external function
+    """Create a new external function (Lambda)
 
-     Create external functions, specifying the function name, runtime, return type and the paremeter
+     Create external functions, specifying the function name, runtime, return type and the parameter
     types. This API endpoint returns a url, to which you can upload your function code. You can do a PUT
     request on the returned url, e.g.: curl -XPUT -T <zip-file> '<url>'.
 
@@ -146,9 +146,9 @@ def sync(
     param_type: Union[Unset, None, List[CreateExternalFunctionParamTypeItem]] = UNSET,
     batch_size: Union[Unset, None, int] = 300,
 ) -> Optional[PresignedUrl]:
-    """Create a new external function
+    """Create a new external function (Lambda)
 
-     Create external functions, specifying the function name, runtime, return type and the paremeter
+     Create external functions, specifying the function name, runtime, return type and the parameter
     types. This API endpoint returns a url, to which you can upload your function code. You can do a PUT
     request on the returned url, e.g.: curl -XPUT -T <zip-file> '<url>'.
 
@@ -189,9 +189,9 @@ async def asyncio_detailed(
     param_type: Union[Unset, None, List[CreateExternalFunctionParamTypeItem]] = UNSET,
     batch_size: Union[Unset, None, int] = 300,
 ) -> Response[PresignedUrl]:
-    """Create a new external function
+    """Create a new external function (Lambda)
 
-     Create external functions, specifying the function name, runtime, return type and the paremeter
+     Create external functions, specifying the function name, runtime, return type and the parameter
     types. This API endpoint returns a url, to which you can upload your function code. You can do a PUT
     request on the returned url, e.g.: curl -XPUT -T <zip-file> '<url>'.
 
@@ -237,9 +237,9 @@ async def asyncio(
     param_type: Union[Unset, None, List[CreateExternalFunctionParamTypeItem]] = UNSET,
     batch_size: Union[Unset, None, int] = 300,
 ) -> Optional[PresignedUrl]:
-    """Create a new external function
+    """Create a new external function (Lambda)
 
-     Create external functions, specifying the function name, runtime, return type and the paremeter
+     Create external functions, specifying the function name, runtime, return type and the parameter
     types. This API endpoint returns a url, to which you can upload your function code. You can do a PUT
     request on the returned url, e.g.: curl -XPUT -T <zip-file> '<url>'.
 

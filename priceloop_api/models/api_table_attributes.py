@@ -1,6 +1,8 @@
-from typing import Any, Dict, List, Type, TypeVar
+from typing import Any, Dict, List, Type, TypeVar, Union
 
 import attr
+
+from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="ApiTableAttributes")
 
@@ -12,17 +14,20 @@ class ApiTableAttributes:
         hidden (bool):
         prominent_import_your_data_button (bool):
         writable (bool):
+        confirm_edits (Union[Unset, None, bool]):
     """
 
     hidden: bool
     prominent_import_your_data_button: bool
     writable: bool
+    confirm_edits: Union[Unset, None, bool] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         hidden = self.hidden
         prominent_import_your_data_button = self.prominent_import_your_data_button
         writable = self.writable
+        confirm_edits = self.confirm_edits
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -33,6 +38,8 @@ class ApiTableAttributes:
                 "writable": writable,
             }
         )
+        if confirm_edits is not UNSET:
+            field_dict["confirmEdits"] = confirm_edits
 
         return field_dict
 
@@ -45,10 +52,13 @@ class ApiTableAttributes:
 
         writable = d.pop("writable")
 
+        confirm_edits = d.pop("confirmEdits", UNSET)
+
         api_table_attributes = cls(
             hidden=hidden,
             prominent_import_your_data_button=prominent_import_your_data_button,
             writable=writable,
+            confirm_edits=confirm_edits,
         )
 
         api_table_attributes.additional_properties = d

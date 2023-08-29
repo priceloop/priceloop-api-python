@@ -17,6 +17,7 @@ from .api_column_schema import ApiColumnSchema
 from .api_column_with_values import ApiColumnWithValues
 from .api_external_function import ApiExternalFunction
 from .api_new_plugin_notification import ApiNewPluginNotification
+from .api_plugin_page_definition_id import ApiPluginPageDefinitionId
 from .api_plugin_table_role_assignment_body import ApiPluginTableRoleAssignmentBody
 from .api_plugin_table_role_body import ApiPluginTableRoleBody
 from .api_string_column_attributes import ApiStringColumnAttributes
@@ -31,6 +32,8 @@ from .boolean_display_style import BooleanDisplayStyle
 from .column_background_color import ColumnBackgroundColor
 from .column_computation_mode import ColumnComputationMode
 from .confirmation_modal_description import ConfirmationModalDescription
+from .create_external_function_http_param_type_item import CreateExternalFunctionHttpParamTypeItem
+from .create_external_function_http_return_type import CreateExternalFunctionHttpReturnType
 from .create_external_function_param_type_item import CreateExternalFunctionParamTypeItem
 from .create_external_function_return_type import CreateExternalFunctionReturnType
 from .create_workspace_membership_response_200 import CreateWorkspaceMembershipResponse200
@@ -42,6 +45,7 @@ from .export_format_type_0 import ExportFormatType0
 from .export_info import ExportInfo
 from .export_job import ExportJob
 from .external_function_runtime import ExternalFunctionRuntime
+from .http_endpoint import HttpEndpoint
 from .import_job import ImportJob
 from .import_job_response import ImportJobResponse
 from .map_ape_marketplace_registration import MapApeMarketplaceRegistration
@@ -94,6 +98,7 @@ __all__ = (
     "ApiColumnWithValues",
     "ApiExternalFunction",
     "ApiNewPluginNotification",
+    "ApiPluginPageDefinitionId",
     "ApiPluginTableRoleAssignmentBody",
     "ApiPluginTableRoleBody",
     "ApiStringColumnAttributes",
@@ -108,6 +113,8 @@ __all__ = (
     "ColumnBackgroundColor",
     "ColumnComputationMode",
     "ConfirmationModalDescription",
+    "CreateExternalFunctionHttpParamTypeItem",
+    "CreateExternalFunctionHttpReturnType",
     "CreateExternalFunctionParamTypeItem",
     "CreateExternalFunctionReturnType",
     "CreateWorkspaceMembershipResponse200",
@@ -119,6 +126,7 @@ __all__ = (
     "ExportInfo",
     "ExportJob",
     "ExternalFunctionRuntime",
+    "HttpEndpoint",
     "ImportJob",
     "ImportJobResponse",
     "MapApeMarketplaceRegistration",

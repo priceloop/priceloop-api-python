@@ -153,11 +153,14 @@ def sync_detailed(
 
     type SendEventAction = { pluginName: PluginName?, payload: Any }
 
+    type HtmlId = String
+
     type Action = {
         storeInState: String?,
         sendEvent: SendEventAction?,
         gotoLink: String?,
-        reloadPage: Boolean?
+        reloadPage: Boolean?,
+        scrollIntoView: HtmlId?
     }
 
     type ListGroupButtonOptions = {
@@ -178,7 +181,8 @@ def sync_detailed(
         icons: Icons,
         listGroup: ListGroupItems,
         button: (text: String, onClick: Action) => UIBlock,
-        navbar: (title: String, items: TemplateListGroupItem[]) => UIBlock
+        navbar: (title: String, items: TemplateListGroupItem[]) => UIBlock,
+        tooltip: (content: String) => UIBlock
     }
 
     type TableName = String
@@ -419,11 +423,14 @@ async def asyncio_detailed(
 
     type SendEventAction = { pluginName: PluginName?, payload: Any }
 
+    type HtmlId = String
+
     type Action = {
         storeInState: String?,
         sendEvent: SendEventAction?,
         gotoLink: String?,
-        reloadPage: Boolean?
+        reloadPage: Boolean?,
+        scrollIntoView: HtmlId?
     }
 
     type ListGroupButtonOptions = {
@@ -444,7 +451,8 @@ async def asyncio_detailed(
         icons: Icons,
         listGroup: ListGroupItems,
         button: (text: String, onClick: Action) => UIBlock,
-        navbar: (title: String, items: TemplateListGroupItem[]) => UIBlock
+        navbar: (title: String, items: TemplateListGroupItem[]) => UIBlock,
+        tooltip: (content: String) => UIBlock
     }
 
     type TableName = String

@@ -174,6 +174,9 @@
           "isHidden" : {
             "type" : "boolean"
           },
+          "numberColumnAttributes" : {
+            "$ref" : "#/components/schemas/ApiNumberColumnAttributes"
+          },
           "stringColumnAttributes" : {
             "$ref" : "#/components/schemas/ApiStringColumnAttributes"
           }
@@ -183,7 +186,8 @@
           "isGuiLocked",
           "computationMode",
           "booleanColumnAttributes",
-          "stringColumnAttributes"
+          "stringColumnAttributes",
+          "numberColumnAttributes"
         ],
         "type" : "object"
       },
@@ -209,6 +213,9 @@
           "isHidden" : {
             "nullable" : true,
             "type" : "boolean"
+          },
+          "numberColumnAttributes" : {
+            "$ref" : "#/components/schemas/ApiNumberColumnAttributesUpdate"
           },
           "stringColumnAttributes" : {
             "$ref" : "#/components/schemas/ApiStringColumnAttributesUpdate"
@@ -296,6 +303,40 @@
           "title",
           "body"
         ],
+        "type" : "object"
+      },
+      "ApiNumberColumnAttributes" : {
+        "properties" : {
+          "displayStyle" : {
+            "$ref" : "#/components/schemas/NumberDisplayStyle"
+          },
+          "precision" : {
+            "$ref" : "#/components/schemas/NumberPrecision"
+          },
+          "unit" : {
+            "nullable" : true,
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "displayStyle",
+          "precision"
+        ],
+        "type" : "object"
+      },
+      "ApiNumberColumnAttributesUpdate" : {
+        "properties" : {
+          "displayStyle" : {
+            "$ref" : "#/components/schemas/NumberDisplayStyle"
+          },
+          "precision" : {
+            "$ref" : "#/components/schemas/NumberPrecision"
+          },
+          "unit" : {
+            "nullable" : true,
+            "type" : "string"
+          }
+        },
         "type" : "object"
       },
       "ApiPatchTableDataOp" : {
@@ -660,6 +701,9 @@
         ],
         "type" : "string"
       },
+      "Full" : {
+        "type" : "object"
+      },
       "HttpEndpoint" : {
         "properties" : {
           "secret" : {
@@ -759,6 +803,24 @@
           "type" : "integer"
         },
         "type" : "object"
+      },
+      "NumberDisplayStyle" : {
+        "enum" : [
+          "default",
+          "custom",
+          "percentage"
+        ],
+        "type" : "string"
+      },
+      "NumberPrecision" : {
+        "oneOf" : [
+          {
+            "$ref" : "#/components/schemas/Full"
+          },
+          {
+            "$ref" : "#/components/schemas/Truncated"
+          }
+        ]
       },
       "Plugin" : {
         "properties" : {
@@ -1093,6 +1155,18 @@
         ],
         "type" : "object"
       },
+      "Truncated" : {
+        "properties" : {
+          "decimalPoints" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        },
+        "required" : [
+          "decimalPoints"
+        ],
+        "type" : "object"
+      },
       "Update" : {
         "properties" : {
           "dataColumns" : {
@@ -1223,7 +1297,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.160.7"
+    "version" : "v0.162.1"
   },
   "openapi" : "3.0.3",
   "paths" : {

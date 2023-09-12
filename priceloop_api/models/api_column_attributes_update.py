@@ -8,6 +8,7 @@ from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.api_boolean_column_attributes_update import ApiBooleanColumnAttributesUpdate
+    from ..models.api_number_column_attributes_update import ApiNumberColumnAttributesUpdate
     from ..models.api_string_column_attributes_update import ApiStringColumnAttributesUpdate
 
 
@@ -24,6 +25,7 @@ class ApiColumnAttributesUpdate:
         description (Union[Unset, None, str]):
         is_gui_locked (Union[Unset, None, bool]):
         is_hidden (Union[Unset, None, bool]):
+        number_column_attributes (Union[Unset, ApiNumberColumnAttributesUpdate]):
         string_column_attributes (Union[Unset, ApiStringColumnAttributesUpdate]):
     """
 
@@ -33,6 +35,7 @@ class ApiColumnAttributesUpdate:
     description: Union[Unset, None, str] = UNSET
     is_gui_locked: Union[Unset, None, bool] = UNSET
     is_hidden: Union[Unset, None, bool] = UNSET
+    number_column_attributes: Union[Unset, "ApiNumberColumnAttributesUpdate"] = UNSET
     string_column_attributes: Union[Unset, "ApiStringColumnAttributesUpdate"] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
@@ -52,6 +55,10 @@ class ApiColumnAttributesUpdate:
         description = self.description
         is_gui_locked = self.is_gui_locked
         is_hidden = self.is_hidden
+        number_column_attributes: Union[Unset, Dict[str, Any]] = UNSET
+        if not isinstance(self.number_column_attributes, Unset):
+            number_column_attributes = self.number_column_attributes.to_dict()
+
         string_column_attributes: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.string_column_attributes, Unset):
             string_column_attributes = self.string_column_attributes.to_dict()
@@ -71,6 +78,8 @@ class ApiColumnAttributesUpdate:
             field_dict["isGuiLocked"] = is_gui_locked
         if is_hidden is not UNSET:
             field_dict["isHidden"] = is_hidden
+        if number_column_attributes is not UNSET:
+            field_dict["numberColumnAttributes"] = number_column_attributes
         if string_column_attributes is not UNSET:
             field_dict["stringColumnAttributes"] = string_column_attributes
 
@@ -79,6 +88,7 @@ class ApiColumnAttributesUpdate:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.api_boolean_column_attributes_update import ApiBooleanColumnAttributesUpdate
+        from ..models.api_number_column_attributes_update import ApiNumberColumnAttributesUpdate
         from ..models.api_string_column_attributes_update import ApiStringColumnAttributesUpdate
 
         d = src_dict.copy()
@@ -109,6 +119,13 @@ class ApiColumnAttributesUpdate:
 
         is_hidden = d.pop("isHidden", UNSET)
 
+        _number_column_attributes = d.pop("numberColumnAttributes", UNSET)
+        number_column_attributes: Union[Unset, ApiNumberColumnAttributesUpdate]
+        if isinstance(_number_column_attributes, Unset) or _number_column_attributes is None:
+            number_column_attributes = UNSET
+        else:
+            number_column_attributes = ApiNumberColumnAttributesUpdate.from_dict(_number_column_attributes)
+
         _string_column_attributes = d.pop("stringColumnAttributes", UNSET)
         string_column_attributes: Union[Unset, ApiStringColumnAttributesUpdate]
         if isinstance(_string_column_attributes, Unset) or _string_column_attributes is None:
@@ -123,6 +140,7 @@ class ApiColumnAttributesUpdate:
             description=description,
             is_gui_locked=is_gui_locked,
             is_hidden=is_hidden,
+            number_column_attributes=number_column_attributes,
             string_column_attributes=string_column_attributes,
         )
 

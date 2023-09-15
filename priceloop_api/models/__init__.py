@@ -17,6 +17,8 @@ from .api_column_schema import ApiColumnSchema
 from .api_column_with_values import ApiColumnWithValues
 from .api_external_function import ApiExternalFunction
 from .api_new_plugin_notification import ApiNewPluginNotification
+from .api_number_column_attributes import ApiNumberColumnAttributes
+from .api_number_column_attributes_update import ApiNumberColumnAttributesUpdate
 from .api_plugin_page_definition_id import ApiPluginPageDefinitionId
 from .api_plugin_table_role_assignment_body import ApiPluginTableRoleAssignmentBody
 from .api_plugin_table_role_body import ApiPluginTableRoleBody
@@ -45,11 +47,13 @@ from .export_format_type_0 import ExportFormatType0
 from .export_info import ExportInfo
 from .export_job import ExportJob
 from .external_function_runtime import ExternalFunctionRuntime
+from .full import Full
 from .http_endpoint import HttpEndpoint
 from .import_job import ImportJob
 from .import_job_response import ImportJobResponse
 from .map_ape_marketplace_registration import MapApeMarketplaceRegistration
 from .map_int import MapInt
+from .number_display_style import NumberDisplayStyle
 from .plugin import Plugin
 from .plugin_1 import Plugin1
 from .plugin_data_type_0 import PluginDataType0
@@ -72,6 +76,7 @@ from .string_display_style import StringDisplayStyle
 from .table_import_mode import TableImportMode
 from .table_publication import TablePublication
 from .table_row import TableRow
+from .truncated import Truncated
 from .update import Update
 from .view_page_config import ViewPageConfig
 from .webhook_config import WebhookConfig
@@ -98,6 +103,8 @@ __all__ = (
     "ApiColumnWithValues",
     "ApiExternalFunction",
     "ApiNewPluginNotification",
+    "ApiNumberColumnAttributes",
+    "ApiNumberColumnAttributesUpdate",
     "ApiPluginPageDefinitionId",
     "ApiPluginTableRoleAssignmentBody",
     "ApiPluginTableRoleBody",
@@ -126,11 +133,13 @@ __all__ = (
     "ExportInfo",
     "ExportJob",
     "ExternalFunctionRuntime",
+    "Full",
     "HttpEndpoint",
     "ImportJob",
     "ImportJobResponse",
     "MapApeMarketplaceRegistration",
     "MapInt",
+    "NumberDisplayStyle",
     "Plugin",
     "Plugin1",
     "PluginDataType0",
@@ -153,6 +162,7 @@ __all__ = (
     "TableImportMode",
     "TablePublication",
     "TableRow",
+    "Truncated",
     "Update",
     "ViewPageConfig",
     "WebhookConfig",

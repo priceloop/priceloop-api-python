@@ -8,6 +8,7 @@ from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.api_boolean_column_attributes import ApiBooleanColumnAttributes
+    from ..models.api_number_column_attributes import ApiNumberColumnAttributes
     from ..models.api_string_column_attributes import ApiStringColumnAttributes
 
 
@@ -22,6 +23,7 @@ class ApiColumnAttributes:
         computation_mode (ColumnComputationMode):
         is_gui_locked (bool):
         is_hidden (bool):
+        number_column_attributes (ApiNumberColumnAttributes):
         string_column_attributes (ApiStringColumnAttributes):
         background_color (Union[Unset, ColumnBackgroundColor]):
         description (Union[Unset, None, str]):
@@ -31,6 +33,7 @@ class ApiColumnAttributes:
     computation_mode: ColumnComputationMode
     is_gui_locked: bool
     is_hidden: bool
+    number_column_attributes: "ApiNumberColumnAttributes"
     string_column_attributes: "ApiStringColumnAttributes"
     background_color: Union[Unset, ColumnBackgroundColor] = UNSET
     description: Union[Unset, None, str] = UNSET
@@ -43,6 +46,8 @@ class ApiColumnAttributes:
 
         is_gui_locked = self.is_gui_locked
         is_hidden = self.is_hidden
+        number_column_attributes = self.number_column_attributes.to_dict()
+
         string_column_attributes = self.string_column_attributes.to_dict()
 
         background_color: Union[Unset, str] = UNSET
@@ -59,6 +64,7 @@ class ApiColumnAttributes:
                 "computationMode": computation_mode,
                 "isGuiLocked": is_gui_locked,
                 "isHidden": is_hidden,
+                "numberColumnAttributes": number_column_attributes,
                 "stringColumnAttributes": string_column_attributes,
             }
         )
@@ -72,6 +78,7 @@ class ApiColumnAttributes:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.api_boolean_column_attributes import ApiBooleanColumnAttributes
+        from ..models.api_number_column_attributes import ApiNumberColumnAttributes
         from ..models.api_string_column_attributes import ApiStringColumnAttributes
 
         d = src_dict.copy()
@@ -82,6 +89,8 @@ class ApiColumnAttributes:
         is_gui_locked = d.pop("isGuiLocked")
 
         is_hidden = d.pop("isHidden")
+
+        number_column_attributes = ApiNumberColumnAttributes.from_dict(d.pop("numberColumnAttributes"))
 
         string_column_attributes = ApiStringColumnAttributes.from_dict(d.pop("stringColumnAttributes"))
 
@@ -99,6 +108,7 @@ class ApiColumnAttributes:
             computation_mode=computation_mode,
             is_gui_locked=is_gui_locked,
             is_hidden=is_hidden,
+            number_column_attributes=number_column_attributes,
             string_column_attributes=string_column_attributes,
             background_color=background_color,
             description=description,

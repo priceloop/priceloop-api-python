@@ -182,7 +182,8 @@ def sync_detailed(
         listGroup: ListGroupItems,
         button: (text: String, onClick: Action) => UIBlock,
         navbar: (title: String, items: TemplateListGroupItem[]) => UIBlock,
-        tooltip: (content: String) => UIBlock
+        tooltip: (content: String) => UIBlock,
+        icon: (icon: Icon) => UIBlock
     }
 
     type TableName = String
@@ -452,7 +453,8 @@ async def asyncio_detailed(
         listGroup: ListGroupItems,
         button: (text: String, onClick: Action) => UIBlock,
         navbar: (title: String, items: TemplateListGroupItem[]) => UIBlock,
-        tooltip: (content: String) => UIBlock
+        tooltip: (content: String) => UIBlock,
+        icon: (icon: Icon) => UIBlock
     }
 
     type TableName = String

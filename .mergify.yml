@@ -1,0 +1,14 @@
+# https://docs.mergify.com/conditions/#attributes
+
+pull_request_rules:
+  - name: Merge openapi PRs (squash)
+    conditions:
+      - label=openapi
+      - base=main
+      - "#review-requested=0"
+      - "#changes-requested-reviews-by=0"
+      - "#review-threads-unresolved=0"
+    actions:
+      queue:
+        name: default
+        method: squash

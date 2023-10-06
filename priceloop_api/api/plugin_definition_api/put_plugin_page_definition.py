@@ -183,7 +183,9 @@ def sync_detailed(
         button: (text: String, onClick: Action) => UIBlock,
         navbar: (title: String, items: TemplateListGroupItem[]) => UIBlock,
         tooltip: (content: String) => UIBlock,
-        icon: (icon: Icon) => UIBlock
+        icon: (icon: Icon) => UIBlock,
+        reactiveButton: (path: String, switch: ReactiveButtonEntry[], default: [ReactiveButtonContent,
+    Action]) => UIBlock
     }
 
     type TableName = String
@@ -252,6 +254,8 @@ def sync_detailed(
 
     type TableData = { rows: TableRow[] }
 
+    type Type = String(<html>...</html>)
+
     type App = {
         workspaceName: WorkspaceName,
         state: Object,
@@ -268,7 +272,9 @@ def sync_detailed(
         load: async (query: TableQuery) => TableData,
         loadOnce: async (query: TableQuery) => TableData,
         rowCount: async (query: TableQuery) => Long,
-        rowCountOnce: async (query: TableQuery) => Long
+        rowCountOnce: async (query: TableQuery) => Long,
+        reactiveAction: (path: String, switch: [Any, Action][]) => Type,
+        debugPluginExternalData: () => UIBlock
     }
 
     app: App
@@ -454,7 +460,9 @@ async def asyncio_detailed(
         button: (text: String, onClick: Action) => UIBlock,
         navbar: (title: String, items: TemplateListGroupItem[]) => UIBlock,
         tooltip: (content: String) => UIBlock,
-        icon: (icon: Icon) => UIBlock
+        icon: (icon: Icon) => UIBlock,
+        reactiveButton: (path: String, switch: ReactiveButtonEntry[], default: [ReactiveButtonContent,
+    Action]) => UIBlock
     }
 
     type TableName = String
@@ -523,6 +531,8 @@ async def asyncio_detailed(
 
     type TableData = { rows: TableRow[] }
 
+    type Type = String(<html>...</html>)
+
     type App = {
         workspaceName: WorkspaceName,
         state: Object,
@@ -539,7 +549,9 @@ async def asyncio_detailed(
         load: async (query: TableQuery) => TableData,
         loadOnce: async (query: TableQuery) => TableData,
         rowCount: async (query: TableQuery) => Long,
-        rowCountOnce: async (query: TableQuery) => Long
+        rowCountOnce: async (query: TableQuery) => Long,
+        reactiveAction: (path: String, switch: [Any, Action][]) => Type,
+        debugPluginExternalData: () => UIBlock
     }
 
     app: App

@@ -254,6 +254,8 @@ def sync_detailed(
 
     type TableData = { rows: TableRow[] }
 
+    type ReactiveActionConfig = { executeInitialState: Boolean? }
+
     type Type = String(<html>...</html>)
 
     type App = {
@@ -273,7 +275,7 @@ def sync_detailed(
         loadOnce: async (query: TableQuery) => TableData,
         rowCount: async (query: TableQuery) => Long,
         rowCountOnce: async (query: TableQuery) => Long,
-        reactiveAction: (path: String, switch: [Any, Action][]) => Type,
+        reactiveAction: (path: String, switch: [Any, Action][], config: ReactiveActionConfig?) => Type,
         debugPluginExternalData: () => UIBlock
     }
 
@@ -531,6 +533,8 @@ async def asyncio_detailed(
 
     type TableData = { rows: TableRow[] }
 
+    type ReactiveActionConfig = { executeInitialState: Boolean? }
+
     type Type = String(<html>...</html>)
 
     type App = {
@@ -550,7 +554,7 @@ async def asyncio_detailed(
         loadOnce: async (query: TableQuery) => TableData,
         rowCount: async (query: TableQuery) => Long,
         rowCountOnce: async (query: TableQuery) => Long,
-        reactiveAction: (path: String, switch: [Any, Action][]) => Type,
+        reactiveAction: (path: String, switch: [Any, Action][], config: ReactiveActionConfig?) => Type,
         debugPluginExternalData: () => UIBlock
     }
 

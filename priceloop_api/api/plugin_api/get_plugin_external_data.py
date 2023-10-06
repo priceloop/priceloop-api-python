@@ -1,49 +1,33 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, Optional
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.append import Append
-from ...models.update import Update
 from ...types import Response
 
 
 def _get_kwargs(
     workspace: str,
-    table: str,
+    plugin: str,
     *,
     client: AuthenticatedClient,
-    json_body: List[Union["Append", "Update"]],
 ) -> Dict[str, Any]:
-    url = "{}/api/v1.0/workspaces/{workspace}/tables/{table}/data".format(
-        client.base_url, workspace=workspace, table=table
+    url = "{}/api/v1.0/workspaces/{workspace}/plugin/{plugin}/external-data".format(
+        client.base_url, workspace=workspace, plugin=plugin
     )
 
     headers: Dict[str, str] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
 
-    json_json_body = []
-    for json_body_item_data in json_body:
-        json_body_item: Dict[str, Any]
-
-        if isinstance(json_body_item_data, Append):
-            json_body_item = json_body_item_data.to_dict()
-
-        else:
-            json_body_item = json_body_item_data.to_dict()
-
-        json_json_body.append(json_body_item)
-
     return {
-        "method": "patch",
+        "method": "get",
         "url": url,
         "headers": headers,
         "cookies": cookies,
         "timeout": client.get_timeout(),
         "follow_redirects": client.follow_redirects,
-        "json": json_json_body,
     }
 
 
@@ -67,20 +51,15 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Any
 
 def sync_detailed(
     workspace: str,
-    table: str,
+    plugin: str,
     *,
     client: AuthenticatedClient,
-    json_body: List[Union["Append", "Update"]],
 ) -> Response[Any]:
-    """Patch the data of a table.
-
-     Specify columns and values to match on, and specify which columns should be set to which value for
-    matched columns
+    """Gets the external data of a plugin
 
     Args:
         workspace (str):  Example: workspace-name.
-        table (str):  Example: table-name.
-        json_body (List[Union['Append', 'Update']]):
+        plugin (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -92,9 +71,8 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         workspace=workspace,
-        table=table,
+        plugin=plugin,
         client=client,
-        json_body=json_body,
     )
 
     response = httpx.request(
@@ -107,20 +85,15 @@ def sync_detailed(
 
 async def asyncio_detailed(
     workspace: str,
-    table: str,
+    plugin: str,
     *,
     client: AuthenticatedClient,
-    json_body: List[Union["Append", "Update"]],
 ) -> Response[Any]:
-    """Patch the data of a table.
-
-     Specify columns and values to match on, and specify which columns should be set to which value for
-    matched columns
+    """Gets the external data of a plugin
 
     Args:
         workspace (str):  Example: workspace-name.
-        table (str):  Example: table-name.
-        json_body (List[Union['Append', 'Update']]):
+        plugin (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -132,9 +105,8 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         workspace=workspace,
-        table=table,
+        plugin=plugin,
         client=client,
-        json_body=json_body,
     )
 
     async with httpx.AsyncClient(verify=client.verify_ssl) as _client:

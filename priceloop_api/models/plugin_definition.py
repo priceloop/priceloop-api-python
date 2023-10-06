@@ -17,6 +17,7 @@ class PluginDefinition:
         icon_url (str):
         name (str):
         show_in_catalog (bool):
+        installation_typeform_id (Union[Unset, None, str]):
         requirements (Union[Unset, List[PluginRequirement]]):
     """
 
@@ -25,6 +26,7 @@ class PluginDefinition:
     icon_url: str
     name: str
     show_in_catalog: bool
+    installation_typeform_id: Union[Unset, None, str] = UNSET
     requirements: Union[Unset, List[PluginRequirement]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
@@ -34,6 +36,7 @@ class PluginDefinition:
         icon_url = self.icon_url
         name = self.name
         show_in_catalog = self.show_in_catalog
+        installation_typeform_id = self.installation_typeform_id
         requirements: Union[Unset, List[str]] = UNSET
         if not isinstance(self.requirements, Unset):
             requirements = []
@@ -53,6 +56,8 @@ class PluginDefinition:
                 "showInCatalog": show_in_catalog,
             }
         )
+        if installation_typeform_id is not UNSET:
+            field_dict["installationTypeformId"] = installation_typeform_id
         if requirements is not UNSET:
             field_dict["requirements"] = requirements
 
@@ -71,6 +76,8 @@ class PluginDefinition:
 
         show_in_catalog = d.pop("showInCatalog")
 
+        installation_typeform_id = d.pop("installationTypeformId", UNSET)
+
         requirements = []
         _requirements = d.pop("requirements", UNSET)
         for requirements_item_data in _requirements or []:
@@ -84,6 +91,7 @@ class PluginDefinition:
             icon_url=icon_url,
             name=name,
             show_in_catalog=show_in_catalog,
+            installation_typeform_id=installation_typeform_id,
             requirements=requirements,
         )
 

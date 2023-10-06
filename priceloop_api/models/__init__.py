@@ -30,6 +30,7 @@ from .api_table_attributes import ApiTableAttributes
 from .api_table_data import ApiTableData
 from .api_table_schema import ApiTableSchema
 from .api_workspace import ApiWorkspace
+from .append import Append
 from .boolean_display_style import BooleanDisplayStyle
 from .column_background_color import ColumnBackgroundColor
 from .column_computation_mode import ColumnComputationMode
@@ -116,6 +117,7 @@ __all__ = (
     "ApiTableData",
     "ApiTableSchema",
     "ApiWorkspace",
+    "Append",
     "BooleanDisplayStyle",
     "ColumnBackgroundColor",
     "ColumnComputationMode",

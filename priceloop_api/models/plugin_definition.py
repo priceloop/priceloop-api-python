@@ -17,6 +17,8 @@ class PluginDefinition:
         icon_url (str):
         name (str):
         show_in_catalog (bool):
+        inactive_description (Union[Unset, None, str]):
+        installation_description (Union[Unset, None, str]):
         installation_typeform_id (Union[Unset, None, str]):
         requirements (Union[Unset, List[PluginRequirement]]):
     """
@@ -26,6 +28,8 @@ class PluginDefinition:
     icon_url: str
     name: str
     show_in_catalog: bool
+    inactive_description: Union[Unset, None, str] = UNSET
+    installation_description: Union[Unset, None, str] = UNSET
     installation_typeform_id: Union[Unset, None, str] = UNSET
     requirements: Union[Unset, List[PluginRequirement]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
@@ -36,6 +40,8 @@ class PluginDefinition:
         icon_url = self.icon_url
         name = self.name
         show_in_catalog = self.show_in_catalog
+        inactive_description = self.inactive_description
+        installation_description = self.installation_description
         installation_typeform_id = self.installation_typeform_id
         requirements: Union[Unset, List[str]] = UNSET
         if not isinstance(self.requirements, Unset):
@@ -56,6 +62,10 @@ class PluginDefinition:
                 "showInCatalog": show_in_catalog,
             }
         )
+        if inactive_description is not UNSET:
+            field_dict["inactiveDescription"] = inactive_description
+        if installation_description is not UNSET:
+            field_dict["installationDescription"] = installation_description
         if installation_typeform_id is not UNSET:
             field_dict["installationTypeformId"] = installation_typeform_id
         if requirements is not UNSET:
@@ -76,6 +86,10 @@ class PluginDefinition:
 
         show_in_catalog = d.pop("showInCatalog")
 
+        inactive_description = d.pop("inactiveDescription", UNSET)
+
+        installation_description = d.pop("installationDescription", UNSET)
+
         installation_typeform_id = d.pop("installationTypeformId", UNSET)
 
         requirements = []
@@ -91,6 +105,8 @@ class PluginDefinition:
             icon_url=icon_url,
             name=name,
             show_in_catalog=show_in_catalog,
+            inactive_description=inactive_description,
+            installation_description=installation_description,
             installation_typeform_id=installation_typeform_id,
             requirements=requirements,
         )

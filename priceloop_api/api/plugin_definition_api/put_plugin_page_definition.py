@@ -147,7 +147,7 @@ def sync_detailed(
         zap: Icon
     }
 
-    type TemplateListGroupItem
+    type ListGroupItem
 
     type PluginName = String
 
@@ -172,8 +172,8 @@ def sync_detailed(
         onClick: Action?
     }
 
-    type ListGroupItems = { heading: (title: String) => TemplateListGroupItem, spacer:
-    TemplateListGroupItem, button: (options: ListGroupButtonOptions) => TemplateListGroupItem }
+    type ListGroupItems = { heading: (title: String) => ListGroupItem, spacer: ListGroupItem, button:
+    (options: ListGroupButtonOptions) => ListGroupItem }
 
     type UIBlock = String(<html>...</html>)
 
@@ -181,11 +181,12 @@ def sync_detailed(
         icons: Icons,
         listGroup: ListGroupItems,
         button: (text: String, onClick: Action) => UIBlock,
-        navbar: (title: String, items: TemplateListGroupItem[]) => UIBlock,
+        navbar: (title: String, items: ListGroupItem[]) => UIBlock,
         tooltip: (content: String) => UIBlock,
         icon: (icon: Icon) => UIBlock,
-        reactiveButton: (path: String, switch: ReactiveButtonEntry[], default: [ReactiveButtonContent,
-    Action]) => UIBlock
+        reactiveButton: (path: String, switch: [Any, ReactiveButtonContent, Action][], default:
+    [ReactiveButtonContent, Action]) => UIBlock,
+        singleShotButton: (text: String, onClick: Action) => UIBlock
     }
 
     type TableName = String
@@ -426,7 +427,7 @@ async def asyncio_detailed(
         zap: Icon
     }
 
-    type TemplateListGroupItem
+    type ListGroupItem
 
     type PluginName = String
 
@@ -451,8 +452,8 @@ async def asyncio_detailed(
         onClick: Action?
     }
 
-    type ListGroupItems = { heading: (title: String) => TemplateListGroupItem, spacer:
-    TemplateListGroupItem, button: (options: ListGroupButtonOptions) => TemplateListGroupItem }
+    type ListGroupItems = { heading: (title: String) => ListGroupItem, spacer: ListGroupItem, button:
+    (options: ListGroupButtonOptions) => ListGroupItem }
 
     type UIBlock = String(<html>...</html>)
 
@@ -460,11 +461,12 @@ async def asyncio_detailed(
         icons: Icons,
         listGroup: ListGroupItems,
         button: (text: String, onClick: Action) => UIBlock,
-        navbar: (title: String, items: TemplateListGroupItem[]) => UIBlock,
+        navbar: (title: String, items: ListGroupItem[]) => UIBlock,
         tooltip: (content: String) => UIBlock,
         icon: (icon: Icon) => UIBlock,
-        reactiveButton: (path: String, switch: ReactiveButtonEntry[], default: [ReactiveButtonContent,
-    Action]) => UIBlock
+        reactiveButton: (path: String, switch: [Any, ReactiveButtonContent, Action][], default:
+    [ReactiveButtonContent, Action]) => UIBlock,
+        singleShotButton: (text: String, onClick: Action) => UIBlock
     }
 
     type TableName = String

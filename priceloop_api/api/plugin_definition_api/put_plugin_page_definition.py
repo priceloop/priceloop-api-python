@@ -155,12 +155,27 @@ def sync_detailed(
 
     type HtmlId = String
 
+    type PageId = String(PageId for usage with eta-functions like include, includeAsync or layout:
+    https://eta.js.org/docs/intro/template-syntax#partials-and-layouts)
+
+    type OpenModalDialogConfig = { content: PageId }
+
+    type OpenModalActionConfig = {
+        subtitle: String,
+        confirmationText: String,
+        cancellationText: String,
+        onConfirm: Action,
+        onCancel: Action
+    }
+
     type Action = {
         storeInState: String?,
         sendEvent: SendEventAction?,
         gotoLink: String?,
         reloadPage: Boolean?,
-        scrollIntoView: HtmlId?
+        scrollIntoView: HtmlId?,
+        openModalDialog: OpenModalDialogConfig?,
+        openModalAction: OpenModalActionConfig?
     }
 
     type ListGroupButtonOptions = {
@@ -247,9 +262,6 @@ def sync_detailed(
 
     type ChartOptions = { xAnnotations: ChartAnnotation[]?, yAnnotations: ChartAnnotation[]?,
     additionalApexOptions: Object? }
-
-    type PageId = String(PageId for usage with eta-functions like include, includeAsync or layout:
-    https://eta.js.org/docs/intro/template-syntax#partials-and-layouts)
 
     type TableRow = { values: String?[], byName: (column: ColumnName) => String? }
 
@@ -435,12 +447,27 @@ async def asyncio_detailed(
 
     type HtmlId = String
 
+    type PageId = String(PageId for usage with eta-functions like include, includeAsync or layout:
+    https://eta.js.org/docs/intro/template-syntax#partials-and-layouts)
+
+    type OpenModalDialogConfig = { content: PageId }
+
+    type OpenModalActionConfig = {
+        subtitle: String,
+        confirmationText: String,
+        cancellationText: String,
+        onConfirm: Action,
+        onCancel: Action
+    }
+
     type Action = {
         storeInState: String?,
         sendEvent: SendEventAction?,
         gotoLink: String?,
         reloadPage: Boolean?,
-        scrollIntoView: HtmlId?
+        scrollIntoView: HtmlId?,
+        openModalDialog: OpenModalDialogConfig?,
+        openModalAction: OpenModalActionConfig?
     }
 
     type ListGroupButtonOptions = {
@@ -527,9 +554,6 @@ async def asyncio_detailed(
 
     type ChartOptions = { xAnnotations: ChartAnnotation[]?, yAnnotations: ChartAnnotation[]?,
     additionalApexOptions: Object? }
-
-    type PageId = String(PageId for usage with eta-functions like include, includeAsync or layout:
-    https://eta.js.org/docs/intro/template-syntax#partials-and-layouts)
 
     type TableRow = { values: String?[], byName: (column: ColumnName) => String? }
 

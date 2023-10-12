@@ -7,11 +7,11 @@ long_description = (here / "README.md").read_text(encoding="utf-8")
 
 REQUIRES = [
     "httpx >= 0.15.0, < 0.24.0",
-    "attrs >= 21.3.0",
+    "attrs >= 21.3",
     "python-dateutil >= 2.8.0, < 3",
-    "boto3 ~= 1.24.78",
-    "requests == 2.25",
-    "frozendict == 2.3.4",
+    "boto3 ~= 1.24",
+    "requests ~= 2.25",
+    "frozendict ~= 2.3",
     "pandas ~= 2.0",
 ]
 

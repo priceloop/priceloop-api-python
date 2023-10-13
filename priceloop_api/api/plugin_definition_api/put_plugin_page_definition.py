@@ -169,6 +169,7 @@ def sync_detailed(
     }
 
     type Action = {
+        closeModal: Boolean?,
         storeInState: String?,
         sendEvent: SendEventAction?,
         gotoLink: String?,
@@ -190,18 +191,27 @@ def sync_detailed(
     type ListGroupItems = { heading: (title: String) => ListGroupItem, spacer: ListGroupItem, button:
     (options: ListGroupButtonOptions) => ListGroupItem }
 
+    type ButtonConfig = {
+        style: String(\"solid\") | String(\"outline\") | String(\"ghost\")?,
+        role: String(\"primary\") | String(\"secondary\") | String(\"highlight\") | String(\"success\") |
+    String(\"warning\") | String(\"critical\")?,
+        disabled: Boolean?,
+        width: String(\"small\") | String(\"medium\") | String(\"large\")?,
+        height: String(\"small\") | String(\"medium\") | String(\"large\")?
+    }
+
     type UIBlock = String(<html>...</html>)
 
     type UIComponents = {
         icons: Icons,
         listGroup: ListGroupItems,
-        button: (text: String, onClick: Action) => UIBlock,
+        button: (text: String, onClick: Action, config: ButtonConfig?) => UIBlock,
         navbar: (title: String, items: ListGroupItem[]) => UIBlock,
         tooltip: (content: String) => UIBlock,
         icon: (icon: Icon) => UIBlock,
         reactiveButton: (path: String, switch: [Any, ReactiveButtonContent, Action][], default:
-    [ReactiveButtonContent, Action]) => UIBlock,
-        singleShotButton: (text: String, onClick: Action) => UIBlock
+    [ReactiveButtonContent, Action], config: ButtonConfig?) => UIBlock,
+        singleShotButton: (text: String, onClick: Action, config: ButtonConfig?) => UIBlock
     }
 
     type TableName = String
@@ -461,6 +471,7 @@ async def asyncio_detailed(
     }
 
     type Action = {
+        closeModal: Boolean?,
         storeInState: String?,
         sendEvent: SendEventAction?,
         gotoLink: String?,
@@ -482,18 +493,27 @@ async def asyncio_detailed(
     type ListGroupItems = { heading: (title: String) => ListGroupItem, spacer: ListGroupItem, button:
     (options: ListGroupButtonOptions) => ListGroupItem }
 
+    type ButtonConfig = {
+        style: String(\"solid\") | String(\"outline\") | String(\"ghost\")?,
+        role: String(\"primary\") | String(\"secondary\") | String(\"highlight\") | String(\"success\") |
+    String(\"warning\") | String(\"critical\")?,
+        disabled: Boolean?,
+        width: String(\"small\") | String(\"medium\") | String(\"large\")?,
+        height: String(\"small\") | String(\"medium\") | String(\"large\")?
+    }
+
     type UIBlock = String(<html>...</html>)
 
     type UIComponents = {
         icons: Icons,
         listGroup: ListGroupItems,
-        button: (text: String, onClick: Action) => UIBlock,
+        button: (text: String, onClick: Action, config: ButtonConfig?) => UIBlock,
         navbar: (title: String, items: ListGroupItem[]) => UIBlock,
         tooltip: (content: String) => UIBlock,
         icon: (icon: Icon) => UIBlock,
         reactiveButton: (path: String, switch: [Any, ReactiveButtonContent, Action][], default:
-    [ReactiveButtonContent, Action]) => UIBlock,
-        singleShotButton: (text: String, onClick: Action) => UIBlock
+    [ReactiveButtonContent, Action], config: ButtonConfig?) => UIBlock,
+        singleShotButton: (text: String, onClick: Action, config: ButtonConfig?) => UIBlock
     }
 
     type TableName = String

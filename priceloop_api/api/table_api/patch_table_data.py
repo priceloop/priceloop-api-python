@@ -6,6 +6,7 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.append import Append
+from ...models.delete import Delete
 from ...models.update import Update
 from ...types import Response
 
@@ -15,7 +16,7 @@ def _get_kwargs(
     table: str,
     *,
     client: AuthenticatedClient,
-    json_body: List[Union["Append", "Update"]],
+    json_body: List[Union["Append", "Delete", "Update"]],
 ) -> Dict[str, Any]:
     url = "{}/api/v1.0/workspaces/{workspace}/tables/{table}/data".format(
         client.base_url, workspace=workspace, table=table
@@ -29,6 +30,9 @@ def _get_kwargs(
         json_body_item: Dict[str, Any]
 
         if isinstance(json_body_item_data, Append):
+            json_body_item = json_body_item_data.to_dict()
+
+        elif isinstance(json_body_item_data, Delete):
             json_body_item = json_body_item_data.to_dict()
 
         else:
@@ -70,7 +74,7 @@ def sync_detailed(
     table: str,
     *,
     client: AuthenticatedClient,
-    json_body: List[Union["Append", "Update"]],
+    json_body: List[Union["Append", "Delete", "Update"]],
 ) -> Response[Any]:
     """Patch the data of a table.
 
@@ -80,7 +84,7 @@ def sync_detailed(
     Args:
         workspace (str):  Example: workspace-name.
         table (str):  Example: table-name.
-        json_body (List[Union['Append', 'Update']]):
+        json_body (List[Union['Append', 'Delete', 'Update']]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -110,7 +114,7 @@ async def asyncio_detailed(
     table: str,
     *,
     client: AuthenticatedClient,
-    json_body: List[Union["Append", "Update"]],
+    json_body: List[Union["Append", "Delete", "Update"]],
 ) -> Response[Any]:
     """Patch the data of a table.
 
@@ -120,7 +124,7 @@ async def asyncio_detailed(
     Args:
         workspace (str):  Example: workspace-name.
         table (str):  Example: table-name.
-        json_body (List[Union['Append', 'Update']]):
+        json_body (List[Union['Append', 'Delete', 'Update']]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

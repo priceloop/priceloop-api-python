@@ -41,6 +41,7 @@ from .create_external_function_param_type_item import CreateExternalFunctionPara
 from .create_external_function_return_type import CreateExternalFunctionReturnType
 from .create_workspace_membership_response_200 import CreateWorkspaceMembershipResponse200
 from .csv import CSV
+from .delete import Delete
 from .delete_workspace_membership_response_200 import DeleteWorkspaceMembershipResponse200
 from .empty import Empty
 from .explicit_expr_type import ExplicitExprType
@@ -128,6 +129,7 @@ __all__ = (
     "CreateExternalFunctionReturnType",
     "CreateWorkspaceMembershipResponse200",
     "CSV",
+    "Delete",
     "DeleteWorkspaceMembershipResponse200",
     "Empty",
     "ExplicitExprType",

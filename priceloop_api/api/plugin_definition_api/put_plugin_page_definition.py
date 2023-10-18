@@ -81,6 +81,7 @@ def sync_detailed(
     type Icon
 
     type Icons = {
+        activity: Icon,
         alert_triangle: Icon,
         amazon_logo: Icon,
         amazon_logo_bw: Icon,
@@ -136,6 +137,7 @@ def sync_detailed(
         slack: Icon,
         sliders: Icon,
         sort: Icon,
+        spaceship: Icon,
         spinner: Icon,
         table: Icon,
         tag: Icon,
@@ -172,6 +174,7 @@ def sync_detailed(
         closeModal: Boolean?,
         storeInState: String?,
         sendEvent: SendEventAction?,
+        gotoLinkInNewTab: String?,
         gotoLink: String?,
         reloadPage: Boolean?,
         scrollIntoView: HtmlId?,
@@ -192,27 +195,36 @@ def sync_detailed(
     (options: ListGroupButtonOptions) => ListGroupItem }
 
     type ButtonConfig = {
-        style: String(\"solid\") | String(\"outline\") | String(\"ghost\")?,
-        role: String(\"primary\") | String(\"secondary\") | String(\"highlight\") | String(\"success\") |
-    String(\"warning\") | String(\"critical\")?,
+        style: (\"solid\" | \"outline\" | \"ghost\")?,
+        role: (\"primary\" | \"secondary\" | \"highlight\" | \"success\" | \"warning\" | \"critical\")?,
         disabled: Boolean?,
-        width: String(\"small\") | String(\"medium\") | String(\"large\")?,
-        height: String(\"small\") | String(\"medium\") | String(\"large\")?
+        width: (\"small\" | \"medium\" | \"large\")?,
+        height: (\"small\" | \"medium\" | \"large\")?
     }
 
     type UIBlock = String(<html>...</html>)
+
+    type ButtonIconConfig = { style: (\"solid\" | \"outline\" | \"ghost\")?, role: (\"primary\" |
+    \"secondary\" | \"highlight\" | \"success\" | \"warning\" | \"critical\")?, size: (\"small\" |
+    \"medium\" | \"large\")? }
 
     type UIComponents = {
         icons: Icons,
         listGroup: ListGroupItems,
         button: (text: String, onClick: Action, config: ButtonConfig?) => UIBlock,
+        buttonIcon: (icon: Icon, onClick: Action, config: ButtonIconConfig?) => UIBlock,
         navbar: (title: String, items: ListGroupItem[]) => UIBlock,
         tooltip: (content: String) => UIBlock,
         icon: (icon: Icon) => UIBlock,
-        reactiveButton: (path: String, switch: [Any, ReactiveButtonContent, Action][], default:
-    [ReactiveButtonContent, Action], config: ButtonConfig?) => UIBlock,
+        hyperlink: (text: String, onClick: Action, icon: Icon?) => UIBlock,
+        reactiveButton: (path: String, switch: [Any, String | Icon, Action][], default: [String | Icon,
+    Action], config: ButtonConfig?) => UIBlock,
         singleShotButton: (text: String, onClick: Action, config: ButtonConfig?) => UIBlock
     }
+
+    type SelectionBoxButtonConfig = { text: String, onClick: Action }
+
+    type SelectionBoxConfig = { ghost: Boolean?, dropdownButton: SelectionBoxButtonConfig? }
 
     type TableName = String
 
@@ -286,9 +298,10 @@ def sync_detailed(
         state: Object,
         workspaceLink: (pagePath: ViewPagePath, queryParameters: { [key]: String }?) => String,
         ui: UIComponents,
-        selectionBox: (placeholder: String, options: String[], action: Action) => UIBlock,
-        selectionTableBox: (placeholder: String, options: String[][], headers: String[], action: Action) =>
-    UIBlock,
+        selectionBox: (placeholder: String, options: String[], action: Action, config: SelectionBoxConfig?)
+    => UIBlock,
+        selectionTableBox: (placeholder: String, options: String[][], headers: String[], action: Action,
+    config: SelectionBoxConfig?) => UIBlock,
         tableSheet: (query: TableQuery, options: TableOptions?) => UIBlock,
         chart: (query: TableQuery, chartType: ChartType, x: ChartXAxis, y: ChartYAxis[], options:
     ChartOptions?) => UIBlock,
@@ -383,6 +396,7 @@ async def asyncio_detailed(
     type Icon
 
     type Icons = {
+        activity: Icon,
         alert_triangle: Icon,
         amazon_logo: Icon,
         amazon_logo_bw: Icon,
@@ -438,6 +452,7 @@ async def asyncio_detailed(
         slack: Icon,
         sliders: Icon,
         sort: Icon,
+        spaceship: Icon,
         spinner: Icon,
         table: Icon,
         tag: Icon,
@@ -474,6 +489,7 @@ async def asyncio_detailed(
         closeModal: Boolean?,
         storeInState: String?,
         sendEvent: SendEventAction?,
+        gotoLinkInNewTab: String?,
         gotoLink: String?,
         reloadPage: Boolean?,
         scrollIntoView: HtmlId?,
@@ -494,27 +510,36 @@ async def asyncio_detailed(
     (options: ListGroupButtonOptions) => ListGroupItem }
 
     type ButtonConfig = {
-        style: String(\"solid\") | String(\"outline\") | String(\"ghost\")?,
-        role: String(\"primary\") | String(\"secondary\") | String(\"highlight\") | String(\"success\") |
-    String(\"warning\") | String(\"critical\")?,
+        style: (\"solid\" | \"outline\" | \"ghost\")?,
+        role: (\"primary\" | \"secondary\" | \"highlight\" | \"success\" | \"warning\" | \"critical\")?,
         disabled: Boolean?,
-        width: String(\"small\") | String(\"medium\") | String(\"large\")?,
-        height: String(\"small\") | String(\"medium\") | String(\"large\")?
+        width: (\"small\" | \"medium\" | \"large\")?,
+        height: (\"small\" | \"medium\" | \"large\")?
     }
 
     type UIBlock = String(<html>...</html>)
+
+    type ButtonIconConfig = { style: (\"solid\" | \"outline\" | \"ghost\")?, role: (\"primary\" |
+    \"secondary\" | \"highlight\" | \"success\" | \"warning\" | \"critical\")?, size: (\"small\" |
+    \"medium\" | \"large\")? }
 
     type UIComponents = {
         icons: Icons,
         listGroup: ListGroupItems,
         button: (text: String, onClick: Action, config: ButtonConfig?) => UIBlock,
+        buttonIcon: (icon: Icon, onClick: Action, config: ButtonIconConfig?) => UIBlock,
         navbar: (title: String, items: ListGroupItem[]) => UIBlock,
         tooltip: (content: String) => UIBlock,
         icon: (icon: Icon) => UIBlock,
-        reactiveButton: (path: String, switch: [Any, ReactiveButtonContent, Action][], default:
-    [ReactiveButtonContent, Action], config: ButtonConfig?) => UIBlock,
+        hyperlink: (text: String, onClick: Action, icon: Icon?) => UIBlock,
+        reactiveButton: (path: String, switch: [Any, String | Icon, Action][], default: [String | Icon,
+    Action], config: ButtonConfig?) => UIBlock,
         singleShotButton: (text: String, onClick: Action, config: ButtonConfig?) => UIBlock
     }
+
+    type SelectionBoxButtonConfig = { text: String, onClick: Action }
+
+    type SelectionBoxConfig = { ghost: Boolean?, dropdownButton: SelectionBoxButtonConfig? }
 
     type TableName = String
 
@@ -588,9 +613,10 @@ async def asyncio_detailed(
         state: Object,
         workspaceLink: (pagePath: ViewPagePath, queryParameters: { [key]: String }?) => String,
         ui: UIComponents,
-        selectionBox: (placeholder: String, options: String[], action: Action) => UIBlock,
-        selectionTableBox: (placeholder: String, options: String[][], headers: String[], action: Action) =>
-    UIBlock,
+        selectionBox: (placeholder: String, options: String[], action: Action, config: SelectionBoxConfig?)
+    => UIBlock,
+        selectionTableBox: (placeholder: String, options: String[][], headers: String[], action: Action,
+    config: SelectionBoxConfig?) => UIBlock,
         tableSheet: (query: TableQuery, options: TableOptions?) => UIBlock,
         chart: (query: TableQuery, chartType: ChartType, x: ChartXAxis, y: ChartYAxis[], options:
     ChartOptions?) => UIBlock,

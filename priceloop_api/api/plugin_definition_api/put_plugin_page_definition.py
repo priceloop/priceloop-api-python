@@ -78,6 +78,10 @@ def sync_detailed(
 
     type ViewPagePath = String
 
+    type UIBlock = String(<html>...</html>)
+
+    type Assets = { infinityLoadIcon: UIBlock }
+
     type Icon
 
     type Icons = {
@@ -128,6 +132,7 @@ def sync_detailed(
         more_horizontal: Icon,
         more_vertical: Icon,
         number: Icon,
+        percent: Icon,
         plus: Icon,
         row: Icon,
         save: Icon,
@@ -202,13 +207,12 @@ def sync_detailed(
         height: (\"small\" | \"medium\" | \"large\")?
     }
 
-    type UIBlock = String(<html>...</html>)
-
     type ButtonIconConfig = { style: (\"solid\" | \"outline\" | \"ghost\")?, role: (\"primary\" |
     \"secondary\" | \"highlight\" | \"success\" | \"warning\" | \"critical\")?, size: (\"small\" |
     \"medium\" | \"large\")? }
 
     type UIComponents = {
+        assets: Assets,
         icons: Icons,
         listGroup: ListGroupItems,
         button: (text: String, onClick: Action, config: ButtonConfig?) => UIBlock,
@@ -393,6 +397,10 @@ async def asyncio_detailed(
 
     type ViewPagePath = String
 
+    type UIBlock = String(<html>...</html>)
+
+    type Assets = { infinityLoadIcon: UIBlock }
+
     type Icon
 
     type Icons = {
@@ -443,6 +451,7 @@ async def asyncio_detailed(
         more_horizontal: Icon,
         more_vertical: Icon,
         number: Icon,
+        percent: Icon,
         plus: Icon,
         row: Icon,
         save: Icon,
@@ -517,13 +526,12 @@ async def asyncio_detailed(
         height: (\"small\" | \"medium\" | \"large\")?
     }
 
-    type UIBlock = String(<html>...</html>)
-
     type ButtonIconConfig = { style: (\"solid\" | \"outline\" | \"ghost\")?, role: (\"primary\" |
     \"secondary\" | \"highlight\" | \"success\" | \"warning\" | \"critical\")?, size: (\"small\" |
     \"medium\" | \"large\")? }
 
     type UIComponents = {
+        assets: Assets,
         icons: Icons,
         listGroup: ListGroupItems,
         button: (text: String, onClick: Action, config: ButtonConfig?) => UIBlock,

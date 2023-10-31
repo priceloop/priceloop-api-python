@@ -19,6 +19,7 @@ from .api_external_function import ApiExternalFunction
 from .api_new_plugin_notification import ApiNewPluginNotification
 from .api_number_column_attributes import ApiNumberColumnAttributes
 from .api_number_column_attributes_update import ApiNumberColumnAttributesUpdate
+from .api_on_conflict import ApiOnConflict
 from .api_plugin_page_definition_id import ApiPluginPageDefinitionId
 from .api_plugin_table_role_assignment_body import ApiPluginTableRoleAssignmentBody
 from .api_plugin_table_role_body import ApiPluginTableRoleBody
@@ -53,6 +54,7 @@ from .full import Full
 from .http_endpoint import HttpEndpoint
 from .import_job import ImportJob
 from .import_job_response import ImportJobResponse
+from .insert import Insert
 from .map_ape_marketplace_registration import MapApeMarketplaceRegistration
 from .map_int import MapInt
 from .number_display_style import NumberDisplayStyle
@@ -107,6 +109,7 @@ __all__ = (
     "ApiNewPluginNotification",
     "ApiNumberColumnAttributes",
     "ApiNumberColumnAttributesUpdate",
+    "ApiOnConflict",
     "ApiPluginPageDefinitionId",
     "ApiPluginTableRoleAssignmentBody",
     "ApiPluginTableRoleBody",
@@ -141,6 +144,7 @@ __all__ = (
     "HttpEndpoint",
     "ImportJob",
     "ImportJobResponse",
+    "Insert",
     "MapApeMarketplaceRegistration",
     "MapInt",
     "NumberDisplayStyle",

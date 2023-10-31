@@ -258,7 +258,7 @@ def sync_detailed(
         aggregates: TableQueryAggregate[]?
     }
 
-    type TableOptions = { showDecoration: Boolean? }
+    type TableOptions = { showDecoration: Boolean?, showDatatypeIcons: Boolean? }
 
     type ChartType = String(Apex Chart Type: line | area | bar | pie | donut | radialBar | scatter |
     bubble | heatmap | candlestick | boxPlot | radar | polarArea | rangeBar | rangeArea | treemap (see:
@@ -577,7 +577,7 @@ async def asyncio_detailed(
         aggregates: TableQueryAggregate[]?
     }
 
-    type TableOptions = { showDecoration: Boolean? }
+    type TableOptions = { showDecoration: Boolean?, showDatatypeIcons: Boolean? }
 
     type ChartType = String(Apex Chart Type: line | area | bar | pie | donut | radialBar | scatter |
     bubble | heatmap | candlestick | boxPlot | radar | polarArea | rangeBar | rangeArea | treemap (see:

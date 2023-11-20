@@ -39,7 +39,14 @@
       "ApiBooleanColumnAttributesUpdate" : {
         "properties" : {
           "displayStyle" : {
-            "$ref" : "#/components/schemas/BooleanDisplayStyle"
+            "oneOf" : [
+              {
+                "$ref" : "#/components/schemas/BooleanDisplayStyle"
+              },
+              {
+                "type" : "null"
+              }
+            ]
           }
         },
         "type" : "object"
@@ -82,7 +89,14 @@
       "ApiColumnAttributes" : {
         "properties" : {
           "backgroundColor" : {
-            "$ref" : "#/components/schemas/ColumnBackgroundColor"
+            "oneOf" : [
+              {
+                "$ref" : "#/components/schemas/ColumnBackgroundColor"
+              },
+              {
+                "type" : "null"
+              }
+            ]
           },
           "booleanColumnAttributes" : {
             "$ref" : "#/components/schemas/ApiBooleanColumnAttributes"
@@ -95,7 +109,14 @@
             "type" : "string"
           },
           "groupColor" : {
-            "$ref" : "#/components/schemas/ColumnGroupColor"
+            "oneOf" : [
+              {
+                "$ref" : "#/components/schemas/ColumnGroupColor"
+              },
+              {
+                "type" : "null"
+              }
+            ]
           },
           "groupName" : {
             "nullable" : true,
@@ -127,20 +148,50 @@
       "ApiColumnAttributesUpdate" : {
         "properties" : {
           "backgroundColor" : {
-            "$ref" : "#/components/schemas/ColumnBackgroundColor"
+            "nullable" : true,
+            "oneOf" : [
+              {
+                "$ref" : "#/components/schemas/ColumnBackgroundColor"
+              },
+              {
+                "type" : "null"
+              }
+            ]
           },
           "booleanColumnAttributes" : {
-            "$ref" : "#/components/schemas/ApiBooleanColumnAttributesUpdate"
+            "oneOf" : [
+              {
+                "$ref" : "#/components/schemas/ApiBooleanColumnAttributesUpdate"
+              },
+              {
+                "type" : "null"
+              }
+            ]
           },
           "computationMode" : {
-            "$ref" : "#/components/schemas/ColumnComputationMode"
+            "oneOf" : [
+              {
+                "$ref" : "#/components/schemas/ColumnComputationMode"
+              },
+              {
+                "type" : "null"
+              }
+            ]
           },
           "description" : {
             "nullable" : true,
             "type" : "string"
           },
           "groupColor" : {
-            "$ref" : "#/components/schemas/ColumnGroupColor"
+            "nullable" : true,
+            "oneOf" : [
+              {
+                "$ref" : "#/components/schemas/ColumnGroupColor"
+              },
+              {
+                "type" : "null"
+              }
+            ]
           },
           "groupName" : {
             "nullable" : true,
@@ -155,10 +206,24 @@
             "type" : "boolean"
           },
           "numberColumnAttributes" : {
-            "$ref" : "#/components/schemas/ApiNumberColumnAttributesUpdate"
+            "oneOf" : [
+              {
+                "$ref" : "#/components/schemas/ApiNumberColumnAttributesUpdate"
+              },
+              {
+                "type" : "null"
+              }
+            ]
           },
           "stringColumnAttributes" : {
-            "$ref" : "#/components/schemas/ApiStringColumnAttributesUpdate"
+            "oneOf" : [
+              {
+                "$ref" : "#/components/schemas/ApiStringColumnAttributesUpdate"
+              },
+              {
+                "type" : "null"
+              }
+            ]
           }
         },
         "type" : "object"
@@ -166,7 +231,14 @@
       "ApiColumnSchema" : {
         "properties" : {
           "attributes" : {
-            "$ref" : "#/components/schemas/ApiColumnAttributesUpdate"
+            "oneOf" : [
+              {
+                "$ref" : "#/components/schemas/ApiColumnAttributesUpdate"
+              },
+              {
+                "type" : "null"
+              }
+            ]
           },
           "formula" : {
             "example" : "1 + 2",
@@ -285,10 +357,24 @@
       "ApiNumberColumnAttributesUpdate" : {
         "properties" : {
           "displayStyle" : {
-            "$ref" : "#/components/schemas/NumberDisplayStyle"
+            "oneOf" : [
+              {
+                "$ref" : "#/components/schemas/NumberDisplayStyle"
+              },
+              {
+                "type" : "null"
+              }
+            ]
           },
           "precision" : {
-            "$ref" : "#/components/schemas/NumberPrecision"
+            "oneOf" : [
+              {
+                "$ref" : "#/components/schemas/NumberPrecision"
+              },
+              {
+                "type" : "null"
+              }
+            ]
           },
           "unit" : {
             "nullable" : true,
@@ -382,7 +468,14 @@
       "ApiStringColumnAttributesUpdate" : {
         "properties" : {
           "displayStyle" : {
-            "$ref" : "#/components/schemas/StringDisplayStyle"
+            "oneOf" : [
+              {
+                "$ref" : "#/components/schemas/StringDisplayStyle"
+              },
+              {
+                "type" : "null"
+              }
+            ]
           }
         },
         "type" : "object"
@@ -491,7 +584,14 @@
       "ApiTableSchema" : {
         "properties" : {
           "attributes" : {
-            "$ref" : "#/components/schemas/ApiTableAttributes"
+            "oneOf" : [
+              {
+                "$ref" : "#/components/schemas/ApiTableAttributes"
+              },
+              {
+                "type" : "null"
+              }
+            ]
           },
           "columns" : {
             "items" : {
@@ -1075,7 +1175,14 @@
       "PluginTokens" : {
         "properties" : {
           "amazon" : {
-            "$ref" : "#/components/schemas/Amazon1"
+            "oneOf" : [
+              {
+                "$ref" : "#/components/schemas/Amazon1"
+              },
+              {
+                "type" : "null"
+              }
+            ]
           }
         },
         "type" : "object"
@@ -1129,7 +1236,14 @@
       "PublishInput" : {
         "properties" : {
           "confirmationModal" : {
-            "$ref" : "#/components/schemas/ConfirmationModalDescription"
+            "oneOf" : [
+              {
+                "$ref" : "#/components/schemas/ConfirmationModalDescription"
+              },
+              {
+                "type" : "null"
+              }
+            ]
           }
         },
         "type" : "object"
@@ -1153,7 +1267,6 @@
         "type" : "string"
       },
       "TableImportMode" : {
-        "default" : "new",
         "enum" : [
           "new",
           "delete_and_recreate",
@@ -1321,7 +1434,14 @@
       "WorkspaceIntegrations" : {
         "properties" : {
           "amazon" : {
-            "$ref" : "#/components/schemas/Amazon"
+            "oneOf" : [
+              {
+                "$ref" : "#/components/schemas/Amazon"
+              },
+              {
+                "type" : "null"
+              }
+            ]
           }
         },
         "type" : "object"
@@ -1345,7 +1465,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.194.1"
+    "version" : "local"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -10114,7 +10234,8 @@
             "name" : "mode",
             "required" : false,
             "schema" : {
-              "$ref" : "#/components/schemas/TableImportMode"
+              "$ref" : "#/components/schemas/TableImportMode",
+              "default" : "new"
             }
           }
         ],

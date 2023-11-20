@@ -1,4 +1,4 @@
-openapi-python-client@git+https://github.com/cornerman/openapi-python-client@98be70f
+openapi-python-client
 mypy
 types-PyYAML
 types-python-dateutil

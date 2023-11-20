@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
 import attr
 
 if TYPE_CHECKING:
-    from ..models.ape_data import ApeData
+    from ..models.empty import Empty
 
 
 T = TypeVar("T", bound="PluginDataType0")
@@ -13,20 +13,20 @@ T = TypeVar("T", bound="PluginDataType0")
 class PluginDataType0:
     """
     Attributes:
-        ape_data (ApeData):
+        empty (Empty):
     """
 
-    ape_data: "ApeData"
+    empty: "Empty"
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        ape_data = self.ape_data.to_dict()
+        empty = self.empty.to_dict()
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "ApeData": ape_data,
+                "Empty": empty,
             }
         )
 
@@ -34,13 +34,13 @@ class PluginDataType0:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.ape_data import ApeData
+        from ..models.empty import Empty
 
         d = src_dict.copy()
-        ape_data = ApeData.from_dict(d.pop("ApeData"))
+        empty = Empty.from_dict(d.pop("Empty"))
 
         plugin_data_type_0 = cls(
-            ape_data=ape_data,
+            empty=empty,
         )
 
         plugin_data_type_0.additional_properties = d

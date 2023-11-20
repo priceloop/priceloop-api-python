@@ -1,50 +1,30 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
+from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 
-if TYPE_CHECKING:
-    from ..models.empty import Empty
-
-
-T = TypeVar("T", bound="PluginDataType1")
+T = TypeVar("T", bound="Empty1")
 
 
 @attr.s(auto_attribs=True)
-class PluginDataType1:
-    """
-    Attributes:
-        empty (Empty):
-    """
+class Empty1:
+    """ """
 
-    empty: "Empty"
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        empty = self.empty.to_dict()
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "Empty": empty,
-            }
-        )
+        field_dict.update({})
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.empty import Empty
-
         d = src_dict.copy()
-        empty = Empty.from_dict(d.pop("Empty"))
+        empty_1 = cls()
 
-        plugin_data_type_1 = cls(
-            empty=empty,
-        )
-
-        plugin_data_type_1.additional_properties = d
-        return plugin_data_type_1
+        empty_1.additional_properties = d
+        return empty_1
 
     @property
     def additional_keys(self) -> List[str]:

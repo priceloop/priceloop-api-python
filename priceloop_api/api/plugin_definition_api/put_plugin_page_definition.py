@@ -124,6 +124,7 @@ def sync_detailed(
         help_circle: Icon,
         home: Icon,
         json: Icon,
+        layers: Icon,
         lock: Icon,
         log_out: Icon,
         maximize: Icon,
@@ -309,6 +310,8 @@ def sync_detailed(
         tableSheet: (query: TableQuery, options: TableOptions?) => UIBlock,
         chart: (query: TableQuery, chartType: ChartType, x: ChartXAxis, y: ChartYAxis[], options:
     ChartOptions?) => UIBlock,
+        getChartApexOptions: async (query: TableQuery, chartType: ChartType, x: ChartXAxis, y:
+    ChartYAxis[], options: ChartOptions?) => Object,
         chartCustom: (apexOptions: Object) => UIBlock,
         pageId: (path: ViewPagePath, pluginName: PluginName?) => PageId,
         load: async (query: TableQuery) => TableData,
@@ -443,6 +446,7 @@ async def asyncio_detailed(
         help_circle: Icon,
         home: Icon,
         json: Icon,
+        layers: Icon,
         lock: Icon,
         log_out: Icon,
         maximize: Icon,
@@ -628,6 +632,8 @@ async def asyncio_detailed(
         tableSheet: (query: TableQuery, options: TableOptions?) => UIBlock,
         chart: (query: TableQuery, chartType: ChartType, x: ChartXAxis, y: ChartYAxis[], options:
     ChartOptions?) => UIBlock,
+        getChartApexOptions: async (query: TableQuery, chartType: ChartType, x: ChartXAxis, y:
+    ChartYAxis[], options: ChartOptions?) => Object,
         chartCustom: (apexOptions: Object) => UIBlock,
         pageId: (path: ViewPagePath, pluginName: PluginName?) => PageId,
         load: async (query: TableQuery) => TableData,

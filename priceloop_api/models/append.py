@@ -5,7 +5,7 @@ import attr
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.api_column_with_values import ApiColumnWithValues
+    from ..models.api_column_with_nullable_values import ApiColumnWithNullableValues
 
 
 T = TypeVar("T", bound="Append")
@@ -16,11 +16,11 @@ class Append:
     """
     Attributes:
         op (str):
-        data_columns (Union[Unset, List['ApiColumnWithValues']]):
+        data_columns (Union[Unset, List['ApiColumnWithNullableValues']]):
     """
 
     op: str
-    data_columns: Union[Unset, List["ApiColumnWithValues"]] = UNSET
+    data_columns: Union[Unset, List["ApiColumnWithNullableValues"]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -47,7 +47,7 @@ class Append:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.api_column_with_values import ApiColumnWithValues
+        from ..models.api_column_with_nullable_values import ApiColumnWithNullableValues
 
         d = src_dict.copy()
         op = d.pop("op")
@@ -55,7 +55,7 @@ class Append:
         data_columns = []
         _data_columns = d.pop("dataColumns", UNSET)
         for data_columns_item_data in _data_columns or []:
-            data_columns_item = ApiColumnWithValues.from_dict(data_columns_item_data)
+            data_columns_item = ApiColumnWithNullableValues.from_dict(data_columns_item_data)
 
             data_columns.append(data_columns_item)
 

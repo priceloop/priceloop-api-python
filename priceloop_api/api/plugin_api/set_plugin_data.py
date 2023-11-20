@@ -1,12 +1,11 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, Optional
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.plugin_data_type_0 import PluginDataType0
-from ...models.plugin_data_type_1 import PluginDataType1
 from ...types import Response
 
 
@@ -15,7 +14,7 @@ def _get_kwargs(
     plugin: str,
     *,
     client: AuthenticatedClient,
-    json_body: Union["PluginDataType0", "PluginDataType1"],
+    json_body: "PluginDataType0",
 ) -> Dict[str, Any]:
     url = "{}/api/v1.0/workspaces/{workspace}/plugin/{plugin}/data".format(
         client.base_url, workspace=workspace, plugin=plugin
@@ -27,9 +26,6 @@ def _get_kwargs(
     json_json_body: Dict[str, Any]
 
     if isinstance(json_body, PluginDataType0):
-        json_json_body = json_body.to_dict()
-
-    else:
         json_json_body = json_body.to_dict()
 
     return {
@@ -66,14 +62,14 @@ def sync_detailed(
     plugin: str,
     *,
     client: AuthenticatedClient,
-    json_body: Union["PluginDataType0", "PluginDataType1"],
+    json_body: "PluginDataType0",
 ) -> Response[Any]:
     """Set data of a plugin installation
 
     Args:
         workspace (str):  Example: workspace-name.
         plugin (str):
-        json_body (Union['PluginDataType0', 'PluginDataType1']):
+        json_body ('PluginDataType0'):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -103,14 +99,14 @@ async def asyncio_detailed(
     plugin: str,
     *,
     client: AuthenticatedClient,
-    json_body: Union["PluginDataType0", "PluginDataType1"],
+    json_body: "PluginDataType0",
 ) -> Response[Any]:
     """Set data of a plugin installation
 
     Args:
         workspace (str):  Example: workspace-name.
         plugin (str):
-        json_body (Union['PluginDataType0', 'PluginDataType1']):
+        json_body ('PluginDataType0'):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

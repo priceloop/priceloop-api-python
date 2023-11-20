@@ -4,6 +4,7 @@ import attr
 
 from ..models.column_background_color import ColumnBackgroundColor
 from ..models.column_computation_mode import ColumnComputationMode
+from ..models.column_group_color import ColumnGroupColor
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -23,6 +24,8 @@ class ApiColumnAttributesUpdate:
         boolean_column_attributes (Union[Unset, ApiBooleanColumnAttributesUpdate]):
         computation_mode (Union[Unset, ColumnComputationMode]):
         description (Union[Unset, None, str]):
+        group_color (Union[Unset, ColumnGroupColor]):
+        group_name (Union[Unset, None, str]):
         is_gui_locked (Union[Unset, None, bool]):
         is_hidden (Union[Unset, None, bool]):
         number_column_attributes (Union[Unset, ApiNumberColumnAttributesUpdate]):
@@ -33,6 +36,8 @@ class ApiColumnAttributesUpdate:
     boolean_column_attributes: Union[Unset, "ApiBooleanColumnAttributesUpdate"] = UNSET
     computation_mode: Union[Unset, ColumnComputationMode] = UNSET
     description: Union[Unset, None, str] = UNSET
+    group_color: Union[Unset, ColumnGroupColor] = UNSET
+    group_name: Union[Unset, None, str] = UNSET
     is_gui_locked: Union[Unset, None, bool] = UNSET
     is_hidden: Union[Unset, None, bool] = UNSET
     number_column_attributes: Union[Unset, "ApiNumberColumnAttributesUpdate"] = UNSET
@@ -53,6 +58,11 @@ class ApiColumnAttributesUpdate:
             computation_mode = self.computation_mode.value
 
         description = self.description
+        group_color: Union[Unset, str] = UNSET
+        if not isinstance(self.group_color, Unset):
+            group_color = self.group_color.value
+
+        group_name = self.group_name
         is_gui_locked = self.is_gui_locked
         is_hidden = self.is_hidden
         number_column_attributes: Union[Unset, Dict[str, Any]] = UNSET
@@ -74,6 +84,10 @@ class ApiColumnAttributesUpdate:
             field_dict["computationMode"] = computation_mode
         if description is not UNSET:
             field_dict["description"] = description
+        if group_color is not UNSET:
+            field_dict["groupColor"] = group_color
+        if group_name is not UNSET:
+            field_dict["groupName"] = group_name
         if is_gui_locked is not UNSET:
             field_dict["isGuiLocked"] = is_gui_locked
         if is_hidden is not UNSET:
@@ -115,6 +129,15 @@ class ApiColumnAttributesUpdate:
 
         description = d.pop("description", UNSET)
 
+        _group_color = d.pop("groupColor", UNSET)
+        group_color: Union[Unset, ColumnGroupColor]
+        if isinstance(_group_color, Unset) or _group_color is None:
+            group_color = UNSET
+        else:
+            group_color = ColumnGroupColor(_group_color)
+
+        group_name = d.pop("groupName", UNSET)
+
         is_gui_locked = d.pop("isGuiLocked", UNSET)
 
         is_hidden = d.pop("isHidden", UNSET)
@@ -138,6 +161,8 @@ class ApiColumnAttributesUpdate:
             boolean_column_attributes=boolean_column_attributes,
             computation_mode=computation_mode,
             description=description,
+            group_color=group_color,
+            group_name=group_name,
             is_gui_locked=is_gui_locked,
             is_hidden=is_hidden,
             number_column_attributes=number_column_attributes,

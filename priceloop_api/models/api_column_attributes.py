@@ -4,6 +4,7 @@ import attr
 
 from ..models.column_background_color import ColumnBackgroundColor
 from ..models.column_computation_mode import ColumnComputationMode
+from ..models.column_group_color import ColumnGroupColor
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -27,6 +28,8 @@ class ApiColumnAttributes:
         string_column_attributes (ApiStringColumnAttributes):
         background_color (Union[Unset, ColumnBackgroundColor]):
         description (Union[Unset, None, str]):
+        group_color (Union[Unset, ColumnGroupColor]):
+        group_name (Union[Unset, None, str]):
     """
 
     boolean_column_attributes: "ApiBooleanColumnAttributes"
@@ -37,6 +40,8 @@ class ApiColumnAttributes:
     string_column_attributes: "ApiStringColumnAttributes"
     background_color: Union[Unset, ColumnBackgroundColor] = UNSET
     description: Union[Unset, None, str] = UNSET
+    group_color: Union[Unset, ColumnGroupColor] = UNSET
+    group_name: Union[Unset, None, str] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -55,6 +60,11 @@ class ApiColumnAttributes:
             background_color = self.background_color.value
 
         description = self.description
+        group_color: Union[Unset, str] = UNSET
+        if not isinstance(self.group_color, Unset):
+            group_color = self.group_color.value
+
+        group_name = self.group_name
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -72,6 +82,10 @@ class ApiColumnAttributes:
             field_dict["backgroundColor"] = background_color
         if description is not UNSET:
             field_dict["description"] = description
+        if group_color is not UNSET:
+            field_dict["groupColor"] = group_color
+        if group_name is not UNSET:
+            field_dict["groupName"] = group_name
 
         return field_dict
 
@@ -103,6 +117,15 @@ class ApiColumnAttributes:
 
         description = d.pop("description", UNSET)
 
+        _group_color = d.pop("groupColor", UNSET)
+        group_color: Union[Unset, ColumnGroupColor]
+        if isinstance(_group_color, Unset) or _group_color is None:
+            group_color = UNSET
+        else:
+            group_color = ColumnGroupColor(_group_color)
+
+        group_name = d.pop("groupName", UNSET)
+
         api_column_attributes = cls(
             boolean_column_attributes=boolean_column_attributes,
             computation_mode=computation_mode,
@@ -112,6 +135,8 @@ class ApiColumnAttributes:
             string_column_attributes=string_column_attributes,
             background_color=background_color,
             description=description,
+            group_color=group_color,
+            group_name=group_name,
         )
 
         api_column_attributes.additional_properties = d

@@ -6,6 +6,7 @@ from ..models.api_on_conflict import ApiOnConflict
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
+    from ..models.api_column_with_nullable_values import ApiColumnWithNullableValues
     from ..models.api_column_with_values import ApiColumnWithValues
 
 
@@ -18,13 +19,13 @@ class Insert:
     Attributes:
         on_conflict (ApiOnConflict):
         op (str):
-        data_columns (Union[Unset, List['ApiColumnWithValues']]):
+        data_columns (Union[Unset, List['ApiColumnWithNullableValues']]):
         match_columns (Union[Unset, List['ApiColumnWithValues']]):
     """
 
     on_conflict: ApiOnConflict
     op: str
-    data_columns: Union[Unset, List["ApiColumnWithValues"]] = UNSET
+    data_columns: Union[Unset, List["ApiColumnWithNullableValues"]] = UNSET
     match_columns: Union[Unset, List["ApiColumnWithValues"]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
@@ -65,6 +66,7 @@ class Insert:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+        from ..models.api_column_with_nullable_values import ApiColumnWithNullableValues
         from ..models.api_column_with_values import ApiColumnWithValues
 
         d = src_dict.copy()
@@ -75,7 +77,7 @@ class Insert:
         data_columns = []
         _data_columns = d.pop("dataColumns", UNSET)
         for data_columns_item_data in _data_columns or []:
-            data_columns_item = ApiColumnWithValues.from_dict(data_columns_item_data)
+            data_columns_item = ApiColumnWithNullableValues.from_dict(data_columns_item_data)
 
             data_columns.append(data_columns_item)
 

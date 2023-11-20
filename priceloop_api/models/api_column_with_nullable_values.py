@@ -1,60 +1,56 @@
-import datetime
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
+from typing import Any, Dict, List, Optional, Type, TypeVar, Union, cast
 
 import attr
-from dateutil.parser import isoparse
 
-if TYPE_CHECKING:
-    from ..models.ape_marketplace import ApeMarketplace
+from ..types import UNSET, Unset
 
-
-T = TypeVar("T", bound="ApeMarketplaceRegistration")
+T = TypeVar("T", bound="ApiColumnWithNullableValues")
 
 
 @attr.s(auto_attribs=True)
-class ApeMarketplaceRegistration:
+class ApiColumnWithNullableValues:
     """
     Attributes:
-        date (datetime.datetime):
-        marketplace (ApeMarketplace):
+        name (str):
+        values (Union[Unset, List[Optional[str]]]):
     """
 
-    date: datetime.datetime
-    marketplace: "ApeMarketplace"
+    name: str
+    values: Union[Unset, List[Optional[str]]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        date = self.date.isoformat()
-
-        marketplace = self.marketplace.to_dict()
+        name = self.name
+        values: Union[Unset, List[Optional[str]]] = UNSET
+        if not isinstance(self.values, Unset):
+            values = self.values
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "date": date,
-                "marketplace": marketplace,
+                "name": name,
             }
         )
+        if values is not UNSET:
+            field_dict["values"] = values
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.ape_marketplace import ApeMarketplace
-
         d = src_dict.copy()
-        date = isoparse(d.pop("date"))
+        name = d.pop("name")
 
-        marketplace = ApeMarketplace.from_dict(d.pop("marketplace"))
+        values = cast(List[Optional[str]], d.pop("values", UNSET))
 
-        ape_marketplace_registration = cls(
-            date=date,
-            marketplace=marketplace,
+        api_column_with_nullable_values = cls(
+            name=name,
+            values=values,
         )
 
-        ape_marketplace_registration.additional_properties = d
-        return ape_marketplace_registration
+        api_column_with_nullable_values.additional_properties = d
+        return api_column_with_nullable_values
 
     @property
     def additional_keys(self) -> List[str]:

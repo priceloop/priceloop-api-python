@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
 
 import attr
 
@@ -6,7 +6,6 @@ from ..models.plugin_status import PluginStatus
 
 if TYPE_CHECKING:
     from ..models.plugin_data_type_0 import PluginDataType0
-    from ..models.plugin_data_type_1 import PluginDataType1
 
 
 T = TypeVar("T", bound="Plugin")
@@ -16,13 +15,13 @@ T = TypeVar("T", bound="Plugin")
 class Plugin:
     """
     Attributes:
-        data (Union['PluginDataType0', 'PluginDataType1']):
+        data ('PluginDataType0'):
         external_data (Any):
         name (str):
         status (PluginStatus):
     """
 
-    data: Union["PluginDataType0", "PluginDataType1"]
+    data: "PluginDataType0"
     external_data: Any
     name: str
     status: PluginStatus
@@ -34,9 +33,6 @@ class Plugin:
         data: Dict[str, Any]
 
         if isinstance(self.data, PluginDataType0):
-            data = self.data.to_dict()
-
-        else:
             data = self.data.to_dict()
 
         external_data = self.external_data
@@ -59,24 +55,15 @@ class Plugin:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         from ..models.plugin_data_type_0 import PluginDataType0
-        from ..models.plugin_data_type_1 import PluginDataType1
 
         d = src_dict.copy()
 
-        def _parse_data(data: object) -> Union["PluginDataType0", "PluginDataType1"]:
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                componentsschemas_plugin_data_type_0 = PluginDataType0.from_dict(data)
-
-                return componentsschemas_plugin_data_type_0
-            except:  # noqa: E722
-                pass
+        def _parse_data(data: object) -> "PluginDataType0":
             if not isinstance(data, dict):
                 raise TypeError()
-            componentsschemas_plugin_data_type_1 = PluginDataType1.from_dict(data)
+            componentsschemas_plugin_data_type_0 = PluginDataType0.from_dict(data)
 
-            return componentsschemas_plugin_data_type_1
+            return componentsschemas_plugin_data_type_0
 
         data = _parse_data(d.pop("data"))
 

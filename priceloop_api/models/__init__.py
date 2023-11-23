@@ -1,5 +1,6 @@
 """ Contains all the data models used in inputs/outputs """
 
+from .action import Action
 from .add_data_column_type import AddDataColumnType
 from .amazon import Amazon
 from .amazon_1 import Amazon1
@@ -32,6 +33,7 @@ from .boolean_display_style import BooleanDisplayStyle
 from .column_background_color import ColumnBackgroundColor
 from .column_computation_mode import ColumnComputationMode
 from .column_group_color import ColumnGroupColor
+from .config_type_0 import ConfigType0
 from .confirmation_modal_description import ConfirmationModalDescription
 from .create_external_function_http_param_type_item import CreateExternalFunctionHttpParamTypeItem
 from .create_external_function_http_return_type import CreateExternalFunctionHttpReturnType
@@ -54,6 +56,7 @@ from .import_job import ImportJob
 from .import_job_response import ImportJobResponse
 from .insert import Insert
 from .map_int import MapInt
+from .map_type_vector_type import MapTypeVectorType
 from .number_display_style import NumberDisplayStyle
 from .plugin import Plugin
 from .plugin_1 import Plugin1
@@ -71,11 +74,16 @@ from .plugin_workspace_list import PluginWorkspaceList
 from .plugin_workspace_state import PluginWorkspaceState
 from .presigned_url import PresignedUrl
 from .publish_input import PublishInput
+from .record_changed import RecordChanged
 from .s3_key import S3Key
+from .schedule import Schedule
+from .send_notification import SendNotification
 from .string_display_style import StringDisplayStyle
 from .table_import_mode import TableImportMode
 from .table_publication import TablePublication
 from .table_row import TableRow
+from .trigger_type_0 import TriggerType0
+from .trigger_type_1 import TriggerType1
 from .truncated import Truncated
 from .update import Update
 from .view_page_config import ViewPageConfig
@@ -83,9 +91,11 @@ from .webhook_config import WebhookConfig
 from .webhook_event_selector_type_0 import WebhookEventSelectorType0
 from .webhook_info import WebhookInfo
 from .webhook_plugin_event import WebhookPluginEvent
+from .workspace_automations import WorkspaceAutomations
 from .workspace_integrations import WorkspaceIntegrations
 
 __all__ = (
+    "Action",
     "AddDataColumnType",
     "Amazon",
     "Amazon1",
@@ -118,6 +128,7 @@ __all__ = (
     "ColumnBackgroundColor",
     "ColumnComputationMode",
     "ColumnGroupColor",
+    "ConfigType0",
     "ConfirmationModalDescription",
     "CreateExternalFunctionHttpParamTypeItem",
     "CreateExternalFunctionHttpReturnType",
@@ -140,6 +151,7 @@ __all__ = (
     "ImportJobResponse",
     "Insert",
     "MapInt",
+    "MapTypeVectorType",
     "NumberDisplayStyle",
     "Plugin",
     "Plugin1",
@@ -157,11 +169,16 @@ __all__ = (
     "PluginWorkspaceState",
     "PresignedUrl",
     "PublishInput",
+    "RecordChanged",
     "S3Key",
+    "Schedule",
+    "SendNotification",
     "StringDisplayStyle",
     "TableImportMode",
     "TablePublication",
     "TableRow",
+    "TriggerType0",
+    "TriggerType1",
     "Truncated",
     "Update",
     "ViewPageConfig",
@@ -169,5 +186,6 @@ __all__ = (
     "WebhookEventSelectorType0",
     "WebhookInfo",
     "WebhookPluginEvent",
+    "WorkspaceAutomations",
     "WorkspaceIntegrations",
 )

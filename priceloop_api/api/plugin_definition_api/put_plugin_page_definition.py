@@ -246,7 +246,8 @@ def sync_detailed(
 
     type ColumnAggregate = String(avg | max | min | sum | bool_and | bool_or | string_agg(,))
 
-    type TableQueryAggregate = { column: ColumnName, agg: ColumnAggregate }
+    type TableQueryAggregate = { column: ColumnName, agg: ColumnAggregate, orderBy:
+    TableQueryOrdering[]? }
 
     type TableQuery = {
         from: TableName,
@@ -568,7 +569,8 @@ async def asyncio_detailed(
 
     type ColumnAggregate = String(avg | max | min | sum | bool_and | bool_or | string_agg(,))
 
-    type TableQueryAggregate = { column: ColumnName, agg: ColumnAggregate }
+    type TableQueryAggregate = { column: ColumnName, agg: ColumnAggregate, orderBy:
+    TableQueryOrdering[]? }
 
     type TableQuery = {
         from: TableName,

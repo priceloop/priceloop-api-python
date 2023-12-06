@@ -12,6 +12,7 @@ from .api_column_attributes_update import ApiColumnAttributesUpdate
 from .api_column_schema import ApiColumnSchema
 from .api_column_with_nullable_values import ApiColumnWithNullableValues
 from .api_column_with_values import ApiColumnWithValues
+from .api_delete_mode import ApiDeleteMode
 from .api_external_function import ApiExternalFunction
 from .api_new_plugin_notification import ApiNewPluginNotification
 from .api_number_column_attributes import ApiNumberColumnAttributes
@@ -107,6 +108,7 @@ __all__ = (
     "ApiColumnSchema",
     "ApiColumnWithNullableValues",
     "ApiColumnWithValues",
+    "ApiDeleteMode",
     "ApiExternalFunction",
     "ApiNewPluginNotification",
     "ApiNumberColumnAttributes",

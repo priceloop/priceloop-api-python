@@ -14,9 +14,11 @@ class PluginDefinition:
     Attributes:
         description (str):
         display_name (str):
-        icon_url (str):
         name (str):
         show_in_catalog (bool):
+        abbreviation (Union[Unset, None, str]):
+        emoji (Union[Unset, None, str]):
+        icon_url (Union[Unset, None, str]):
         inactive_description (Union[Unset, None, str]):
         installation_description (Union[Unset, None, str]):
         installation_typeform_id (Union[Unset, None, str]):
@@ -25,9 +27,11 @@ class PluginDefinition:
 
     description: str
     display_name: str
-    icon_url: str
     name: str
     show_in_catalog: bool
+    abbreviation: Union[Unset, None, str] = UNSET
+    emoji: Union[Unset, None, str] = UNSET
+    icon_url: Union[Unset, None, str] = UNSET
     inactive_description: Union[Unset, None, str] = UNSET
     installation_description: Union[Unset, None, str] = UNSET
     installation_typeform_id: Union[Unset, None, str] = UNSET
@@ -37,9 +41,11 @@ class PluginDefinition:
     def to_dict(self) -> Dict[str, Any]:
         description = self.description
         display_name = self.display_name
-        icon_url = self.icon_url
         name = self.name
         show_in_catalog = self.show_in_catalog
+        abbreviation = self.abbreviation
+        emoji = self.emoji
+        icon_url = self.icon_url
         inactive_description = self.inactive_description
         installation_description = self.installation_description
         installation_typeform_id = self.installation_typeform_id
@@ -57,11 +63,16 @@ class PluginDefinition:
             {
                 "description": description,
                 "displayName": display_name,
-                "iconUrl": icon_url,
                 "name": name,
                 "showInCatalog": show_in_catalog,
             }
         )
+        if abbreviation is not UNSET:
+            field_dict["abbreviation"] = abbreviation
+        if emoji is not UNSET:
+            field_dict["emoji"] = emoji
+        if icon_url is not UNSET:
+            field_dict["iconUrl"] = icon_url
         if inactive_description is not UNSET:
             field_dict["inactiveDescription"] = inactive_description
         if installation_description is not UNSET:
@@ -80,11 +91,15 @@ class PluginDefinition:
 
         display_name = d.pop("displayName")
 
-        icon_url = d.pop("iconUrl")
-
         name = d.pop("name")
 
         show_in_catalog = d.pop("showInCatalog")
+
+        abbreviation = d.pop("abbreviation", UNSET)
+
+        emoji = d.pop("emoji", UNSET)
+
+        icon_url = d.pop("iconUrl", UNSET)
 
         inactive_description = d.pop("inactiveDescription", UNSET)
 
@@ -102,9 +117,11 @@ class PluginDefinition:
         plugin_definition = cls(
             description=description,
             display_name=display_name,
-            icon_url=icon_url,
             name=name,
             show_in_catalog=show_in_catalog,
+            abbreviation=abbreviation,
+            emoji=emoji,
+            icon_url=icon_url,
             inactive_description=inactive_description,
             installation_description=installation_description,
             installation_typeform_id=installation_typeform_id,

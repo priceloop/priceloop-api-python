@@ -229,7 +229,8 @@ def sync_detailed(
 
     type SelectionBoxButtonConfig = { text: String, onClick: Action }
 
-    type SelectionBoxConfig = { ghost: Boolean?, dropdownButton: SelectionBoxButtonConfig? }
+    type SelectionBoxConfig = { ghost: Boolean?, dropdownButton: SelectionBoxButtonConfig?,
+    defaultValue: String? }
 
     type TableName = String
 
@@ -553,7 +554,8 @@ async def asyncio_detailed(
 
     type SelectionBoxButtonConfig = { text: String, onClick: Action }
 
-    type SelectionBoxConfig = { ghost: Boolean?, dropdownButton: SelectionBoxButtonConfig? }
+    type SelectionBoxConfig = { ghost: Boolean?, dropdownButton: SelectionBoxButtonConfig?,
+    defaultValue: String? }
 
     type TableName = String
 

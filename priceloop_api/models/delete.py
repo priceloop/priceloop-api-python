@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 import attr
 
+from ..models.api_delete_mode import ApiDeleteMode
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -15,15 +16,19 @@ T = TypeVar("T", bound="Delete")
 class Delete:
     """
     Attributes:
+        delete_mode (ApiDeleteMode):
         op (str):
         match_columns (Union[Unset, List['ApiColumnWithValues']]):
     """
 
+    delete_mode: ApiDeleteMode
     op: str
     match_columns: Union[Unset, List["ApiColumnWithValues"]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
+        delete_mode = self.delete_mode.value
+
         op = self.op
         match_columns: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.match_columns, Unset):
@@ -37,6 +42,7 @@ class Delete:
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
+                "deleteMode": delete_mode,
                 "op": op,
             }
         )
@@ -50,6 +56,8 @@ class Delete:
         from ..models.api_column_with_values import ApiColumnWithValues
 
         d = src_dict.copy()
+        delete_mode = ApiDeleteMode(d.pop("deleteMode"))
+
         op = d.pop("op")
 
         match_columns = []
@@ -60,6 +68,7 @@ class Delete:
             match_columns.append(match_columns_item)
 
         delete = cls(
+            delete_mode=delete_mode,
             op=op,
             match_columns=match_columns,
         )

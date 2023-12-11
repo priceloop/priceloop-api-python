@@ -13,7 +13,7 @@ jobs:
     name: "Build"
     strategy:
       matrix:
-        python-version: ["3.8", "3.10"]
+        python-version: ["3.10"]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -38,7 +38,7 @@ jobs:
     name: "Publish python package on PyPI"
     strategy:
       matrix:
-        versions: ['3.8-pandas1', '3.10-pandas2']
+        versions: ['3.10-pandas2']
     needs:
       - build
     steps:

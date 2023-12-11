@@ -14,7 +14,7 @@ from priceloop_api.priceloop.extras.helpers import get_priceloop_client
 
 
 @pytest.fixture
-def sample_dataframe1():
+def sample_dataframe1() -> pd.DataFrame:
     df = pd.DataFrame(
         data={
             "name": ["John", "Alice", "Bob"],
@@ -28,10 +28,10 @@ def sample_dataframe1():
 
 
 class TestTableUtils:
-    def test(self):
+    def test(self) -> None:
         assert True
 
-    def test_initiate_table_on_platform(self):
+    def test_initiate_table_on_platform(self) -> None:
         client = get_priceloop_client()
         assert TableUtils.initialize_table(
             os.environ["NOCODE_WORKSPACE"],
@@ -51,7 +51,7 @@ class TestTableUtils:
             client,
         )
 
-    def test_get_table_data(self):
+    def test_get_table_data(self) -> None:
         client = get_priceloop_client()
         assert (
             TableUtils.read_table(
@@ -62,7 +62,7 @@ class TestTableUtils:
             is not None
         )
 
-    def test_truncate_table(self):
+    def test_truncate_table(self) -> None:
         client = get_priceloop_client()
         assert TableUtils.truncate(
             os.environ["NOCODE_WORKSPACE"],
@@ -70,7 +70,7 @@ class TestTableUtils:
             client,
         )
 
-    def test_patch_table(self, sample_dataframe1):
+    def test_patch_table(self, sample_dataframe1: pd.DataFrame) -> None:
         client = get_priceloop_client()
 
         TableUtils.patch_table(
@@ -109,7 +109,7 @@ class TestTableUtils:
         )
         assert table.shape[0] == 0
 
-    def test_delete_table(self):
+    def test_delete_table(self) -> None:
         client = get_priceloop_client()
         assert TableUtils.delete_table(
             os.environ["NOCODE_WORKSPACE"],

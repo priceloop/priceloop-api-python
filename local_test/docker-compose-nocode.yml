@@ -1,0 +1,226 @@
+name: nocode
+services:
+  compute:
+    container_name: nocode-compute
+    depends_on:
+      postgres:
+        condition: service_healthy
+        required: true
+    environment:
+      AWS_ACCESS_KEY_ID: test
+      AWS_ENDPOINT: http://localstack:4566
+      AWS_REGION: eu-central-1
+      AWS_SECRET_ACCESS_KEY: test
+      NOCODE_DEV_ACCESS_TOKEN: eyJhbGciOiJSUzI1NiIsInR5cCI6ImF0K2p3dCIsImtpZCI6ImtleXN0b3JlLUNIQU5HRS1NRSJ9.eyJzdWIiOiJ0ZXN0K2FkbWluIiwidXNlcm5hbWUiOiJ0ZXN0K2FkbWluIiwiY29nbml0bzpncm91cHMiOlsiYWRtaW4iXSwianRpIjoiU1VCcy1yY0taN0VoeVlfdjd1SUtkIiwiaWF0IjoxNjk3NTUxMTY1LCJleHAiOjE2OTc1NTQ3NjUsInNjb3BlIjoiZW1haWwgcHJvZmlsZSBvcGVuaWQgdXNlci9hcGkiLCJjbGllbnRfaWQiOiJmdW4iLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwODIiLCJhdWQiOiJmdW4tYXBpIn0.JQNG-R0iieDt-qQio3g8pdjrRVLL-jv-7lHBoMmP3HWR3vFfxyoNA5TTEtzewCiQUt3NJRaJsHnYFqM1Ay06FM7nmppXCwNLr4PbPU5PWpfkvetwnBACNFCYPrZKARIc3aPr3Xl9tVl7UbPwDWN-w3-61GKMJ-aKQymLeNl24yYdOpPtTL9NEAhWmU4OOZIwNq1FxobW5bOpdB7bJnuPv70ZlvP1xGhJL7TUMifrFY4-hycwrrGCQXOFovk-r0VpOhmlnf4TtgXYsweaK2tz9RhgYeMvxEdSYioH4nbDTEMWsP1iorFx_S7ogeW1hYX4bd_jEAdl6hMd6BS49xtShA
+      NOCODE_URL: http://frontend:12345/docker
+      RDS_CONNECTION: postgresql://postgres:test3@postgres:5432/priceloop?sslmode=disable
+      RUST_BACKTRACE: "1"
+      RUST_LOG: sqlx::query=warn,tower_http=warn
+    image: ghcr.io/priceloop/nocode-compute:b1f6ddd80d8c39849d4cabd83c0018a0511539c5@sha256:240320c9f12fbb2d35b214636c25c9f28bb0aaef6f0bf39553703e3ccd2f6f13
+    init: true
+    networks:
+      default: null
+  frontend:
+    container_name: nocode-frontend
+    depends_on:
+      compute:
+        condition: service_started
+        required: true
+      prisma:
+        condition: service_completed_successfully
+        required: true
+      terraform:
+        condition: service_completed_successfully
+        required: true
+    image: ghcr.io/priceloop/nocode-frontend:b1f6ddd80d8c39849d4cabd83c0018a0511539c5@sha256:89b5ca915b35134d97960a21ca837a9696badcb79bbf1f45e2fe714d7f3c1f8e
+    init: true
+    networks:
+      default: null
+    platform: linux/amd64
+    ports:
+      - mode: ingress
+        target: 12345
+        published: "12345"
+        protocol: tcp
+  fun-local-env:
+    command:
+      - --auth
+      - "8082"
+      - --http
+      - "8080"
+      - --ws
+      - "8081"
+      - --http-api
+      - /lambda/target/scala-2.13/scalajs-bundler/main/dist/main.js
+      - httpApi
+      - --http-rpc
+      - /lambda/target/scala-2.13/scalajs-bundler/main/dist/main.js
+      - httpRpc
+      - --ws-rpc
+      - /lambda/target/scala-2.13/scalajs-bundler/main/dist/main.js
+      - wsRpc
+    container_name: nocode-fun-local-env
+    environment:
+      AMZ_SP_APP_ID: ""
+      AMZ_SP_LWA_CLIENT_ID: ""
+      AMZ_SP_LWA_CLIENT_SECRET: ""
+      AMZ_SP_OAUTH_STATE_KEY: 123rand000m
+      AMZ_SP_REDIRECT_URL: ""
+      AWS_ACCESS_KEY_ID: test
+      AWS_ENDPOINT: http://localstack:4566
+      AWS_REGION: eu-central-1
+      AWS_S3_IMPORT_EXPORT_BUCKET: testbucket
+      AWS_SECRET_ACCESS_KEY: test
+      LAMBDA_LAYER_VERSION_ARN_PYTHON_NUMPY: arn:aws:lambda:eu-central-1:000000000000:layer:AWSLambda-Python38-SciPy1x:1
+      LAMBDA_LAYER_VERSION_ARN_PYTHON_PANDAS: arn:aws:lambda:eu-central-1:000000000000:layer:AWSSDKPandas-Python38:1
+      NOCODE_ASYNC_COMMANDS_QUEUE_SQS_URL: http://localstack:4566/000000000000/async-commands.fifo
+      NOCODE_AUTH_URL: http://localhost:8082
+      NOCODE_ENABLE_PLUGIN_NOTIFICATIONS: "true"
+      NOCODE_EXTERNAL_FUNCTIONS_BUCKET: external-functions
+      NOCODE_EXTERNAL_FUNCTIONS_ROLE_ARN: arn:aws:iam::000000000000:role/role-name-with-path
+      NOCODE_SCHEDULE_TARGET_ARN: arn:aws:sqs:eu-central-1:000000000000:async-commands.fifo
+      NOCODE_SCHEDULE_TARGET_ROLE_ARN: arn:aws:iam::000000000000:role/role-name-with-path
+      NOCODE_STAGE: local
+      NOCODE_URL: http://localhost:12345
+      NOCODE_VERSION: local
+      NOCODE_WEBHOOK_SNS_TOPIC_ARN: arn:aws:sns:eu-central-1:000000000000:webhook-events
+      NODE_OPTIONS: --enable-source-maps
+      RDS_DB: priceloop
+      RDS_HOST: postgres
+      RDS_PASSWORD: test3
+      RDS_PORT: "5432"
+      RDS_USERNAME: postgres
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - -f
+        - http://fun-local-env:8080
+      interval: 5s
+      start_period: 4m0s
+    image: ghcr.io/priceloop/nocode-fun-local-env:b1f6ddd80d8c39849d4cabd83c0018a0511539c5@sha256:8dfc9ad3464cb034dee201537dc25e4ba028b16c81420189c4abadd58461e8be
+    networks:
+      default: null
+    platform: linux/amd64
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "18080"
+        protocol: tcp
+      - mode: ingress
+        target: 8081
+        published: "18081"
+        protocol: tcp
+      - mode: ingress
+        target: 8082
+        published: "8082"
+        protocol: tcp
+    restart: unless-stopped
+  localstack:
+    container_name: nocode-localstack
+    environment:
+      AWS_DEFAULT_REGION: eu-central-1
+      DEBUG: "true"
+      DOCKER_HOST: unix:///var/run/docker.sock
+      HOSTNAME_EXTERNAL: localstack
+      LAMBDA_DOCKER_NETWORK: nocode
+      LAMBDA_IGNORE_ARCHITECTURE: "1"
+      LAMBDA_TRUNCATE_STDOUT: "100000"
+      LOCALSTACK_HOST: localstack:4566
+    image: docker.io/localstack/localstack:2.3.2@sha256:c396d899a3cdc038ba6bb82d54a40f12c037004b93c3e1efc4c821db60306f79
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 4566
+        published: "4566"
+        protocol: tcp
+    volumes:
+      - type: volume
+        source: localstack
+        target: /var/lib/localstack
+        volume: {}
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+        bind:
+          create_host_path: true
+  postgres:
+    command:
+      - postgres
+      - -c
+      - log_min_duration_statement=0
+      - -c
+      - max_connections=100
+      - -c
+      - superuser_reserved_connections=3
+    container_name: nocode-postgres
+    environment:
+      POSTGRES_DB: priceloop
+      POSTGRES_PASSWORD: test3
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U postgres
+      interval: 5s
+    image: docker.io/sibedge/postgres-plv8:15.4-3.2.0@sha256:183c7e66b14b510030dbd00cd06681459ee5d042c44524fb2b517f7c13f65d42
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 5432
+        published: "5431"
+        protocol: tcp
+    volumes:
+      - type: volume
+        source: postgres_data
+        target: /var/lib/postgresql/data
+        volume: {}
+  prisma:
+    container_name: nocode-prisma
+    depends_on:
+      postgres:
+        condition: service_healthy
+        required: true
+    environment:
+      NOCODE_ENVIRONMENT: local
+      RDS_CONNECTION: postgresql://postgres:test3@postgres:5432/priceloop?sslmode=disable
+    image: ghcr.io/priceloop/nocode-prisma:b1f6ddd80d8c39849d4cabd83c0018a0511539c5@sha256:e58314e8540f95f2866d565650d9d5c692ad0cd8a84c230b39598022fe16e27b
+    networks:
+      default: null
+    platform: linux/amd64
+  terraform:
+    container_name: nocode-terraform
+    depends_on:
+      fun-local-env:
+        condition: service_healthy
+        required: true
+      localstack:
+        condition: service_started
+        required: true
+    entrypoint:
+      - sh
+      - -c
+      - rm -f /terraform_state/*.tf && cp -r /terraform/* /terraform_state/ && cd /terraform_state && terraform init -force-copy && terraform apply -auto-approve
+    environment:
+      TF_VAR_localstack_url: http://localstack:4566
+    image: ghcr.io/priceloop/nocode-terraform:b1f6ddd80d8c39849d4cabd83c0018a0511539c5@sha256:7a7ebdfa060c1e2fc99ee7129d092dcb503501ae825479828d7c9d9080011aa4
+    init: true
+    networks:
+      default: null
+    platform: linux/amd64
+    volumes:
+      - type: volume
+        source: terraform
+        target: /terraform_state
+        volume: {}
+networks:
+  default:
+    name: nocode
+volumes:
+  localstack:
+    name: nocode_localstack
+  postgres_data:
+    name: nocode_postgres_data
+  terraform:
+    name: nocode_terraform

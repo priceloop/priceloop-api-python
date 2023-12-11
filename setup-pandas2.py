@@ -13,6 +13,7 @@ REQUIRES = [
     "requests ~= 2.25",
     "frozendict ~= 2.3",
     "pandas ~= 2.0",
+    "tenacity == 8.2.3",
 ]
 
 setup(

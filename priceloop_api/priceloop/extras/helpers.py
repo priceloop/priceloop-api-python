@@ -19,7 +19,6 @@ def get_priceloop_client(
     env: Literal["dev", "local", "prod"] = "local",
     raise_on_unexpected_status: bool = True,
 ) -> AuthenticatedClient:
-    env = "dev" if os.environ["APP_ENV"] == "dev" else os.environ["APP_ENV"]
     if env == "local":
         return AuthenticatedClient(
             base_url="http://localhost:18080",
@@ -29,7 +28,6 @@ def get_priceloop_client(
         )
     host: Optional[str] = os.getenv("NOCODE_HOST")
     if host is None:
-        env = "dev" if os.environ["APP_ENV"] == "local" else os.environ["APP_ENV"]
         host = "alpha.priceloop.ai" if env == "prod" else f"alpha-{env}.priceloop.ai"
     return PriceloopClient.with_credentials(
         username,

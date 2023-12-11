@@ -1,6 +1,6 @@
 import json
 import os
-from typing import Any, Optional
+from typing import Any, Optional, Literal
 
 from priceloop_api.client import AuthenticatedClient
 from priceloop_api.priceloop.auth import PriceloopClient
@@ -16,6 +16,7 @@ def get_token() -> Any:
 def get_priceloop_client(
     username: str = os.environ["NOCODE_USERNAME"],
     password: str = os.environ["NOCODE_PASSWORD"],
+    env: Literal["dev", "local", "prod"] = "local",
     raise_on_unexpected_status: bool = True,
 ) -> AuthenticatedClient:
     env = "dev" if os.environ["APP_ENV"] == "dev" else os.environ["APP_ENV"]

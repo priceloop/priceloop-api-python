@@ -147,7 +147,9 @@ class TableUtils:
     """
 
     @staticmethod
-    @retry(stop=stop_after_attempt(NUM_OF_RETRIES), wait=wait_fixed(1), retry=retry_if_exception_type(PlatformException))
+    @retry(
+        stop=stop_after_attempt(NUM_OF_RETRIES), wait=wait_fixed(1), retry=retry_if_exception_type(PlatformException)
+    )
     def is_table_on_platform(
         workspace_name: str,
         table_name: str,
@@ -319,7 +321,9 @@ class TableUtils:
             columns=columns,
         )
 
-    @retry(stop=stop_after_attempt(NUM_OF_RETRIES), wait=wait_fixed(5), retry=retry_if_exception_type(PlatformException))
+    @retry(
+        stop=stop_after_attempt(NUM_OF_RETRIES), wait=wait_fixed(5), retry=retry_if_exception_type(PlatformException)
+    )
     @staticmethod
     def truncate(
         workspace_name: str,
@@ -392,7 +396,9 @@ class TableUtils:
         return table_data.rows
 
     @staticmethod
-    @retry(stop=stop_after_attempt(NUM_OF_RETRIES), wait=wait_fixed(5), retry=retry_if_exception_type(PlatformException))
+    @retry(
+        stop=stop_after_attempt(NUM_OF_RETRIES), wait=wait_fixed(5), retry=retry_if_exception_type(PlatformException)
+    )
     def get_metadata(
         workspace_name: str,
         table_name: str,
@@ -427,7 +433,9 @@ class TableUtils:
                 raise PlatformException
 
     @staticmethod
-    @retry(stop=stop_after_attempt(NUM_OF_RETRIES), wait=wait_fixed(3), retry=retry_if_exception_type(PlatformException))
+    @retry(
+        stop=stop_after_attempt(NUM_OF_RETRIES), wait=wait_fixed(3), retry=retry_if_exception_type(PlatformException)
+    )
     def get_slice_of_data(
         workspace_name: str,
         table_name: str,
@@ -506,7 +514,7 @@ class TableUtils:
                 offset,
                 list_of_columns,
                 client,
-                )
+            )
         return table_data
 
     @staticmethod
@@ -613,7 +621,9 @@ class TableUtils:
         else:
             return [str(x) if x is not None else None for x in df[column_name].values.tolist()]
 
-    @retry(stop=stop_after_attempt(NUM_OF_RETRIES), wait=wait_fixed(5), retry=retry_if_exception_type(PlatformException))
+    @retry(
+        stop=stop_after_attempt(NUM_OF_RETRIES), wait=wait_fixed(5), retry=retry_if_exception_type(PlatformException)
+    )
     @staticmethod
     def import_data(
         workspace_name: str,
@@ -706,21 +716,21 @@ class TableUtils:
         - PatchMode.InsertOnConflictUpdate: Insert data into the table with an update conflict resolution strategy.
         - PatchMode.Update: Update existing rows in the table based on specified columns.
         """
-        json_body: List[Append | Delete | Insert| Update]  = []
-        match mode:
-            case PatchMode.Append:
-                json_body.append(TableUtils.get_patch_append(data_columns, table_df))
-            case PatchMode.Delete:
-                json_body.append(TableUtils.get_patch_delete(match_on_columns, "delete_matching", table_df))
-            case PatchMode.InsertOnConflictFail:
-                json_body.append(TableUtils.get_patch_insert(match_on_columns, data_columns, table_df, "fail"))
-            case PatchMode.InsertOnConflictIgnore:
-                json_body.append(TableUtils.get_patch_insert(match_on_columns, data_columns, table_df, "ignore"))
-            case PatchMode.InsertOnConflictUpdate:
-                json_body.append(TableUtils.get_patch_insert(match_on_columns, data_columns, table_df, "update"))
-            case PatchMode.Update:
-                json_body.append(TableUtils.get_patch_update(match_on_columns, data_columns, table_df))
-        
+        json_body: List[Append | Delete | Insert | Update] = []
+        if mode == PatchMode.Append:
+            json_body.append(TableUtils.get_patch_append(data_columns, table_df))
+
+        elif mode == PatchMode.Delete:
+            json_body.append(TableUtils.get_patch_delete(match_on_columns, "delete_matching", table_df))
+        elif mode == PatchMode.InsertOnConflictFail:
+            json_body.append(TableUtils.get_patch_insert(match_on_columns, data_columns, table_df, "fail"))
+        elif mode == PatchMode.InsertOnConflictIgnore:
+            json_body.append(TableUtils.get_patch_insert(match_on_columns, data_columns, table_df, "ignore"))
+        elif mode == PatchMode.InsertOnConflictUpdate:
+            json_body.append(TableUtils.get_patch_insert(match_on_columns, data_columns, table_df, "update"))
+        elif mode == PatchMode.Update:
+            json_body.append(TableUtils.get_patch_update(match_on_columns, data_columns, table_df))
+
         try:
             request = patch_table_data.sync_detailed(
                 workspace=workspace_name, table=table_name, client=client, json_body=json_body

@@ -6,11 +6,11 @@ if TYPE_CHECKING:
     from ..models.schedule import Schedule
 
 
-T = TypeVar("T", bound="TriggerType1")
+T = TypeVar("T", bound="ApiTriggerType1")
 
 
 @attr.s(auto_attribs=True)
-class TriggerType1:
+class ApiTriggerType1:
     """
     Attributes:
         schedule (Schedule):
@@ -39,12 +39,12 @@ class TriggerType1:
         d = src_dict.copy()
         schedule = Schedule.from_dict(d.pop("Schedule"))
 
-        trigger_type_1 = cls(
+        api_trigger_type_1 = cls(
             schedule=schedule,
         )
 
-        trigger_type_1.additional_properties = d
-        return trigger_type_1
+        api_trigger_type_1.additional_properties = d
+        return api_trigger_type_1
 
     @property
     def additional_keys(self) -> List[str]:

@@ -22,7 +22,7 @@ class ImportJob:
         csv_separator (str):
         id (int):
         s_3_key (S3Key):
-        table_import_mode (TableImportMode):  Default: TableImportMode.NEW.
+        table_import_mode (TableImportMode):
         table_name (str):  Example: table-name.
         finished_at (Union[Unset, None, datetime.datetime]):
         is_successful (Union[Unset, None, bool]):
@@ -34,8 +34,8 @@ class ImportJob:
     csv_separator: str
     id: int
     s_3_key: "S3Key"
+    table_import_mode: TableImportMode
     table_name: str
-    table_import_mode: TableImportMode = TableImportMode.NEW
     finished_at: Union[Unset, None, datetime.datetime] = UNSET
     is_successful: Union[Unset, None, bool] = UNSET
     message: Union[Unset, None, str] = UNSET

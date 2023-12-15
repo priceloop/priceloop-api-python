@@ -1,36 +1,32 @@
-from typing import Any, Dict, List, Type, TypeVar
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
 
 import attr
 
-T = TypeVar("T", bound="SendNotification")
+if TYPE_CHECKING:
+    from ..models.record_updated import RecordUpdated
+
+
+T = TypeVar("T", bound="ApiTriggerType0")
 
 
 @attr.s(auto_attribs=True)
-class SendNotification:
+class ApiTriggerType0:
     """
     Attributes:
-        body (str):
-        name (str):  Example: action-name.
-        title (str):
+        record_updated (RecordUpdated):
     """
 
-    body: str
-    name: str
-    title: str
+    record_updated: "RecordUpdated"
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        body = self.body
-        name = self.name
-        title = self.title
+        record_updated = self.record_updated.to_dict()
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "body": body,
-                "name": name,
-                "title": title,
+                "RecordUpdated": record_updated,
             }
         )
 
@@ -38,21 +34,17 @@ class SendNotification:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+        from ..models.record_updated import RecordUpdated
+
         d = src_dict.copy()
-        body = d.pop("body")
+        record_updated = RecordUpdated.from_dict(d.pop("RecordUpdated"))
 
-        name = d.pop("name")
-
-        title = d.pop("title")
-
-        send_notification = cls(
-            body=body,
-            name=name,
-            title=title,
+        api_trigger_type_0 = cls(
+            record_updated=record_updated,
         )
 
-        send_notification.additional_properties = d
-        return send_notification
+        api_trigger_type_0.additional_properties = d
+        return api_trigger_type_0
 
     @property
     def additional_keys(self) -> List[str]:

@@ -26,9 +26,9 @@ class ApiColumnAttributes:
         is_hidden (bool):
         number_column_attributes (ApiNumberColumnAttributes):
         string_column_attributes (ApiStringColumnAttributes):
-        background_color (Union[Unset, ColumnBackgroundColor]):
+        background_color (Union[Unset, None, ColumnBackgroundColor]):
         description (Union[Unset, None, str]):
-        group_color (Union[Unset, ColumnGroupColor]):
+        group_color (Union[Unset, None, ColumnGroupColor]):
         group_name (Union[Unset, None, str]):
     """
 
@@ -38,9 +38,9 @@ class ApiColumnAttributes:
     is_hidden: bool
     number_column_attributes: "ApiNumberColumnAttributes"
     string_column_attributes: "ApiStringColumnAttributes"
-    background_color: Union[Unset, ColumnBackgroundColor] = UNSET
+    background_color: Union[Unset, None, ColumnBackgroundColor] = UNSET
     description: Union[Unset, None, str] = UNSET
-    group_color: Union[Unset, ColumnGroupColor] = UNSET
+    group_color: Union[Unset, None, ColumnGroupColor] = UNSET
     group_name: Union[Unset, None, str] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
@@ -55,14 +55,14 @@ class ApiColumnAttributes:
 
         string_column_attributes = self.string_column_attributes.to_dict()
 
-        background_color: Union[Unset, str] = UNSET
+        background_color: Union[Unset, None, str] = UNSET
         if not isinstance(self.background_color, Unset):
-            background_color = self.background_color.value
+            background_color = self.background_color.value if self.background_color else None
 
         description = self.description
-        group_color: Union[Unset, str] = UNSET
+        group_color: Union[Unset, None, str] = UNSET
         if not isinstance(self.group_color, Unset):
-            group_color = self.group_color.value
+            group_color = self.group_color.value if self.group_color else None
 
         group_name = self.group_name
 
@@ -109,8 +109,10 @@ class ApiColumnAttributes:
         string_column_attributes = ApiStringColumnAttributes.from_dict(d.pop("stringColumnAttributes"))
 
         _background_color = d.pop("backgroundColor", UNSET)
-        background_color: Union[Unset, ColumnBackgroundColor]
-        if isinstance(_background_color, Unset) or _background_color is None:
+        background_color: Union[Unset, None, ColumnBackgroundColor]
+        if _background_color is None:
+            background_color = None
+        elif isinstance(_background_color, Unset) or _background_color is None:
             background_color = UNSET
         else:
             background_color = ColumnBackgroundColor(_background_color)
@@ -118,8 +120,10 @@ class ApiColumnAttributes:
         description = d.pop("description", UNSET)
 
         _group_color = d.pop("groupColor", UNSET)
-        group_color: Union[Unset, ColumnGroupColor]
-        if isinstance(_group_color, Unset) or _group_color is None:
+        group_color: Union[Unset, None, ColumnGroupColor]
+        if _group_color is None:
+            group_color = None
+        elif isinstance(_group_color, Unset) or _group_color is None:
             group_color = UNSET
         else:
             group_color = ColumnGroupColor(_group_color)

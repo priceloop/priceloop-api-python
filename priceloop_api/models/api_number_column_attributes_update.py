@@ -17,26 +17,28 @@ T = TypeVar("T", bound="ApiNumberColumnAttributesUpdate")
 class ApiNumberColumnAttributesUpdate:
     """
     Attributes:
-        display_style (Union[Unset, NumberDisplayStyle]):
-        precision (Union['Full', 'Truncated', Unset]):
+        display_style (Union[Unset, None, NumberDisplayStyle]):
+        precision (Union['Full', 'Truncated', None, Unset]):
         unit (Union[Unset, None, str]):
     """
 
-    display_style: Union[Unset, NumberDisplayStyle] = UNSET
-    precision: Union["Full", "Truncated", Unset] = UNSET
+    display_style: Union[Unset, None, NumberDisplayStyle] = UNSET
+    precision: Union["Full", "Truncated", None, Unset] = UNSET
     unit: Union[Unset, None, str] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         from ..models.full import Full
 
-        display_style: Union[Unset, str] = UNSET
+        display_style: Union[Unset, None, str] = UNSET
         if not isinstance(self.display_style, Unset):
-            display_style = self.display_style.value
+            display_style = self.display_style.value if self.display_style else None
 
-        precision: Union[Dict[str, Any], Unset]
+        precision: Union[Dict[str, Any], None, Unset]
         if isinstance(self.precision, Unset):
             precision = UNSET
+        elif self.precision is None:
+            precision = None
 
         elif isinstance(self.precision, Full):
             precision = self.precision.to_dict()
@@ -65,13 +67,17 @@ class ApiNumberColumnAttributesUpdate:
 
         d = src_dict.copy()
         _display_style = d.pop("displayStyle", UNSET)
-        display_style: Union[Unset, NumberDisplayStyle]
-        if isinstance(_display_style, Unset) or _display_style is None:
+        display_style: Union[Unset, None, NumberDisplayStyle]
+        if _display_style is None:
+            display_style = None
+        elif isinstance(_display_style, Unset) or _display_style is None:
             display_style = UNSET
         else:
             display_style = NumberDisplayStyle(_display_style)
 
-        def _parse_precision(data: object) -> Union["Full", "Truncated", Unset]:
+        def _parse_precision(data: object) -> Union["Full", "Truncated", None, Unset]:
+            if data is None:
+                return data
             if isinstance(data, Unset):
                 return data
             try:

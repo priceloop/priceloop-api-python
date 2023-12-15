@@ -12,16 +12,16 @@ T = TypeVar("T", bound="ApiStringColumnAttributesUpdate")
 class ApiStringColumnAttributesUpdate:
     """
     Attributes:
-        display_style (Union[Unset, StringDisplayStyle]):
+        display_style (Union[Unset, None, StringDisplayStyle]):
     """
 
-    display_style: Union[Unset, StringDisplayStyle] = UNSET
+    display_style: Union[Unset, None, StringDisplayStyle] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        display_style: Union[Unset, str] = UNSET
+        display_style: Union[Unset, None, str] = UNSET
         if not isinstance(self.display_style, Unset):
-            display_style = self.display_style.value
+            display_style = self.display_style.value if self.display_style else None
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -35,8 +35,10 @@ class ApiStringColumnAttributesUpdate:
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
         _display_style = d.pop("displayStyle", UNSET)
-        display_style: Union[Unset, StringDisplayStyle]
-        if isinstance(_display_style, Unset) or _display_style is None:
+        display_style: Union[Unset, None, StringDisplayStyle]
+        if _display_style is None:
+            display_style = None
+        elif isinstance(_display_style, Unset) or _display_style is None:
             display_style = UNSET
         else:
             display_style = StringDisplayStyle(_display_style)

@@ -1,9 +1,11 @@
 """ Contains all the data models used in inputs/outputs """
 
-from .action import Action
 from .add_data_column_type import AddDataColumnType
+from .all_ import All
 from .amazon import Amazon
 from .amazon_1 import Amazon1
+from .api_action_type_0 import ApiActionType0
+from .api_automation import ApiAutomation
 from .api_boolean_column_attributes import ApiBooleanColumnAttributes
 from .api_boolean_column_attributes_update import ApiBooleanColumnAttributesUpdate
 from .api_column import ApiColumn
@@ -28,13 +30,17 @@ from .api_table import ApiTable
 from .api_table_attributes import ApiTableAttributes
 from .api_table_data import ApiTableData
 from .api_table_schema import ApiTableSchema
+from .api_trigger_type_0 import ApiTriggerType0
+from .api_trigger_type_1 import ApiTriggerType1
+from .api_watch_columns_type_0 import ApiWatchColumnsType0
+from .api_watch_columns_type_1 import ApiWatchColumnsType1
 from .api_workspace import ApiWorkspace
+from .api_workspace_automations import ApiWorkspaceAutomations
 from .append import Append
 from .boolean_display_style import BooleanDisplayStyle
 from .column_background_color import ColumnBackgroundColor
 from .column_computation_mode import ColumnComputationMode
 from .column_group_color import ColumnGroupColor
-from .config_type_0 import ConfigType0
 from .confirmation_modal_description import ConfirmationModalDescription
 from .create_external_function_http_param_type_item import CreateExternalFunctionHttpParamTypeItem
 from .create_external_function_http_return_type import CreateExternalFunctionHttpReturnType
@@ -57,8 +63,8 @@ from .import_job import ImportJob
 from .import_job_response import ImportJobResponse
 from .insert import Insert
 from .map_int import MapInt
-from .map_type_vector_type import MapTypeVectorType
 from .number_display_style import NumberDisplayStyle
+from .one_of import OneOf
 from .plugin import Plugin
 from .plugin_1 import Plugin1
 from .plugin_data_type_0 import PluginDataType0
@@ -75,7 +81,7 @@ from .plugin_workspace_list import PluginWorkspaceList
 from .plugin_workspace_state import PluginWorkspaceState
 from .presigned_url import PresignedUrl
 from .publish_input import PublishInput
-from .record_changed import RecordChanged
+from .record_updated import RecordUpdated
 from .s3_key import S3Key
 from .schedule import Schedule
 from .send_notification import SendNotification
@@ -83,8 +89,6 @@ from .string_display_style import StringDisplayStyle
 from .table_import_mode import TableImportMode
 from .table_publication import TablePublication
 from .table_row import TableRow
-from .trigger_type_0 import TriggerType0
-from .trigger_type_1 import TriggerType1
 from .truncated import Truncated
 from .update import Update
 from .view_page_config import ViewPageConfig
@@ -92,14 +96,15 @@ from .webhook_config import WebhookConfig
 from .webhook_event_selector_type_0 import WebhookEventSelectorType0
 from .webhook_info import WebhookInfo
 from .webhook_plugin_event import WebhookPluginEvent
-from .workspace_automations import WorkspaceAutomations
 from .workspace_integrations import WorkspaceIntegrations
 
 __all__ = (
-    "Action",
     "AddDataColumnType",
+    "All",
     "Amazon",
     "Amazon1",
+    "ApiActionType0",
+    "ApiAutomation",
     "ApiBooleanColumnAttributes",
     "ApiBooleanColumnAttributesUpdate",
     "ApiColumn",
@@ -124,13 +129,17 @@ __all__ = (
     "ApiTableAttributes",
     "ApiTableData",
     "ApiTableSchema",
+    "ApiTriggerType0",
+    "ApiTriggerType1",
+    "ApiWatchColumnsType0",
+    "ApiWatchColumnsType1",
     "ApiWorkspace",
+    "ApiWorkspaceAutomations",
     "Append",
     "BooleanDisplayStyle",
     "ColumnBackgroundColor",
     "ColumnComputationMode",
     "ColumnGroupColor",
-    "ConfigType0",
     "ConfirmationModalDescription",
     "CreateExternalFunctionHttpParamTypeItem",
     "CreateExternalFunctionHttpReturnType",
@@ -153,8 +162,8 @@ __all__ = (
     "ImportJobResponse",
     "Insert",
     "MapInt",
-    "MapTypeVectorType",
     "NumberDisplayStyle",
+    "OneOf",
     "Plugin",
     "Plugin1",
     "PluginDataType0",
@@ -171,7 +180,7 @@ __all__ = (
     "PluginWorkspaceState",
     "PresignedUrl",
     "PublishInput",
-    "RecordChanged",
+    "RecordUpdated",
     "S3Key",
     "Schedule",
     "SendNotification",
@@ -179,8 +188,6 @@ __all__ = (
     "TableImportMode",
     "TablePublication",
     "TableRow",
-    "TriggerType0",
-    "TriggerType1",
     "Truncated",
     "Update",
     "ViewPageConfig",
@@ -188,6 +195,5 @@ __all__ = (
     "WebhookEventSelectorType0",
     "WebhookInfo",
     "WebhookPluginEvent",
-    "WorkspaceAutomations",
     "WorkspaceIntegrations",
 )

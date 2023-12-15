@@ -15,7 +15,7 @@ def _get_kwargs(
     table: str,
     *,
     client: AuthenticatedClient,
-    mode: Union[Unset, None, TableImportMode] = TableImportMode.NEW,
+    mode: Union[Unset, None, TableImportMode] = UNSET,
 ) -> Dict[str, Any]:
     url = "{}/api/v1.0/workspaces/{workspace}/tables/{table}/upload-csv-url".format(
         client.base_url, workspace=workspace, table=table
@@ -69,7 +69,7 @@ def sync_detailed(
     table: str,
     *,
     client: AuthenticatedClient,
-    mode: Union[Unset, None, TableImportMode] = TableImportMode.NEW,
+    mode: Union[Unset, None, TableImportMode] = UNSET,
 ) -> Response[PresignedUrl]:
     """Upload a CSV file into a table
 
@@ -79,7 +79,7 @@ def sync_detailed(
     Args:
         workspace (str):  Example: workspace-name.
         table (str):  Example: table-name.
-        mode (Union[Unset, None, TableImportMode]):  Default: TableImportMode.NEW.
+        mode (Union[Unset, None, TableImportMode]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -109,7 +109,7 @@ def sync(
     table: str,
     *,
     client: AuthenticatedClient,
-    mode: Union[Unset, None, TableImportMode] = TableImportMode.NEW,
+    mode: Union[Unset, None, TableImportMode] = UNSET,
 ) -> Optional[PresignedUrl]:
     """Upload a CSV file into a table
 
@@ -119,7 +119,7 @@ def sync(
     Args:
         workspace (str):  Example: workspace-name.
         table (str):  Example: table-name.
-        mode (Union[Unset, None, TableImportMode]):  Default: TableImportMode.NEW.
+        mode (Union[Unset, None, TableImportMode]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -142,7 +142,7 @@ async def asyncio_detailed(
     table: str,
     *,
     client: AuthenticatedClient,
-    mode: Union[Unset, None, TableImportMode] = TableImportMode.NEW,
+    mode: Union[Unset, None, TableImportMode] = UNSET,
 ) -> Response[PresignedUrl]:
     """Upload a CSV file into a table
 
@@ -152,7 +152,7 @@ async def asyncio_detailed(
     Args:
         workspace (str):  Example: workspace-name.
         table (str):  Example: table-name.
-        mode (Union[Unset, None, TableImportMode]):  Default: TableImportMode.NEW.
+        mode (Union[Unset, None, TableImportMode]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -180,7 +180,7 @@ async def asyncio(
     table: str,
     *,
     client: AuthenticatedClient,
-    mode: Union[Unset, None, TableImportMode] = TableImportMode.NEW,
+    mode: Union[Unset, None, TableImportMode] = UNSET,
 ) -> Optional[PresignedUrl]:
     """Upload a CSV file into a table
 
@@ -190,7 +190,7 @@ async def asyncio(
     Args:
         workspace (str):  Example: workspace-name.
         table (str):  Example: table-name.
-        mode (Union[Unset, None, TableImportMode]):  Default: TableImportMode.NEW.
+        mode (Union[Unset, None, TableImportMode]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

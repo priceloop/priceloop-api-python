@@ -1,26 +1,32 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.api_workspace_automations import ApiWorkspaceAutomations
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     workspace: str,
+    table: str,
+    column: str,
     *,
     client: AuthenticatedClient,
-    json_body: ApiWorkspaceAutomations,
+    value: Union[Unset, None, str] = UNSET,
 ) -> Dict[str, Any]:
-    url = "{}/api/v1.0/workspaces/{workspace}/automations".format(client.base_url, workspace=workspace)
+    url = "{}/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/fill".format(
+        client.base_url, workspace=workspace, table=table, column=column
+    )
 
     headers: Dict[str, str] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
 
-    json_json_body = json_body.to_dict()
+    params: Dict[str, Any] = {}
+    params["value"] = value
+
+    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     return {
         "method": "post",
@@ -29,7 +35,7 @@ def _get_kwargs(
         "cookies": cookies,
         "timeout": client.get_timeout(),
         "follow_redirects": client.follow_redirects,
-        "json": json_json_body,
+        "params": params,
     }
 
 
@@ -53,18 +59,19 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Any
 
 def sync_detailed(
     workspace: str,
+    table: str,
+    column: str,
     *,
     client: AuthenticatedClient,
-    json_body: ApiWorkspaceAutomations,
+    value: Union[Unset, None, str] = UNSET,
 ) -> Response[Any]:
-    """Setup automations inside of a workspace
-
-     For schedules, the cron-expression must follow the format defined here:
-    https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-cron-expressions.html
+    """Fill a data column with a value
 
     Args:
         workspace (str):  Example: workspace-name.
-        json_body (ApiWorkspaceAutomations):
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
+        value (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -76,8 +83,10 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         workspace=workspace,
+        table=table,
+        column=column,
         client=client,
-        json_body=json_body,
+        value=value,
     )
 
     response = httpx.request(
@@ -90,18 +99,19 @@ def sync_detailed(
 
 async def asyncio_detailed(
     workspace: str,
+    table: str,
+    column: str,
     *,
     client: AuthenticatedClient,
-    json_body: ApiWorkspaceAutomations,
+    value: Union[Unset, None, str] = UNSET,
 ) -> Response[Any]:
-    """Setup automations inside of a workspace
-
-     For schedules, the cron-expression must follow the format defined here:
-    https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-cron-expressions.html
+    """Fill a data column with a value
 
     Args:
         workspace (str):  Example: workspace-name.
-        json_body (ApiWorkspaceAutomations):
+        table (str):  Example: table-name.
+        column (str):  Example: column-name.
+        value (Union[Unset, None, str]):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -113,8 +123,10 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         workspace=workspace,
+        table=table,
+        column=column,
         client=client,
-        json_body=json_body,
+        value=value,
     )
 
     async with httpx.AsyncClient(verify=client.verify_ssl) as _client:

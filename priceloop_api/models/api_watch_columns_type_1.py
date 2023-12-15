@@ -3,30 +3,30 @@ from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
 import attr
 
 if TYPE_CHECKING:
-    from ..models.send_notification import SendNotification
+    from ..models.one_of import OneOf
 
 
-T = TypeVar("T", bound="ConfigType0")
+T = TypeVar("T", bound="ApiWatchColumnsType1")
 
 
 @attr.s(auto_attribs=True)
-class ConfigType0:
+class ApiWatchColumnsType1:
     """
     Attributes:
-        send_notification (SendNotification):
+        one_of (OneOf):
     """
 
-    send_notification: "SendNotification"
+    one_of: "OneOf"
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        send_notification = self.send_notification.to_dict()
+        one_of = self.one_of.to_dict()
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "SendNotification": send_notification,
+                "OneOf": one_of,
             }
         )
 
@@ -34,17 +34,17 @@ class ConfigType0:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.send_notification import SendNotification
+        from ..models.one_of import OneOf
 
         d = src_dict.copy()
-        send_notification = SendNotification.from_dict(d.pop("SendNotification"))
+        one_of = OneOf.from_dict(d.pop("OneOf"))
 
-        config_type_0 = cls(
-            send_notification=send_notification,
+        api_watch_columns_type_1 = cls(
+            one_of=one_of,
         )
 
-        config_type_0.additional_properties = d
-        return config_type_0
+        api_watch_columns_type_1.additional_properties = d
+        return api_watch_columns_type_1
 
     @property
     def additional_keys(self) -> List[str]:

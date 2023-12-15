@@ -2,57 +2,29 @@ from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 
-T = TypeVar("T", bound="SendNotification")
+T = TypeVar("T", bound="All")
 
 
 @attr.s(auto_attribs=True)
-class SendNotification:
-    """
-    Attributes:
-        body (str):
-        name (str):  Example: action-name.
-        title (str):
-    """
+class All:
+    """ """
 
-    body: str
-    name: str
-    title: str
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        body = self.body
-        name = self.name
-        title = self.title
-
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "body": body,
-                "name": name,
-                "title": title,
-            }
-        )
+        field_dict.update({})
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        body = d.pop("body")
+        all_ = cls()
 
-        name = d.pop("name")
-
-        title = d.pop("title")
-
-        send_notification = cls(
-            body=body,
-            name=name,
-            title=title,
-        )
-
-        send_notification.additional_properties = d
-        return send_notification
+        all_.additional_properties = d
+        return all_
 
     @property
     def additional_keys(self) -> List[str]:

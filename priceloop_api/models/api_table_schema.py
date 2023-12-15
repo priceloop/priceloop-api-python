@@ -17,20 +17,20 @@ class ApiTableSchema:
     """
     Attributes:
         name (str):  Example: table-name.
-        attributes (Union[Unset, ApiTableAttributes]):
+        attributes (Union[Unset, None, ApiTableAttributes]):
         columns (Union[Unset, List['ApiColumnSchema']]):
     """
 
     name: str
-    attributes: Union[Unset, "ApiTableAttributes"] = UNSET
+    attributes: Union[Unset, None, "ApiTableAttributes"] = UNSET
     columns: Union[Unset, List["ApiColumnSchema"]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         name = self.name
-        attributes: Union[Unset, Dict[str, Any]] = UNSET
+        attributes: Union[Unset, None, Dict[str, Any]] = UNSET
         if not isinstance(self.attributes, Unset):
-            attributes = self.attributes.to_dict()
+            attributes = self.attributes.to_dict() if self.attributes else None
 
         columns: Union[Unset, List[Dict[str, Any]]] = UNSET
         if not isinstance(self.columns, Unset):
@@ -63,8 +63,10 @@ class ApiTableSchema:
         name = d.pop("name")
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[Unset, ApiTableAttributes]
-        if isinstance(_attributes, Unset) or _attributes is None:
+        attributes: Union[Unset, None, ApiTableAttributes]
+        if _attributes is None:
+            attributes = None
+        elif isinstance(_attributes, Unset) or _attributes is None:
             attributes = UNSET
         else:
             attributes = ApiTableAttributes.from_dict(_attributes)

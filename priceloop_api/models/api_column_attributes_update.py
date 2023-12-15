@@ -20,58 +20,64 @@ T = TypeVar("T", bound="ApiColumnAttributesUpdate")
 class ApiColumnAttributesUpdate:
     """
     Attributes:
-        background_color (Union[Unset, ColumnBackgroundColor]):
-        boolean_column_attributes (Union[Unset, ApiBooleanColumnAttributesUpdate]):
-        computation_mode (Union[Unset, ColumnComputationMode]):
+        background_color (Union[Unset, None, ColumnBackgroundColor]):
+        boolean_column_attributes (Union[Unset, None, ApiBooleanColumnAttributesUpdate]):
+        computation_mode (Union[Unset, None, ColumnComputationMode]):
         description (Union[Unset, None, str]):
-        group_color (Union[Unset, ColumnGroupColor]):
+        group_color (Union[Unset, None, ColumnGroupColor]):
         group_name (Union[Unset, None, str]):
         is_gui_locked (Union[Unset, None, bool]):
         is_hidden (Union[Unset, None, bool]):
-        number_column_attributes (Union[Unset, ApiNumberColumnAttributesUpdate]):
-        string_column_attributes (Union[Unset, ApiStringColumnAttributesUpdate]):
+        number_column_attributes (Union[Unset, None, ApiNumberColumnAttributesUpdate]):
+        string_column_attributes (Union[Unset, None, ApiStringColumnAttributesUpdate]):
     """
 
-    background_color: Union[Unset, ColumnBackgroundColor] = UNSET
-    boolean_column_attributes: Union[Unset, "ApiBooleanColumnAttributesUpdate"] = UNSET
-    computation_mode: Union[Unset, ColumnComputationMode] = UNSET
+    background_color: Union[Unset, None, ColumnBackgroundColor] = UNSET
+    boolean_column_attributes: Union[Unset, None, "ApiBooleanColumnAttributesUpdate"] = UNSET
+    computation_mode: Union[Unset, None, ColumnComputationMode] = UNSET
     description: Union[Unset, None, str] = UNSET
-    group_color: Union[Unset, ColumnGroupColor] = UNSET
+    group_color: Union[Unset, None, ColumnGroupColor] = UNSET
     group_name: Union[Unset, None, str] = UNSET
     is_gui_locked: Union[Unset, None, bool] = UNSET
     is_hidden: Union[Unset, None, bool] = UNSET
-    number_column_attributes: Union[Unset, "ApiNumberColumnAttributesUpdate"] = UNSET
-    string_column_attributes: Union[Unset, "ApiStringColumnAttributesUpdate"] = UNSET
+    number_column_attributes: Union[Unset, None, "ApiNumberColumnAttributesUpdate"] = UNSET
+    string_column_attributes: Union[Unset, None, "ApiStringColumnAttributesUpdate"] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        background_color: Union[Unset, str] = UNSET
+        background_color: Union[Unset, None, str] = UNSET
         if not isinstance(self.background_color, Unset):
-            background_color = self.background_color.value
+            background_color = self.background_color.value if self.background_color else None
 
-        boolean_column_attributes: Union[Unset, Dict[str, Any]] = UNSET
+        boolean_column_attributes: Union[Unset, None, Dict[str, Any]] = UNSET
         if not isinstance(self.boolean_column_attributes, Unset):
-            boolean_column_attributes = self.boolean_column_attributes.to_dict()
+            boolean_column_attributes = (
+                self.boolean_column_attributes.to_dict() if self.boolean_column_attributes else None
+            )
 
-        computation_mode: Union[Unset, str] = UNSET
+        computation_mode: Union[Unset, None, str] = UNSET
         if not isinstance(self.computation_mode, Unset):
-            computation_mode = self.computation_mode.value
+            computation_mode = self.computation_mode.value if self.computation_mode else None
 
         description = self.description
-        group_color: Union[Unset, str] = UNSET
+        group_color: Union[Unset, None, str] = UNSET
         if not isinstance(self.group_color, Unset):
-            group_color = self.group_color.value
+            group_color = self.group_color.value if self.group_color else None
 
         group_name = self.group_name
         is_gui_locked = self.is_gui_locked
         is_hidden = self.is_hidden
-        number_column_attributes: Union[Unset, Dict[str, Any]] = UNSET
+        number_column_attributes: Union[Unset, None, Dict[str, Any]] = UNSET
         if not isinstance(self.number_column_attributes, Unset):
-            number_column_attributes = self.number_column_attributes.to_dict()
+            number_column_attributes = (
+                self.number_column_attributes.to_dict() if self.number_column_attributes else None
+            )
 
-        string_column_attributes: Union[Unset, Dict[str, Any]] = UNSET
+        string_column_attributes: Union[Unset, None, Dict[str, Any]] = UNSET
         if not isinstance(self.string_column_attributes, Unset):
-            string_column_attributes = self.string_column_attributes.to_dict()
+            string_column_attributes = (
+                self.string_column_attributes.to_dict() if self.string_column_attributes else None
+            )
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -107,22 +113,28 @@ class ApiColumnAttributesUpdate:
 
         d = src_dict.copy()
         _background_color = d.pop("backgroundColor", UNSET)
-        background_color: Union[Unset, ColumnBackgroundColor]
-        if isinstance(_background_color, Unset) or _background_color is None:
+        background_color: Union[Unset, None, ColumnBackgroundColor]
+        if _background_color is None:
+            background_color = None
+        elif isinstance(_background_color, Unset) or _background_color is None:
             background_color = UNSET
         else:
             background_color = ColumnBackgroundColor(_background_color)
 
         _boolean_column_attributes = d.pop("booleanColumnAttributes", UNSET)
-        boolean_column_attributes: Union[Unset, ApiBooleanColumnAttributesUpdate]
-        if isinstance(_boolean_column_attributes, Unset) or _boolean_column_attributes is None:
+        boolean_column_attributes: Union[Unset, None, ApiBooleanColumnAttributesUpdate]
+        if _boolean_column_attributes is None:
+            boolean_column_attributes = None
+        elif isinstance(_boolean_column_attributes, Unset) or _boolean_column_attributes is None:
             boolean_column_attributes = UNSET
         else:
             boolean_column_attributes = ApiBooleanColumnAttributesUpdate.from_dict(_boolean_column_attributes)
 
         _computation_mode = d.pop("computationMode", UNSET)
-        computation_mode: Union[Unset, ColumnComputationMode]
-        if isinstance(_computation_mode, Unset) or _computation_mode is None:
+        computation_mode: Union[Unset, None, ColumnComputationMode]
+        if _computation_mode is None:
+            computation_mode = None
+        elif isinstance(_computation_mode, Unset) or _computation_mode is None:
             computation_mode = UNSET
         else:
             computation_mode = ColumnComputationMode(_computation_mode)
@@ -130,8 +142,10 @@ class ApiColumnAttributesUpdate:
         description = d.pop("description", UNSET)
 
         _group_color = d.pop("groupColor", UNSET)
-        group_color: Union[Unset, ColumnGroupColor]
-        if isinstance(_group_color, Unset) or _group_color is None:
+        group_color: Union[Unset, None, ColumnGroupColor]
+        if _group_color is None:
+            group_color = None
+        elif isinstance(_group_color, Unset) or _group_color is None:
             group_color = UNSET
         else:
             group_color = ColumnGroupColor(_group_color)
@@ -143,15 +157,19 @@ class ApiColumnAttributesUpdate:
         is_hidden = d.pop("isHidden", UNSET)
 
         _number_column_attributes = d.pop("numberColumnAttributes", UNSET)
-        number_column_attributes: Union[Unset, ApiNumberColumnAttributesUpdate]
-        if isinstance(_number_column_attributes, Unset) or _number_column_attributes is None:
+        number_column_attributes: Union[Unset, None, ApiNumberColumnAttributesUpdate]
+        if _number_column_attributes is None:
+            number_column_attributes = None
+        elif isinstance(_number_column_attributes, Unset) or _number_column_attributes is None:
             number_column_attributes = UNSET
         else:
             number_column_attributes = ApiNumberColumnAttributesUpdate.from_dict(_number_column_attributes)
 
         _string_column_attributes = d.pop("stringColumnAttributes", UNSET)
-        string_column_attributes: Union[Unset, ApiStringColumnAttributesUpdate]
-        if isinstance(_string_column_attributes, Unset) or _string_column_attributes is None:
+        string_column_attributes: Union[Unset, None, ApiStringColumnAttributesUpdate]
+        if _string_column_attributes is None:
+            string_column_attributes = None
+        elif isinstance(_string_column_attributes, Unset) or _string_column_attributes is None:
             string_column_attributes = UNSET
         else:
             string_column_attributes = ApiStringColumnAttributesUpdate.from_dict(_string_column_attributes)

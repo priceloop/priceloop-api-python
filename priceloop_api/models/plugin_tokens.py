@@ -15,16 +15,16 @@ T = TypeVar("T", bound="PluginTokens")
 class PluginTokens:
     """
     Attributes:
-        amazon (Union[Unset, Amazon1]):
+        amazon (Union[Unset, None, Amazon1]):
     """
 
-    amazon: Union[Unset, "Amazon1"] = UNSET
+    amazon: Union[Unset, None, "Amazon1"] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        amazon: Union[Unset, Dict[str, Any]] = UNSET
+        amazon: Union[Unset, None, Dict[str, Any]] = UNSET
         if not isinstance(self.amazon, Unset):
-            amazon = self.amazon.to_dict()
+            amazon = self.amazon.to_dict() if self.amazon else None
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -40,8 +40,10 @@ class PluginTokens:
 
         d = src_dict.copy()
         _amazon = d.pop("amazon", UNSET)
-        amazon: Union[Unset, Amazon1]
-        if isinstance(_amazon, Unset) or _amazon is None:
+        amazon: Union[Unset, None, Amazon1]
+        if _amazon is None:
+            amazon = None
+        elif isinstance(_amazon, Unset) or _amazon is None:
             amazon = UNSET
         else:
             amazon = Amazon1.from_dict(_amazon)

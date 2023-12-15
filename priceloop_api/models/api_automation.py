@@ -1,32 +1,32 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
+from typing import Any, Dict, List, Type, TypeVar
 
 import attr
 
-if TYPE_CHECKING:
-    from ..models.record_changed import RecordChanged
-
-
-T = TypeVar("T", bound="TriggerType0")
+T = TypeVar("T", bound="ApiAutomation")
 
 
 @attr.s(auto_attribs=True)
-class TriggerType0:
+class ApiAutomation:
     """
     Attributes:
-        record_changed (RecordChanged):
+        action_name (str):  Example: action-name.
+        trigger_name (str):  Example: trigger-name.
     """
 
-    record_changed: "RecordChanged"
+    action_name: str
+    trigger_name: str
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        record_changed = self.record_changed.to_dict()
+        action_name = self.action_name
+        trigger_name = self.trigger_name
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "RecordChanged": record_changed,
+                "actionName": action_name,
+                "triggerName": trigger_name,
             }
         )
 
@@ -34,17 +34,18 @@ class TriggerType0:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.record_changed import RecordChanged
-
         d = src_dict.copy()
-        record_changed = RecordChanged.from_dict(d.pop("RecordChanged"))
+        action_name = d.pop("actionName")
 
-        trigger_type_0 = cls(
-            record_changed=record_changed,
+        trigger_name = d.pop("triggerName")
+
+        api_automation = cls(
+            action_name=action_name,
+            trigger_name=trigger_name,
         )
 
-        trigger_type_0.additional_properties = d
-        return trigger_type_0
+        api_automation.additional_properties = d
+        return api_automation
 
     @property
     def additional_keys(self) -> List[str]:

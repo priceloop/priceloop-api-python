@@ -3,40 +3,30 @@ from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
 import attr
 
 if TYPE_CHECKING:
-    from ..models.config_type_0 import ConfigType0
+    from ..models.send_notification import SendNotification
 
 
-T = TypeVar("T", bound="Action")
+T = TypeVar("T", bound="ApiActionType0")
 
 
 @attr.s(auto_attribs=True)
-class Action:
+class ApiActionType0:
     """
     Attributes:
-        config ('ConfigType0'):
-        name (str):  Example: action-name.
+        send_notification (SendNotification):
     """
 
-    config: "ConfigType0"
-    name: str
+    send_notification: "SendNotification"
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        from ..models.config_type_0 import ConfigType0
-
-        config: Dict[str, Any]
-
-        if isinstance(self.config, ConfigType0):
-            config = self.config.to_dict()
-
-        name = self.name
+        send_notification = self.send_notification.to_dict()
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "config": config,
-                "name": name,
+                "SendNotification": send_notification,
             }
         )
 
@@ -44,28 +34,17 @@ class Action:
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        from ..models.config_type_0 import ConfigType0
+        from ..models.send_notification import SendNotification
 
         d = src_dict.copy()
+        send_notification = SendNotification.from_dict(d.pop("SendNotification"))
 
-        def _parse_config(data: object) -> "ConfigType0":
-            if not isinstance(data, dict):
-                raise TypeError()
-            componentsschemas_config_type_0 = ConfigType0.from_dict(data)
-
-            return componentsschemas_config_type_0
-
-        config = _parse_config(d.pop("config"))
-
-        name = d.pop("name")
-
-        action = cls(
-            config=config,
-            name=name,
+        api_action_type_0 = cls(
+            send_notification=send_notification,
         )
 
-        action.additional_properties = d
-        return action
+        api_action_type_0.additional_properties = d
+        return api_action_type_0
 
     @property
     def additional_keys(self) -> List[str]:

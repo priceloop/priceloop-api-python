@@ -18,13 +18,13 @@ class ApiColumnSchema:
     Attributes:
         name (str):  Example: column-name.
         tpe (ExplicitExprType):
-        attributes (Union[Unset, ApiColumnAttributesUpdate]):
+        attributes (Union[Unset, None, ApiColumnAttributesUpdate]):
         formula (Union[Unset, None, str]):  Example: 1 + 2.
     """
 
     name: str
     tpe: ExplicitExprType
-    attributes: Union[Unset, "ApiColumnAttributesUpdate"] = UNSET
+    attributes: Union[Unset, None, "ApiColumnAttributesUpdate"] = UNSET
     formula: Union[Unset, None, str] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
@@ -32,9 +32,9 @@ class ApiColumnSchema:
         name = self.name
         tpe = self.tpe.value
 
-        attributes: Union[Unset, Dict[str, Any]] = UNSET
+        attributes: Union[Unset, None, Dict[str, Any]] = UNSET
         if not isinstance(self.attributes, Unset):
-            attributes = self.attributes.to_dict()
+            attributes = self.attributes.to_dict() if self.attributes else None
 
         formula = self.formula
 
@@ -63,8 +63,10 @@ class ApiColumnSchema:
         tpe = ExplicitExprType(d.pop("tpe"))
 
         _attributes = d.pop("attributes", UNSET)
-        attributes: Union[Unset, ApiColumnAttributesUpdate]
-        if isinstance(_attributes, Unset) or _attributes is None:
+        attributes: Union[Unset, None, ApiColumnAttributesUpdate]
+        if _attributes is None:
+            attributes = None
+        elif isinstance(_attributes, Unset) or _attributes is None:
             attributes = UNSET
         else:
             attributes = ApiColumnAttributesUpdate.from_dict(_attributes)

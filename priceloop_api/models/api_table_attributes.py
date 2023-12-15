@@ -15,12 +15,16 @@ class ApiTableAttributes:
         prominent_import_your_data_button (bool):
         writable (bool):
         confirm_edits (Union[Unset, None, bool]):
+        group_name (Union[Unset, None, str]):
+        position (Union[Unset, None, int]):
     """
 
     hidden: bool
     prominent_import_your_data_button: bool
     writable: bool
     confirm_edits: Union[Unset, None, bool] = UNSET
+    group_name: Union[Unset, None, str] = UNSET
+    position: Union[Unset, None, int] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -28,6 +32,8 @@ class ApiTableAttributes:
         prominent_import_your_data_button = self.prominent_import_your_data_button
         writable = self.writable
         confirm_edits = self.confirm_edits
+        group_name = self.group_name
+        position = self.position
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -40,6 +46,10 @@ class ApiTableAttributes:
         )
         if confirm_edits is not UNSET:
             field_dict["confirmEdits"] = confirm_edits
+        if group_name is not UNSET:
+            field_dict["groupName"] = group_name
+        if position is not UNSET:
+            field_dict["position"] = position
 
         return field_dict
 
@@ -54,11 +64,17 @@ class ApiTableAttributes:
 
         confirm_edits = d.pop("confirmEdits", UNSET)
 
+        group_name = d.pop("groupName", UNSET)
+
+        position = d.pop("position", UNSET)
+
         api_table_attributes = cls(
             hidden=hidden,
             prominent_import_your_data_button=prominent_import_your_data_button,
             writable=writable,
             confirm_edits=confirm_edits,
+            group_name=group_name,
+            position=position,
         )
 
         api_table_attributes.additional_properties = d

@@ -15,16 +15,16 @@ T = TypeVar("T", bound="PublishInput")
 class PublishInput:
     """
     Attributes:
-        confirmation_modal (Union[Unset, ConfirmationModalDescription]):
+        confirmation_modal (Union[Unset, None, ConfirmationModalDescription]):
     """
 
-    confirmation_modal: Union[Unset, "ConfirmationModalDescription"] = UNSET
+    confirmation_modal: Union[Unset, None, "ConfirmationModalDescription"] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        confirmation_modal: Union[Unset, Dict[str, Any]] = UNSET
+        confirmation_modal: Union[Unset, None, Dict[str, Any]] = UNSET
         if not isinstance(self.confirmation_modal, Unset):
-            confirmation_modal = self.confirmation_modal.to_dict()
+            confirmation_modal = self.confirmation_modal.to_dict() if self.confirmation_modal else None
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -40,8 +40,10 @@ class PublishInput:
 
         d = src_dict.copy()
         _confirmation_modal = d.pop("confirmationModal", UNSET)
-        confirmation_modal: Union[Unset, ConfirmationModalDescription]
-        if isinstance(_confirmation_modal, Unset) or _confirmation_modal is None:
+        confirmation_modal: Union[Unset, None, ConfirmationModalDescription]
+        if _confirmation_modal is None:
+            confirmation_modal = None
+        elif isinstance(_confirmation_modal, Unset) or _confirmation_modal is None:
             confirmation_modal = UNSET
         else:
             confirmation_modal = ConfirmationModalDescription.from_dict(_confirmation_modal)

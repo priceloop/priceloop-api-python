@@ -1,58 +1,46 @@
-from typing import Any, Dict, List, Type, TypeVar
+from typing import Any, Dict, List, Type, TypeVar, Union, cast
 
 import attr
 
-T = TypeVar("T", bound="SendNotification")
+from ..types import UNSET, Unset
+
+T = TypeVar("T", bound="OneOf")
 
 
 @attr.s(auto_attribs=True)
-class SendNotification:
+class OneOf:
     """
     Attributes:
-        body (str):
-        name (str):  Example: action-name.
-        title (str):
+        columns (Union[Unset, List[str]]):
     """
 
-    body: str
-    name: str
-    title: str
+    columns: Union[Unset, List[str]] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
-        body = self.body
-        name = self.name
-        title = self.title
+        columns: Union[Unset, List[str]] = UNSET
+        if not isinstance(self.columns, Unset):
+            columns = self.columns
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "body": body,
-                "name": name,
-                "title": title,
-            }
-        )
+        field_dict.update({})
+        if columns is not UNSET:
+            field_dict["columns"] = columns
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         d = src_dict.copy()
-        body = d.pop("body")
+        columns = cast(List[str], d.pop("columns", UNSET))
 
-        name = d.pop("name")
-
-        title = d.pop("title")
-
-        send_notification = cls(
-            body=body,
-            name=name,
-            title=title,
+        one_of = cls(
+            columns=columns,
         )
 
-        send_notification.additional_properties = d
-        return send_notification
+        one_of.additional_properties = d
+        return one_of
 
     @property
     def additional_keys(self) -> List[str]:

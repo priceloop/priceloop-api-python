@@ -38,6 +38,26 @@ from .api_workspace import ApiWorkspace
 from .api_workspace_automations import ApiWorkspaceAutomations
 from .append import Append
 from .boolean_display_style import BooleanDisplayStyle
+from .choice import Choice
+from .choice_definition import ChoiceDefinition
+from .color_1 import Color1
+from .color_2 import Color2
+from .color_3 import Color3
+from .color_4 import Color4
+from .color_5 import Color5
+from .color_6 import Color6
+from .color_7 import Color7
+from .color_8 import Color8
+from .color_9 import Color9
+from .color_10 import Color10
+from .color_11 import Color11
+from .color_12 import Color12
+from .color_13 import Color13
+from .color_14 import Color14
+from .color_15 import Color15
+from .color_16 import Color16
+from .color_17 import Color17
+from .color_18 import Color18
 from .column_background_color import ColumnBackgroundColor
 from .column_computation_mode import ColumnComputationMode
 from .column_group_color import ColumnGroupColor
@@ -137,6 +157,26 @@ __all__ = (
     "ApiWorkspaceAutomations",
     "Append",
     "BooleanDisplayStyle",
+    "Choice",
+    "ChoiceDefinition",
+    "Color1",
+    "Color10",
+    "Color11",
+    "Color12",
+    "Color13",
+    "Color14",
+    "Color15",
+    "Color16",
+    "Color17",
+    "Color18",
+    "Color2",
+    "Color3",
+    "Color4",
+    "Color5",
+    "Color6",
+    "Color7",
+    "Color8",
+    "Color9",
     "ColumnBackgroundColor",
     "ColumnComputationMode",
     "ColumnGroupColor",

@@ -192,6 +192,10 @@
             ],
             "nullable" : true
           },
+          "choiceName" : {
+            "nullable" : true,
+            "type" : "string"
+          },
           "computationMode" : {
             "allOf" : [
               {
@@ -766,6 +770,150 @@
         "required" : [
           "delimiter"
         ],
+        "type" : "object"
+      },
+      "Choice" : {
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "values" : {
+            "items" : {
+              "$ref" : "#/components/schemas/ChoiceDefinition"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [
+          "name"
+        ],
+        "type" : "object"
+      },
+      "ChoiceDefinition" : {
+        "properties" : {
+          "color" : {
+            "$ref" : "#/components/schemas/ChoiceDefinitionBadgeColor"
+          },
+          "value" : {
+            "type" : "string"
+          }
+        },
+        "required" : [
+          "value",
+          "color"
+        ],
+        "type" : "object"
+      },
+      "ChoiceDefinitionBadgeColor" : {
+        "oneOf" : [
+          {
+            "$ref" : "#/components/schemas/Color1"
+          },
+          {
+            "$ref" : "#/components/schemas/Color10"
+          },
+          {
+            "$ref" : "#/components/schemas/Color11"
+          },
+          {
+            "$ref" : "#/components/schemas/Color12"
+          },
+          {
+            "$ref" : "#/components/schemas/Color13"
+          },
+          {
+            "$ref" : "#/components/schemas/Color14"
+          },
+          {
+            "$ref" : "#/components/schemas/Color15"
+          },
+          {
+            "$ref" : "#/components/schemas/Color16"
+          },
+          {
+            "$ref" : "#/components/schemas/Color17"
+          },
+          {
+            "$ref" : "#/components/schemas/Color18"
+          },
+          {
+            "$ref" : "#/components/schemas/Color2"
+          },
+          {
+            "$ref" : "#/components/schemas/Color3"
+          },
+          {
+            "$ref" : "#/components/schemas/Color4"
+          },
+          {
+            "$ref" : "#/components/schemas/Color5"
+          },
+          {
+            "$ref" : "#/components/schemas/Color6"
+          },
+          {
+            "$ref" : "#/components/schemas/Color7"
+          },
+          {
+            "$ref" : "#/components/schemas/Color8"
+          },
+          {
+            "$ref" : "#/components/schemas/Color9"
+          }
+        ]
+      },
+      "Color1" : {
+        "type" : "object"
+      },
+      "Color10" : {
+        "type" : "object"
+      },
+      "Color11" : {
+        "type" : "object"
+      },
+      "Color12" : {
+        "type" : "object"
+      },
+      "Color13" : {
+        "type" : "object"
+      },
+      "Color14" : {
+        "type" : "object"
+      },
+      "Color15" : {
+        "type" : "object"
+      },
+      "Color16" : {
+        "type" : "object"
+      },
+      "Color17" : {
+        "type" : "object"
+      },
+      "Color18" : {
+        "type" : "object"
+      },
+      "Color2" : {
+        "type" : "object"
+      },
+      "Color3" : {
+        "type" : "object"
+      },
+      "Color4" : {
+        "type" : "object"
+      },
+      "Color5" : {
+        "type" : "object"
+      },
+      "Color6" : {
+        "type" : "object"
+      },
+      "Color7" : {
+        "type" : "object"
+      },
+      "Color8" : {
+        "type" : "object"
+      },
+      "Color9" : {
         "type" : "object"
       },
       "ColumnBackgroundColor" : {
@@ -1665,7 +1813,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.207.0"
+    "version" : "v0.209.0"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -2504,7 +2652,7 @@
         ]
       },
       "put" : {
-        "description" : "# Create custom plugin pages\n\nPlugins can define their own pages consisting of a template.\nThis is an html template where you can layout customizable priceloop-blocks.\n\n## Template\n\nCreate your own page with a HTML-template (see template documentation: https://eta.js.org/).\n\nWe expose a global variable `app` in our templates to render reusable components and to access necessary data.\n\n### API\n\n```\ntype WorkspaceName = String\n\ntype ViewPagePath = String\n\ntype UIBlock = String(<html>...</html>)\n\ntype Assets = { infinityLoadIcon: UIBlock }\n\ntype Icon\n\ntype Icons = {\n\tactivity: Icon,\n\talert_triangle: Icon,\n\tamazon_logo: Icon,\n\tamazon_logo_bw: Icon,\n\tarrow_down: Icon,\n\tarrow_left: Icon,\n\tarrow_right: Icon,\n\tarrow_up: Icon,\n\tbar_chart_2: Icon,\n\tbell: Icon,\n\tbook_open: Icon,\n\tboolean: Icon,\n\tbox: Icon,\n\tcalendar_1: Icon,\n\tcalendar_9: Icon,\n\tcheck: Icon,\n\tcheck_square: Icon,\n\tchevron_down: Icon,\n\tchevron_left: Icon,\n\tchevron_right: Icon,\n\tchevrons_down: Icon,\n\tchevrons_left: Icon,\n\tchevrons_right: Icon,\n\tchevrons_up: Icon,\n\tchevron_up: Icon,\n\tcolumns: Icon,\n\tdate: Icon,\n\tdownload: Icon,\n\tedit: Icon,\n\texternal_link: Icon,\n\teye: Icon,\n\teye_off: Icon,\n\tfile: Icon,\n\tfilter: Icon,\n\tformula: Icon,\n\thandle: Icon,\n\thelp_circle: Icon,\n\thome: Icon,\n\tjson: Icon,\n\tlayers: Icon,\n\tlock: Icon,\n\tlog_out: Icon,\n\tmaximize: Icon,\n\tminus_square: Icon,\n\tmonitor: Icon,\n\tmore_horizontal: Icon,\n\tmore_vertical: Icon,\n\tnumber: Icon,\n\tpercent: Icon,\n\tplus: Icon,\n\trow: Icon,\n\tsave: Icon,\n\tsettings: Icon,\n\tsheet: Icon,\n\tshuffle: Icon,\n\tslack: Icon,\n\tsliders: Icon,\n\tsort: Icon,\n\tspaceship: Icon,\n\tspinner: Icon,\n\ttable: Icon,\n\ttag: Icon,\n\ttext: Icon,\n\ttrash: Icon,\n\tupload: Icon,\n\tuser: Icon,\n\tx: Icon,\n\tzap: Icon\n}\n\ntype ListGroupItem\n\ntype PluginName = String\n\ntype SendEventAction = { pluginName: PluginName?, payload: Any }\n\ntype HtmlId = String\n\ntype PageId = String(PageId for usage with eta-functions like include, includeAsync or layout: https://eta.js.org/docs/intro/template-syntax#partials-and-layouts)\n\ntype OpenModalDialogConfig = { content: PageId }\n\ntype OpenModalActionConfig = {\n\tsubtitle: String,\n\tconfirmationText: String,\n\tcancellationText: String,\n\tonConfirm: Action,\n\tonCancel: Action\n}\n\ntype Action = {\n\tcloseModal: Boolean?,\n\tstoreInState: String?,\n\tsendEvent: SendEventAction?,\n\tgotoLinkInNewTab: String?,\n\tgotoLink: String?,\n\treloadPage: Boolean?,\n\tscrollIntoView: HtmlId?,\n\topenModalDialog: OpenModalDialogConfig?,\n\topenModalAction: OpenModalActionConfig?\n}\n\ntype ListGroupButtonOptions = {\n\ticonLeft: Icon,\n\ttitle: String,\n\ticonRight: Icon?,\n\tactive: Boolean?,\n\tdisabled: Boolean?,\n\tonClick: Action?\n}\n\ntype ListGroupItems = { heading: (title: String) => ListGroupItem, spacer: ListGroupItem, button: (options: ListGroupButtonOptions) => ListGroupItem }\n\ntype ButtonConfig = {\n\tstyle: (\"solid\" | \"outline\" | \"ghost\")?,\n\trole: (\"primary\" | \"secondary\" | \"highlight\" | \"success\" | \"warning\" | \"critical\")?,\n\tdisabled: Boolean?,\n\twidth: (\"small\" | \"medium\" | \"large\")?,\n\theight: (\"small\" | \"medium\" | \"large\")?\n}\n\ntype ButtonIconConfig = { style: (\"solid\" | \"outline\" | \"ghost\")?, role: (\"primary\" | \"secondary\" | \"highlight\" | \"success\" | \"warning\" | \"critical\")?, size: (\"small\" | \"medium\" | \"large\")? }\n\ntype UIComponents = {\n\tassets: Assets,\n\ticons: Icons,\n\tlistGroup: ListGroupItems,\n\tbutton: (text: String, onClick: Action, config: ButtonConfig?) => UIBlock,\n\tbuttonIcon: (icon: Icon, onClick: Action, config: ButtonIconConfig?) => UIBlock,\n\tnavbar: (title: String, items: ListGroupItem[]) => UIBlock,\n\ttooltip: (content: String) => UIBlock,\n\ticon: (icon: Icon) => UIBlock,\n\thyperlink: (text: String, onClick: Action, icon: Icon?) => UIBlock,\n\treactiveButton: (path: String, switch: [Any, String | Icon, Action][], default: [String | Icon, Action], config: ButtonConfig?) => UIBlock,\n\tsingleShotButton: (text: String, onClick: Action, config: ButtonConfig?) => UIBlock\n}\n\ntype SelectionBoxButtonConfig = { text: String, onClick: Action }\n\ntype SelectionBoxConfig = { ghost: Boolean?, dropdownButton: SelectionBoxButtonConfig?, defaultValue: String? }\n\ntype TableName = String\n\ntype ColumnName = String\n\ntype FilterOp = String(Eq | Ne | Lt | Lte | Gt | Gte | Is | IsNot | Contains | NotContains | IsEmpty | IsNotEmpty)\n\ntype TableQueryCondition = { column: ColumnName, op: FilterOp, value: String? }\n\ntype SortingOrder = String(Ascending | Descending)\n\ntype TableQueryOrdering = { column: ColumnName, order: SortingOrder }\n\ntype ColumnAggregate = String(avg | max | min | sum | bool_and | bool_or | first | last | string_agg(,))\n\ntype TableQueryAggregate = { column: ColumnName, agg: ColumnAggregate, orderBy: TableQueryOrdering[]? }\n\ntype TableQuery = {\n\tfrom: TableName,\n\tlimit: Int?,\n\toffset: Int?,\n\tselect: ColumnName[]?,\n\twhere: TableQueryCondition[]?,\n\torderBy: TableQueryOrdering[]?,\n\tgroupBy: ColumnName[]?,\n\taggregates: TableQueryAggregate[]?\n}\n\ntype TableOptions = { showDecoration: Boolean?, showDatatypeIcons: Boolean? }\n\ntype ChartType = String(Apex Chart Type: line | area | bar | pie | donut | radialBar | scatter | bubble | heatmap | candlestick | boxPlot | radar | polarArea | rangeBar | rangeArea | treemap (see: https://apexcharts.com/docs/chart-types/#))\n\ntype ChartXAxis = {\n\tcolumn: ColumnName,\n\tlabelColumn: ColumnName?,\n\tcolorColumn: ColumnName?,\n\tunit: String?\n}\n\ntype ChartYAxis = {\n\tcolumn: ColumnName,\n\tpartitionColumn: ColumnName?,\n\tlabel: String?,\n\tcolor: String?,\n\tunit: String?\n}\n\ntype ChartAnnotation = {\n\tstart: String,\n\tend: String,\n\tlabel: String,\n\tcolor: String?\n}\n\ntype ChartOptions = { xAnnotations: ChartAnnotation[]?, yAnnotations: ChartAnnotation[]?, additionalApexOptions: Object? }\n\ntype TableRow = { values: String?[], byName: (column: ColumnName) => String? }\n\ntype TableData = { rows: TableRow[] }\n\ntype ReactiveActionConfig = { executeInitialState: Boolean? }\n\ntype Type = String(<html>...</html>)\n\ntype App = {\n\tworkspaceName: WorkspaceName,\n\tstate: Object,\n\tworkspaceLink: (pagePath: ViewPagePath, queryParameters: { [key]: String }?) => String,\n\tui: UIComponents,\n\tselectionBox: (placeholder: String, options: String[], action: Action, config: SelectionBoxConfig?) => UIBlock,\n\tselectionTableBox: (placeholder: String, options: String[][], headers: String[], action: Action, config: SelectionBoxConfig?) => UIBlock,\n\ttableSheet: (query: TableQuery, options: TableOptions?) => UIBlock,\n\tchart: (query: TableQuery, chartType: ChartType, x: ChartXAxis, y: ChartYAxis[], options: ChartOptions?) => UIBlock,\n\tgetChartApexOptions: async (query: TableQuery, chartType: ChartType, x: ChartXAxis, y: ChartYAxis[], options: ChartOptions?) => Object,\n\tchartCustom: (apexOptions: Object) => UIBlock,\n\tpageId: (path: ViewPagePath, pluginName: PluginName?) => PageId,\n\tload: async (query: TableQuery) => TableData,\n\tloadOnce: async (query: TableQuery) => TableData,\n\trowCount: async (query: TableQuery) => Long,\n\trowCountOnce: async (query: TableQuery) => Long,\n\treactiveAction: (path: String, switch: [Any, Action][], config: ReactiveActionConfig?) => Type,\n\tdebugPluginExternalData: () => UIBlock\n}\n\napp: App\n```\n\n### Usage\n\nInside a template, you can write javascript inside of `<%...%>`.\nA `String` or any primitive value is rendered like this: `<%= app.workspaceName %>`.\nA `UIBlock` contains html and has to be rendered like this: `<%~ app.tableSheet(query) %>`.\nIt is possible to use `await` for `async` functions.\n\n### Example\n\n```\n<b>Hi <%= app.workspaceName %></b>\n\n<% let myQuery = { select: [ \"my-category\", \"my-value\" ], from: \"my-table\" } %>\n\n<div class=\"flex flex-row\">\n  <iframe class=\"h-full w-full\" src=\"https://example.com\"></iframe>\n  <%~ app.chart(myQuery, \"bar\", { column: \"my-category\" }, [ { column: \"my-value\" } ]) %>\n</div>\n\n<%~ app.tableSheet(myQuery) %>\n```",
+        "description" : "# Create custom plugin pages\n\nPlugins can define their own pages consisting of a template.\nThis is an html template where you can layout customizable priceloop-blocks.\n\n## Template\n\nCreate your own page with a HTML-template (see template documentation: https://eta.js.org/).\n\nWe expose a global variable `app` in our templates to render reusable components and to access necessary data.\n\n### API\n\n```\ntype WorkspaceName = String\n\ntype ViewPagePath = String\n\ntype UIBlock = String(<html>...</html>)\n\ntype Assets = { infinityLoadIcon: UIBlock }\n\ntype Icon\n\ntype Icons = {\n\tactivity: Icon,\n\talert_triangle: Icon,\n\tamazon_logo: Icon,\n\tamazon_logo_bw: Icon,\n\tarrow_down: Icon,\n\tarrow_left: Icon,\n\tarrow_right: Icon,\n\tarrow_up: Icon,\n\tbar_chart_2: Icon,\n\tbell: Icon,\n\tbook_open: Icon,\n\tboolean: Icon,\n\tbox: Icon,\n\tcalendar_1: Icon,\n\tcalendar_9: Icon,\n\tcheck: Icon,\n\tcheck_circle: Icon,\n\tcheck_square: Icon,\n\tchevron_down: Icon,\n\tchevron_left: Icon,\n\tchevron_right: Icon,\n\tchevrons_down: Icon,\n\tchevrons_left: Icon,\n\tchevrons_right: Icon,\n\tchevrons_up: Icon,\n\tchevron_up: Icon,\n\tcolumns: Icon,\n\tdate: Icon,\n\tdownload: Icon,\n\tedit: Icon,\n\texternal_link: Icon,\n\teye: Icon,\n\teye_off: Icon,\n\tfile: Icon,\n\tfilter: Icon,\n\tformula: Icon,\n\thandle: Icon,\n\thelp_circle: Icon,\n\thome: Icon,\n\tjson: Icon,\n\tlayers: Icon,\n\tlock: Icon,\n\tlog_out: Icon,\n\tmaximize: Icon,\n\tminus_square: Icon,\n\tmonitor: Icon,\n\tmore_horizontal: Icon,\n\tmore_vertical: Icon,\n\tnumber: Icon,\n\tpercent: Icon,\n\tplus: Icon,\n\trow: Icon,\n\tsave: Icon,\n\tsettings: Icon,\n\tsheet: Icon,\n\tshuffle: Icon,\n\tslack: Icon,\n\tsliders: Icon,\n\tsort: Icon,\n\tspaceship: Icon,\n\tspinner: Icon,\n\ttable: Icon,\n\ttag: Icon,\n\ttext: Icon,\n\ttrash: Icon,\n\tupload: Icon,\n\tuser: Icon,\n\tx: Icon,\n\tzap: Icon\n}\n\ntype ListGroupItem\n\ntype PluginName = String\n\ntype SendEventAction = { pluginName: PluginName?, payload: Any }\n\ntype HtmlId = String\n\ntype PageId = String(PageId for usage with eta-functions like include, includeAsync or layout: https://eta.js.org/docs/intro/template-syntax#partials-and-layouts)\n\ntype OpenModalDialogConfig = { content: PageId }\n\ntype OpenModalActionConfig = {\n\tsubtitle: String,\n\tconfirmationText: String,\n\tcancellationText: String,\n\tonConfirm: Action,\n\tonCancel: Action\n}\n\ntype Action = {\n\tcloseModal: Boolean?,\n\tstoreInState: String?,\n\tsendEvent: SendEventAction?,\n\tgotoLinkInNewTab: String?,\n\tgotoLink: String?,\n\treloadPage: Boolean?,\n\tscrollIntoView: HtmlId?,\n\topenModalDialog: OpenModalDialogConfig?,\n\topenModalAction: OpenModalActionConfig?\n}\n\ntype ListGroupButtonOptions = {\n\ticonLeft: Icon,\n\ttitle: String,\n\ticonRight: Icon?,\n\ttooltip: String?,\n\tactive: Boolean?,\n\tdisabled: Boolean?,\n\tonClick: Action?\n}\n\ntype ListGroupItems = { heading: (title: String) => ListGroupItem, spacer: ListGroupItem, button: (options: ListGroupButtonOptions) => ListGroupItem }\n\ntype ButtonConfig = {\n\tstyle: (\"solid\" | \"outline\" | \"ghost\")?,\n\trole: (\"primary\" | \"secondary\" | \"highlight\" | \"success\" | \"warning\" | \"critical\")?,\n\tdisabled: Boolean?,\n\twidth: (\"small\" | \"medium\" | \"large\")?,\n\theight: (\"small\" | \"medium\" | \"large\")?\n}\n\ntype ButtonIconConfig = { style: (\"solid\" | \"outline\" | \"ghost\")?, role: (\"primary\" | \"secondary\" | \"highlight\" | \"success\" | \"warning\" | \"critical\")?, size: (\"small\" | \"medium\" | \"large\")? }\n\ntype UIComponents = {\n\tassets: Assets,\n\ticons: Icons,\n\tlistGroup: ListGroupItems,\n\tbutton: (text: String, onClick: Action, config: ButtonConfig?) => UIBlock,\n\tbuttonIcon: (icon: Icon, onClick: Action, config: ButtonIconConfig?) => UIBlock,\n\tnavbar: (title: String, items: ListGroupItem[]) => UIBlock,\n\ttooltip: (content: String) => UIBlock,\n\ticon: (icon: Icon) => UIBlock,\n\thyperlink: (text: String, onClick: Action, icon: Icon?) => UIBlock,\n\treactiveButton: (path: String, switch: [Any, String | Icon, Action][], default: [String | Icon, Action], config: ButtonConfig?) => UIBlock,\n\tsingleShotButton: (text: String, onClick: Action, config: ButtonConfig?) => UIBlock\n}\n\ntype SelectionBoxButtonConfig = { text: String, onClick: Action }\n\ntype SelectionBoxConfig = { ghost: Boolean?, dropdownButton: SelectionBoxButtonConfig?, defaultValue: String? }\n\ntype TableName = String\n\ntype ColumnName = String\n\ntype FilterOp = String(Eq | Ne | Lt | Lte | Gt | Gte | Is | IsNot | Contains | NotContains | IsEmpty | IsNotEmpty)\n\ntype TableQueryCondition = { column: ColumnName, op: FilterOp, value: String? }\n\ntype SortingOrder = String(Ascending | Descending)\n\ntype TableQueryOrdering = { column: ColumnName, order: SortingOrder }\n\ntype ColumnAggregate = String(avg | max | min | sum | bool_and | bool_or | first | last | string_agg(,))\n\ntype TableQueryAggregate = { column: ColumnName, agg: ColumnAggregate, orderBy: TableQueryOrdering[]? }\n\ntype TableQuery = {\n\tfrom: TableName,\n\tlimit: Int?,\n\toffset: Int?,\n\tselect: ColumnName[]?,\n\twhere: TableQueryCondition[]?,\n\torderBy: TableQueryOrdering[]?,\n\tgroupBy: ColumnName[]?,\n\taggregates: TableQueryAggregate[]?\n}\n\ntype TableOptions = { showDecoration: Boolean?, showDatatypeIcons: Boolean? }\n\ntype ChartType = String(Apex Chart Type: line | area | bar | pie | donut | radialBar | scatter | bubble | heatmap | candlestick | boxPlot | radar | polarArea | rangeBar | rangeArea | treemap (see: https://apexcharts.com/docs/chart-types/#))\n\ntype ChartXAxis = {\n\tcolumn: ColumnName,\n\tlabelColumn: ColumnName?,\n\tcolorColumn: ColumnName?,\n\tunit: String?\n}\n\ntype ChartYAxis = {\n\tcolumn: ColumnName,\n\tpartitionColumn: ColumnName?,\n\tlabel: String?,\n\tcolor: String?,\n\tunit: String?\n}\n\ntype ChartAnnotation = {\n\tstart: String,\n\tend: String,\n\tlabel: String,\n\tcolor: String?\n}\n\ntype ChartOptions = { xAnnotations: ChartAnnotation[]?, yAnnotations: ChartAnnotation[]?, additionalApexOptions: Object? }\n\ntype TableRow = { values: String?[], byName: (column: ColumnName) => String? }\n\ntype TableData = { rows: TableRow[] }\n\ntype ReactiveActionConfig = { executeInitialState: Boolean? }\n\ntype Type = String(<html>...</html>)\n\ntype App = {\n\tworkspaceName: WorkspaceName,\n\tstate: Object,\n\tworkspaceLink: (pagePath: ViewPagePath, queryParameters: { [key]: String }?) => String,\n\tui: UIComponents,\n\tselectionBox: (placeholder: String, options: String[], action: Action, config: SelectionBoxConfig?) => UIBlock,\n\tselectionTableBox: (placeholder: String, options: String[][], headers: String[], action: Action, config: SelectionBoxConfig?) => UIBlock,\n\ttableSheet: (query: TableQuery, options: TableOptions?) => UIBlock,\n\tchart: (query: TableQuery, chartType: ChartType, x: ChartXAxis, y: ChartYAxis[], options: ChartOptions?) => UIBlock,\n\tgetChartApexOptions: async (query: TableQuery, chartType: ChartType, x: ChartXAxis, y: ChartYAxis[], options: ChartOptions?) => Object,\n\tchartCustom: (apexOptions: Object) => UIBlock,\n\tpageId: (path: ViewPagePath, pluginName: PluginName?) => PageId,\n\tload: async (query: TableQuery) => TableData,\n\tloadOnce: async (query: TableQuery) => TableData,\n\trowCount: async (query: TableQuery) => Long,\n\trowCountOnce: async (query: TableQuery) => Long,\n\treactiveAction: (path: String, switch: [Any, Action][], config: ReactiveActionConfig?) => Type,\n\tdebugPluginExternalData: () => UIBlock\n}\n\napp: App\n```\n\n### Usage\n\nInside a template, you can write javascript inside of `<%...%>`.\nA `String` or any primitive value is rendered like this: `<%= app.workspaceName %>`.\nA `UIBlock` contains html and has to be rendered like this: `<%~ app.tableSheet(query) %>`.\nIt is possible to use `await` for `async` functions.\n\n### Example\n\n```\n<b>Hi <%= app.workspaceName %></b>\n\n<% let myQuery = { select: [ \"my-category\", \"my-value\" ], from: \"my-table\" } %>\n\n<div class=\"flex flex-row\">\n  <iframe class=\"h-full w-full\" src=\"https://example.com\"></iframe>\n  <%~ app.chart(myQuery, \"bar\", { column: \"my-category\" }, [ { column: \"my-value\" } ]) %>\n</div>\n\n<%~ app.tableSheet(myQuery) %>\n```",
         "operationId" : "putPluginPageDefinition",
         "parameters" : [
           {
@@ -4550,6 +4698,572 @@
         "summary" : "Setup automations inside of a workspace",
         "tags" : [
           "Automation API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/choices" : {
+      "get" : {
+        "operationId" : "listChoices",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "example" : "workspace-name",
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/Choice"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "503" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "",
+            "headers" : {
+              "retry-after" : {
+                "required" : false,
+                "schema" : {
+                  "format" : "int32",
+                  "type" : "integer"
+                }
+              }
+            }
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "List all choices that can be used as column-attributes.",
+        "tags" : [
+          "Workspace API",
+          "Choice API"
+        ]
+      },
+      "post" : {
+        "description" : "\nColors range from `Color1` to `Color18`.\nYou can check out the different colors in the Component Demo or configure it there directly.\n\nKeep in mind that a choice is _not_ a constraint of the content of a text-column - it's only for the frontend.\n",
+        "operationId" : "createChoice",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "example" : "workspace-name",
+              "type" : "string"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "example" : {
+                "name" : "environment",
+                "values" : [
+                  {
+                    "color" : "Color13",
+                    "value" : "dev"
+                  },
+                  {
+                    "color" : "Color14",
+                    "value" : "staging"
+                  },
+                  {
+                    "color" : "Color15",
+                    "value" : "prod"
+                  }
+                ]
+              },
+              "schema" : {
+                "$ref" : "#/components/schemas/Choice"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "503" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "",
+            "headers" : {
+              "retry-after" : {
+                "required" : false,
+                "schema" : {
+                  "format" : "int32",
+                  "type" : "integer"
+                }
+              }
+            }
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Create a choice that can be used as a column-attribute.",
+        "tags" : [
+          "Workspace API",
+          "Choice API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/choices/{choiceName}" : {
+      "delete" : {
+        "description" : "This also removes the assignment from all columns that use this choice.",
+        "operationId" : "deleteChoice",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "example" : "workspace-name",
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "choiceName",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/Choice"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "503" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "",
+            "headers" : {
+              "retry-after" : {
+                "required" : false,
+                "schema" : {
+                  "format" : "int32",
+                  "type" : "integer"
+                }
+              }
+            }
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Delete a choice",
+        "tags" : [
+          "Workspace API",
+          "Choice API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/choices/{choiceName}/rename" : {
+      "post" : {
+        "description" : "Renames a choice. It also renames its usage in the columnAttributes.",
+        "operationId" : "renameChoice",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "example" : "workspace-name",
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "choiceName",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "query",
+            "name" : "new-name",
+            "required" : true,
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/Choice"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "503" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "",
+            "headers" : {
+              "retry-after" : {
+                "required" : false,
+                "schema" : {
+                  "format" : "int32",
+                  "type" : "integer"
+                }
+              }
+            }
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Rename a choice",
+        "tags" : [
+          "Workspace API",
+          "Choice API"
         ]
       }
     },
@@ -10268,7 +10982,157 @@
         ],
         "summary" : "Change attributes of a column",
         "tags" : [
-          "Column API"
+          "Column API",
+          "Choice API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/convertToChoiceColumn" : {
+      "post" : {
+        "operationId" : "convertTableColumnToChoice",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "example" : "workspace-name",
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "table",
+            "required" : true,
+            "schema" : {
+              "example" : "table-name",
+              "type" : "string"
+            }
+          },
+          {
+            "in" : "path",
+            "name" : "column",
+            "required" : true,
+            "schema" : {
+              "example" : "column-name",
+              "type" : "string"
+            }
+          }
+        ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "string"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "503" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "",
+            "headers" : {
+              "retry-after" : {
+                "required" : false,
+                "schema" : {
+                  "format" : "int32",
+                  "type" : "integer"
+                }
+              }
+            }
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Creates a choice from the distinct values of an existing string-column.",
+        "tags" : [
+          "Column API",
+          "Choice API"
         ]
       }
     },
@@ -12356,6 +13220,10 @@
     {
       "description" : "\nUsers can read and write columns/formulas/data inside of tables in their workspace.",
       "name" : "Column API"
+    },
+    {
+      "description" : "\nUsers can manage the choices for a workspace. Those can be assigned to text-columns.",
+      "name" : "Choice API"
     },
     {
       "description" : "\nUsers can import data into their workspace.",

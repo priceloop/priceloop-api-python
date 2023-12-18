@@ -101,6 +101,7 @@ def sync_detailed(
         calendar_1: Icon,
         calendar_9: Icon,
         check: Icon,
+        check_circle: Icon,
         check_square: Icon,
         chevron_down: Icon,
         chevron_left: Icon,
@@ -192,6 +193,7 @@ def sync_detailed(
         iconLeft: Icon,
         title: String,
         iconRight: Icon?,
+        tooltip: String?,
         active: Boolean?,
         disabled: Boolean?,
         onClick: Action?
@@ -426,6 +428,7 @@ async def asyncio_detailed(
         calendar_1: Icon,
         calendar_9: Icon,
         check: Icon,
+        check_circle: Icon,
         check_square: Icon,
         chevron_down: Icon,
         chevron_left: Icon,
@@ -517,6 +520,7 @@ async def asyncio_detailed(
         iconLeft: Icon,
         title: String,
         iconRight: Icon?,
+        tooltip: String?,
         active: Boolean?,
         disabled: Boolean?,
         onClick: Action?

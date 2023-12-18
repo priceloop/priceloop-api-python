@@ -22,6 +22,7 @@ class ApiColumnAttributesUpdate:
     Attributes:
         background_color (Union[Unset, None, ColumnBackgroundColor]):
         boolean_column_attributes (Union[Unset, None, ApiBooleanColumnAttributesUpdate]):
+        choice_name (Union[Unset, None, str]):
         computation_mode (Union[Unset, None, ColumnComputationMode]):
         description (Union[Unset, None, str]):
         group_color (Union[Unset, None, ColumnGroupColor]):
@@ -34,6 +35,7 @@ class ApiColumnAttributesUpdate:
 
     background_color: Union[Unset, None, ColumnBackgroundColor] = UNSET
     boolean_column_attributes: Union[Unset, None, "ApiBooleanColumnAttributesUpdate"] = UNSET
+    choice_name: Union[Unset, None, str] = UNSET
     computation_mode: Union[Unset, None, ColumnComputationMode] = UNSET
     description: Union[Unset, None, str] = UNSET
     group_color: Union[Unset, None, ColumnGroupColor] = UNSET
@@ -55,6 +57,7 @@ class ApiColumnAttributesUpdate:
                 self.boolean_column_attributes.to_dict() if self.boolean_column_attributes else None
             )
 
+        choice_name = self.choice_name
         computation_mode: Union[Unset, None, str] = UNSET
         if not isinstance(self.computation_mode, Unset):
             computation_mode = self.computation_mode.value if self.computation_mode else None
@@ -86,6 +89,8 @@ class ApiColumnAttributesUpdate:
             field_dict["backgroundColor"] = background_color
         if boolean_column_attributes is not UNSET:
             field_dict["booleanColumnAttributes"] = boolean_column_attributes
+        if choice_name is not UNSET:
+            field_dict["choiceName"] = choice_name
         if computation_mode is not UNSET:
             field_dict["computationMode"] = computation_mode
         if description is not UNSET:
@@ -129,6 +134,8 @@ class ApiColumnAttributesUpdate:
             boolean_column_attributes = UNSET
         else:
             boolean_column_attributes = ApiBooleanColumnAttributesUpdate.from_dict(_boolean_column_attributes)
+
+        choice_name = d.pop("choiceName", UNSET)
 
         _computation_mode = d.pop("computationMode", UNSET)
         computation_mode: Union[Unset, None, ColumnComputationMode]
@@ -177,6 +184,7 @@ class ApiColumnAttributesUpdate:
         api_column_attributes_update = cls(
             background_color=background_color,
             boolean_column_attributes=boolean_column_attributes,
+            choice_name=choice_name,
             computation_mode=computation_mode,
             description=description,
             group_color=group_color,

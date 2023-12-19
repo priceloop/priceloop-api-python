@@ -1813,7 +1813,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.210.0"
+    "version" : "v0.210.1"
   },
   "openapi" : "3.0.3",
   "paths" : {

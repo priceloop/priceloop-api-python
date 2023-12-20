@@ -133,7 +133,7 @@
             "$ref" : "#/components/schemas/ApiBooleanColumnAttributes"
           },
           "computationMode" : {
-            "$ref" : "#/components/schemas/ColumnComputationMode"
+            "type" : "string"
           },
           "description" : {
             "nullable" : true,
@@ -167,10 +167,10 @@
         "required" : [
           "isHidden",
           "isGuiLocked",
-          "computationMode",
           "booleanColumnAttributes",
           "stringColumnAttributes",
-          "numberColumnAttributes"
+          "numberColumnAttributes",
+          "computationMode"
         ],
         "type" : "object"
       },
@@ -197,12 +197,8 @@
             "type" : "string"
           },
           "computationMode" : {
-            "allOf" : [
-              {
-                "$ref" : "#/components/schemas/ColumnComputationMode"
-              }
-            ],
-            "nullable" : true
+            "nullable" : true,
+            "type" : "string"
           },
           "description" : {
             "nullable" : true,
@@ -920,13 +916,6 @@
         "enum" : [
           "lime",
           "purple"
-        ],
-        "type" : "string"
-      },
-      "ColumnComputationMode" : {
-        "enum" : [
-          "lazy",
-          "eager"
         ],
         "type" : "string"
       },
@@ -1813,7 +1802,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.210.1"
+    "version" : "v0.210.3"
   },
   "openapi" : "3.0.3",
   "paths" : {
@@ -5399,6 +5388,7 @@
     },
     "/api/v1.0/workspaces/{workspace}/create-tables" : {
       "post" : {
+        "description" : "\n        |## Deprecation for column attributes\n\n  - Field `comutationMode` of column attributes is ignored and always outputs 'eager'. Will be removed in the future.\n      ",
         "operationId" : "createTable",
         "parameters" : [
           {
@@ -5800,6 +5790,126 @@
         "summary" : "Get a table export with download url",
         "tags" : [
           "Export API"
+        ]
+      }
+    },
+    "/api/v1.0/workspaces/{workspace}/external-functions-cache" : {
+      "delete" : {
+        "operationId" : "invalidateExternalFunctionCacheForWorkspace",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "example" : "workspace-name",
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "503" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "",
+            "headers" : {
+              "retry-after" : {
+                "required" : false,
+                "schema" : {
+                  "format" : "int32",
+                  "type" : "integer"
+                }
+              }
+            }
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Invalidate the cache of all external functions in this workspace. Will set all formula columns with external functions to `null`. Then recompute all formulas in the workspace.",
+        "tags" : [
+          "External Function API"
         ]
       }
     },
@@ -9736,6 +9846,134 @@
         ]
       }
     },
+    "/api/v1.0/workspaces/{workspace}/recompute-workspace" : {
+      "post" : {
+        "description" : "\nRecompute all formula columns in the workspace. It does not invalitade the external function cache.\n                  ",
+        "operationId" : "recomputeWorkspace",
+        "parameters" : [
+          {
+            "in" : "path",
+            "name" : "workspace",
+            "required" : true,
+            "schema" : {
+              "example" : "workspace-name",
+              "type" : "string"
+            }
+          }
+        ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Map_Int"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "400" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "401" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "403" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "409" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "500" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "501" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : ""
+          },
+          "503" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "",
+            "headers" : {
+              "retry-after" : {
+                "required" : false,
+                "schema" : {
+                  "format" : "int32",
+                  "type" : "integer"
+                }
+              }
+            }
+          }
+        },
+        "security" : [
+          {
+            "oauth2Auth" : [
+            ]
+          }
+        ],
+        "summary" : "Recompute all formula columns in the workspace (For internal use only).",
+        "tags" : [
+          "Internal & Maintenance. These probably don't do what you want!"
+        ]
+      }
+    },
     "/api/v1.0/workspaces/{workspace}/rename" : {
       "post" : {
         "operationId" : "renameWorkspace",
@@ -10692,6 +10930,7 @@
     },
     "/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/attributes" : {
       "get" : {
+        "description" : "\n        |## Deprecation for column attributes\n\n  - Field `comutationMode` of column attributes is ignored and always outputs 'eager'. Will be removed in the future.\n      ",
         "operationId" : "getColumnAttributes",
         "parameters" : [
           {
@@ -10835,7 +11074,7 @@
         ]
       },
       "patch" : {
-        "description" : "\n# Updating Column Attributes\n\nThis endpoint allows you to update some or all of the attributes of a column using a JSON merge-patch.\nColumn Descriptions allow for Markdown formatting.\n\n## JSON Merge-Patch\n\nIn a JSON merge-patch, all fields are optional.\nThose fields that are present will set the value accordingly.\nA field that is explicitly set to `null` will reset the value to its default.\nThis means that `null`-values hold semantic relevance, so make sure to leave out fields you do not want to change.\n\nMore information on JSON merge-patches can be found in [RFC 7396](https://datatracker.ietf.org/doc/html/rfc7396).\n      ",
+        "description" : "\n# Updating Column Attributes\n\nThis endpoint allows you to update some or all of the attributes of a column using a JSON merge-patch.\nColumn Descriptions allow for Markdown formatting.\n\n## Deprecation for column attributes\n\n  - Field `comutationMode` of column attributes is ignored and always outputs 'eager'. Will be removed in the future.\n\n## JSON Merge-Patch\n\nIn a JSON merge-patch, all fields are optional.\nThose fields that are present will set the value accordingly.\nA field that is explicitly set to `null` will reset the value to its default.\nThis means that `null`-values hold semantic relevance, so make sure to leave out fields you do not want to change.\n\nMore information on JSON merge-patches can be found in [RFC 7396](https://datatracker.ietf.org/doc/html/rfc7396).\n      ",
         "operationId" : "updateColumnAttributes",
         "parameters" : [
           {
@@ -13259,6 +13498,10 @@
     },
     {
       "name" : "Other"
+    },
+    {
+      "description" : "\nInternal APIs, don't use, these probably don't do what you want!",
+      "name" : "Internal & Maintenance. These probably don't do what you want!"
     }
   ]
 }

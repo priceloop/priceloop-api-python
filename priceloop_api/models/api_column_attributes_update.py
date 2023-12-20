@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 import attr
 
 from ..models.column_background_color import ColumnBackgroundColor
-from ..models.column_computation_mode import ColumnComputationMode
 from ..models.column_group_color import ColumnGroupColor
 from ..types import UNSET, Unset
 
@@ -23,7 +22,7 @@ class ApiColumnAttributesUpdate:
         background_color (Union[Unset, None, ColumnBackgroundColor]):
         boolean_column_attributes (Union[Unset, None, ApiBooleanColumnAttributesUpdate]):
         choice_name (Union[Unset, None, str]):
-        computation_mode (Union[Unset, None, ColumnComputationMode]):
+        computation_mode (Union[Unset, None, str]):
         description (Union[Unset, None, str]):
         group_color (Union[Unset, None, ColumnGroupColor]):
         group_name (Union[Unset, None, str]):
@@ -36,7 +35,7 @@ class ApiColumnAttributesUpdate:
     background_color: Union[Unset, None, ColumnBackgroundColor] = UNSET
     boolean_column_attributes: Union[Unset, None, "ApiBooleanColumnAttributesUpdate"] = UNSET
     choice_name: Union[Unset, None, str] = UNSET
-    computation_mode: Union[Unset, None, ColumnComputationMode] = UNSET
+    computation_mode: Union[Unset, None, str] = UNSET
     description: Union[Unset, None, str] = UNSET
     group_color: Union[Unset, None, ColumnGroupColor] = UNSET
     group_name: Union[Unset, None, str] = UNSET
@@ -58,10 +57,7 @@ class ApiColumnAttributesUpdate:
             )
 
         choice_name = self.choice_name
-        computation_mode: Union[Unset, None, str] = UNSET
-        if not isinstance(self.computation_mode, Unset):
-            computation_mode = self.computation_mode.value if self.computation_mode else None
-
+        computation_mode = self.computation_mode
         description = self.description
         group_color: Union[Unset, None, str] = UNSET
         if not isinstance(self.group_color, Unset):
@@ -137,14 +133,7 @@ class ApiColumnAttributesUpdate:
 
         choice_name = d.pop("choiceName", UNSET)
 
-        _computation_mode = d.pop("computationMode", UNSET)
-        computation_mode: Union[Unset, None, ColumnComputationMode]
-        if _computation_mode is None:
-            computation_mode = None
-        elif isinstance(_computation_mode, Unset) or _computation_mode is None:
-            computation_mode = UNSET
-        else:
-            computation_mode = ColumnComputationMode(_computation_mode)
+        computation_mode = d.pop("computationMode", UNSET)
 
         description = d.pop("description", UNSET)
 

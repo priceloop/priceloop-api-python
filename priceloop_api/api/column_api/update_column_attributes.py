@@ -72,6 +72,11 @@ def sync_detailed(
     patch.
     Column Descriptions allow for Markdown formatting.
 
+    ## Deprecation for column attributes
+
+      - Field `comutationMode` of column attributes is ignored and always outputs 'eager'. Will be
+    removed in the future.
+
     ## JSON Merge-Patch
 
     In a JSON merge-patch, all fields are optional.
@@ -130,6 +135,11 @@ async def asyncio_detailed(
     This endpoint allows you to update some or all of the attributes of a column using a JSON merge-
     patch.
     Column Descriptions allow for Markdown formatting.
+
+    ## Deprecation for column attributes
+
+      - Field `comutationMode` of column attributes is ignored and always outputs 'eager'. Will be
+    removed in the future.
 
     ## JSON Merge-Patch
 

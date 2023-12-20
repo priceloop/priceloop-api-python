@@ -59,7 +59,6 @@ from .color_16 import Color16
 from .color_17 import Color17
 from .color_18 import Color18
 from .column_background_color import ColumnBackgroundColor
-from .column_computation_mode import ColumnComputationMode
 from .column_group_color import ColumnGroupColor
 from .confirmation_modal_description import ConfirmationModalDescription
 from .create_external_function_http_param_type_item import CreateExternalFunctionHttpParamTypeItem
@@ -178,7 +177,6 @@ __all__ = (
     "Color8",
     "Color9",
     "ColumnBackgroundColor",
-    "ColumnComputationMode",
     "ColumnGroupColor",
     "ConfirmationModalDescription",
     "CreateExternalFunctionHttpParamTypeItem",

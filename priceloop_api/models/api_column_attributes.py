@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 import attr
 
 from ..models.column_background_color import ColumnBackgroundColor
-from ..models.column_computation_mode import ColumnComputationMode
 from ..models.column_group_color import ColumnGroupColor
 from ..types import UNSET, Unset
 
@@ -21,7 +20,7 @@ class ApiColumnAttributes:
     """
     Attributes:
         boolean_column_attributes (ApiBooleanColumnAttributes):
-        computation_mode (ColumnComputationMode):
+        computation_mode (str):
         is_gui_locked (bool):
         is_hidden (bool):
         number_column_attributes (ApiNumberColumnAttributes):
@@ -33,7 +32,7 @@ class ApiColumnAttributes:
     """
 
     boolean_column_attributes: "ApiBooleanColumnAttributes"
-    computation_mode: ColumnComputationMode
+    computation_mode: str
     is_gui_locked: bool
     is_hidden: bool
     number_column_attributes: "ApiNumberColumnAttributes"
@@ -47,8 +46,7 @@ class ApiColumnAttributes:
     def to_dict(self) -> Dict[str, Any]:
         boolean_column_attributes = self.boolean_column_attributes.to_dict()
 
-        computation_mode = self.computation_mode.value
-
+        computation_mode = self.computation_mode
         is_gui_locked = self.is_gui_locked
         is_hidden = self.is_hidden
         number_column_attributes = self.number_column_attributes.to_dict()
@@ -98,7 +96,7 @@ class ApiColumnAttributes:
         d = src_dict.copy()
         boolean_column_attributes = ApiBooleanColumnAttributes.from_dict(d.pop("booleanColumnAttributes"))
 
-        computation_mode = ColumnComputationMode(d.pop("computationMode"))
+        computation_mode = d.pop("computationMode")
 
         is_gui_locked = d.pop("isGuiLocked")
 

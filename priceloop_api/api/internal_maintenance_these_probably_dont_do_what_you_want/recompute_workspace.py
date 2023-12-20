@@ -5,26 +5,22 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.api_column_attributes import ApiColumnAttributes
+from ...models.map_int import MapInt
 from ...types import Response
 
 
 def _get_kwargs(
     workspace: str,
-    table: str,
-    column: str,
     *,
     client: AuthenticatedClient,
 ) -> Dict[str, Any]:
-    url = "{}/api/v1.0/workspaces/{workspace}/tables/{table}/columns/{column}/attributes".format(
-        client.base_url, workspace=workspace, table=table, column=column
-    )
+    url = "{}/api/v1.0/workspaces/{workspace}/recompute-workspace".format(client.base_url, workspace=workspace)
 
     headers: Dict[str, str] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
 
     return {
-        "method": "get",
+        "method": "post",
         "url": url,
         "headers": headers,
         "cookies": cookies,
@@ -33,9 +29,9 @@ def _get_kwargs(
     }
 
 
-def _parse_response(*, client: Client, response: httpx.Response) -> Optional[ApiColumnAttributes]:
+def _parse_response(*, client: Client, response: httpx.Response) -> Optional[MapInt]:
     if response.status_code == HTTPStatus.OK:
-        response_200 = ApiColumnAttributes.from_dict(response.json())
+        response_200 = MapInt.from_dict(response.json())
 
         return response_200
     if client.raise_on_unexpected_status:
@@ -44,7 +40,7 @@ def _parse_response(*, client: Client, response: httpx.Response) -> Optional[Api
         return None
 
 
-def _build_response(*, client: Client, response: httpx.Response) -> Response[ApiColumnAttributes]:
+def _build_response(*, client: Client, response: httpx.Response) -> Response[MapInt]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -55,37 +51,28 @@ def _build_response(*, client: Client, response: httpx.Response) -> Response[Api
 
 def sync_detailed(
     workspace: str,
-    table: str,
-    column: str,
     *,
     client: AuthenticatedClient,
-) -> Response[ApiColumnAttributes]:
-    """Retrieve the attributes of a column
+) -> Response[MapInt]:
+    """Recompute all formula columns in the workspace (For internal use only).
 
 
-            |## Deprecation for column attributes
-
-      - Field `comutationMode` of column attributes is ignored and always outputs 'eager'. Will be
-    removed in the future.
+    Recompute all formula columns in the workspace. It does not invalitade the external function cache.
 
 
     Args:
         workspace (str):  Example: workspace-name.
-        table (str):  Example: table-name.
-        column (str):  Example: column-name.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[ApiColumnAttributes]
+        Response[MapInt]
     """
 
     kwargs = _get_kwargs(
         workspace=workspace,
-        table=table,
-        column=column,
         client=client,
     )
 
@@ -99,74 +86,56 @@ def sync_detailed(
 
 def sync(
     workspace: str,
-    table: str,
-    column: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[ApiColumnAttributes]:
-    """Retrieve the attributes of a column
+) -> Optional[MapInt]:
+    """Recompute all formula columns in the workspace (For internal use only).
 
 
-            |## Deprecation for column attributes
-
-      - Field `comutationMode` of column attributes is ignored and always outputs 'eager'. Will be
-    removed in the future.
+    Recompute all formula columns in the workspace. It does not invalitade the external function cache.
 
 
     Args:
         workspace (str):  Example: workspace-name.
-        table (str):  Example: table-name.
-        column (str):  Example: column-name.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        ApiColumnAttributes
+        MapInt
     """
 
     return sync_detailed(
         workspace=workspace,
-        table=table,
-        column=column,
         client=client,
     ).parsed
 
 
 async def asyncio_detailed(
     workspace: str,
-    table: str,
-    column: str,
     *,
     client: AuthenticatedClient,
-) -> Response[ApiColumnAttributes]:
-    """Retrieve the attributes of a column
+) -> Response[MapInt]:
+    """Recompute all formula columns in the workspace (For internal use only).
 
 
-            |## Deprecation for column attributes
-
-      - Field `comutationMode` of column attributes is ignored and always outputs 'eager'. Will be
-    removed in the future.
+    Recompute all formula columns in the workspace. It does not invalitade the external function cache.
 
 
     Args:
         workspace (str):  Example: workspace-name.
-        table (str):  Example: table-name.
-        column (str):  Example: column-name.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[ApiColumnAttributes]
+        Response[MapInt]
     """
 
     kwargs = _get_kwargs(
         workspace=workspace,
-        table=table,
-        column=column,
         client=client,
     )
 
@@ -178,38 +147,29 @@ async def asyncio_detailed(
 
 async def asyncio(
     workspace: str,
-    table: str,
-    column: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[ApiColumnAttributes]:
-    """Retrieve the attributes of a column
+) -> Optional[MapInt]:
+    """Recompute all formula columns in the workspace (For internal use only).
 
 
-            |## Deprecation for column attributes
-
-      - Field `comutationMode` of column attributes is ignored and always outputs 'eager'. Will be
-    removed in the future.
+    Recompute all formula columns in the workspace. It does not invalitade the external function cache.
 
 
     Args:
         workspace (str):  Example: workspace-name.
-        table (str):  Example: table-name.
-        column (str):  Example: column-name.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        ApiColumnAttributes
+        MapInt
     """
 
     return (
         await asyncio_detailed(
             workspace=workspace,
-            table=table,
-            column=column,
             client=client,
         )
     ).parsed

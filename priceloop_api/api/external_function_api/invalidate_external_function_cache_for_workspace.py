@@ -1,11 +1,10 @@
 from http import HTTPStatus
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Optional
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.api_table_schema import ApiTableSchema
 from ...types import Response
 
 
@@ -13,27 +12,19 @@ def _get_kwargs(
     workspace: str,
     *,
     client: AuthenticatedClient,
-    json_body: List["ApiTableSchema"],
 ) -> Dict[str, Any]:
-    url = "{}/api/v1.0/workspaces/{workspace}/create-tables".format(client.base_url, workspace=workspace)
+    url = "{}/api/v1.0/workspaces/{workspace}/external-functions-cache".format(client.base_url, workspace=workspace)
 
     headers: Dict[str, str] = client.get_headers()
     cookies: Dict[str, Any] = client.get_cookies()
 
-    json_json_body = []
-    for json_body_item_data in json_body:
-        json_body_item = json_body_item_data.to_dict()
-
-        json_json_body.append(json_body_item)
-
     return {
-        "method": "post",
+        "method": "delete",
         "url": url,
         "headers": headers,
         "cookies": cookies,
         "timeout": client.get_timeout(),
         "follow_redirects": client.follow_redirects,
-        "json": json_json_body,
     }
 
 
@@ -59,20 +50,12 @@ def sync_detailed(
     workspace: str,
     *,
     client: AuthenticatedClient,
-    json_body: List["ApiTableSchema"],
 ) -> Response[Any]:
-    """Create tables from a schema
-
-
-            |## Deprecation for column attributes
-
-      - Field `comutationMode` of column attributes is ignored and always outputs 'eager'. Will be
-    removed in the future.
-
+    """Invalidate the cache of all external functions in this workspace. Will set all formula columns with
+    external functions to `null`. Then recompute all formulas in the workspace.
 
     Args:
         workspace (str):  Example: workspace-name.
-        json_body (List['ApiTableSchema']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -85,7 +68,6 @@ def sync_detailed(
     kwargs = _get_kwargs(
         workspace=workspace,
         client=client,
-        json_body=json_body,
     )
 
     response = httpx.request(
@@ -100,20 +82,12 @@ async def asyncio_detailed(
     workspace: str,
     *,
     client: AuthenticatedClient,
-    json_body: List["ApiTableSchema"],
 ) -> Response[Any]:
-    """Create tables from a schema
-
-
-            |## Deprecation for column attributes
-
-      - Field `comutationMode` of column attributes is ignored and always outputs 'eager'. Will be
-    removed in the future.
-
+    """Invalidate the cache of all external functions in this workspace. Will set all formula columns with
+    external functions to `null`. Then recompute all formulas in the workspace.
 
     Args:
         workspace (str):  Example: workspace-name.
-        json_body (List['ApiTableSchema']):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -126,7 +100,6 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         workspace=workspace,
         client=client,
-        json_body=json_body,
     )
 
     async with httpx.AsyncClient(verify=client.verify_ssl) as _client:

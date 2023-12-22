@@ -1331,6 +1331,14 @@
           },
           "showInCatalog" : {
             "type" : "boolean"
+          },
+          "workspaceUIModeConfig" : {
+            "allOf" : [
+              {
+                "$ref" : "#/components/schemas/PluginWorkspaceUIModeConfig"
+              }
+            ],
+            "nullable" : true
           }
         },
         "required" : [
@@ -1470,6 +1478,21 @@
           "workspaceName",
           "plugin",
           "workspaceIntegrations"
+        ],
+        "type" : "object"
+      },
+      "PluginWorkspaceUIModeConfig" : {
+        "properties" : {
+          "enabled" : {
+            "type" : "boolean"
+          },
+          "fullscreen" : {
+            "type" : "boolean"
+          }
+        },
+        "required" : [
+          "enabled",
+          "fullscreen"
         ],
         "type" : "object"
       },
@@ -1802,7 +1825,7 @@
   "info" : {
     "description" : "Connect to your Priceloop Data through our API.",
     "title" : "Priceloop-API",
-    "version" : "v0.210.7"
+    "version" : "v0.212.1"
   },
   "openapi" : "3.0.3",
   "paths" : {

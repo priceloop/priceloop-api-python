@@ -98,6 +98,7 @@ from .plugin_table_role_semantic_type_0 import PluginTableRoleSemanticType0
 from .plugin_tokens import PluginTokens
 from .plugin_workspace_list import PluginWorkspaceList
 from .plugin_workspace_state import PluginWorkspaceState
+from .plugin_workspace_ui_mode_config import PluginWorkspaceUIModeConfig
 from .presigned_url import PresignedUrl
 from .publish_input import PublishInput
 from .record_updated import RecordUpdated
@@ -216,6 +217,7 @@ __all__ = (
     "PluginTokens",
     "PluginWorkspaceList",
     "PluginWorkspaceState",
+    "PluginWorkspaceUIModeConfig",
     "PresignedUrl",
     "PublishInput",
     "RecordUpdated",

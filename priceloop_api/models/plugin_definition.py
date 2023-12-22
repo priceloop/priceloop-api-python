@@ -1,9 +1,13 @@
-from typing import Any, Dict, List, Type, TypeVar, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
 
 import attr
 
 from ..models.plugin_requirement import PluginRequirement
 from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.plugin_workspace_ui_mode_config import PluginWorkspaceUIModeConfig
+
 
 T = TypeVar("T", bound="PluginDefinition")
 
@@ -23,6 +27,7 @@ class PluginDefinition:
         installation_description (Union[Unset, None, str]):
         installation_typeform_id (Union[Unset, None, str]):
         requirements (Union[Unset, List[PluginRequirement]]):
+        workspace_ui_mode_config (Union[Unset, None, PluginWorkspaceUIModeConfig]):
     """
 
     description: str
@@ -36,6 +41,7 @@ class PluginDefinition:
     installation_description: Union[Unset, None, str] = UNSET
     installation_typeform_id: Union[Unset, None, str] = UNSET
     requirements: Union[Unset, List[PluginRequirement]] = UNSET
+    workspace_ui_mode_config: Union[Unset, None, "PluginWorkspaceUIModeConfig"] = UNSET
     additional_properties: Dict[str, Any] = attr.ib(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -56,6 +62,12 @@ class PluginDefinition:
                 requirements_item = requirements_item_data.value
 
                 requirements.append(requirements_item)
+
+        workspace_ui_mode_config: Union[Unset, None, Dict[str, Any]] = UNSET
+        if not isinstance(self.workspace_ui_mode_config, Unset):
+            workspace_ui_mode_config = (
+                self.workspace_ui_mode_config.to_dict() if self.workspace_ui_mode_config else None
+            )
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -81,11 +93,15 @@ class PluginDefinition:
             field_dict["installationTypeformId"] = installation_typeform_id
         if requirements is not UNSET:
             field_dict["requirements"] = requirements
+        if workspace_ui_mode_config is not UNSET:
+            field_dict["workspaceUIModeConfig"] = workspace_ui_mode_config
 
         return field_dict
 
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
+        from ..models.plugin_workspace_ui_mode_config import PluginWorkspaceUIModeConfig
+
         d = src_dict.copy()
         description = d.pop("description")
 
@@ -114,6 +130,15 @@ class PluginDefinition:
 
             requirements.append(requirements_item)
 
+        _workspace_ui_mode_config = d.pop("workspaceUIModeConfig", UNSET)
+        workspace_ui_mode_config: Union[Unset, None, PluginWorkspaceUIModeConfig]
+        if _workspace_ui_mode_config is None:
+            workspace_ui_mode_config = None
+        elif isinstance(_workspace_ui_mode_config, Unset) or _workspace_ui_mode_config is None:
+            workspace_ui_mode_config = UNSET
+        else:
+            workspace_ui_mode_config = PluginWorkspaceUIModeConfig.from_dict(_workspace_ui_mode_config)
+
         plugin_definition = cls(
             description=description,
             display_name=display_name,
@@ -126,6 +151,7 @@ class PluginDefinition:
             installation_description=installation_description,
             installation_typeform_id=installation_typeform_id,
             requirements=requirements,
+            workspace_ui_mode_config=workspace_ui_mode_config,
         )
 
         plugin_definition.additional_properties = d
